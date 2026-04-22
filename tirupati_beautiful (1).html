@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tirupati Tourism - Explore Sacred Wonders</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Quicksand:wght@300;400;600;700&family=Playfair+Display:wght@700;900&display=swap');
+
+        :root {
+            --gold: #D4AF37;
+            --saffron: #FF9933;
+            --emerald: #2D5016;
+            --sapphire: #0F3460;
+            --cream: #FFF8E7;
+            --coral: #FF6B6B;
+            --sunset: #FF8C42;
+            --ocean: #4ECDC4;
+            --lavender: #A78BFA;
+            --sage: #6B8E71;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #FFF8E7 0%, #FFF0E6 50%, #F5E6D3 100%);
+            color: #2C2416;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(79, 205, 196, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ============ HEADER SECTION ============ */
+        .header {
+            position: relative;
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #6B3410 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
+            animation: float 25s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(10deg); }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5em;
+            font-weight: 900;
+            margin-bottom: 15px;
+            letter-spacing: 3px;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.8s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: slideUp 0.8s ease-out 0.2s both;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 20px auto;
+            animation: slideUp 0.8s ease-out 0.4s both;
+        }
+
+        /* ============ CONTROLS & SEARCH ============ */
+        .controls-section {
+            position: sticky;
+            top: 0;
+            background: rgba(255, 248, 231, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 25px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            flex-wrap: wrap;
+            border-bottom: 3px solid var(--gold);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 400px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 14px 20px;
+            border: 2px solid var(--gold);
+            border-radius: 50px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1em;
+            background: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: var(--saffron);
+            box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.2);
+            transform: scale(1.02);
+        }
+
+        .download-btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--emerald) 0%, #3D6B1F 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.3);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(45, 80, 22, 0.5);
+        }
+
+        .download-btn:active {
+            transform: translateY(-2px);
+        }
+
+        .next-btn {
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--sapphire) 0%, #1a5fa0 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 20px rgba(15, 52, 96, 0.35);
+            font-family: 'Quicksand', sans-serif;
+            text-decoration: none;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(15, 52, 96, 0.5);
+            color: white;
+        }
+
+        .next-btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* ============ MAIN CONTAINER ============ */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* ============ CATEGORY CARDS - MAIN FEATURE ============ */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .category-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            transform-style: preserve-3d;
+            height: 350px;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .category-card:nth-child(1) { animation-delay: 0.1s; }
+        .category-card:nth-child(2) { animation-delay: 0.2s; }
+        .category-card:nth-child(3) { animation-delay: 0.3s; }
+        .category-card:nth-child(4) { animation-delay: 0.4s; }
+
+        /* Card Backgrounds */
+        .card-food {
+            background: linear-gradient(135deg, #FF9933 0%, #FFB74D 50%, #FFA500 100%);
+            position: relative;
+        }
+
+        .card-adventure {
+            background: linear-gradient(135deg, #2D5016 0%, #4A7C2C 50%, #6B8E71 100%);
+        }
+
+        .card-temple {
+            background: linear-gradient(135deg, #D4AF37 0%, #F0E68C 50%, #FFD700 100%);
+        }
+
+        .card-sightseeing {
+            background: linear-gradient(135deg, #4ECDC4 0%, #45B7AA 50%, #38A692 100%);
+        }
+
+        /* Card Hover Effects */
+        .category-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .category-card:hover .card-overlay {
+            opacity: 1;
+            backdrop-filter: blur(8px);
+        }
+
+        .category-card:hover .card-content {
+            transform: translateY(-10px);
+        }
+
+        .category-card:hover .icon-wrapper {
+            transform: scale(1.15) rotate(10deg);
+        }
+
+        /* Card Background Pattern */
+        .card-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+            opacity: 0.6;
+        }
+
+        /* Card Overlay */
+        .card-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
+        }
+
+        /* Card Content */
+        .card-content {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 30px;
+            color: white;
+            transition: all 0.4s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .icon-wrapper {
+            font-size: 3.5em;
+            transition: all 0.4s ease;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        }
+
+        .place-count {
+            background: rgba(255, 255, 255, 0.25);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .card-description {
+            font-size: 0.95em;
+            opacity: 0.95;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            max-width: 100%;
+        }
+
+        .card-button {
+            align-self: flex-start;
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border: 2px solid white;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.95em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            font-family: 'Quicksand', sans-serif;
+        }
+
+        .card-button:hover {
+            background: white;
+            color: #2C2416;
+            transform: translateX(5px);
+        }
+
+        /* ============ DATA TABLE SECTION ============ */
+        .table-section {
+            margin-top: 80px;
+            animation: fadeInUp 0.8s ease-out 0.3s both;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5em;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--sapphire);
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--saffron), var(--gold), var(--saffron));
+            border-radius: 2px;
+        }
+
+        .table-wrapper {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            border: 3px solid var(--gold);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95em;
+        }
+
+        thead {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        th {
+            padding: 25px 20px;
+            text-align: left;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.95em;
+        }
+
+        td {
+            padding: 18px 20px;
+            border-bottom: 2px solid #f0f0f0;
+            transition: all 0.3s ease;
+        }
+
+        tbody tr {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        tbody tr::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--gold);
+            transform: scaleY(0);
+            transform-origin: center;
+            transition: all 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: linear-gradient(90deg, rgba(212, 175, 55, 0.08) 0%, transparent 100%);
+            transform: translateX(8px);
+        }
+
+        tbody tr:hover::before {
+            transform: scaleY(1);
+        }
+
+        /* Category Badges */
+        .category-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-food {
+            background: rgba(255, 153, 51, 0.2);
+            color: #FF6B35;
+            border: 2px solid #FF9933;
+        }
+
+        .badge-adventure {
+            background: rgba(45, 80, 22, 0.2);
+            color: #2D5016;
+            border: 2px solid #2D5016;
+        }
+
+        .badge-temple {
+            background: rgba(212, 175, 55, 0.2);
+            color: #8B6F47;
+            border: 2px solid #D4AF37;
+        }
+
+        .badge-sightseeing {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ECDC4;
+            border: 2px solid #4ECDC4;
+        }
+
+        /* Coordinates */
+        .coords {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.85em;
+            background: #F5E6D3;
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: var(--sapphire);
+            letter-spacing: 0.5px;
+        }
+
+        /* ============ STATISTICS SECTION ============ */
+        .stats-section {
+            margin-top: 100px;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+            border-top: 6px solid var(--gold);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: -1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.2em;
+            font-weight: 900;
+            color: var(--saffron);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.95em;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: linear-gradient(135deg, #2C2416 0%, #3C3428 100%);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+            margin-top: 100px;
+            border-top: 5px solid var(--gold);
+        }
+
+        footer p {
+            font-size: 0.95em;
+            opacity: 0.85;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-divider {
+            width: 80px;
+            height: 2px;
+            background: var(--gold);
+            margin: 20px auto;
+        }
+
+        /* ============ EMPTY STATE ============ */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: #999;
+        }
+
+        .empty-state h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: var(--sapphire);
+            margin-bottom: 15px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2.8em;
+            }
+
+            .categories-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .category-card {
+                height: 300px;
+            }
+
+            .card-title {
+                font-size: 1.8em;
+            }
+
+            .controls-section {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-box {
+                min-width: auto;
+                max-width: 100%;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            th, td {
+                padding: 12px;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+        }
+
+        /* ============ LOADING & ANIMATIONS ============ */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-content">
+            <h1>🏛️ TIRUPATI TOURISM</h1>
+            <div class="divider"></div>
+            <p>Discover Sacred Temples • Thrilling Adventures • Scenic Wonders • Culinary Delights</p>
+        </div>
+    </div>
+
+    <!-- CONTROLS -->
+    <div class="controls-section">
+        <div class="search-box">
+            <input 
+                type="text" 
+                id="searchInput" 
+                placeholder="🔍 Search places by name or description..."
+            >
+        </div>
+        <button class="download-btn" onclick="downloadCSV()">
+            📥 Download CSV Data
+        </button>
+        <a class="next-btn" href="trip_planner%20(1).html">Next → Trip Planner</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="container">
+        <!-- CATEGORY CARDS -->
+        <div class="categories-grid">
+            <!-- FOOD PLACES CARD -->
+            <div class="category-card card-food" onclick="goToTripPlanner('food')">
+                <div class="card-pattern"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <div>
+                            <div class="card-title">Food Places</div>
+                            <div class="card-description">Authentic flavors & local delicacies</div>
+                        </div>
+                        <div class="place-count" id="foodCount">20</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="icon-wrapper">🍽️</div>
+                    </div>
+                    <button class="card-button">Explore →</button>
+                </div>
+            </div>
+
+            <!-- ADVENTURE CARD -->
+            <div class="category-card card-adventure" onclick="goToTripPlanner('adventure')">
+                <div class="card-pattern"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <div>
+                            <div class="card-title">Adventure</div>
+                            <div class="card-description">Thrilling activities & explorations</div>
+                        </div>
+                        <div class="place-count" id="adventureCount">20</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="icon-wrapper">🏔️</div>
+                    </div>
+                    <button class="card-button">Explore →</button>
+                </div>
+            </div>
+
+            <!-- TEMPLE CARD -->
+            <div class="category-card card-temple" onclick="goToTripPlanner('temple')">
+                <div class="card-pattern"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <div>
+                            <div class="card-title">Temples</div>
+                            <div class="card-description">Sacred shrines & spiritual heritage</div>
+                        </div>
+                        <div class="place-count" id="templeCount">20</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="icon-wrapper">🏛️</div>
+                    </div>
+                    <button class="card-button">Explore →</button>
+                </div>
+            </div>
+
+            <!-- SIGHTSEEING CARD -->
+            <div class="category-card card-sightseeing" onclick="goToTripPlanner('sightseeing')">
+                <div class="card-pattern"></div>
+                <div class="card-overlay"></div>
+                <div class="card-content">
+                    <div class="card-top">
+                        <div>
+                            <div class="card-title">Sightseeing</div>
+                            <div class="card-description">Waterfalls, beaches & mountains</div>
+                        </div>
+                        <div class="place-count" id="sightseeingCount">20</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div class="icon-wrapper">🏞️</div>
+                    </div>
+                    <button class="card-button">Explore →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- DATA TABLE SECTION -->
+        <div class="table-section">
+            <h2 class="section-title">📊 All Places Directory</h2>
+            <div class="table-wrapper">
+                <table id="placesTable">
+                    <thead>
+                        <tr>
+                            <th>Place Name</th>
+                            <th>Category</th>
+                            <th>Coordinates</th>
+                            <th>Visit Hours</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Data populated here -->
+                    </tbody>
+                </table>
+                <div id="emptyState" class="empty-state" style="display:none;">
+                    <h3>No Places Found</h3>
+                    <p>Try adjusting your search or filters</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTICS -->
+        <div class="stats-section">
+            <h2 class="section-title">📈 Tourism Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPlaces">80</div>
+                    <div class="stat-label">Total Places</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statFood">20</div>
+                    <div class="stat-label">Food Restaurants</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statAdventure">20</div>
+                    <div class="stat-label">Adventure Sports</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statTemple">20</div>
+                    <div class="stat-label">Temples & Shrines</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="statSightseeing">20</div>
+                    <div class="stat-label">Scenic Locations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>🌟 TIRUPATI TOURISM GUIDE 🌟</p>
+        <div class="footer-divider"></div>
+        <p>&copy; 2024 Explore the Sacred Land of South India</p>
+        <p>Your Journey to Spiritual and Natural Wonders Starts Here</p>
+    </footer>
+
+    <script>
+        // CSV Data will be loaded from external file
+        let places = [];
+
+        // Load CSV from external file
+        async function loadCSVData() {
+            try {
+                const response = await fetch('tirupati_tourism_80_places.csv');
+                const csvText = await response.text();
+                places = parseCSV(csvText);
+                renderTable(places);
+                updateStats();
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+                document.getElementById('emptyState').style.display = 'block';
+                document.getElementById('emptyState').innerHTML = '<h3>⚠️ CSV File Not Found</h3><p>Please ensure "tirupati_tourism_80_places.csv" is in the same folder as this HTML file.</p>';
+            }
+        }
+
+        // Parse CSV
+        function parseCSV(data) {
+            const lines = data.trim().split('\n');
+            const headers = lines[0].split(',');
+            const records = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const obj = {};
+                const currentLine = lines[i].split(',');
+                for (let j = 0; j < headers.length; j++) {
+                    obj[headers[j].trim()] = currentLine[j].trim();
+                }
+                records.push(obj);
+            }
+            return records;
+        }
+
+        // Render Table
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+
+            if (data.length === 0) {
+                tbody.innerHTML = '';
+                emptyState.style.display = 'block';
+                return;
+            }
+
+            emptyState.style.display = 'none';
+            tbody.innerHTML = data.map((place, index) => `
+                <tr style="animation: fadeInUp 0.5s ease-out ${index * 0.03}s both;">
+                    <td><strong>${place.name_of_the_place}</strong></td>
+                    <td><span class="category-badge badge-${place.category}">${place.category.charAt(0).toUpperCase() + place.category.slice(1)}</span></td>
+                    <td><span class="coords">${place.latitude}, ${place.longitude}</span></td>
+                    <td>${place.visit_start} - ${place.visit_end}</td>
+                    <td>${place.description}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Update Statistics
+        function updateStats(data = places) {
+            const foodCount = data.filter(p => p.category === 'food').length;
+            const adventureCount = data.filter(p => p.category === 'adventure').length;
+            const templeCount = data.filter(p => p.category === 'temple').length;
+            const sightseeingCount = data.filter(p => p.category === 'sightseeing').length;
+
+            document.getElementById('totalPlaces').textContent = data.length;
+            document.getElementById('foodCount').textContent = foodCount;
+            document.getElementById('adventureCount').textContent = adventureCount;
+            document.getElementById('templeCount').textContent = templeCount;
+            document.getElementById('sightseeingCount').textContent = sightseeingCount;
+
+            document.getElementById('statFood').textContent = foodCount;
+            document.getElementById('statAdventure').textContent = adventureCount;
+            document.getElementById('statTemple').textContent = templeCount;
+            document.getElementById('statSightseeing').textContent = sightseeingCount;
+        }
+
+        // Filter Logic
+        let currentFilter = 'all';
+        let currentSearch = '';
+
+        function applyFilters() {
+            let filtered = places;
+
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(p => p.category === currentFilter);
+            }
+
+            if (currentSearch) {
+                const searchLower = currentSearch.toLowerCase();
+                filtered = filtered.filter(p =>
+                    p.name_of_the_place.toLowerCase().includes(searchLower) ||
+                    p.description.toLowerCase().includes(searchLower)
+                );
+            }
+
+            renderTable(filtered);
+            updateStats(filtered);
+        }
+
+        const TRIP_PLANNER_PAGE = 'trip_planner%20(1).html';
+
+        function goToTripPlanner(category) {
+            const url = TRIP_PLANNER_PAGE + '?category=' + encodeURIComponent(category);
+            window.location.href = url;
+        }
+
+        // Event Listeners
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            applyFilters();
+        });
+
+        // Download CSV
+        function downloadCSV() {
+            let csv = 'name_of_the_place,category,latitude,longitude,visit_start,visit_end,description\n';
+            places.forEach(place => {
+                csv += `"${place.name_of_the_place}","${place.category}",${place.latitude},${place.longitude},"${place.visit_start}","${place.visit_end}","${place.description}"\n`;
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.setAttribute('href', URL.createObjectURL(blob));
+            link.setAttribute('download', 'tirupati_tourism_data.csv');
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Initialize - Load CSV data from external file
+        loadCSVData();
+    </script>
+</body>
+</html>

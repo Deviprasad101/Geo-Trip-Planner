@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Adventure - Trip Planner</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B6B;
+            --secondary: #4ECDC4;
+            --dark: #2C3E50;
+            --light: #F8F9FA;
+            --gradient-1: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
+            --gradient-3: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(145deg, #ffeef2 0%, #e8f8f6 40%, #f0ebff 100%);
+            color: var(--dark);
+        }
+
+        .app {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: min(380px, 38vw);
+            min-width: 260px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border-right: 1px solid #e2e8f0;
+            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.06);
+            min-height: 0;
+        }
+
+        .sidebar-top {
+            flex-shrink: 0;
+            background: var(--gradient-3);
+            padding: 10px 12px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .sidebar-top h1 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .sidebar-top p {
+            font-size: 0.7rem;
+            opacity: 0.95;
+            margin-top: 2px;
+        }
+
+        .btn-back {
+            display: block;
+            margin: 8px 10px 0;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--dark);
+            background: #eef1f4;
+            border: 1px solid #dde3ea;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background: #e2e8f0;
+        }
+
+        .sidebar-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            padding: 6px 8px 8px;
+            gap: 6px;
+        }
+
+        .panel {
+            border: 1px solid #e8ecf0;
+            border-radius: 10px;
+            padding: 8px;
+            background: #fafbfc;
+        }
+
+        .sidebar-scroll > .panel:not(.trip-form-scroll) {
+            flex: 0 0 auto;
+        }
+
+        .panel h2 {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #64748b;
+            margin-bottom: 6px;
+        }
+
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+
+        .chip {
+            border: 1px solid #cbd5e1;
+            background: #fff;
+            color: var(--dark);
+            padding: 4px 8px;
+            border-radius: 999px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .chip:hover {
+            border-color: var(--secondary);
+        }
+
+        .chip.active {
+            background: var(--secondary);
+            border-color: var(--secondary);
+            color: #fff;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 6px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            margin-bottom: 6px;
+        }
+
+        .btn-apply {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            background: var(--gradient-1);
+            color: #fff;
+        }
+
+        .btn-apply:hover {
+            opacity: 0.95;
+        }
+
+        .panel.trip-form-scroll {
+            flex: 1 1 0;
+            min-height: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .panel.trip-form-scroll > h2 {
+            flex-shrink: 0;
+        }
+
+        .panel.trip-form-scroll #tripForm {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .form-compact .fg {
+            margin-bottom: 6px;
+        }
+
+        .form-compact label {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            margin-bottom: 2px;
+            color: #475569;
+        }
+
+        .form-compact input {
+            width: 100%;
+            padding: 5px 8px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            background: #fff;
+        }
+
+        .form-compact .row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .form-fields-block {
+            flex-shrink: 0;
+        }
+
+        .trip-overview {
+            flex: 1;
+            min-height: 72px;
+            margin-top: 4px;
+            padding: 8px;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .trip-overview-title {
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #64748b;
+            font-weight: 700;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+
+        .trip-overview-grid {
+            display: grid;
+            grid-template-columns: minmax(4.5rem, auto) 1fr;
+            gap: 4px 8px;
+            font-size: 0.7rem;
+            flex-shrink: 0;
+        }
+
+        .trip-overview-grid dt {
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .trip-overview-grid dd {
+            color: #1e293b;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        .trip-overview-list {
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px solid #e8ecf0;
+            font-size: 0.66rem;
+            color: #475569;
+            line-height: 1.4;
+        }
+
+        .ov-ul {
+            margin: 0;
+            padding-left: 1.05em;
+        }
+
+        .ov-ul li {
+            margin-bottom: 3px;
+        }
+
+        .ov-more {
+            list-style: none;
+            margin-left: -1em;
+            color: #64748b;
+            font-style: italic;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .toggle-switch {
+            width: 44px;
+            height: 24px;
+            background: #ccc;
+            border-radius: 12px;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .toggle-switch.active {
+            background: var(--secondary);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle-switch.active::after {
+            left: 22px;
+        }
+
+        .gps-line {
+            font-size: 0.65rem;
+            color: #856404;
+            background: #fff8e6;
+            padding: 4px 6px;
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+
+        .gps-line.on {
+            color: #155724;
+            background: #e8f5e9;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 6px;
+            margin-top: 8px;
+            padding-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .btn-row button {
+            flex: 1;
+            padding: 7px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        .btn-submit {
+            background: var(--gradient-1);
+            color: #fff;
+        }
+
+        .btn-reset {
+            background: #e2e8f0;
+            color: var(--dark);
+        }
+
+        .success-message {
+            display: none;
+            font-size: 0.7rem;
+            padding: 6px;
+            margin-top: 8px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #84fab0, #8fd3f4);
+            color: #fff;
+            text-align: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .map-pane {
+            flex: 1;
+            min-width: 0;
+            min-height: 0;
+            position: relative;
+            background: #e8ecf0;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .map-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(248, 250, 252, 0.92);
+            text-align: center;
+            padding: 16px;
+            pointer-events: none;
+        }
+
+        .map-overlay p {
+            font-size: 0.9rem;
+            color: #64748b;
+            max-width: 280px;
+            line-height: 1.45;
+        }
+
+        .map-overlay strong {
+            color: var(--dark);
+        }
+
+        .map-overlay.hidden {
+            display: none;
+        }
+
+        .leaflet-container {
+            font-family: inherit;
+        }
+
+        .map-legend {
+            position: absolute;
+            z-index: 1000;
+            left: 10px;
+            bottom: 28px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 0.68rem;
+            line-height: 1.45;
+            color: #334155;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+            max-width: 200px;
+            pointer-events: none;
+        }
+
+        .map-legend.hidden {
+            display: none;
+        }
+
+        .map-legend .lg {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .map-legend .lg:first-child {
+            margin-top: 0;
+        }
+
+        .map-legend .sw {
+            width: 22px;
+            height: 4px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .sw-gps {
+            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
+            box-shadow: 0 0 6px rgba(14, 165, 233, 0.6);
+        }
+
+        .sw-typed {
+            background: linear-gradient(90deg, #a855f7, #c084fc);
+        }
+
+        .user-marker-gps .dot,
+        .user-marker-typed .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .user-marker-gps .dot {
+            background: #0ea5e9;
+        }
+
+        .user-marker-typed .dot {
+            background: #a855f7;
+        }
+
+        @keyframes routePulse {
+            0%, 100% { stroke-opacity: 0.75; }
+            50% { stroke-opacity: 1; }
+        }
+
+        @media (max-width: 720px) {
+            .app {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                min-width: unset;
+                height: 48%;
+                max-height: 48%;
+            }
+
+            .sidebar-scroll {
+                overflow-y: auto;
+            }
+
+            .trip-form-scroll {
+                overflow-y: auto;
+            }
+
+            .map-pane {
+                height: 52%;
+                flex: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="sidebar-top">
+                <h1>✈️ Plan Your Trip</h1>
+                <p>Filters + map · Tirupati places</p>
+            </div>
+            <a class="btn-back" href="tirupati_beautiful%20(1).html">← Back to Tirupati Tourism</a>
+            <div class="sidebar-scroll">
+                <div class="panel">
+                    <h2>Place filters</h2>
+                    <div class="filter-row" id="categoryChips">
+                        <button type="button" class="chip active" data-cat="all">All</button>
+                        <button type="button" class="chip" data-cat="food">Food</button>
+                        <button type="button" class="chip" data-cat="adventure">Adventure</button>
+                        <button type="button" class="chip" data-cat="temple">Temple</button>
+                        <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
+                    </div>
+                    <input type="text" class="search-input" id="placeSearch" placeholder="Search name or description…" autocomplete="off">
+                    <button type="button" class="btn-apply" id="applyFilters">Apply filters &amp; show map</button>
+                </div>
+
+                <div class="panel trip-form-scroll">
+                    <h2>Trip details</h2>
+                    <form id="tripForm" class="form-compact">
+                        <div class="form-fields-block">
+                            <div class="fg">
+                                <div class="toggle-row">
+                                    <span>📍 GPS</span>
+                                    <div class="toggle-switch" id="geoToggle" role="button" tabindex="0" aria-label="Toggle GPS"></div>
+                                </div>
+                                <div class="gps-line" id="gpsStatus">GPS off — enter location below</div>
+                            </div>
+                            <div class="fg visible" id="startLocationGroup">
+                                <label for="startLocation">Start location</label>
+                                <input type="text" id="startLocation" placeholder="e.g. Tirupati" required>
+                            </div>
+                            <div class="fg hidden" id="gpsFailedGroup">
+                                <div class="gps-line on">GPS on — location on submit</div>
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label for="tripStartTime">Start time</label>
+                                    <input type="time" id="tripStartTime" required>
+                                </div>
+                                <div class="fg">
+                                    <label for="tripEndTime">End time</label>
+                                    <input type="time" id="tripEndTime" required>
+                                </div>
+                            </div>
+                            <div class="row2">
+                                <div class="fg">
+                                    <label for="tripDate">Date</label>
+                                    <input type="date" id="tripDate" required>
+                                </div>
+                                <div class="fg">
+                                    <label for="numDays">Days</label>
+                                    <input type="number" id="numDays" min="1" max="365" placeholder="5" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="trip-overview" id="tripOverview" aria-live="polite">
+                            <div class="trip-overview-title">Live summary</div>
+                            <dl class="trip-overview-grid">
+                                <dt>Start</dt>
+                                <dd id="ovLocation">—</dd>
+                                <dt>Day plan</dt>
+                                <dd id="ovSchedule">—</dd>
+                                <dt>Trip length</dt>
+                                <dd id="ovSpan">—</dd>
+                                <dt>Places</dt>
+                                <dd id="ovMap">—</dd>
+                            </dl>
+                            <div class="trip-overview-list" id="ovPlaceList"></div>
+                        </div>
+                        <div class="btn-row">
+                            <button type="submit" class="btn-submit">Plan</button>
+                            <button type="reset" class="btn-reset">Clear</button>
+                        </div>
+                        <div class="success-message" id="successMessage">✓ Trip saved (check console)</div>
+                    </form>
+                </div>
+            </div>
+        </aside>
+
+        <main class="map-pane">
+            <div id="map"></div>
+            <div class="map-legend hidden" id="mapLegend">
+                <strong style="font-size:0.7rem;">Routes to nearest pin</strong>
+                <div class="lg"><span class="sw sw-gps"></span> Live GPS → nearest</div>
+                <div class="lg"><span class="sw sw-typed"></span> Typed address → nearest</div>
+            </div>
+            <div class="map-overlay" id="mapOverlay">
+                <p><strong>Map is hidden</strong> until you apply filters. Choose category and/or search, then tap <strong>Apply filters &amp; show map</strong>.</p>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const CSV_URL = 'tirupati_places.csv';
+        const OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving';
+
+        let places = [];
+        let map = null;
+        let markerLayer = null;
+        let routeLayerGroup = null;
+        let userLayerGroup = null;
+        let filtersApplied = false;
+        let selectedCategory = 'all';
+
+        let geoWatchId = null;
+        let lastGps = null;
+        let geocodeCache = { q: '', lat: null, lng: null, label: '' };
+        let routeGeneration = 0;
+        let gpsRouteTimer = null;
+        let geocodeDebounce = null;
+
+        const iconGps = L.divIcon({
+            className: 'user-marker-gps',
+            html: '<div class="dot"></div>',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+        });
+        const iconTyped = L.divIcon({
+            className: 'user-marker-typed',
+            html: '<div class="dot"></div>',
+            iconSize: [14, 14],
+            iconAnchor: [7, 7]
+        });
+
+        function categoryKeyFromCsv(cat) {
+            const c = (cat || '').toLowerCase();
+            if (c.includes('food')) return 'food';
+            if (c.includes('adventure')) return 'adventure';
+            if (c.includes('temple')) return 'temple';
+            if (c.includes('sight')) return 'sightseeing';
+            return 'other';
+        }
+
+        function parseCSVLine(line) {
+            const parts = line.split(',');
+            if (parts.length < 7) return null;
+            const desc = parts.slice(6).join(',').trim();
+            return {
+                name: parts[0].trim(),
+                category: parts[1].trim(),
+                categoryKey: categoryKeyFromCsv(parts[1]),
+                lat: parseFloat(parts[2]),
+                lng: parseFloat(parts[3]),
+                visit_start: parts[4].trim(),
+                visit_end: parts[5].trim(),
+                description: desc
+            };
+        }
+
+        async function loadPlaces() {
+            try {
+                const res = await fetch(CSV_URL);
+                const text = await res.text();
+                const lines = text.trim().split(/\r?\n/);
+                places = [];
+                for (let i = 1; i < lines.length; i++) {
+                    const row = parseCSVLine(lines[i]);
+                    if (row && !isNaN(row.lat) && !isNaN(row.lng)) places.push(row);
+                }
+            } catch (e) {
+                console.error(e);
+                places = [];
+            }
+        }
+
+        function getFilteredPlaces() {
+            let list = places.slice();
+            if (selectedCategory !== 'all') {
+                list = list.filter(p => p.categoryKey === selectedCategory);
+            }
+            const q = document.getElementById('placeSearch').value.trim().toLowerCase();
+            if (q) {
+                list = list.filter(p =>
+                    p.name.toLowerCase().includes(q) ||
+                    p.description.toLowerCase().includes(q)
+                );
+            }
+            return list;
+        }
+
+        function routeCandidates() {
+            const list = getFilteredPlaces();
+            return list.length ? list : places.slice();
+        }
+
+        function haversineM(aLat, aLng, bLat, bLng) {
+            const R = 6371000;
+            const toR = Math.PI / 180;
+            const dLat = (bLat - aLat) * toR;
+            const dLng = (bLng - aLng) * toR;
+            const x = Math.sin(dLat / 2) ** 2 + Math.cos(aLat * toR) * Math.cos(bLat * toR) * Math.sin(dLng / 2) ** 2;
+            return 2 * R * Math.asin(Math.min(1, Math.sqrt(x)));
+        }
+
+        function findNearestPlace(fromLat, fromLng, candidates) {
+            let best = null;
+            let bestD = Infinity;
+            for (const p of candidates) {
+                const d = haversineM(fromLat, fromLng, p.lat, p.lng);
+                if (d < bestD) {
+                    bestD = d;
+                    best = p;
+                }
+            }
+            return best;
+        }
+
+        async function fetchRoadRoute(lat1, lng1, lat2, lng2) {
+            try {
+                const url = `${OSRM_BASE}/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
+                const r = await fetch(url);
+                if (!r.ok) return null;
+                const j = await r.json();
+                if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
+                const coords = j.routes[0].geometry.coordinates;
+                return coords.map((c) => [c[1], c[0]]);
+            } catch {
+                return null;
+            }
+        }
+
+        function straightLine(lat1, lng1, lat2, lng2) {
+            const steps = 24;
+            const out = [];
+            for (let i = 0; i <= steps; i++) {
+                const t = i / steps;
+                out.push([lat1 + (lat2 - lat1) * t, lng1 + (lng2 - lng1) * t]);
+            }
+            return out;
+        }
+
+        async function geocodeAddress(query) {
+            const q = (query || '').trim();
+            if (!q) return null;
+            if (geocodeCache.q === q && geocodeCache.lat != null) {
+                return { lat: geocodeCache.lat, lng: geocodeCache.lng, label: geocodeCache.label };
+            }
+            try {
+                const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`;
+                const r = await fetch(url, { headers: { Accept: 'application/json' } });
+                if (!r.ok) return null;
+                const arr = await r.json();
+                if (!arr || !arr[0]) return null;
+                const lat = parseFloat(arr[0].lat);
+                const lng = parseFloat(arr[0].lon);
+                if (isNaN(lat) || isNaN(lng)) return null;
+                geocodeCache = { q, lat, lng, label: arr[0].display_name || q };
+                return { lat, lng, label: geocodeCache.label };
+            } catch {
+                return null;
+            }
+        }
+
+        function ensureRouteLayers() {
+            if (!map) return;
+            if (!routeLayerGroup) {
+                routeLayerGroup = L.layerGroup().addTo(map);
+                userLayerGroup = L.layerGroup().addTo(map);
+            }
+        }
+
+        function animatePolylineAlong(latlngs, style, stableGen) {
+            if (!routeLayerGroup || latlngs.length < 2) return null;
+            const line = L.polyline([], { ...style, interactive: false }).addTo(routeLayerGroup);
+            const duration = 1800;
+            const n = latlngs.length;
+            const t0 = performance.now();
+
+            function frame(now) {
+                if (stableGen !== routeGeneration) return;
+                const e = Math.min(1, (now - t0) / duration);
+                const k = Math.max(2, Math.ceil(e * n));
+                line.setLatLngs(latlngs.slice(0, k));
+                if (e < 1) {
+                    requestAnimationFrame(frame);
+                } else {
+                    try {
+                        const el = typeof line.getElement === 'function' ? line.getElement() : null;
+                        if (el) {
+                            el.style.filter = 'drop-shadow(0 0 3px rgba(0,0,0,.25))';
+                        }
+                    } catch (_) { /* ignore */ }
+                }
+            }
+            requestAnimationFrame(frame);
+            return line;
+        }
+
+        async function drawAnimatedRoute(fromLat, fromLng, toPlace, color, weight, dashArray, stableGen) {
+            let latlngs = await fetchRoadRoute(fromLat, fromLng, toPlace.lat, toPlace.lng);
+            if (stableGen !== routeGeneration) return;
+            if (!latlngs || latlngs.length < 2) {
+                latlngs = straightLine(fromLat, fromLng, toPlace.lat, toPlace.lng);
+            }
+            if (stableGen !== routeGeneration) return;
+            animatePolylineAlong(latlngs, { color, weight, opacity: 0.92, dashArray: dashArray || '10 8' }, stableGen);
+        }
+
+        async function refreshRoutesToNearest() {
+            if (!map || !filtersApplied) return;
+            const myGen = ++routeGeneration;
+            ensureRouteLayers();
+            routeLayerGroup.clearLayers();
+            userLayerGroup.clearLayers();
+
+            const candidates = routeCandidates();
+            if (!candidates.length) return;
+
+            document.getElementById('mapLegend').classList.add('hidden');
+
+            let nearestForFit = [];
+
+            if (isGeoEnabled && lastGps) {
+                const near = findNearestPlace(lastGps.lat, lastGps.lng, candidates);
+                if (near && myGen === routeGeneration) {
+                    L.marker([lastGps.lat, lastGps.lng], { icon: iconGps, zIndexOffset: 700 }).bindPopup('Your live GPS').addTo(userLayerGroup);
+                    L.circleMarker([near.lat, near.lng], {
+                        radius: 11,
+                        color: '#0ea5e9',
+                        weight: 3,
+                        fillColor: '#fbbf24',
+                        fillOpacity: 0.95
+                    }).bindPopup(`<strong>Nearest (GPS)</strong><br>${escapeHtml(near.name)}`).addTo(userLayerGroup);
+                    nearestForFit.push([lastGps.lat, lastGps.lng], [near.lat, near.lng]);
+                    await drawAnimatedRoute(lastGps.lat, lastGps.lng, near, '#0ea5e9', 5, '12 10', myGen);
+                }
+            }
+
+            if (myGen !== routeGeneration) return;
+
+            const typedQ = startLocationInput ? startLocationInput.value.trim() : '';
+            if (typedQ) {
+                const geo = await geocodeAddress(typedQ);
+                if (myGen !== routeGeneration) return;
+                if (geo) {
+                    const nearT = findNearestPlace(geo.lat, geo.lng, candidates);
+                    if (nearT) {
+                        L.marker([geo.lat, geo.lng], { icon: iconTyped, zIndexOffset: 600 }).bindPopup('Geocoded: ' + escapeHtml(geo.label)).addTo(userLayerGroup);
+                        L.circleMarker([nearT.lat, nearT.lng], {
+                            radius: 9,
+                            color: '#a855f7',
+                            weight: 2,
+                            fillColor: '#fde68a',
+                            fillOpacity: 0.9
+                        }).bindPopup(`<strong>Nearest (typed start)</strong><br>${escapeHtml(nearT.name)}`).addTo(userLayerGroup);
+                        nearestForFit.push([geo.lat, geo.lng], [nearT.lat, nearT.lng]);
+                        await drawAnimatedRoute(geo.lat, geo.lng, nearT, '#a855f7', 5, '10 14', myGen);
+                    }
+                }
+            }
+
+            if (myGen === routeGeneration && nearestForFit.length) {
+                document.getElementById('mapLegend').classList.remove('hidden');
+                map.fitBounds(nearestForFit, { padding: [48, 48], maxZoom: 12, animate: true });
+            }
+        }
+
+        function scheduleRefreshRoutes() {
+            if (!filtersApplied || !map) return;
+            clearTimeout(gpsRouteTimer);
+            gpsRouteTimer = setTimeout(() => {
+                refreshRoutesToNearest();
+            }, 600);
+        }
+
+        function stopGeoWatch() {
+            if (geoWatchId != null && navigator.geolocation) {
+                navigator.geolocation.clearWatch(geoWatchId);
+                geoWatchId = null;
+            }
+            lastGps = null;
+        }
+
+        function maybeStartGeoWatch() {
+            if (!isGeoEnabled || !filtersApplied || !map || !navigator.geolocation) return;
+            if (geoWatchId != null) return;
+            geoWatchId = navigator.geolocation.watchPosition(
+                (pos) => {
+                    lastGps = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        accuracy: pos.coords.accuracy
+                    };
+                    scheduleRefreshRoutes();
+                },
+                () => {
+                    if (gpsStatus) {
+                        gpsStatus.textContent = 'GPS on — waiting for position…';
+                    }
+                },
+                { enableHighAccuracy: true, maximumAge: 4000, timeout: 20000 }
+            );
+        }
+
+        function categoryLabel() {
+            const labels = {
+                all: 'All categories',
+                food: 'Food places',
+                adventure: 'Adventure',
+                temple: 'Temples',
+                sightseeing: 'Sightseeing'
+            };
+            return labels[selectedCategory] || selectedCategory;
+        }
+
+        function updateTripOverview() {
+            const list = getFilteredPlaces();
+            const locEl = document.getElementById('ovLocation');
+            const schedEl = document.getElementById('ovSchedule');
+            const spanEl = document.getElementById('ovSpan');
+            const mapEl = document.getElementById('ovMap');
+            const placeListEl = document.getElementById('ovPlaceList');
+
+            if (!locEl || !startLocationInput) return;
+
+            locEl.textContent = isGeoEnabled
+                ? 'GPS — location when you submit'
+                : (startLocationInput.value.trim() || '—');
+
+            const d = document.getElementById('tripDate').value;
+            const t1 = document.getElementById('tripStartTime').value;
+            const t2 = document.getElementById('tripEndTime').value;
+            if (d || t1 || t2) {
+                schedEl.textContent = [d || '—', t1 && t2 ? `${t1} – ${t2}` : (t1 || t2 || '—')].join(' · ');
+            } else {
+                schedEl.textContent = '—';
+            }
+
+            const days = document.getElementById('numDays').value.trim();
+            spanEl.textContent = days ? `${days} day(s)` : '—';
+
+            if (filtersApplied) {
+                mapEl.textContent = `${list.length} on map · ${categoryLabel()}`;
+            } else {
+                mapEl.textContent = `${list.length} match(es) · ${categoryLabel()} — tap Apply for map`;
+            }
+
+            placeListEl.textContent = '';
+            if (list.length === 0) {
+                placeListEl.textContent = places.length
+                    ? 'No rows match search/category. Try All or clear search.'
+                    : 'Loading places…';
+                return;
+            }
+            const ul = document.createElement('ul');
+            ul.className = 'ov-ul';
+            const max = 16;
+            list.slice(0, max).forEach(p => {
+                const li = document.createElement('li');
+                li.textContent = `${p.name} · ${p.category}`;
+                ul.appendChild(li);
+            });
+            if (list.length > max) {
+                const li = document.createElement('li');
+                li.className = 'ov-more';
+                li.textContent = `+ ${list.length - max} more in this filter…`;
+                ul.appendChild(li);
+            }
+            placeListEl.appendChild(ul);
+        }
+
+        function ensureMap() {
+            if (map) return;
+            map = L.map('map', { zoomControl: true });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; OpenStreetMap'
+            }).addTo(map);
+            markerLayer = L.layerGroup().addTo(map);
+        }
+
+        function updateMapMarkers(list) {
+            if (!map || !markerLayer) return;
+            markerLayer.clearLayers();
+            if (list.length === 0) {
+                map.setView([13.65, 79.35], 10);
+                return;
+            }
+            const bounds = [];
+            list.forEach(p => {
+                const m = L.circleMarker([p.lat, p.lng], {
+                    radius: 7,
+                    fillColor: '#FF6B6B',
+                    color: '#fff',
+                    weight: 2,
+                    fillOpacity: 0.9
+                });
+                m.bindPopup(`<strong>${escapeHtml(p.name)}</strong><br><span style="font-size:11px">${escapeHtml(p.category)}</span><br><span style="font-size:11px">${escapeHtml(p.description).slice(0, 120)}${p.description.length > 120 ? '…' : ''}</span>`);
+                m.addTo(markerLayer);
+                bounds.push([p.lat, p.lng]);
+            });
+            map.fitBounds(bounds, { padding: [36, 36], maxZoom: 12 });
+        }
+
+        function escapeHtml(s) {
+            const d = document.createElement('div');
+            d.textContent = s;
+            return d.innerHTML;
+        }
+
+        function applyFiltersAndShowMap() {
+            filtersApplied = true;
+            document.getElementById('mapOverlay').classList.add('hidden');
+            ensureMap();
+            const list = getFilteredPlaces();
+            updateMapMarkers(list);
+            setTimeout(() => {
+                map.invalidateSize();
+                refreshRoutesToNearest();
+                maybeStartGeoWatch();
+            }, 80);
+            updateTripOverview();
+        }
+
+        document.getElementById('categoryChips').addEventListener('click', (e) => {
+            const btn = e.target.closest('.chip');
+            if (!btn) return;
+            selectedCategory = btn.dataset.cat || 'all';
+            document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.toggle('active', c === btn));
+            updateTripOverview();
+            if (filtersApplied) {
+                updateMapMarkers(getFilteredPlaces());
+                refreshRoutesToNearest();
+            }
+        });
+
+        document.getElementById('applyFilters').addEventListener('click', () => {
+            applyFiltersAndShowMap();
+        });
+
+        document.getElementById('placeSearch').addEventListener('input', () => {
+            updateTripOverview();
+            if (filtersApplied) {
+                updateMapMarkers(getFilteredPlaces());
+                refreshRoutesToNearest();
+            }
+        });
+
+        const geoToggle = document.getElementById('geoToggle');
+        const gpsStatus = document.getElementById('gpsStatus');
+        const startLocationGroup = document.getElementById('startLocationGroup');
+        const gpsFailedGroup = document.getElementById('gpsFailedGroup');
+        const tripForm = document.getElementById('tripForm');
+        const startLocationInput = document.getElementById('startLocation');
+        const successMessage = document.getElementById('successMessage');
+        let isGeoEnabled = false;
+
+        function setGeo(on) {
+            isGeoEnabled = on;
+            geoToggle.classList.toggle('active', on);
+            if (on) {
+                gpsStatus.textContent = 'GPS on — live route updates when map is open';
+                gpsStatus.classList.add('on');
+                startLocationGroup.classList.add('hidden');
+                gpsFailedGroup.classList.remove('hidden');
+                startLocationInput.removeAttribute('required');
+                maybeStartGeoWatch();
+                scheduleRefreshRoutes();
+            } else {
+                stopGeoWatch();
+                gpsStatus.textContent = 'GPS off — enter location below';
+                gpsStatus.classList.remove('on');
+                startLocationGroup.classList.remove('hidden');
+                gpsFailedGroup.classList.add('hidden');
+                startLocationInput.setAttribute('required', 'required');
+                if (filtersApplied) {
+                    refreshRoutesToNearest();
+                }
+            }
+            updateTripOverview();
+        }
+
+        geoToggle.addEventListener('click', () => setGeo(!isGeoEnabled));
+        geoToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setGeo(!isGeoEnabled);
+            }
+        });
+
+        tripForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = {
+                gpsEnabled: isGeoEnabled,
+                location: isGeoEnabled ? 'Auto-detected by GPS' : startLocationInput.value,
+                startTime: document.getElementById('tripStartTime').value,
+                endTime: document.getElementById('tripEndTime').value,
+                date: document.getElementById('tripDate').value,
+                days: document.getElementById('numDays').value,
+                filteredPlaces: filtersApplied ? getFilteredPlaces().map(p => p.name) : []
+            };
+            console.log('Trip Details:', formData);
+            successMessage.style.display = 'block';
+            setTimeout(() => { successMessage.style.display = 'none'; }, 2500);
+        });
+
+        document.getElementById('tripDate').value = new Date().toISOString().split('T')[0];
+
+        tripForm.addEventListener('input', () => updateTripOverview());
+        tripForm.addEventListener('change', () => updateTripOverview());
+
+        startLocationInput.addEventListener('input', () => {
+            const t = startLocationInput.value.trim();
+            if (t !== geocodeCache.q) {
+                geocodeCache = { q: '', lat: null, lng: null, label: '' };
+            }
+            clearTimeout(geocodeDebounce);
+            if (!filtersApplied) return;
+            geocodeDebounce = setTimeout(() => {
+                refreshRoutesToNearest();
+            }, 1100);
+        });
+        startLocationInput.addEventListener('blur', () => {
+            if (!filtersApplied) return;
+            clearTimeout(geocodeDebounce);
+            refreshRoutesToNearest();
+        });
+
+        function syncCategoryFromUrl() {
+            const p = new URLSearchParams(window.location.search).get('category');
+            if (!p) return;
+            const key = p.toLowerCase();
+            const chip = document.querySelector(`#categoryChips .chip[data-cat="${key}"]`);
+            if (chip) {
+                document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.remove('active'));
+                chip.classList.add('active');
+                selectedCategory = key;
+            }
+        }
+
+        (async function init() {
+            await loadPlaces();
+            syncCategoryFromUrl();
+            updateTripOverview();
+        })();
+    </script>
+</body>
+</html>

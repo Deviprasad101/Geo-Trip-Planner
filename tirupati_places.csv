@@ -1,0 +1,81 @@
+name of the place,category,latitude,longitude,visit_start,visit_end,description
+Sri Venkateswara Tiffin Center,Food Place,13.6288,79.4192,06:00,11:00,popular breakfast spot
+Mayura Restaurant,Food Place,13.6315,79.4195,12:00,15:00,vegetarian meals served
+Minerva Coffee Shop,Food Place,13.632,79.42,07:00,10:30,coffee snacks hub
+Hotel Bliss Restaurant,Food Place,13.6312,79.4178,12:00,14:30,multi cuisine dining
+Saravana Bhavan,Food Place,13.6305,79.4189,07:00,11:00,south indian meals
+Bhimas Deluxe,Food Place,13.6331,79.4212,12:00,15:00,family dining place
+Woodside Restaurant,Food Place,13.6299,79.4167,12:00,15:00,premium veg restaurant
+Sri Lakshmi Narayana Bhavan,Food Place,13.628,79.419,07:00,10:00,traditional breakfast items
+Hotel PLR Grand Restaurant,Food Place,13.6317,79.4182,12:00,15:00,buffet style dining
+Udayee International Restaurant,Food Place,13.6322,79.4208,12:00,14:30,multi cuisine buffet
+Ramee Guestline Restaurant,Food Place,13.6295,79.4175,12:00,15:00,luxury dining experience
+Andhra Spice Restaurant,Food Place,13.6309,79.4198,12:00,14:30,spicy andhra meals
+Tirupati Food Plaza,Food Place,13.6298,79.4203,07:00,22:00,quick service meals
+Sai Annapurna Mess,Food Place,13.6289,79.4181,12:00,14:00,simple veg meals
+Sri Balaji Woodlands,Food Place,13.631,79.4196,07:00,10:30,tiffin and meals
+Hotel Sindhuri Restaurant,Food Place,13.6302,79.4187,12:00,15:00,budget friendly meals
+Hotel Bhimas Paradise,Food Place,13.6335,79.4215,12:00,15:00,family dining meals
+Sri Venkateswara Fast Food,Food Place,13.6287,79.4193,16:00,22:00,evening snacks hub
+Balaji Fast Food Center,Food Place,13.6291,79.4185,17:00,22:00,street food varieties
+Annapurna Tiffins,Food Place,13.6286,79.4191,06:00,10:00,quick breakfast items
+Talakona Forest Trek,Adventure Place,13.802,79.21,06:00,16:00,forest trekking experience
+Talakona Waterfall Trek,Adventure Place,13.8025,79.2095,06:00,16:00,waterfall trekking trail
+Sri Vari Mettu Trek,Adventure Place,13.635,79.345,05:00,18:00,sacred trekking path
+Alipiri Footpath Trek,Adventure Place,13.628,79.41,04:00,20:00,hill climbing route
+Chandragiri Fort Trek,Adventure Place,13.585,79.318,09:00,17:00,fort hiking trail
+Kapila Teertham Trail,Adventure Place,13.6358,79.4183,06:00,18:00,waterfall hiking path
+Tirumala Hills Cycling,Adventure Place,13.683,79.35,06:00,18:00,hill cycling route
+Papavinasam Trek,Adventure Place,13.6785,79.3502,06:00,17:00,forest trail walk
+Akasa Ganga Trail,Adventure Place,13.682,79.345,06:00,17:00,scenic hill trek
+Silathoranam Trek,Adventure Place,13.6835,79.3475,06:00,17:00,natural arch trek
+Japali Teertham Trek,Adventure Place,13.69,79.36,06:00,17:00,forest temple trek
+Deer Park Trail,Adventure Place,13.685,79.355,06:00,18:00,nature walking trail
+Seshachalam Hills Trek,Adventure Place,13.7,79.3,06:00,17:00,hill trekking zone
+Talakona Zipline Area,Adventure Place,13.803,79.211,09:00,16:00,zipline adventure activity
+Rock Climbing Tirumala,Adventure Place,13.684,79.348,07:00,16:00,rock climbing spot
+Forest Camping Talakona,Adventure Place,13.801,79.212,18:00,06:00,overnight camping experience
+Jungle Safari Talakona,Adventure Place,13.804,79.213,06:00,17:00,wildlife safari ride
+Bird Watching Seshachalam,Adventure Place,13.702,79.302,06:00,10:00,bird watching zone
+Night Trek Tirumala,Adventure Place,13.6835,79.349,20:00,04:00,night trekking experience
+Eco Trail Talakona,Adventure Place,13.805,79.214,06:00,17:00,eco tourism trail
+Tirumala Venkateswara Temple,Temple,13.6833,79.347,03:00,23:00,famous pilgrimage temple
+Kapila Teertham Temple,Temple,13.6358,79.4183,05:00,20:00,waterfall shiva temple
+Govindaraja Swamy Temple,Temple,13.6288,79.4192,05:00,21:00,historic vaishnav temple
+Kodandarama Temple,Temple,13.6285,79.4201,05:00,20:00,rama temple complex
+Padmavathi Temple Tiruchanoor,Temple,13.6075,79.429,05:00,21:00,goddess padmavathi temple
+ISKCON Tirupati,Temple,13.6295,79.415,04:30,20:30,hare krishna temple
+Varahaswamy Temple,Temple,13.683,79.346,05:00,21:00,boar avatar temple
+Japali Hanuman Temple,Temple,13.69,79.36,06:00,18:00,forest hanuman temple
+Sri Bedi Anjaneya Temple,Temple,13.6835,79.3465,05:00,20:00,anjaneya temple shrine
+Vakula Mata Temple,Temple,13.6905,79.348,06:00,18:00,mother of balaji
+Kalyana Venkateswara Temple,Temple,13.56,79.3,05:00,20:00,srinivasa temple complex
+Prasanna Venkateswara Temple,Temple,13.5605,79.301,05:00,20:00,ancient temple shrine
+Appalayagunta Temple,Temple,13.563,79.295,05:00,20:00,venkateswara temple site
+Srikalahasti Temple,Temple,13.749,79.703,05:00,21:00,famous shiva temple
+Surutapalli Temple,Temple,13.74,79.9,05:00,20:00,sleeping shiva temple
+Nagari Temple,Temple,13.32,79.59,05:00,20:00,hill temple shrine
+Chandragiri Temple,Temple,13.5855,79.3185,06:00,18:00,temple near fort
+Yoga Narasimha Temple,Temple,13.7005,79.305,06:00,18:00,hilltop narasimha temple
+Sri Prasanna Venkateswara,Temple,13.561,79.3025,05:00,20:00,temple near appalayagunta
+Alipiri Temple,Temple,13.628,79.41,04:00,22:00,entry temple tirumala
+Talakona Waterfalls,Sightseeing,13.802,79.21,06:00,17:00,highest waterfall region
+Kapila Teertham Waterfall,Sightseeing,13.6358,79.4183,06:00,18:00,waterfall near temple
+Akasa Ganga Waterfalls,Sightseeing,13.682,79.345,06:00,17:00,sacred waterfall site
+Papavinasam Waterfalls,Sightseeing,13.6785,79.3502,06:00,17:00,holy waterfall site
+Silathoranam Natural Arch,Sightseeing,13.6835,79.3475,06:00,17:00,natural rock arch
+Chandragiri Fort,Sightseeing,13.585,79.318,09:00,17:00,historic fort view
+Deer Park Tirumala,Sightseeing,13.685,79.355,06:00,18:00,wildlife viewing park
+Seshachalam Hills,Sightseeing,13.7,79.3,06:00,18:00,scenic hill range
+Tirumala Hills Viewpoint,Sightseeing,13.683,79.35,06:00,18:00,panoramic hill views
+Japali Teertham,Sightseeing,13.69,79.36,06:00,18:00,forest water stream
+Talakona Forest Reserve,Sightseeing,13.8015,79.2115,06:00,18:00,dense forest area
+Sri Vari Padalu,Sightseeing,13.6835,79.3495,06:00,18:00,sacred footprints site
+Rock Garden Tirumala,Sightseeing,13.684,79.348,06:00,18:00,sculpted rock garden
+Eco Park Talakona,Sightseeing,13.804,79.213,06:00,18:00,eco tourism park
+Papavinasam Dam,Sightseeing,13.679,79.351,06:00,17:00,dam scenic spot
+Gogarbham Dam,Sightseeing,13.6905,79.355,06:00,17:00,reservoir scenic views
+Srivari Mettu Viewpoint,Sightseeing,13.635,79.345,06:00,18:00,trek viewpoint hill
+Talakona Canyon View,Sightseeing,13.803,79.212,06:00,18:00,canyon forest view
+Seshachalam Valley View,Sightseeing,13.702,79.302,06:00,18:00,valley scenic point
+Tirumala Sunset Point,Sightseeing,13.6845,79.349,17:30,19:00,sunset hill viewpoint
