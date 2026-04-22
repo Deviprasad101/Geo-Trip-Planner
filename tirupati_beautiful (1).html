@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tirupati Tourism - Explore Sacred Wonders</title>
+    <title>GeoTrip Planner - Explore Sacred Wonders</title>
     <style>
         * {
             margin: 0;
@@ -56,7 +56,7 @@
         /* ============ HEADER SECTION ============ */
         .header {
             position: relative;
-            padding: 80px 20px;
+            padding: 32px 20px 28px;
             text-align: center;
             background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #6B3410 100%);
             color: white;
@@ -97,11 +97,11 @@
 
         .header h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 4.5em;
+            font-size: 2.65rem;
             font-weight: 900;
-            margin-bottom: 15px;
-            letter-spacing: 3px;
-            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             animation: slideDown 0.8s ease-out;
         }
 
@@ -117,10 +117,13 @@
         }
 
         .header p {
-            font-size: 1.3em;
+            font-size: 0.95rem;
             opacity: 0.95;
-            font-weight: 300;
-            letter-spacing: 2px;
+            font-weight: 400;
+            letter-spacing: 0.08em;
+            line-height: 1.45;
+            max-width: 36em;
+            margin: 0 auto;
             animation: slideUp 0.8s ease-out 0.2s both;
         }
 
@@ -136,10 +139,10 @@
         }
 
         .divider {
-            width: 80px;
-            height: 4px;
+            width: 64px;
+            height: 3px;
             background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 20px auto;
+            margin: 10px auto 12px;
             animation: slideUp 0.8s ease-out 0.4s both;
         }
 
@@ -420,12 +423,6 @@
             transform: translateX(5px);
         }
 
-        /* ============ DATA TABLE SECTION ============ */
-        .table-section {
-            margin-top: 80px;
-            animation: fadeInUp 0.8s ease-out 0.3s both;
-        }
-
         .section-title {
             font-family: 'Playfair Display', serif;
             font-size: 2.5em;
@@ -450,118 +447,9 @@
             border-radius: 2px;
         }
 
-        .table-wrapper {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.12);
-            overflow: hidden;
-            border: 3px solid var(--gold);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95em;
-        }
-
-        thead {
-            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
-            color: white;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        th {
-            padding: 25px 20px;
-            text-align: left;
-            font-family: 'Quicksand', sans-serif;
-            font-size: 0.95em;
-        }
-
-        td {
-            padding: 18px 20px;
-            border-bottom: 2px solid #f0f0f0;
-            transition: all 0.3s ease;
-        }
-
-        tbody tr {
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        tbody tr::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 4px;
-            background: var(--gold);
-            transform: scaleY(0);
-            transform-origin: center;
-            transition: all 0.3s ease;
-        }
-
-        tbody tr:hover {
-            background: linear-gradient(90deg, rgba(212, 175, 55, 0.08) 0%, transparent 100%);
-            transform: translateX(8px);
-        }
-
-        tbody tr:hover::before {
-            transform: scaleY(1);
-        }
-
-        /* Category Badges */
-        .category-badge {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 0.8em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            backdrop-filter: blur(10px);
-        }
-
-        .badge-food {
-            background: rgba(255, 153, 51, 0.2);
-            color: #FF6B35;
-            border: 2px solid #FF9933;
-        }
-
-        .badge-adventure {
-            background: rgba(45, 80, 22, 0.2);
-            color: #2D5016;
-            border: 2px solid #2D5016;
-        }
-
-        .badge-temple {
-            background: rgba(212, 175, 55, 0.2);
-            color: #8B6F47;
-            border: 2px solid #D4AF37;
-        }
-
-        .badge-sightseeing {
-            background: rgba(78, 205, 196, 0.2);
-            color: #4ECDC4;
-            border: 2px solid #4ECDC4;
-        }
-
-        /* Coordinates */
-        .coords {
-            font-family: 'Courier Prime', monospace;
-            font-size: 0.85em;
-            background: #F5E6D3;
-            padding: 6px 12px;
-            border-radius: 6px;
-            color: var(--sapphire);
-            letter-spacing: 0.5px;
-        }
-
         /* ============ STATISTICS SECTION ============ */
         .stats-section {
-            margin-top: 100px;
+            margin-top: 60px;
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
@@ -646,20 +534,6 @@
             margin: 20px auto;
         }
 
-        /* ============ EMPTY STATE ============ */
-        .empty-state {
-            text-align: center;
-            padding: 80px 20px;
-            color: #999;
-        }
-
-        .empty-state h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2em;
-            color: var(--sapphire);
-            margin-bottom: 15px;
-        }
-
         /* ============ RESPONSIVE ============ */
         @media (max-width: 1024px) {
             .categories-grid {
@@ -669,8 +543,17 @@
         }
 
         @media (max-width: 768px) {
+            .header {
+                padding: 22px 16px 20px;
+            }
+
             .header h1 {
-                font-size: 2.8em;
+                font-size: 1.85rem;
+                letter-spacing: 1px;
+            }
+
+            .header p {
+                font-size: 0.82rem;
             }
 
             .categories-grid {
@@ -696,14 +579,6 @@
                 max-width: 100%;
             }
 
-            table {
-                font-size: 0.85em;
-            }
-
-            th, td {
-                padding: 12px;
-            }
-
             .section-title {
                 font-size: 1.8em;
             }
@@ -724,7 +599,7 @@
     <!-- HEADER -->
     <div class="header">
         <div class="header-content">
-            <h1>🏛️ TIRUPATI TOURISM</h1>
+            <h1>🏛️ GeoTrip Planner</h1>
             <div class="divider"></div>
             <p>Discover Sacred Temples • Thrilling Adventures • Scenic Wonders • Culinary Delights</p>
         </div>
@@ -826,31 +701,6 @@
             </div>
         </div>
 
-        <!-- DATA TABLE SECTION -->
-        <div class="table-section">
-            <h2 class="section-title">📊 All Places Directory</h2>
-            <div class="table-wrapper">
-                <table id="placesTable">
-                    <thead>
-                        <tr>
-                            <th>Place Name</th>
-                            <th>Category</th>
-                            <th>Coordinates</th>
-                            <th>Visit Hours</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                        <!-- Data populated here -->
-                    </tbody>
-                </table>
-                <div id="emptyState" class="empty-state" style="display:none;">
-                    <h3>No Places Found</h3>
-                    <p>Try adjusting your search or filters</p>
-                </div>
-            </div>
-        </div>
-
         <!-- STATISTICS -->
         <div class="stats-section">
             <h2 class="section-title">📈 Tourism Statistics</h2>
@@ -897,12 +747,11 @@
                 const response = await fetch('tirupati_tourism_80_places.csv');
                 const csvText = await response.text();
                 places = parseCSV(csvText);
-                renderTable(places);
                 updateStats();
             } catch (error) {
                 console.error('Error loading CSV:', error);
-                document.getElementById('emptyState').style.display = 'block';
-                document.getElementById('emptyState').innerHTML = '<h3>⚠️ CSV File Not Found</h3><p>Please ensure "tirupati_tourism_80_places.csv" is in the same folder as this HTML file.</p>';
+                places = [];
+                updateStats();
             }
         }
 
@@ -921,29 +770,6 @@
                 records.push(obj);
             }
             return records;
-        }
-
-        // Render Table
-        function renderTable(data) {
-            const tbody = document.getElementById('tableBody');
-            const emptyState = document.getElementById('emptyState');
-
-            if (data.length === 0) {
-                tbody.innerHTML = '';
-                emptyState.style.display = 'block';
-                return;
-            }
-
-            emptyState.style.display = 'none';
-            tbody.innerHTML = data.map((place, index) => `
-                <tr style="animation: fadeInUp 0.5s ease-out ${index * 0.03}s both;">
-                    <td><strong>${place.name_of_the_place}</strong></td>
-                    <td><span class="category-badge badge-${place.category}">${place.category.charAt(0).toUpperCase() + place.category.slice(1)}</span></td>
-                    <td><span class="coords">${place.latitude}, ${place.longitude}</span></td>
-                    <td>${place.visit_start} - ${place.visit_end}</td>
-                    <td>${place.description}</td>
-                </tr>
-            `).join('');
         }
 
         // Update Statistics
@@ -984,7 +810,6 @@
                 );
             }
 
-            renderTable(filtered);
             updateStats(filtered);
         }
 
