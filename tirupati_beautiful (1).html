@@ -371,7 +371,7 @@
 
 <script>
 (function () {
-    const CSV_URL = 'tirupati_places.csv';
+    const CSV_URL = 'tirupati_places_updated_category_timings.csv';
 
     function categoryKeyFromCsv(cat) {
         const c = (cat || '').toLowerCase();
@@ -384,7 +384,7 @@
 
     function parseLine(line) {
         const parts = line.split(',');
-        if (parts.length < 7) return null;
+        if (parts.length < 6) return null;
         return { categoryKey: categoryKeyFromCsv(parts[1].trim()) };
     }
 
@@ -418,7 +418,7 @@
             const blob = await res.blob();
             const a = document.createElement('a');
             a.href = URL.createObjectURL(blob);
-            a.download = 'tirupati_places.csv';
+            a.download = 'tirupati_places_updated_category_timings.csv';
             a.click();
             URL.revokeObjectURL(a.href);
         } catch (e) {

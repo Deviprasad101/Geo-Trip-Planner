@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Your Adventure - Trip Planner</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&amp;display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <style>
         * {
@@ -222,6 +223,13 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 6px;
+        }
+
+        .time-filter-hint {
+            font-size: 0.62rem;
+            color: #64748b;
+            margin: -2px 0 6px;
+            line-height: 1.35;
         }
 
         .form-fields-block {
@@ -449,47 +457,100 @@
             z-index: 1000;
             left: 10px;
             bottom: 28px;
-            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            max-width: min(280px, calc(100vw - 24px));
+            max-height: min(320px, 42vh);
+            background: rgba(255, 255, 255, 0.97);
             border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 8px 10px;
+            border-radius: 10px;
+            padding: 10px 10px 8px;
             font-size: 0.68rem;
-            line-height: 1.45;
+            line-height: 1.4;
             color: #334155;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
-            max-width: 200px;
-            pointer-events: none;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            pointer-events: auto;
+            backdrop-filter: blur(6px);
         }
 
         .map-legend.hidden {
             display: none;
         }
 
-        .map-legend .lg {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 4px;
-        }
-
-        .map-legend .lg:first-child {
-            margin-top: 0;
-        }
-
-        .map-legend .sw {
-            width: 22px;
-            height: 4px;
-            border-radius: 2px;
+        .map-legend-heading {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #0f172a;
+            padding-bottom: 6px;
+            margin-bottom: 2px;
+            border-bottom: 1px solid #e2e8f0;
             flex-shrink: 0;
         }
 
-        .sw-gps {
-            background: linear-gradient(90deg, #0ea5e9, #38bdf8);
-            box-shadow: 0 0 6px rgba(14, 165, 233, 0.6);
+        .map-legend-body {
+            display: block;
+            margin-top: 6px;
+            flex: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            overscroll-behavior: contain;
+            scrollbar-width: thin;
+            padding-right: 4px;
         }
 
-        .sw-typed {
-            background: linear-gradient(90deg, #a855f7, #c084fc);
+        .map-legend-warn {
+            font-size: 0.62rem;
+            color: #b45309;
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+
+        .map-legend-day {
+            margin-bottom: 10px;
+        }
+
+        .map-legend-day:last-child {
+            margin-bottom: 0;
+        }
+
+        .map-legend-day-title {
+            font-size: 0.66rem;
+            font-weight: 700;
+            color: #0f766e;
+            margin-bottom: 4px;
+            letter-spacing: 0.02em;
+        }
+
+        .map-legend-stops {
+            margin: 0;
+            padding: 0 0 0 1.1rem;
+            list-style: decimal;
+        }
+
+        .map-legend-stops li {
+            margin: 3px 0;
+            padding-left: 2px;
+            word-break: break-word;
+        }
+
+        .map-legend-stop-time {
+            display: block;
+            font-size: 0.6rem;
+            color: #64748b;
+            font-weight: 500;
+            margin-top: 1px;
+        }
+
+        @media (max-width: 720px) {
+            .map-legend {
+                left: 8px;
+                right: 8px;
+                bottom: 10px;
+                max-width: none;
+                max-height: min(260px, 36vh);
+            }
         }
 
         .user-marker-gps .dot,
@@ -507,6 +568,57 @@
 
         .user-marker-typed .dot {
             background: #a855f7;
+        }
+
+        .leaflet-div-icon.place-pin-icon {
+            border: none;
+            background: transparent;
+        }
+
+        .place-pin {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .place-pin-order {
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 999px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1;
+        }
+
+        .place-pin .msym {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 20px;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .leaflet-popup-content .place-popup-icon {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 26px;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
         }
 
         @keyframes routePulse {
@@ -583,14 +695,15 @@
                             </div>
                             <div class="row2">
                                 <div class="fg">
-                                    <label for="tripStartTime">Start time</label>
-                                    <input type="time" id="tripStartTime" required>
+                                    <label for="tripStartTime">Outing start</label>
+                                    <input type="time" id="tripStartTime" required title="Only places open during this window appear on the map">
                                 </div>
                                 <div class="fg">
-                                    <label for="tripEndTime">End time</label>
-                                    <input type="time" id="tripEndTime" required>
+                                    <label for="tripEndTime">Outing end</label>
+                                    <input type="time" id="tripEndTime" required title="Only places open during this window appear on the map">
                                 </div>
                             </div>
+                            <p class="time-filter-hint">Map uses CSV <strong>timings</strong> slots (breakfast / lunch / dinner). Visit order = nearest open stops, then trimmed to fit your outing length (~28 min/stop).</p>
                             <div class="row2">
                                 <div class="fg">
                                     <label for="tripDate">Date</label>
@@ -629,18 +742,17 @@
         <main class="map-pane">
             <div id="map"></div>
             <div class="map-legend hidden" id="mapLegend">
-                <strong style="font-size:0.7rem;">Routes to nearest pin</strong>
-                <div class="lg"><span class="sw sw-gps"></span> Live GPS → nearest</div>
-                <div class="lg"><span class="sw sw-typed"></span> Typed address → nearest</div>
+                <strong class="map-legend-heading">Visit order</strong>
+                <div class="map-legend-body" id="mapLegendBody">Itinerary loads after you apply filters.</div>
             </div>
             <div class="map-overlay" id="mapOverlay">
-                <p><strong>Map is hidden</strong> until you apply filters. Choose category and/or search, then tap <strong>Apply filters &amp; show map</strong>.</p>
+                <p><strong>Map is hidden</strong> until you apply filters. Set <strong>outing start/end</strong> (only open places show), choose category/search, then tap <strong>Apply filters &amp; show map</strong>.</p>
             </div>
         </main>
     </div>
 
     <script>
-        const CSV_URL = 'tirupati_places.csv';
+        const CSV_URL = 'tirupati_places_updated_category_timings.csv';
         const OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving';
 
         let places = [];
@@ -680,19 +792,366 @@
             return 'other';
         }
 
+        function categoryPinStyle(categoryKey) {
+            const styles = {
+                food: { bg: '#fff7ed', fg: '#c2410c', sym: 'restaurant' },
+                adventure: { bg: '#ecfdf5', fg: '#047857', sym: 'landscape' },
+                temple: { bg: '#fffbeb', fg: '#b45309', sym: 'temple_hindu' },
+                sightseeing: { bg: '#eff6ff', fg: '#1d4ed8', sym: 'photo_camera' },
+                other: { bg: '#f1f5f9', fg: '#475569', sym: 'place' }
+            };
+            return styles[categoryKey] || styles.other;
+        }
+
+        function placeMarkerIcon(categoryKey) {
+            const o = categoryPinStyle(categoryKey);
+            const html = `<div class="place-pin" style="background:${o.bg};color:${o.fg};"><span class="material-symbols-outlined msym">${o.sym}</span></div>`;
+            return L.divIcon({
+                className: 'place-pin-icon',
+                html,
+                iconSize: [36, 36],
+                iconAnchor: [18, 18],
+                popupAnchor: [0, -16]
+            });
+        }
+
+        function placeMarkerIconWithOrder(categoryKey, orderNum) {
+            const o = categoryPinStyle(categoryKey);
+            const html =
+                `<div class="place-pin" style="background:${o.bg};color:${o.fg};">` +
+                `<span class="material-symbols-outlined msym">${o.sym}</span>` +
+                `<span class="place-pin-order">${orderNum}</span></div>`;
+            return L.divIcon({
+                className: 'place-pin-icon',
+                html,
+                iconSize: [36, 36],
+                iconAnchor: [18, 18],
+                popupAnchor: [0, -16]
+            });
+        }
+
+        /** Minutes from midnight for "HH:MM" or "H:MM" (CSV visit windows). */
+        function timeToMinutes(t) {
+            if (!t || typeof t !== 'string') return 24 * 60;
+            const m = t.trim().match(/^(\d{1,2}):(\d{2})$/);
+            if (!m) return 24 * 60;
+            const h = parseInt(m[1], 10);
+            const min = parseInt(m[2], 10);
+            if (h > 23 || min > 59) return 24 * 60;
+            return h * 60 + min;
+        }
+
+        const DAY_END = 24 * 60 - 1;
+        /** Rough minutes per stop (travel + visit) to cap unrealistic “visit everything” lists for short outings. */
+        const MINUTES_BUDGET_PER_STOP = 28;
+
+        /** Inclusive minute window for a place; null if invalid. overnight if visit_end < visit_start. */
+        function placeMinuteWindow(p) {
+            const ps = timeToMinutes(p.visit_start);
+            const pe = timeToMinutes(p.visit_end);
+            if (ps >= 24 * 60 || pe >= 24 * 60) return null;
+            return { ps, pe, overnight: pe < ps };
+        }
+
+        /**
+         * Parse CSV `timings` like "06:00-11:00 | 12:00-15:00" into minute windows.
+         * Used for outing overlap — broader visit_start/visit_end alone is not enough when timings lists real meal slots.
+         */
+        function parseTimingsSlots(timingsStr) {
+            if (!timingsStr || typeof timingsStr !== 'string') return [];
+            const out = [];
+            const chunks = timingsStr.split('|');
+            for (let c = 0; c < chunks.length; c++) {
+                const seg = chunks[c].trim();
+                const m = seg.match(/^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/);
+                if (!m) continue;
+                const h1 = parseInt(m[1], 10);
+                const mi1 = parseInt(m[2], 10);
+                const h2 = parseInt(m[3], 10);
+                const mi2 = parseInt(m[4], 10);
+                if (h1 > 23 || h2 > 23 || mi1 > 59 || mi2 > 59) continue;
+                const ps = h1 * 60 + mi1;
+                const pe = h2 * 60 + mi2;
+                out.push({ ps, pe, overnight: pe < ps });
+            }
+            return out;
+        }
+
+        function minutesToHHMM(totalM) {
+            const h = Math.floor(totalM / 60);
+            const m = totalM % 60;
+            return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+        }
+
+        /** Legend / popup: from single-slot timings, else category default hours. */
+        function deriveVisitDisplayFromTimings(timingsStr, categoryKey) {
+            const slots = parseTimingsSlots(timingsStr);
+            if (slots.length === 1 && !slots[0].overnight) {
+                return {
+                    visit_start: minutesToHHMM(slots[0].ps),
+                    visit_end: minutesToHHMM(slots[0].pe)
+                };
+            }
+            const d = {
+                temple: ['05:00', '22:00'],
+                food: ['06:00', '23:00'],
+                adventure: ['09:00', '21:00'],
+                sightseeing: ['09:00', '21:00'],
+                other: ['09:00', '21:00']
+            };
+            const pair = d[categoryKey] || d.other;
+            return { visit_start: pair[0], visit_end: pair[1] };
+        }
+
+        /** Service windows for overlap checks: timings slots if any, else one window from visit_start/end. */
+        function placeServiceSlots(p) {
+            const fromTimings = parseTimingsSlots(p.timings);
+            if (fromTimings.length) return fromTimings;
+            const w = placeMinuteWindow(p);
+            return w ? [w] : [];
+        }
+
+        /** Inclusive intervals [a,b] overlap. */
+        function intervalsOverlapMinutes(a1, a2, b1, b2) {
+            return a1 <= b2 && b1 <= a2;
+        }
+
+        /**
+         * User outing as one or two inclusive minute ranges (second range if outing crosses midnight).
+         * null = no time inputs → do not filter by hours.
+         */
+        function getUserTimeSegments() {
+            const t1 = document.getElementById('tripStartTime')?.value?.trim();
+            const t2 = document.getElementById('tripEndTime')?.value?.trim();
+            if (!t1 && !t2) return null;
+            if (t1 && !t2) {
+                const m = timeToMinutes(t1);
+                if (m >= 24 * 60) return null;
+                return [[m, m]];
+            }
+            if (!t1 && t2) {
+                const m = timeToMinutes(t2);
+                if (m >= 24 * 60) return null;
+                return [[m, m]];
+            }
+            const u1 = timeToMinutes(t1);
+            const u2 = timeToMinutes(t2);
+            if (u1 >= 24 * 60 || u2 >= 24 * 60) return null;
+            if (u2 < u1) {
+                return [
+                    [u1, DAY_END],
+                    [0, u2]
+                ];
+            }
+            return [[u1, u2]];
+        }
+
+        function slotOverlapsUserOuting(slot, segs) {
+            if (!segs || !segs.length) return true;
+            const { ps, pe, overnight } = slot;
+            for (let s = 0; s < segs.length; s++) {
+                const [a, b] = segs[s];
+                if (overnight) {
+                    if (intervalsOverlapMinutes(a, b, ps, DAY_END) || intervalsOverlapMinutes(a, b, 0, pe)) {
+                        return true;
+                    }
+                } else if (intervalsOverlapMinutes(a, b, ps, pe)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /** True if any service slot overlaps the user's outing (timings column when present). */
+        function placeOpenDuringUserOuting(p) {
+            const segs = getUserTimeSegments();
+            if (!segs || !segs.length) return true;
+            const slots = placeServiceSlots(p);
+            if (!slots.length) return false;
+            for (let i = 0; i < slots.length; i++) {
+                if (slotOverlapsUserOuting(slots[i], segs)) return true;
+            }
+            return false;
+        }
+
+        /** Minutes covered by outing (inclusive); null if no outing times. */
+        function getOutingDurationMinutes() {
+            const segs = getUserTimeSegments();
+            if (!segs || !segs.length) return null;
+            let t = 0;
+            for (let s = 0; s < segs.length; s++) {
+                const [a, b] = segs[s];
+                t += Math.max(0, b - a + 1);
+            }
+            return t;
+        }
+
+        /** Max stops that fit the outing length (nearest-neighbor list is cut to this). */
+        function maxStopsForOutingDuration() {
+            const d = getOutingDurationMinutes();
+            if (d == null) return Infinity;
+            return Math.max(1, Math.min(120, Math.floor(d / MINUTES_BUDGET_PER_STOP)));
+        }
+
+        function applyOutingDurationCap(ordered) {
+            const cap = maxStopsForOutingDuration();
+            if (!Number.isFinite(cap) || ordered.length <= cap) {
+                return { list: ordered, capped: false, before: ordered.length };
+            }
+            return { list: ordered.slice(0, cap), capped: true, before: ordered.length };
+        }
+
+        /** First CSV timing slot that overlaps the current outing (for legend line). */
+        function formatPlaceHoursForLegend(p) {
+            const segs = getUserTimeSegments();
+            const slots = placeServiceSlots(p);
+            if (segs && segs.length && slots.length) {
+                for (let i = 0; i < slots.length; i++) {
+                    const sl = slots[i];
+                    if (!slotOverlapsUserOuting(sl, segs)) continue;
+                    if (!sl.overnight) {
+                        return minutesToHHMM(sl.ps) + ' – ' + minutesToHHMM(sl.pe);
+                    }
+                    return minutesToHHMM(sl.ps) + ' – ' + minutesToHHMM(sl.pe) + ' (+overnight)';
+                }
+            }
+            return (p.visit_start || '') + ' – ' + (p.visit_end || '');
+        }
+
+        /** Greedy nearest-neighbor within one group; if no start, seed from first name alphabetically. */
+        function orderNearestWithinGroup(places, startLat, startLng) {
+            if (!places.length) return [];
+            const rem = places.slice();
+            const out = [];
+            let lat = startLat;
+            let lng = startLng;
+            if (lat == null || lng == null || typeof lat !== 'number' || typeof lng !== 'number' || isNaN(lat) || isNaN(lng)) {
+                rem.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+                const first = rem.shift();
+                out.push(first);
+                lat = first.lat;
+                lng = first.lng;
+            }
+            while (rem.length) {
+                let bestI = 0;
+                let bestD = Infinity;
+                for (let i = 0; i < rem.length; i++) {
+                    const d = haversineM(lat, lng, rem[i].lat, rem[i].lng);
+                    if (d < bestD) {
+                        bestD = d;
+                        bestI = i;
+                    }
+                }
+                const p = rem.splice(bestI, 1)[0];
+                out.push(p);
+                lat = p.lat;
+                lng = p.lng;
+            }
+            return out;
+        }
+
+        /** Visit order: greedy nearest-neighbor on the (already time-filtered) list from user start if known. */
+        function orderPlacesForItinerary(list, startLat, startLng) {
+            return orderNearestWithinGroup(list.slice(), startLat, startLng);
+        }
+
+        /** Split ordered stops across numDays (balanced counts). */
+        function splitIntoDays(ordered, numDays) {
+            const raw = parseInt(numDays, 10);
+            const d = Math.max(1, Math.min(365, isNaN(raw) ? 1 : raw));
+            const n = ordered.length;
+            const chunks = [];
+            if (!n) return chunks;
+            let idx = 0;
+            let rem = n % d;
+            const base = Math.floor(n / d);
+            for (let day = 0; day < d; day++) {
+                const size = base + (rem > 0 ? 1 : 0);
+                if (rem > 0) rem--;
+                chunks.push(ordered.slice(idx, idx + size));
+                idx += size;
+            }
+            return chunks;
+        }
+
+        const OSRM_MAX_WAYPOINTS = 90;
+
+        async function fetchRoadRouteMulti(points, stableGen) {
+            if (!points || points.length < 2) return null;
+            const slice = points.slice(0, OSRM_MAX_WAYPOINTS);
+            const path = slice.map((p) => `${p.lng},${p.lat}`).join(';');
+            try {
+                const url = `${OSRM_BASE}/${path}?overview=full&geometries=geojson`;
+                const r = await fetch(url);
+                if (!r.ok) return null;
+                const j = await r.json();
+                if (stableGen !== routeGeneration) return null;
+                if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
+                return j.routes[0].geometry.coordinates.map((c) => [c[1], c[0]]);
+            } catch {
+                return null;
+            }
+        }
+
+        async function drawItineraryFromWaypoints(waypoints, stableGen) {
+            if (!routeLayerGroup || waypoints.length < 2) return;
+            let latlngs = await fetchRoadRouteMulti(waypoints, stableGen);
+            if (stableGen !== routeGeneration) return;
+            if (!latlngs || latlngs.length < 2) {
+                latlngs = [];
+                for (let i = 0; i < waypoints.length - 1; i++) {
+                    const seg = await fetchRoadRoute(
+                        waypoints[i].lat,
+                        waypoints[i].lng,
+                        waypoints[i + 1].lat,
+                        waypoints[i + 1].lng
+                    );
+                    if (stableGen !== routeGeneration) return;
+                    if (seg && seg.length) {
+                        if (latlngs.length) {
+                            const last = latlngs[latlngs.length - 1];
+                            if (seg[0][0] === last[0] && seg[0][1] === last[1]) {
+                                latlngs.push(...seg.slice(1));
+                            } else {
+                                latlngs.push(...seg);
+                            }
+                        } else {
+                            latlngs.push(...seg);
+                        }
+                    }
+                }
+            }
+            if (stableGen !== routeGeneration) return;
+            if (latlngs && latlngs.length >= 2) {
+                animatePolylineAlong(
+                    latlngs,
+                    { color: '#0f766e', weight: 4, opacity: 0.9 },
+                    stableGen
+                );
+            }
+        }
+
         function parseCSVLine(line) {
             const parts = line.split(',');
-            if (parts.length < 7) return null;
-            const desc = parts.slice(6).join(',').trim();
+            if (parts.length < 6) return null;
+            const name = parts[0].trim();
+            const category = parts[1].trim();
+            const lat = parseFloat(parts[2]);
+            const lng = parseFloat(parts[3]);
+            const description = parts[4].trim();
+            const timings = parts.slice(5).join(',').trim();
+            const categoryKey = categoryKeyFromCsv(category);
+            const { visit_start, visit_end } = deriveVisitDisplayFromTimings(timings, categoryKey);
             return {
-                name: parts[0].trim(),
-                category: parts[1].trim(),
-                categoryKey: categoryKeyFromCsv(parts[1]),
-                lat: parseFloat(parts[2]),
-                lng: parseFloat(parts[3]),
-                visit_start: parts[4].trim(),
-                visit_end: parts[5].trim(),
-                description: desc
+                name,
+                category,
+                categoryKey,
+                lat,
+                lng,
+                visit_start,
+                visit_end,
+                description,
+                timings
             };
         }
 
@@ -712,24 +1171,30 @@
             }
         }
 
-        function getFilteredPlaces() {
+        function getSearchCategoryFiltered() {
             let list = places.slice();
             if (selectedCategory !== 'all') {
-                list = list.filter(p => p.categoryKey === selectedCategory);
+                list = list.filter((p) => p.categoryKey === selectedCategory);
             }
             const q = document.getElementById('placeSearch').value.trim().toLowerCase();
             if (q) {
-                list = list.filter(p =>
-                    p.name.toLowerCase().includes(q) ||
-                    p.description.toLowerCase().includes(q)
+                list = list.filter(
+                    (p) =>
+                        p.name.toLowerCase().includes(q) ||
+                        p.description.toLowerCase().includes(q)
                 );
             }
             return list;
         }
 
+        /** Category/search filter, then only places open during outing start–end times. */
+        function getFilteredPlaces() {
+            const list = getSearchCategoryFiltered();
+            return list.filter((p) => placeOpenDuringUserOuting(p));
+        }
+
         function routeCandidates() {
-            const list = getFilteredPlaces();
-            return list.length ? list : places.slice();
+            return getFilteredPlaces();
         }
 
         function haversineM(aLat, aLng, bLat, bLng) {
@@ -853,54 +1318,148 @@
             userLayerGroup.clearLayers();
 
             const candidates = routeCandidates();
-            if (!candidates.length) return;
+            const legendEl = document.getElementById('mapLegend');
+            const legendBody = document.getElementById('mapLegendBody');
+            if (!candidates.length) {
+                legendEl.classList.remove('hidden');
+                if (legendBody) {
+                    legendBody.replaceChildren();
+                    const empty = document.createElement('p');
+                    empty.className = 'map-legend-warn';
+                    const base = getSearchCategoryFiltered().length;
+                    empty.textContent = base
+                        ? 'No places are open between your outing times for this filter. Widen your hours or search.'
+                        : 'No places match this category/search.';
+                    legendBody.appendChild(empty);
+                }
+                return;
+            }
 
-            document.getElementById('mapLegend').classList.add('hidden');
-
-            let nearestForFit = [];
-
+            let startLat = null;
+            let startLng = null;
             if (isGeoEnabled && lastGps) {
-                const near = findNearestPlace(lastGps.lat, lastGps.lng, candidates);
-                if (near && myGen === routeGeneration) {
-                    L.marker([lastGps.lat, lastGps.lng], { icon: iconGps, zIndexOffset: 700 }).bindPopup('Your live GPS').addTo(userLayerGroup);
-                    L.circleMarker([near.lat, near.lng], {
-                        radius: 11,
-                        color: '#0ea5e9',
-                        weight: 3,
-                        fillColor: '#fbbf24',
-                        fillOpacity: 0.95
-                    }).bindPopup(`<strong>Nearest (GPS)</strong><br>${escapeHtml(near.name)}`).addTo(userLayerGroup);
-                    nearestForFit.push([lastGps.lat, lastGps.lng], [near.lat, near.lng]);
-                    await drawAnimatedRoute(lastGps.lat, lastGps.lng, near, '#0ea5e9', 5, '12 10', myGen);
+                startLat = lastGps.lat;
+                startLng = lastGps.lng;
+                L.marker([lastGps.lat, lastGps.lng], { icon: iconGps, zIndexOffset: 700 })
+                    .bindPopup('<strong>Start</strong><br>Your GPS position')
+                    .addTo(userLayerGroup);
+            } else {
+                const typedQ = startLocationInput ? startLocationInput.value.trim() : '';
+                if (typedQ) {
+                    const geo = await geocodeAddress(typedQ);
+                    if (myGen !== routeGeneration) return;
+                    if (geo) {
+                        startLat = geo.lat;
+                        startLng = geo.lng;
+                        L.marker([geo.lat, geo.lng], { icon: iconTyped, zIndexOffset: 600 })
+                            .bindPopup('<strong>Start</strong><br>' + escapeHtml(geo.label))
+                            .addTo(userLayerGroup);
+                    }
                 }
             }
 
             if (myGen !== routeGeneration) return;
 
-            const typedQ = startLocationInput ? startLocationInput.value.trim() : '';
-            if (typedQ) {
-                const geo = await geocodeAddress(typedQ);
-                if (myGen !== routeGeneration) return;
-                if (geo) {
-                    const nearT = findNearestPlace(geo.lat, geo.lng, candidates);
-                    if (nearT) {
-                        L.marker([geo.lat, geo.lng], { icon: iconTyped, zIndexOffset: 600 }).bindPopup('Geocoded: ' + escapeHtml(geo.label)).addTo(userLayerGroup);
-                        L.circleMarker([nearT.lat, nearT.lng], {
-                            radius: 9,
-                            color: '#a855f7',
-                            weight: 2,
-                            fillColor: '#fde68a',
-                            fillOpacity: 0.9
-                        }).bindPopup(`<strong>Nearest (typed start)</strong><br>${escapeHtml(nearT.name)}`).addTo(userLayerGroup);
-                        nearestForFit.push([geo.lat, geo.lng], [nearT.lat, nearT.lng]);
-                        await drawAnimatedRoute(geo.lat, geo.lng, nearT, '#a855f7', 5, '10 14', myGen);
-                    }
-                }
+            let ordered = orderPlacesForItinerary(candidates.slice(), startLat, startLng);
+            const openAfterTimeOrder = ordered.length;
+            const durCapRes = applyOutingDurationCap(ordered);
+            ordered = durCapRes.list;
+            const durationCapped = durCapRes.capped;
+            const countAfterDurationCap = ordered.length;
+            let truncated = false;
+            const countBeforeOsrmCap = ordered.length;
+            if (ordered.length > OSRM_MAX_WAYPOINTS - 5) {
+                truncated = true;
+                ordered = ordered.slice(0, OSRM_MAX_WAYPOINTS - 5);
             }
 
-            if (myGen === routeGeneration && nearestForFit.length) {
-                document.getElementById('mapLegend').classList.remove('hidden');
-                map.fitBounds(nearestForFit, { padding: [48, 48], maxZoom: 12, animate: true });
+            const numDaysEl = document.getElementById('numDays');
+            const numDays = Math.max(1, parseInt((numDaysEl && numDaysEl.value) || '1', 10) || 1);
+            const dayChunks = splitIntoDays(ordered, numDays);
+
+            const waypoints = [];
+            if (startLat != null && startLng != null && !isNaN(startLat) && !isNaN(startLng)) {
+                waypoints.push({ lat: startLat, lng: startLng });
+            }
+            ordered.forEach((p) => waypoints.push({ lat: p.lat, lng: p.lng }));
+
+            const deduped = waypoints.filter(
+                (w, i, a) => i === 0 || w.lat !== a[i - 1].lat || w.lng !== a[i - 1].lng
+            );
+
+            if (deduped.length >= 2) {
+                await drawItineraryFromWaypoints(deduped, myGen);
+            }
+
+            if (myGen !== routeGeneration) return;
+
+            if (legendBody) {
+                legendBody.replaceChildren();
+                if (durationCapped && openAfterTimeOrder > countAfterDurationCap) {
+                    const om = getOutingDurationMinutes();
+                    const w = document.createElement('p');
+                    w.className = 'map-legend-warn';
+                    w.textContent =
+                        'Showing ' +
+                        countAfterDurationCap +
+                        ' of ' +
+                        openAfterTimeOrder +
+                        ' open stops (outing ~' +
+                        om +
+                        ' min, ~' +
+                        MINUTES_BUDGET_PER_STOP +
+                        ' min per stop). Widen your outing times for more.';
+                    legendBody.appendChild(w);
+                }
+                if (truncated) {
+                    const warn = document.createElement('p');
+                    warn.className = 'map-legend-warn';
+                    warn.textContent =
+                        'Showing first ' +
+                        ordered.length +
+                        ' of ' +
+                        countBeforeOsrmCap +
+                        ' stops (routing limit).';
+                    legendBody.appendChild(warn);
+                }
+                let stopCounter = 0;
+                dayChunks.forEach((chunk, di) => {
+                    if (!chunk.length) return;
+                    const dayEl = document.createElement('div');
+                    dayEl.className = 'map-legend-day';
+                    const title = document.createElement('div');
+                    title.className = 'map-legend-day-title';
+                    title.textContent = 'Day ' + (di + 1);
+                    dayEl.appendChild(title);
+                    const ol = document.createElement('ol');
+                    ol.className = 'map-legend-stops';
+                    ol.setAttribute('start', String(stopCounter + 1));
+                    chunk.forEach((p) => {
+                        stopCounter += 1;
+                        const li = document.createElement('li');
+                        const name = document.createElement('span');
+                        name.textContent = p.name;
+                        li.appendChild(name);
+                        const times = document.createElement('span');
+                        times.className = 'map-legend-stop-time';
+                        times.textContent = formatPlaceHoursForLegend(p);
+                        li.appendChild(times);
+                        ol.appendChild(li);
+                    });
+                    dayEl.appendChild(ol);
+                    legendBody.appendChild(dayEl);
+                });
+                if (!legendBody.childNodes.length) {
+                    legendBody.textContent = '—';
+                }
+            }
+            legendEl.classList.remove('hidden');
+
+            const boundsPts = ordered.map((p) => [p.lat, p.lng]);
+            if (isGeoEnabled && lastGps) boundsPts.push([lastGps.lat, lastGps.lng]);
+            else if (deduped.length) boundsPts.push([deduped[0].lat, deduped[0].lng]);
+            if (boundsPts.length) {
+                map.fitBounds(boundsPts, { padding: [40, 40], maxZoom: 13, animate: true });
             }
         }
 
@@ -953,7 +1512,8 @@
         }
 
         function updateTripOverview() {
-            const list = getFilteredPlaces();
+            const openList = getFilteredPlaces();
+            const baseList = getSearchCategoryFiltered();
             const locEl = document.getElementById('ovLocation');
             const schedEl = document.getElementById('ovSchedule');
             const spanEl = document.getElementById('ovSpan');
@@ -978,34 +1538,87 @@
             const days = document.getElementById('numDays').value.trim();
             spanEl.textContent = days ? `${days} day(s)` : '—';
 
+            const orderedFull = orderPlacesForItinerary(openList.slice(), null, null);
+            const durCapOv = applyOutingDurationCap(orderedFull);
+            const ordered = durCapOv.list;
+            const nd = Math.max(1, parseInt(document.getElementById('numDays').value, 10) || 1);
             if (filtersApplied) {
-                mapEl.textContent = `${list.length} on map · ${categoryLabel()}`;
+                const om = getOutingDurationMinutes();
+                mapEl.textContent = durCapOv.capped
+                    ? `${ordered.length} planned stop(s) of ${openList.length} open (~${om} min outing) · ${nd} day(s) · ${categoryLabel()}`
+                    : `${ordered.length} open stop(s) · nearest-distance order · ${nd} day(s) · ${categoryLabel()}`;
+            } else if (baseList.length && openList.length !== baseList.length) {
+                mapEl.textContent = `${openList.length} open (of ${baseList.length} matches) · ${categoryLabel()} — tap Apply for map`;
             } else {
-                mapEl.textContent = `${list.length} match(es) · ${categoryLabel()} — tap Apply for map`;
+                mapEl.textContent = `${openList.length} open place(s) · ${categoryLabel()} — tap Apply for map + route`;
             }
 
             placeListEl.textContent = '';
-            if (list.length === 0) {
-                placeListEl.textContent = places.length
-                    ? 'No rows match search/category. Try All or clear search.'
-                    : 'Loading places…';
+            if (!places.length) {
+                placeListEl.textContent = 'Loading places…';
                 return;
             }
-            const ul = document.createElement('ul');
-            ul.className = 'ov-ul';
-            const max = 16;
-            list.slice(0, max).forEach(p => {
-                const li = document.createElement('li');
-                li.textContent = `${p.name} · ${p.category}`;
-                ul.appendChild(li);
-            });
-            if (list.length > max) {
-                const li = document.createElement('li');
-                li.className = 'ov-more';
-                li.textContent = `+ ${list.length - max} more in this filter…`;
-                ul.appendChild(li);
+            if (baseList.length === 0) {
+                placeListEl.textContent = 'No rows match search/category. Try All or clear search.';
+                return;
             }
-            placeListEl.appendChild(ul);
+            if (openList.length === 0) {
+                const msg = document.createElement('div');
+                msg.style.fontSize = '0.68rem';
+                msg.style.color = '#b45309';
+                msg.style.lineHeight = '1.4';
+                msg.style.marginTop = '6px';
+                msg.textContent =
+                    `${baseList.length} place(s) match your filter but none overlap your outing hours. Widen start–end times or change filter.`;
+                placeListEl.appendChild(msg);
+                return;
+            }
+            const chunks = splitIntoDays(ordered, nd);
+            const wrap = document.createElement('div');
+            wrap.className = 'ov-itin';
+            wrap.style.fontSize = '0.68rem';
+            wrap.style.lineHeight = '1.4';
+            wrap.style.marginTop = '6px';
+
+            const t1v = document.getElementById('tripStartTime').value;
+            const t2v = document.getElementById('tripEndTime').value;
+            const hint = document.createElement('div');
+            hint.style.opacity = '0.88';
+            hint.style.marginBottom = '6px';
+            hint.textContent = t1v && t2v
+                ? `Outing ${t1v} – ${t2v}: places must overlap a CSV timings slot. Visit list is nearest-distance among open stops, then limited to ~${MINUTES_BUDGET_PER_STOP} min per stop so short trips do not list every venue.`
+                : 'Set outing start and end. Filtering uses timings slots; list length scales with outing duration.';
+            wrap.appendChild(hint);
+
+            const perDayCap = 14;
+            let dayStartIndex = 0;
+            chunks.forEach((chunk, di) => {
+                if (!chunk.length) return;
+                const h = document.createElement('div');
+                h.style.fontWeight = '700';
+                h.style.marginTop = di ? '8px' : '0';
+                h.textContent = `Day ${di + 1} — ${chunk.length} stop(s)`;
+                wrap.appendChild(h);
+                const ul = document.createElement('ul');
+                ul.className = 'ov-ul';
+                ul.style.marginTop = '4px';
+                chunk.forEach((p, ci) => {
+                    if (ci >= perDayCap) return;
+                    const stopNum = dayStartIndex + ci + 1;
+                    const li = document.createElement('li');
+                    li.textContent = `${stopNum}. ${p.name} (${formatPlaceHoursForLegend(p)})`;
+                    ul.appendChild(li);
+                });
+                if (chunk.length > perDayCap) {
+                    const li = document.createElement('li');
+                    li.className = 'ov-more';
+                    li.textContent = `+ ${chunk.length - perDayCap} more this day…`;
+                    ul.appendChild(li);
+                }
+                dayStartIndex += chunk.length;
+                wrap.appendChild(ul);
+            });
+            placeListEl.appendChild(wrap);
         }
 
         function ensureMap() {
@@ -1020,20 +1633,33 @@
         function updateMapMarkers(list) {
             if (!map || !markerLayer) return;
             markerLayer.clearLayers();
-            if (list.length === 0) {
+            const orderedFull = orderPlacesForItinerary(list.slice(), null, null);
+            const ordered = applyOutingDurationCap(orderedFull).list;
+            if (ordered.length === 0) {
                 map.setView([13.65, 79.35], 10);
                 return;
             }
             const bounds = [];
-            list.forEach(p => {
-                const m = L.circleMarker([p.lat, p.lng], {
-                    radius: 7,
-                    fillColor: '#FF6B6B',
-                    color: '#fff',
-                    weight: 2,
-                    fillOpacity: 0.9
+            ordered.forEach((p, idx) => {
+                const orderNum = idx + 1;
+                const o = categoryPinStyle(p.categoryKey);
+                const m = L.marker([p.lat, p.lng], {
+                    icon: placeMarkerIconWithOrder(p.categoryKey, orderNum),
+                    zIndexOffset: 400 + idx
                 });
-                m.bindPopup(`<strong>${escapeHtml(p.name)}</strong><br><span style="font-size:11px">${escapeHtml(p.category)}</span><br><span style="font-size:11px">${escapeHtml(p.description).slice(0, 120)}${p.description.length > 120 ? '…' : ''}</span>`);
+                const popupHead =
+                    `<div style="text-align:center;margin-bottom:8px">` +
+                    `<span class="place-popup-icon" style="color:${o.fg}">${o.sym}</span></div>`;
+                m.bindPopup(
+                    popupHead +
+                    `<div style="font-size:11px;font-weight:700;color:#0f766e;margin-bottom:4px">Stop ${orderNum} · Open during your outing · nearest route</div>` +
+                    `<strong>${escapeHtml(p.name)}</strong><br>` +
+                    `<span style="font-size:11px;color:#64748b">${escapeHtml(p.category)} · ${escapeHtml(formatPlaceHoursForLegend(p))}</span><br>` +
+                    (p.timings
+                        ? `<span style="font-size:10px;color:#64748b">Slots: ${escapeHtml(p.timings).slice(0, 140)}${p.timings.length > 140 ? '…' : ''}</span><br>`
+                        : '') +
+                    `<span style="font-size:11px">${escapeHtml(p.description).slice(0, 120)}${p.description.length > 120 ? '…' : ''}</span>`
+                );
                 m.addTo(markerLayer);
                 bounds.push([p.lat, p.lng]);
             });
@@ -1081,6 +1707,22 @@
             if (filtersApplied) {
                 updateMapMarkers(getFilteredPlaces());
                 refreshRoutesToNearest();
+            }
+        });
+
+        ['tripStartTime', 'tripEndTime', 'tripDate', 'numDays'].forEach((id) => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const onTripField = () => {
+                updateTripOverview();
+                if (filtersApplied) {
+                    updateMapMarkers(getFilteredPlaces());
+                    scheduleRefreshRoutes();
+                }
+            };
+            el.addEventListener('change', onTripField);
+            if (id === 'tripStartTime' || id === 'tripEndTime') {
+                el.addEventListener('input', onTripField);
             }
         });
 
@@ -1135,7 +1777,7 @@
                 endTime: document.getElementById('tripEndTime').value,
                 date: document.getElementById('tripDate').value,
                 days: document.getElementById('numDays').value,
-                filteredPlaces: filtersApplied ? getFilteredPlaces().map(p => p.name) : []
+                filteredPlaces: getFilteredPlaces().map((p) => p.name)
             };
             console.log('Trip Details:', formData);
             successMessage.style.display = 'block';
@@ -1143,6 +1785,12 @@
         });
 
         document.getElementById('tripDate').value = new Date().toISOString().split('T')[0];
+        (function defaultOutingTimes() {
+            const ts = document.getElementById('tripStartTime');
+            const te = document.getElementById('tripEndTime');
+            if (ts && !ts.value) ts.value = '09:00';
+            if (te && !te.value) te.value = '21:00';
+        })();
 
         tripForm.addEventListener('input', () => updateTripOverview());
         tripForm.addEventListener('change', () => updateTripOverview());
