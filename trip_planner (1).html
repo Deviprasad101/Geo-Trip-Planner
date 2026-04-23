@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Plan Your Adventure - Trip Planner</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&amp;display=swap" rel="stylesheet">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <style>
@@ -15,12 +16,21 @@
         }
 
         :root {
-            --primary: #FF6B6B;
-            --secondary: #4ECDC4;
-            --dark: #2C3E50;
-            --light: #F8F9FA;
-            --gradient-1: linear-gradient(135deg, #FF6B6B 0%, #FFE66D 100%);
-            --gradient-3: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%);
+            --gov-navy: #0f2940;
+            --gov-navy-mid: #1e3a5f;
+            --gov-blue: #1d4ed8;
+            --gov-blue-hover: #1e40af;
+            --gov-text: #0f172a;
+            --gov-text-muted: #475569;
+            --gov-border: #cbd5e1;
+            --gov-surface: #ffffff;
+            --gov-surface-2: #f1f5f9;
+            --gov-focus: #2563eb;
+            /* legacy names used in map / pins */
+            --primary: #1d4ed8;
+            --secondary: #1d4ed8;
+            --dark: #0f172a;
+            --light: #f8fafc;
         }
 
         html, body {
@@ -29,9 +39,10 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(145deg, #ffeef2 0%, #e8f8f6 40%, #f0ebff 100%);
-            color: var(--dark);
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            background: #e2e8f0;
+            color: var(--gov-text);
         }
 
         .app {
@@ -44,150 +55,388 @@
             overflow: hidden;
         }
 
+        /* Tirupati Beautiful (tirupati_beautiful) sidebar palette — scoped so map/legend stay unchanged */
         .sidebar {
-            width: min(380px, 38vw);
-            min-width: 260px;
+            --sb-on-surface: #1a1c1e;
+            --sb-on-surface-variant: #4d4635;
+            --sb-muted: #64748b;
+            --sb-bg: rgba(253, 252, 249, 0.96);
+            --sb-bg-page: #f9f9fc;
+            --sb-border-amber: rgba(245, 158, 11, 0.2);
+            --sb-outline-variant: #d0c5af;
+            --sb-primary: #735c00;
+            --sb-primary-container: #d4af37;
+            --sb-on-primary-container: #554300;
+            --sb-secondary: #8f4e00;
+            --sb-secondary-hover: #7a4300;
+            --sb-on-secondary: #ffffff;
+            --sb-amber-50: #fffbeb;
+            --sb-amber-200: #fde68a;
+            --sb-amber-600: #d97706;
+            --sb-amber-700: #b45309;
+            --sb-surface: #ffffff;
+            --sb-surface-low: #f3f3f6;
+
+            /* Map existing sidebar rules to this palette (same names as :root) */
+            --gov-navy: #0f172a;
+            --gov-navy-mid: #554300;
+            --gov-blue: #8f4e00;
+            --gov-blue-hover: #7a4300;
+            --gov-text: #1a1c1e;
+            --gov-text-muted: #64748b;
+            --gov-border: rgba(208, 197, 175, 0.95);
+            --gov-surface: #ffffff;
+            --gov-surface-2: #f3f3f6;
+            --gov-focus: #d4af37;
+
+            width: min(400px, 40vw);
+            min-width: 280px;
             flex-shrink: 0;
             display: flex;
             flex-direction: column;
-            background: #fff;
-            border-right: 1px solid #e2e8f0;
-            box-shadow: 4px 0 24px rgba(0, 0, 0, 0.06);
+            background: var(--sb-bg);
+            border-right: 1px solid var(--sb-border-amber);
+            box-shadow: 2px 0 16px rgba(115, 92, 0, 0.08);
             min-height: 0;
+            color: var(--sb-on-surface);
         }
 
         .sidebar-top {
             flex-shrink: 0;
-            background: var(--gradient-3);
-            padding: 10px 12px;
-            color: #fff;
-            text-align: center;
+            background: linear-gradient(180deg, #fdfcf9 0%, var(--sb-bg-page) 100%);
+            padding: 14px 16px;
+            color: var(--sb-on-surface);
+            text-align: left;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.12);
         }
 
         .sidebar-top h1 {
-            font-size: 1.05rem;
+            font-size: 1.125rem;
             font-weight: 700;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.3;
+            color: #0f172a;
+        }
+
+        .sidebar-top h1 .header-icon.material-symbols-outlined {
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--sb-amber-700);
         }
 
         .sidebar-top p {
-            font-size: 0.7rem;
-            opacity: 0.95;
-            margin-top: 2px;
+            font-size: 0.875rem;
+            color: var(--sb-muted);
+            margin-top: 6px;
+            line-height: 1.45;
+            font-weight: 400;
         }
 
         .btn-back {
-            display: block;
-            margin: 8px 10px 0;
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--dark);
-            background: #eef1f4;
-            border: 1px solid #dde3ea;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 12px 0;
+            padding: 10px 14px;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--sb-amber-700);
+            background: var(--sb-amber-50);
+            border: 1px solid var(--sb-amber-200);
             text-decoration: none;
             text-align: center;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, opacity 0.15s ease;
         }
 
         .btn-back:hover {
-            background: #e2e8f0;
+            background: #fff7ed;
+            border-color: var(--sb-amber-600);
+            color: #92400e;
+            opacity: 0.95;
+        }
+
+        .btn-back:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
         }
 
         .sidebar-scroll {
             flex: 1;
             min-height: 0;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-            padding: 6px 8px 8px;
-            gap: 6px;
+            padding: 12px 12px 14px;
+            gap: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #94a3b8 #e2e8f0;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 4px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+
+        .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        .sidebar .sidebar-scroll {
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+
+        .sidebar .sidebar-scroll::-webkit-scrollbar-track {
+            background: #f3f3f6;
+        }
+
+        .sidebar .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: rgba(143, 78, 0, 0.35);
+        }
+
+        .sidebar .sidebar-scroll::-webkit-scrollbar-thumb:hover {
+            background: rgba(143, 78, 0, 0.5);
+        }
+
+        .sidebar .panel.trip-form-scroll {
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+
+        .sidebar .panel.trip-form-scroll::-webkit-scrollbar-thumb {
+            background: rgba(143, 78, 0, 0.35);
+        }
+
+        .sidebar .trip-overview-list {
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+
+        .sidebar .trip-overview-list::-webkit-scrollbar-thumb {
+            background: rgba(143, 78, 0, 0.35);
         }
 
         .panel {
-            border: 1px solid #e8ecf0;
-            border-radius: 10px;
-            padding: 8px;
-            background: #fafbfc;
+            border: 1px solid var(--gov-border);
+            border-radius: 8px;
+            padding: 14px 14px 16px;
+            background: var(--gov-surface);
+        }
+
+        .sidebar .panel {
+            border-color: rgba(212, 175, 55, 0.22);
+            box-shadow: 0 1px 0 rgba(115, 92, 0, 0.04);
         }
 
         .sidebar-scroll > .panel:not(.trip-form-scroll) {
             flex: 0 0 auto;
         }
 
-        .panel h2 {
-            font-size: 0.72rem;
+        .panel h2,
+        .sidebar-details > summary {
+            font-size: 0.8125rem;
             text-transform: uppercase;
-            letter-spacing: 0.04em;
-            color: #64748b;
-            margin-bottom: 6px;
+            letter-spacing: 0.06em;
+            color: var(--gov-navy-mid);
+            margin: 0 0 12px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .panel h2 .sec-icon.material-symbols-outlined,
+        .sidebar-details > summary .sec-icon.material-symbols-outlined {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--gov-blue);
+        }
+
+        .sidebar .panel h2 .sec-icon.material-symbols-outlined,
+        .sidebar .sidebar-details > summary .sec-icon.material-symbols-outlined {
+            color: #d4af37;
+        }
+
+        .sidebar-details {
+            border: 0;
+            padding: 0;
+            margin: 0;
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-details > summary {
+            list-style: none;
+            cursor: pointer;
+            user-select: none;
+            padding: 4px 0;
+            margin-bottom: 0;
+        }
+
+        .sidebar-details > summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .sidebar-details > summary::after {
+            content: 'expand_more';
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-weight: 400;
+            margin-left: auto;
+            font-size: 1.35rem;
+            line-height: 1;
+            color: var(--gov-text-muted);
+            transition: transform 0.2s ease;
+        }
+
+        .sidebar-details[open] > summary::after {
+            transform: rotate(180deg);
+        }
+
+        .sidebar-details-body {
+            padding-top: 4px;
         }
 
         .filter-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 4px;
-            margin-bottom: 6px;
+            gap: 8px;
+            margin-bottom: 12px;
         }
 
         .chip {
-            border: 1px solid #cbd5e1;
-            background: #fff;
-            color: var(--dark);
-            padding: 4px 8px;
-            border-radius: 999px;
-            font-size: 0.68rem;
+            border: 1px solid var(--gov-border);
+            background: var(--gov-surface);
+            color: var(--gov-text);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
             font-family: inherit;
+            min-height: 40px;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
         .chip:hover {
-            border-color: var(--secondary);
+            border-color: var(--gov-blue);
+            background: #eff6ff;
+        }
+
+        .chip:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
         }
 
         .chip.active {
-            background: var(--secondary);
-            border-color: var(--secondary);
+            background: var(--gov-navy);
+            border-color: var(--gov-navy);
             color: #fff;
+        }
+
+        .sidebar .chip:hover {
+            border-color: rgba(245, 158, 11, 0.45);
+            background: rgba(255, 251, 235, 0.55);
+        }
+
+        .sidebar .chip.active {
+            background: rgba(255, 251, 235, 0.95);
+            border-color: #d97706;
+            color: #b45309;
         }
 
         .search-input {
             width: 100%;
-            padding: 6px 8px;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 0.78rem;
-            margin-bottom: 6px;
+            padding: 10px 12px;
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            margin-bottom: 12px;
+            font-family: inherit;
+            color: var(--gov-text);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gov-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        .sidebar .search-input:focus {
+            border-color: rgba(143, 78, 0, 0.55);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
         }
 
         .btn-apply {
             width: 100%;
-            padding: 8px;
+            padding: 12px 14px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.78rem;
+            border-radius: 6px;
+            font-size: 0.9375rem;
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
-            background: var(--gradient-1);
+            background: var(--gov-blue);
             color: #fff;
+            min-height: 44px;
+            transition: background 0.15s ease, box-shadow 0.15s ease;
         }
 
         .btn-apply:hover {
-            opacity: 0.95;
+            background: var(--gov-blue-hover);
+        }
+
+        .btn-apply:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
         }
 
         .panel.trip-form-scroll {
             flex: 1 1 0;
             min-height: 0;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: #94a3b8 #e2e8f0;
         }
 
-        .panel.trip-form-scroll > h2 {
-            flex-shrink: 0;
+        .panel.trip-form-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .panel.trip-form-scroll::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+
+        .panel:not(.trip-form-scroll) .sidebar-details {
+            flex: none;
+        }
+
+        .panel.trip-form-scroll > .sidebar-details > summary {
+            margin-bottom: 0;
+        }
+
+        .panel.trip-form-scroll .sidebar-details-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
         }
 
         .panel.trip-form-scroll #tripForm {
@@ -199,141 +448,259 @@
         }
 
         .form-compact .fg {
-            margin-bottom: 6px;
+            margin-bottom: 12px;
         }
 
         .form-compact label {
             display: block;
-            font-size: 0.68rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            margin-bottom: 2px;
-            color: #475569;
+            margin-bottom: 4px;
+            color: var(--gov-text);
         }
 
         .form-compact input {
             width: 100%;
-            padding: 5px 8px;
-            border: 1px solid #e0e0e0;
+            padding: 10px 12px;
+            border: 1px solid var(--gov-border);
             border-radius: 6px;
-            font-size: 0.75rem;
-            background: #fff;
+            font-size: 0.9375rem;
+            background: var(--gov-surface);
+            color: var(--gov-text);
+            font-family: inherit;
+            min-height: 42px;
+        }
+
+        .form-compact input:focus {
+            outline: none;
+            border-color: var(--gov-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+
+        .sidebar .form-compact input:focus {
+            border-color: rgba(143, 78, 0, 0.55);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
         }
 
         .form-compact .row2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6px;
+            gap: 10px;
         }
 
         .time-filter-hint {
-            font-size: 0.62rem;
-            color: #64748b;
-            margin: -2px 0 6px;
-            line-height: 1.35;
+            font-size: 0.8125rem;
+            color: var(--gov-text-muted);
+            margin: 0 0 12px;
+            line-height: 1.5;
         }
 
         .form-fields-block {
             flex-shrink: 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--gov-border);
+            margin-bottom: 12px;
         }
 
         .trip-overview {
             flex: 1;
-            min-height: 72px;
-            margin-top: 4px;
-            padding: 8px;
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
+            min-height: 120px;
+            margin-top: 0;
+            padding: 14px;
+            background: var(--gov-surface-2);
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
+        .sidebar .trip-overview {
+            background: rgba(249, 249, 252, 0.98);
+            border-color: rgba(212, 175, 55, 0.22);
+        }
+
         .trip-overview-title {
-            font-size: 0.62rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.07em;
-            color: #64748b;
+            letter-spacing: 0.08em;
+            color: var(--gov-navy-mid);
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gov-border);
+        }
+
+        .trip-overview-divider {
+            height: 1px;
+            background: var(--gov-border);
+            margin: 4px 0 12px;
+            flex-shrink: 0;
+        }
+
+        .trip-overview-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gov-navy-mid);
+            font-weight: 700;
+            margin: 0 0 8px;
             flex-shrink: 0;
         }
 
         .trip-overview-grid {
             display: grid;
-            grid-template-columns: minmax(4.5rem, auto) 1fr;
-            gap: 4px 8px;
-            font-size: 0.7rem;
+            grid-template-columns: minmax(5.5rem, auto) 1fr;
+            gap: 8px 12px;
+            font-size: 0.875rem;
             flex-shrink: 0;
+            line-height: 1.45;
         }
 
         .trip-overview-grid dt {
-            color: #94a3b8;
+            color: var(--gov-text-muted);
             font-weight: 600;
         }
 
         .trip-overview-grid dd {
-            color: #1e293b;
+            color: var(--gov-text);
             word-break: break-word;
             margin: 0;
+            font-weight: 500;
         }
 
         .trip-overview-list {
             flex: 1;
-            min-height: 0;
+            min-height: 100px;
+            max-height: min(320px, 42vh);
             overflow-y: auto;
-            margin-top: 6px;
-            padding-top: 6px;
-            border-top: 1px solid #e8ecf0;
-            font-size: 0.66rem;
-            color: #475569;
-            line-height: 1.4;
+            overflow-x: hidden;
+            margin-top: 0;
+            padding: 10px 8px 10px 4px;
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
+            background: var(--gov-surface);
+            font-size: 0.9375rem;
+            color: var(--gov-text);
+            line-height: 1.5;
+            scrollbar-width: thin;
+            scrollbar-color: #94a3b8 #e2e8f0;
+        }
+
+        .trip-overview-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .trip-overview-list::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 4px;
+        }
+
+        .trip-overview-list:empty::before {
+            content: 'Set outing times and filters, then tap “Apply filters & show map” to see visit order.';
+            display: block;
+            color: var(--gov-text-muted);
+            font-size: 0.875rem;
+            line-height: 1.45;
+            padding: 4px 2px 0;
+        }
+
+        .ov-itin {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--gov-text);
+        }
+
+        .ov-hint {
+            opacity: 1;
+            color: var(--gov-text-muted);
+            margin-bottom: 12px;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+        }
+
+        .ov-day-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--gov-navy-mid);
+            margin-top: 10px;
+        }
+
+        .ov-day-title:first-child {
+            margin-top: 0;
+        }
+
+        .ov-msg {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        .ov-msg--warn {
+            color: #9a3412;
+            background: #fff7ed;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #fdba74;
         }
 
         .ov-ul {
-            margin: 0;
-            padding-left: 1.05em;
+            margin: 6px 0 0;
+            padding-left: 1.25em;
         }
 
         .ov-ul li {
-            margin-bottom: 3px;
+            margin-bottom: 8px;
         }
 
         .ov-more {
             list-style: none;
             margin-left: -1em;
-            color: #64748b;
+            color: var(--gov-text-muted);
             font-style: italic;
+            font-size: 0.875rem;
         }
 
         .toggle-row {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.72rem;
+            gap: 10px;
+            font-size: 0.9375rem;
             font-weight: 600;
-            margin-bottom: 4px;
+            color: var(--gov-text);
+            margin-bottom: 6px;
+        }
+
+        .toggle-row .row-icon.material-symbols-outlined {
+            font-size: 1.25rem;
+            color: var(--gov-blue);
         }
 
         .toggle-switch {
-            width: 44px;
-            height: 24px;
-            background: #ccc;
-            border-radius: 12px;
+            width: 48px;
+            height: 26px;
+            background: #cbd5e1;
+            border-radius: 13px;
             cursor: pointer;
             position: relative;
             flex-shrink: 0;
+            transition: background 0.2s ease;
+        }
+
+        .toggle-switch:hover {
+            background: #94a3b8;
         }
 
         .toggle-switch.active {
-            background: var(--secondary);
+            background: var(--gov-blue);
         }
 
         .toggle-switch::after {
             content: '';
             position: absolute;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             background: #fff;
             border-radius: 50%;
             top: 2px;
@@ -343,21 +710,24 @@
         }
 
         .toggle-switch.active::after {
-            left: 22px;
+            left: 24px;
         }
 
         .gps-line {
-            font-size: 0.65rem;
-            color: #856404;
-            background: #fff8e6;
-            padding: 4px 6px;
+            font-size: 0.8125rem;
+            color: #7c2d12;
+            background: #fff7ed;
+            padding: 8px 10px;
             border-radius: 6px;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
+            border: 1px solid #fed7aa;
+            line-height: 1.45;
         }
 
         .gps-line.on {
-            color: #155724;
-            background: #e8f5e9;
+            color: #14532d;
+            background: #f0fdf4;
+            border-color: #86efac;
         }
 
         .hidden {
@@ -366,41 +736,66 @@
 
         .btn-row {
             display: flex;
-            gap: 6px;
-            margin-top: 8px;
-            padding-top: 6px;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--gov-border);
             flex-shrink: 0;
         }
 
         .btn-row button {
             flex: 1;
-            padding: 7px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.72rem;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 0.9375rem;
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
+            min-height: 44px;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
         }
 
         .btn-submit {
-            background: var(--gradient-1);
+            background: var(--gov-blue);
             color: #fff;
+            border: 1px solid var(--gov-blue);
+        }
+
+        .btn-submit:hover {
+            background: var(--gov-blue-hover);
+            border-color: var(--gov-blue-hover);
+        }
+
+        .btn-submit:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
         }
 
         .btn-reset {
-            background: #e2e8f0;
-            color: var(--dark);
+            background: var(--gov-surface);
+            color: var(--gov-navy-mid);
+            border: 1px solid var(--gov-border);
+        }
+
+        .btn-reset:hover {
+            background: var(--gov-surface-2);
+            border-color: #94a3b8;
+        }
+
+        .btn-reset:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
         }
 
         .success-message {
             display: none;
-            font-size: 0.7rem;
-            padding: 6px;
-            margin-top: 8px;
+            font-size: 0.875rem;
+            padding: 10px 12px;
+            margin-top: 12px;
             border-radius: 6px;
-            background: linear-gradient(135deg, #84fab0, #8fd3f4);
-            color: #fff;
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #14532d;
             text-align: center;
             font-weight: 600;
             flex-shrink: 0;
@@ -434,14 +829,14 @@
         }
 
         .map-overlay p {
-            font-size: 0.9rem;
-            color: #64748b;
-            max-width: 280px;
-            line-height: 1.45;
+            font-size: 0.9375rem;
+            color: var(--gov-text-muted);
+            max-width: 320px;
+            line-height: 1.55;
         }
 
         .map-overlay strong {
-            color: var(--dark);
+            color: var(--gov-text);
         }
 
         .map-overlay.hidden {
@@ -454,21 +849,21 @@
 
         .map-legend {
             position: absolute;
-            z-index: 1000;
+            z-index: 1200;
             left: 10px;
             bottom: 28px;
             display: flex;
             flex-direction: column;
-            max-width: min(280px, calc(100vw - 24px));
+            max-width: min(300px, calc(100vw - 24px));
             max-height: min(320px, 42vh);
-            background: rgba(255, 255, 255, 0.97);
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 10px 10px 8px;
-            font-size: 0.68rem;
-            line-height: 1.4;
-            color: #334155;
-            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
+            background: rgba(255, 255, 255, 0.98);
+            border: 1px solid var(--gov-border);
+            border-radius: 8px;
+            padding: 12px 12px 10px;
+            font-size: 0.8125rem;
+            line-height: 1.45;
+            color: var(--gov-text);
+            box-shadow: 0 6px 20px rgba(15, 41, 64, 0.1);
             pointer-events: auto;
             backdrop-filter: blur(6px);
         }
@@ -479,12 +874,12 @@
 
         .map-legend-heading {
             display: block;
-            font-size: 0.72rem;
+            font-size: 0.8125rem;
             font-weight: 700;
-            color: #0f172a;
-            padding-bottom: 6px;
+            color: var(--gov-navy);
+            padding-bottom: 8px;
             margin-bottom: 2px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid var(--gov-border);
             flex-shrink: 0;
         }
 
@@ -501,10 +896,10 @@
         }
 
         .map-legend-warn {
-            font-size: 0.62rem;
-            color: #b45309;
+            font-size: 0.8125rem;
+            color: #9a3412;
             margin-bottom: 8px;
-            line-height: 1.35;
+            line-height: 1.45;
         }
 
         .map-legend-day {
@@ -516,10 +911,10 @@
         }
 
         .map-legend-day-title {
-            font-size: 0.66rem;
+            font-size: 0.8125rem;
             font-weight: 700;
-            color: #0f766e;
-            margin-bottom: 4px;
+            color: var(--gov-navy-mid);
+            margin-bottom: 6px;
             letter-spacing: 0.02em;
         }
 
@@ -537,10 +932,10 @@
 
         .map-legend-stop-time {
             display: block;
-            font-size: 0.6rem;
-            color: #64748b;
+            font-size: 0.75rem;
+            color: var(--gov-text-muted);
             font-weight: 500;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         @media (max-width: 720px) {
@@ -634,20 +1029,25 @@
             .sidebar {
                 width: 100%;
                 min-width: unset;
-                height: 48%;
-                max-height: 48%;
+                height: 50%;
+                max-height: 50%;
             }
 
             .sidebar-scroll {
                 overflow-y: auto;
+                padding: 10px 10px 12px;
             }
 
             .trip-form-scroll {
-                overflow-y: auto;
+                overflow-y: visible;
+            }
+
+            .trip-overview-list {
+                max-height: min(200px, 28vh);
             }
 
             .map-pane {
-                height: 52%;
+                height: 50%;
                 flex: none;
             }
         }
@@ -655,33 +1055,40 @@
 </head>
 <body>
     <div class="app">
-        <aside class="sidebar">
+        <aside class="sidebar" aria-label="Trip planning controls">
             <div class="sidebar-top">
-                <h1>✈️ Plan Your Trip</h1>
-                <p>Filters + map · Tirupati places</p>
+                <h1><span class="header-icon material-symbols-outlined" aria-hidden="true">map</span> Plan your trip</h1>
+                <p>Trip planning workspace · Tirupati places dataset</p>
             </div>
             <a class="btn-back" href="tirupati_beautiful%20(1).html">← Back to Tirupati Tourism</a>
             <div class="sidebar-scroll">
                 <div class="panel">
-                    <h2>Place filters</h2>
-                    <div class="filter-row" id="categoryChips">
-                        <button type="button" class="chip active" data-cat="all">All</button>
-                        <button type="button" class="chip" data-cat="food">Food</button>
-                        <button type="button" class="chip" data-cat="adventure">Adventure</button>
-                        <button type="button" class="chip" data-cat="temple">Temple</button>
-                        <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
-                    </div>
-                    <input type="text" class="search-input" id="placeSearch" placeholder="Search name or description…" autocomplete="off">
-                    <button type="button" class="btn-apply" id="applyFilters">Apply filters &amp; show map</button>
+                    <details class="sidebar-details" open>
+                        <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">tune</span> Map &amp; data filters</summary>
+                        <div class="sidebar-details-body">
+                            <div class="filter-row" id="categoryChips">
+                                <button type="button" class="chip active" data-cat="all">All</button>
+                                <button type="button" class="chip" data-cat="food">Food</button>
+                                <button type="button" class="chip" data-cat="adventure">Adventure</button>
+                                <button type="button" class="chip" data-cat="temple">Temple</button>
+                                <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
+                            </div>
+                            <input type="text" class="search-input" id="placeSearch" placeholder="Search name or description…" autocomplete="off">
+                            <button type="button" class="btn-apply" id="applyFilters">Apply filters &amp; show map</button>
+                        </div>
+                    </details>
                 </div>
 
                 <div class="panel trip-form-scroll">
-                    <h2>Trip details</h2>
+                    <details class="sidebar-details" open>
+                        <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">schedule</span> Trip details &amp; live summary</summary>
+                        <div class="sidebar-details-body">
                     <form id="tripForm" class="form-compact">
                         <div class="form-fields-block">
                             <div class="fg">
                                 <div class="toggle-row">
-                                    <span>📍 GPS</span>
+                                    <span class="row-icon material-symbols-outlined" aria-hidden="true">my_location</span>
+                                    <span>Use GPS location</span>
                                     <div class="toggle-switch" id="geoToggle" role="button" tabindex="0" aria-label="Toggle GPS"></div>
                                 </div>
                                 <div class="gps-line" id="gpsStatus">GPS off — enter location below</div>
@@ -716,8 +1123,8 @@
                             </div>
                         </div>
                         <div class="trip-overview" id="tripOverview" aria-live="polite">
-                            <div class="trip-overview-title">Live summary</div>
-                            <dl class="trip-overview-grid">
+                            <div class="trip-overview-title" id="ovLiveSummaryHeading">Live summary</div>
+                            <dl class="trip-overview-grid" aria-labelledby="ovLiveSummaryHeading">
                                 <dt>Start</dt>
                                 <dd id="ovLocation">—</dd>
                                 <dt>Day plan</dt>
@@ -727,23 +1134,27 @@
                                 <dt>Places</dt>
                                 <dd id="ovMap">—</dd>
                             </dl>
-                            <div class="trip-overview-list" id="ovPlaceList"></div>
+                            <div class="trip-overview-divider" aria-hidden="true"></div>
+                            <div class="trip-overview-subtitle" id="ovVisitOrderHeading">Visit order</div>
+                            <div class="trip-overview-list" id="ovPlaceList" role="region" aria-labelledby="ovVisitOrderHeading"></div>
                         </div>
                         <div class="btn-row">
                             <button type="submit" class="btn-submit">Plan</button>
                             <button type="reset" class="btn-reset">Clear</button>
                         </div>
-                        <div class="success-message" id="successMessage">✓ Trip saved (check console)</div>
+                        <div class="success-message" id="successMessage">Trip saved (see browser console for details)</div>
                     </form>
+                        </div>
+                    </details>
                 </div>
             </div>
         </aside>
 
         <main class="map-pane">
             <div id="map"></div>
-            <div class="map-legend hidden" id="mapLegend">
+            <div class="map-legend hidden" id="mapLegend" role="region" aria-label="Visit order on map">
                 <strong class="map-legend-heading">Visit order</strong>
-                <div class="map-legend-body" id="mapLegendBody">Itinerary loads after you apply filters.</div>
+                <div class="map-legend-body" id="mapLegendBody">Apply filters to show the map and road visit order.</div>
             </div>
             <div class="map-overlay" id="mapOverlay">
                 <p><strong>Map is hidden</strong> until you apply filters. Set <strong>outing start/end</strong> (only open places show), choose category/search, then tap <strong>Apply filters &amp; show map</strong>.</p>
@@ -769,6 +1180,10 @@
         let routeGeneration = 0;
         let gpsRouteTimer = null;
         let geocodeDebounce = null;
+        // Cached road-optimized stop order (from OSRM Trip).
+        // Shared between the route polyline, map markers and the sidebar visit list
+        // so they all reflect the same shortest-road sequence.
+        let lastOptimizedOrder = null;
 
         const iconGps = L.divIcon({
             className: 'user-marker-gps',
@@ -1050,9 +1465,38 @@
             return out;
         }
 
+        /** Stable key for a place so cached orderings survive re-filters. */
+        function placeKey(p) {
+            return `${p.name}@${p.lat.toFixed(5)},${p.lng.toFixed(5)}`;
+        }
+
+        /** Signature of a set of stops (order-independent) used to match the cached road-optimized order. */
+        function stopSetSignature(list) {
+            return list.map(placeKey).sort().join('|');
+        }
+
         /** Visit order: greedy nearest-neighbor on the (already time-filtered) list from user start if known. */
         function orderPlacesForItinerary(list, startLat, startLng) {
             return orderNearestWithinGroup(list.slice(), startLat, startLng);
+        }
+
+        /**
+         * If we have a cached road-optimized order (from OSRM Trip) that covers exactly
+         * the same stop set as `list`, replace the ordering with it. Otherwise return `list`
+         * unchanged. This lets the sidebar visit list and numbered markers render the same
+         * road-optimal sequence as the drawn polyline.
+         */
+        function applyCachedRoadOrder(list) {
+            if (!lastOptimizedOrder || list.length !== lastOptimizedOrder.ordered.length) return list;
+            if (stopSetSignature(list) !== lastOptimizedOrder.signature) return list;
+            const byKey = new Map(list.map((p) => [placeKey(p), p]));
+            const rebuilt = [];
+            for (const ref of lastOptimizedOrder.ordered) {
+                const m = byKey.get(placeKey(ref));
+                if (!m) return list;
+                rebuilt.push(m);
+            }
+            return rebuilt;
         }
 
         /** Split ordered stops across numDays (balanced counts). */
@@ -1075,6 +1519,36 @@
         }
 
         const OSRM_MAX_WAYPOINTS = 90;
+        const OSRM_TRIP_MAX = 25;
+        const OSRM_TRIP_BASE = 'https://router.project-osrm.org/trip/v1/driving';
+
+        /**
+         * Reorder points along a road-optimal sequence using OSRM Trip service.
+         * Keeps the first point (user start) fixed at index 0.
+         * Returns an array of original indices in the visit order, or null on failure.
+         */
+        async function fetchOsrmTripOrder(points, stableGen) {
+            if (!points || points.length < 3 || points.length > OSRM_TRIP_MAX) return null;
+            const path = points.map((p) => `${p.lng},${p.lat}`).join(';');
+            try {
+                const url = `${OSRM_TRIP_BASE}/${path}?source=first&roundtrip=true&overview=false`;
+                const r = await fetch(url);
+                if (!r.ok) return null;
+                const j = await r.json();
+                if (stableGen !== routeGeneration) return null;
+                if (j.code !== 'Ok' || !Array.isArray(j.waypoints)) return null;
+                const pairs = [];
+                for (let i = 0; i < j.waypoints.length; i++) {
+                    const wi = j.waypoints[i].waypoint_index;
+                    if (typeof wi !== 'number') return null;
+                    pairs.push({ inputIdx: i, visitIdx: wi });
+                }
+                pairs.sort((a, b) => a.visitIdx - b.visitIdx);
+                return pairs.map((x) => x.inputIdx);
+            } catch {
+                return null;
+            }
+        }
 
         async function fetchRoadRouteMulti(points, stableGen) {
             if (!points || points.length < 2) return null;
@@ -1313,6 +1787,7 @@
         async function refreshRoutesToNearest() {
             if (!map || !filtersApplied) return;
             const myGen = ++routeGeneration;
+            lastOptimizedOrder = null;
             ensureRouteLayers();
             routeLayerGroup.clearLayers();
             userLayerGroup.clearLayers();
@@ -1371,6 +1846,42 @@
             if (ordered.length > OSRM_MAX_WAYPOINTS - 5) {
                 truncated = true;
                 ordered = ordered.slice(0, OSRM_MAX_WAYPOINTS - 5);
+            }
+
+            // Road-optimal reorder using OSRM Trip service (TSP on driving network).
+            // Keeps the user's start point first and reorders stops so the drawn route
+            // actually follows the shortest road path through them, not a long zig-zag.
+            let roadOptimized = false;
+            if (ordered.length >= 2) {
+                const tripPts = [];
+                const hasStart = startLat != null && startLng != null && !isNaN(startLat) && !isNaN(startLng);
+                if (hasStart) tripPts.push({ lat: startLat, lng: startLng });
+                ordered.forEach((p) => tripPts.push({ lat: p.lat, lng: p.lng }));
+                if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX) {
+                    const newOrder = await fetchOsrmTripOrder(tripPts, myGen);
+                    if (myGen !== routeGeneration) return;
+                    if (newOrder && newOrder.length === tripPts.length) {
+                        const stopOffset = hasStart ? 1 : 0;
+                        const stopOrder = newOrder.filter((idx) => idx >= stopOffset);
+                        if (stopOrder.length === ordered.length) {
+                            ordered = stopOrder.map((idx) => ordered[idx - stopOffset]);
+                            roadOptimized = true;
+                        }
+                    }
+                }
+            }
+
+            // Cache and broadcast the road-optimized order so the sidebar visit list
+            // and the numbered markers render the same sequence as the drawn route.
+            if (roadOptimized) {
+                lastOptimizedOrder = {
+                    signature: stopSetSignature(ordered),
+                    ordered: ordered.slice()
+                };
+                updateTripOverview();
+                updateMapMarkers(getFilteredPlaces());
+            } else {
+                lastOptimizedOrder = null;
             }
 
             const numDaysEl = document.getElementById('numDays');
@@ -1540,7 +2051,7 @@
 
             const orderedFull = orderPlacesForItinerary(openList.slice(), null, null);
             const durCapOv = applyOutingDurationCap(orderedFull);
-            const ordered = durCapOv.list;
+            const ordered = applyCachedRoadOrder(durCapOv.list);
             const nd = Math.max(1, parseInt(document.getElementById('numDays').value, 10) || 1);
             if (filtersApplied) {
                 const om = getOutingDurationMinutes();
@@ -1564,10 +2075,7 @@
             }
             if (openList.length === 0) {
                 const msg = document.createElement('div');
-                msg.style.fontSize = '0.68rem';
-                msg.style.color = '#b45309';
-                msg.style.lineHeight = '1.4';
-                msg.style.marginTop = '6px';
+                msg.className = 'ov-msg ov-msg--warn';
                 msg.textContent =
                     `${baseList.length} place(s) match your filter but none overlap your outing hours. Widen start–end times or change filter.`;
                 placeListEl.appendChild(msg);
@@ -1576,15 +2084,11 @@
             const chunks = splitIntoDays(ordered, nd);
             const wrap = document.createElement('div');
             wrap.className = 'ov-itin';
-            wrap.style.fontSize = '0.68rem';
-            wrap.style.lineHeight = '1.4';
-            wrap.style.marginTop = '6px';
 
             const t1v = document.getElementById('tripStartTime').value;
             const t2v = document.getElementById('tripEndTime').value;
             const hint = document.createElement('div');
-            hint.style.opacity = '0.88';
-            hint.style.marginBottom = '6px';
+            hint.className = 'ov-hint';
             hint.textContent = t1v && t2v
                 ? `Outing ${t1v} – ${t2v}: places must overlap a CSV timings slot. Visit list is nearest-distance among open stops, then limited to ~${MINUTES_BUDGET_PER_STOP} min per stop so short trips do not list every venue.`
                 : 'Set outing start and end. Filtering uses timings slots; list length scales with outing duration.';
@@ -1595,13 +2099,11 @@
             chunks.forEach((chunk, di) => {
                 if (!chunk.length) return;
                 const h = document.createElement('div');
-                h.style.fontWeight = '700';
-                h.style.marginTop = di ? '8px' : '0';
+                h.className = 'ov-day-title';
                 h.textContent = `Day ${di + 1} — ${chunk.length} stop(s)`;
                 wrap.appendChild(h);
                 const ul = document.createElement('ul');
                 ul.className = 'ov-ul';
-                ul.style.marginTop = '4px';
                 chunk.forEach((p, ci) => {
                     if (ci >= perDayCap) return;
                     const stopNum = dayStartIndex + ci + 1;
@@ -1634,7 +2136,7 @@
             if (!map || !markerLayer) return;
             markerLayer.clearLayers();
             const orderedFull = orderPlacesForItinerary(list.slice(), null, null);
-            const ordered = applyOutingDurationCap(orderedFull).list;
+            const ordered = applyCachedRoadOrder(applyOutingDurationCap(orderedFull).list);
             if (ordered.length === 0) {
                 map.setView([13.65, 79.35], 10);
                 return;

@@ -135,25 +135,67 @@
                 padding-left: 18rem;
             }
         }
+        .hero-eyebrow {
+            font-size: clamp(0.75rem, 1.2vw + 0.45rem, 0.875rem);
+            line-height: 1.35;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
         .hero-brand {
-            font-size: clamp(1.35rem, 2.5vw + 0.45rem, 2.05rem);
-            line-height: 1.08;
+            font-size: clamp(1.5rem, 2.8vw + 0.55rem, 2.35rem);
+            line-height: 1.06;
             letter-spacing: -0.03em;
         }
         .hero-tagline {
-            font-size: clamp(0.9rem, 1.1vw + 0.55rem, 1.15rem);
-            line-height: 1.35;
-            letter-spacing: -0.01em;
+            font-size: clamp(1.05rem, 1.4vw + 0.65rem, 1.375rem);
+            line-height: 1.32;
+            letter-spacing: -0.015em;
         }
         .hero-lede {
-            max-width: 40rem;
-            font-size: 0.8125rem;
-            line-height: 1.6;
+            max-width: 42rem;
+            font-size: 0.9375rem;
+            line-height: 1.62;
         }
         @media (min-width: 640px) {
             .hero-lede {
-                font-size: 0.875rem;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+        }
+        @media (min-width: 1024px) {
+            .hero-lede {
+                font-size: 1.0625rem;
                 line-height: 1.58;
+            }
+        }
+        /* Hero copy: consistent tight vertical rhythm */
+        .hero-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            text-align: center;
+        }
+        @media (min-width: 1024px) {
+            .hero-copy {
+                align-items: flex-start;
+                text-align: left;
+                gap: 0.625rem;
+            }
+        }
+        .hero-copy__actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 0.25rem;
+            width: 100%;
+        }
+        @media (min-width: 1024px) {
+            .hero-copy__actions {
+                justify-content: flex-start;
             }
         }
         .floating-orb {
@@ -166,6 +208,212 @@
         .orb-1 { top: 10%; left: 15%; width: 400px; height: 400px; background: radial-gradient(circle, #ffe088, transparent); }
         .orb-2 { bottom: 10%; right: 10%; width: 500px; height: 500px; background: radial-gradient(circle, #5cc78a, transparent); }
         .orb-3 { top: 50%; left: 45%; width: 300px; height: 300px; background: radial-gradient(circle, #fe9832, transparent); }
+        /* Sidebar nav: readable size, clear hierarchy, comfortable targets */
+        .sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .sidebar-nav__link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-height: 3.25rem;
+            padding: 0.625rem 1rem;
+            border-radius: 0.75rem;
+            font-size: 1rem;
+            line-height: 1.35;
+            font-weight: 600;
+            letter-spacing: -0.015em;
+            text-decoration: none;
+            color: #7c2d12;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 251, 235, 0.9) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            border-right: 5px solid #d97706;
+            box-shadow: 0 1px 2px rgba(180, 83, 9, 0.06);
+            transition: background 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+        }
+        .sidebar-nav__link:hover {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: rgba(245, 158, 11, 0.55);
+            box-shadow: 0 4px 14px rgba(180, 83, 9, 0.1);
+        }
+        .sidebar-nav__link:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .sidebar-nav__link .material-symbols-outlined {
+            font-size: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: #b45309;
+            font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-nav__link--current {
+            color: #78350f;
+            background: linear-gradient(135deg, #fffbeb 0%, rgba(254, 243, 199, 0.95) 100%);
+            border-color: rgba(217, 119, 6, 0.55);
+            border-right-color: #b45309;
+            box-shadow: 0 2px 10px rgba(180, 83, 9, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+        }
+        .sidebar-nav__link--current .material-symbols-outlined {
+            color: #92400e;
+        }
+        .dark .sidebar-nav__link {
+            color: #fde68a;
+            background: linear-gradient(135deg, rgba(69, 26, 3, 0.55) 0%, rgba(120, 53, 15, 0.35) 100%);
+            border-color: rgba(251, 191, 36, 0.28);
+            border-right-color: #f59e0b;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+        }
+        .dark .sidebar-nav__link:hover {
+            background: linear-gradient(135deg, rgba(120, 53, 15, 0.5) 0%, rgba(146, 64, 14, 0.4) 100%);
+            border-color: rgba(251, 191, 36, 0.4);
+        }
+        .dark .sidebar-nav__link .material-symbols-outlined {
+            color: #fcd34d;
+        }
+        .dark .sidebar-nav__link--current {
+            color: #fef3c7;
+            border-right-color: #fbbf24;
+        }
+        .dark .sidebar-nav__link--current .material-symbols-outlined {
+            color: #fde68a;
+        }
+        @media (min-width: 1024px) {
+            .sidebar-nav__link {
+                font-size: 1.0625rem;
+                min-height: 3.375rem;
+                padding: 0.6875rem 1.0625rem;
+            }
+        }
+        /* Top header: compact row, larger type, aligned icons (header only) */
+        .app-header {
+            box-shadow: 0 1px 0 rgba(245, 158, 11, 0.12), 0 4px 12px rgba(15, 23, 42, 0.04);
+        }
+        .app-header__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            min-height: 3.25rem;
+            padding: 0.375rem 0.75rem;
+        }
+        @media (min-width: 640px) {
+            .app-header__inner {
+                gap: 0.625rem;
+                min-height: 3.5rem;
+                padding: 0.5rem 1rem;
+            }
+        }
+        .app-header__brand {
+            font-size: clamp(1.125rem, 2.4vw, 1.625rem);
+            line-height: 1.15;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        .app-header__search {
+            box-sizing: border-box;
+            min-height: 2.625rem;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+            font-size: 0.9375rem;
+            line-height: 1.35;
+        }
+        @media (min-width: 1024px) {
+            .app-header__search {
+                min-height: 2.75rem;
+                padding-top: 0.5625rem;
+                padding-bottom: 0.5625rem;
+                font-size: 1rem;
+            }
+        }
+        .app-header__search-icon {
+            font-size: 1.375rem;
+            width: 1.375rem;
+            height: 1.375rem;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+        .app-header__icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.625rem;
+            height: 2.625rem;
+            padding: 0;
+            margin: 0;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: #d97706;
+            cursor: pointer;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+        .app-header__icon-btn:hover {
+            background: rgba(251, 191, 36, 0.18);
+            color: #b45309;
+        }
+        .app-header__icon-btn:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .app-header__icon-btn .material-symbols-outlined {
+            font-size: 1.5rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+        .dark .app-header__icon-btn {
+            color: #fbbf24;
+        }
+        .dark .app-header__icon-btn:hover {
+            background: rgba(251, 191, 36, 0.12);
+            color: #fde68a;
+        }
+        .app-header__cta {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+            min-height: 2.625rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        @media (min-width: 640px) {
+            .app-header__cta {
+                font-size: 1rem;
+                min-height: 2.75rem;
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+        }
+        /* Sidebar rail: profile block — larger, readable type */
+        .sidebar-rail__title {
+            font-size: clamp(1.0625rem, 2.8vw, 1.25rem);
+            line-height: 1.28;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .sidebar-rail__tagline {
+            font-size: clamp(0.875rem, 2.2vw, 1rem);
+            line-height: 1.45;
+            margin-top: 0.1875rem;
+        }
+        .sidebar-rail__cta {
+            font-size: clamp(0.9375rem, 2.4vw, 1.0625rem);
+            line-height: 1.3;
+            font-weight: 700;
+            min-height: 2.875rem;
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body class="font-body-md text-on-surface animated-bg flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-background">
@@ -174,96 +422,100 @@
 <div class="floating-orb orb-2"></div>
 <div class="floating-orb orb-3"></div>
 <!-- Side rail (desktop): fixed so main can offset -->
-<aside class="fixed left-0 top-0 z-30 hidden h-[100dvh] max-h-[100dvh] w-72 flex-col border-r border-amber-500/20 bg-[#FDFCF9]/90 dark:bg-slate-950/90 backdrop-blur-2xl shadow-lg lg:flex pt-14">
-<div class="shrink-0 border-b border-amber-500/10 p-4">
+<aside class="fixed left-0 top-0 z-30 hidden h-[100dvh] max-h-[100dvh] w-72 flex-col border-r border-amber-500/20 bg-[#FDFCF9]/90 dark:bg-slate-950/90 backdrop-blur-2xl shadow-lg lg:flex lg:pt-3">
+<div class="shrink-0 border-b border-amber-500/10 px-3 pb-3 pt-3 lg:px-3.5">
 <div class="mb-3 flex items-center gap-3">
-<div class="h-11 w-11 shrink-0 overflow-hidden rounded-full border-2 border-primary-container">
-<img alt="User profile" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ303KuBoKEGzX23xsgcpV3cwwhTBQGp0k7SU53nWpXQzguVKUJylQ4l5b4JcRHcj04osYCldNCrhk3D06kCKTbeKUFG1dEELNVQW2EE5GDqWYRjKlFf5Qc6hvAmUhpjSuzgxBk3t-XOKUH3SKXg-01JlfAA8hqSKBglseB8TLdi80Xf5HHalzKzcKWirnwT_CEU-PvCIea6jeBZqVwN9qOSBAx9zvARV2JLcBVY2kDHHw1WWv6aCzviGlpWCfqtK8wKWwd1xePPU"/>
+<div class="h-12 w-12 shrink-0 overflow-hidden rounded-full border-2 border-primary-container shadow-sm ring-1 ring-amber-200/40 dark:ring-amber-800/30">
+<img alt="Profile photo" class="h-full w-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQ303KuBoKEGzX23xsgcpV3cwwhTBQGp0k7SU53nWpXQzguVKUJylQ4l5b4JcRHcj04osYCldNCrhk3D06kCKTbeKUFG1dEELNVQW2EE5GDqWYRjKlFf5Qc6hvAmUhpjSuzgxBk3t-XOKUH3SKXg-01JlfAA8hqSKBglseB8TLdi80Xf5HHalzKzcKWirnwT_CEU-PvCIea6jeBZqVwN9qOSBAx9zvARV2JLcBVY2kDHHw1WWv6aCzviGlpWCfqtK8wKWwd1xePPU"/>
 </div>
 <div class="min-w-0">
-<h4 class="font-headline-md text-sm font-medium text-slate-900 dark:text-slate-100">Trip Planner</h4>
-<p class="text-xs text-slate-500">Sacred Paths &amp; Trails</p>
+<h4 class="sidebar-rail__title font-headline-md text-slate-900 dark:text-slate-100">Trip Planner</h4>
+<p class="sidebar-rail__tagline text-slate-600 dark:text-slate-400">Sacred Paths &amp; Trails</p>
 </div>
 </div>
-<a href="trip_planner%20(1).html" class="block w-full rounded-xl border border-amber-200 bg-amber-50 py-2.5 text-center text-sm font-bold text-amber-700 transition-opacity hover:opacity-90 dark:border-amber-700/30 dark:bg-amber-900/20 dark:text-amber-400">
+<a href="trip_planner%20(1).html" class="sidebar-rail__cta w-full rounded-xl border border-amber-200 bg-amber-50 text-center text-amber-800 transition-opacity hover:opacity-90 dark:border-amber-700/35 dark:bg-amber-900/25 dark:text-amber-300">
                 Start New Plan
             </a>
 </div>
-<nav class="flex-1 space-y-1 overflow-y-auto p-3">
-<a class="flex items-center gap-3 rounded-xl border-r-4 border-amber-600 bg-amber-50/50 px-3 py-2.5 font-headline-md text-sm font-medium text-amber-700 transition-all dark:bg-amber-900/20 dark:text-amber-400" href="trip_planner%20(1).html">
-<span class="material-symbols-outlined shrink-0" style="font-variation-settings: 'FILL' 1;">map</span>
-                Explore
+<nav class="sidebar-nav min-h-0 shrink-0 overflow-y-auto px-3.5 pb-4 pt-2 lg:px-4" role="navigation" aria-label="Trip planner sections">
+<a class="sidebar-nav__link sidebar-nav__link--current font-headline-md" href="trip_planner%20(1).html" aria-current="page">
+<span class="material-symbols-outlined" aria-hidden="true">map</span>
+                <span>Explore</span>
             </a>
-<a class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-headline-md text-sm font-medium text-slate-600 transition-all hover:bg-amber-50/40 dark:text-slate-400 dark:hover:bg-slate-800/50" href="trip_planner%20(1).html">
-<span class="material-symbols-outlined shrink-0">route</span>
-                My Trip
+<a class="sidebar-nav__link font-headline-md" href="trip_planner%20(1).html">
+<span class="material-symbols-outlined" aria-hidden="true">route</span>
+                <span>My Trip</span>
             </a>
-<a class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-headline-md text-sm font-medium text-slate-600 transition-all hover:bg-amber-50/40 dark:text-slate-400 dark:hover:bg-slate-800/50" href="#">
-<span class="material-symbols-outlined shrink-0">bookmark</span>
-                Saved
+<a class="sidebar-nav__link font-headline-md" href="#">
+<span class="material-symbols-outlined" aria-hidden="true">bookmark</span>
+                <span>Saved</span>
             </a>
-<a class="flex items-center gap-3 rounded-xl px-3 py-2.5 font-headline-md text-sm font-medium text-slate-600 transition-all hover:bg-amber-50/40 dark:text-slate-400 dark:hover:bg-slate-800/50" href="trip_planner%20(1).html">
-<span class="material-symbols-outlined shrink-0">filter_list</span>
-                Filters
+<a class="sidebar-nav__link font-headline-md" href="trip_planner%20(1).html">
+<span class="material-symbols-outlined" aria-hidden="true">filter_list</span>
+                <span>Filters</span>
             </a>
 </nav>
 </aside>
 <div class="page-shell relative z-10 flex min-h-0 flex-1 flex-col overflow-hidden">
 <!-- Navigation Shell (TopAppBar) -->
-<header class="sticky top-0 z-50 w-full shrink-0 border-b border-amber-500/20 bg-white/90 shadow-sm shadow-blue-900/5 backdrop-blur-xl dark:bg-slate-900/90 antialiased">
-<div class="flex w-full max-w-none flex-wrap items-center justify-between gap-x-2 gap-y-1.5 px-2 py-1.5 sm:px-3 lg:px-4">
-<div class="flex min-w-0 items-center gap-3">
-<span class="truncate text-lg font-bold text-amber-600 dark:text-amber-500 sm:text-xl lg:text-2xl font-headline-lg tracking-tight">Tirupati GeoTrip</span>
+<header class="app-header sticky top-0 z-50 w-full shrink-0 border-b border-amber-500/20 bg-white/95 backdrop-blur-xl dark:bg-slate-900/95 antialiased">
+<div class="app-header__inner w-full max-w-none">
+<div class="flex min-w-0 flex-1 items-center pr-1">
+<span class="app-header__brand font-headline-lg truncate text-amber-600 dark:text-amber-400">Tirupati GeoTrip</span>
 </div>
-<div class="flex shrink-0 flex-wrap items-center justify-end gap-2 sm:gap-3">
-<div class="relative hidden min-w-0 md:block lg:max-w-[14rem] xl:max-w-xs">
-<input id="navSearch" class="w-full min-w-0 rounded-full border-none bg-surface-container-lowest py-2 pl-4 pr-10 text-label-sm focus:ring-2 focus:ring-primary-container sm:pl-5" placeholder="Search…" type="text"/>
-<span class="material-symbols-outlined pointer-events-none absolute right-2.5 top-1.5 text-outline sm:right-3 sm:top-2" data-icon="search">search</span>
+<div class="flex shrink-0 items-center gap-1.5 sm:gap-2">
+<div class="relative hidden min-w-0 md:block md:max-w-[12rem] lg:max-w-[16rem] xl:max-w-[18rem]">
+<span class="material-symbols-outlined app-header__search-icon pointer-events-none absolute left-3 top-1/2 z-[1] -translate-y-1/2 text-amber-800/75 dark:text-amber-300/90" aria-hidden="true">search</span>
+<input id="navSearch" class="app-header__search w-full min-w-0 rounded-full border border-amber-200/70 bg-surface-container-lowest pl-11 pr-3 text-on-surface shadow-sm placeholder:text-on-surface-variant/75 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-primary-container/55 dark:border-amber-800/45 dark:bg-slate-800/85 dark:placeholder:text-slate-400" placeholder="Search…" type="text" autocomplete="off"/>
 </div>
-<div class="hidden items-center gap-1 sm:flex">
-<span class="material-symbols-outlined cursor-pointer rounded-full p-2 text-amber-600 hover:bg-white/40" data-icon="account_circle">account_circle</span>
-<span class="material-symbols-outlined cursor-pointer rounded-full p-2 text-amber-600 hover:bg-white/40" data-icon="notifications">notifications</span>
+<div class="hidden items-center gap-0.5 sm:flex">
+<button type="button" class="app-header__icon-btn" aria-label="Account" title="Account">
+<span class="material-symbols-outlined" aria-hidden="true">account_circle</span>
+</button>
+<button type="button" class="app-header__icon-btn" aria-label="Notifications" title="Notifications">
+<span class="material-symbols-outlined" aria-hidden="true">notifications</span>
+</button>
 </div>
-<a href="trip_planner%20(1).html" class="inline-flex items-center justify-center whitespace-nowrap rounded-full bg-primary-container px-4 py-2 text-sm font-label-lg text-on-primary-container transition-all hover:shadow-lg sm:px-6 sm:py-2.5">
+<a href="trip_planner%20(1).html" class="app-header__cta inline-flex items-center justify-center whitespace-nowrap rounded-full bg-primary-container font-label-lg text-on-primary-container shadow-sm transition-all hover:shadow-md hover:brightness-[1.02]">
                     Book Now
                 </a>
 </div>
 </div>
 </header>
-<main class="relative z-10 flex min-h-0 w-full max-w-none flex-1 flex-col gap-1 overflow-hidden px-2 py-1 sm:px-3 lg:px-4">
+<main class="relative z-10 flex min-h-0 w-full max-w-none flex-1 flex-col gap-0.5 overflow-hidden px-2 pb-1 pt-2.5 sm:gap-1 sm:px-3 sm:pb-1 sm:pt-3 lg:px-4 lg:pt-4">
 <!-- Hero Section -->
-<section class="grid shrink-0 grid-cols-1 items-center gap-2 text-center lg:grid-cols-[1fr_minmax(14rem,21rem)] lg:items-start lg:gap-2 lg:text-left">
-<div class="min-w-0 space-y-1.5 lg:pr-1 lg:pt-0">
-<p class="text-[10px] font-semibold uppercase tracking-[0.2em] text-primary-container/90 sm:text-[11px]">Tirumala &amp; Tirupati</p>
+<section class="grid shrink-0 grid-cols-1 items-center gap-1.5 pb-0.5 text-center sm:gap-2 sm:pb-1 lg:grid-cols-[1fr_minmax(15rem,22rem)] lg:items-center lg:gap-x-4 lg:gap-y-0 lg:text-left">
+<div class="hero-copy min-w-0 w-full">
+<p class="hero-eyebrow text-primary-container/90">Tirumala &amp; Tirupati</p>
 <h1 class="space-y-0.5">
 <span class="hero-brand block font-display-lg font-bold text-primary-container">GeoTrip Planner</span>
 <span class="hero-tagline block font-headline-md font-semibold text-on-surface">Experience the Divine Tirupati</span>
 </h1>
-<p class="hero-lede mx-auto text-pretty text-on-surface-variant lg:mx-0">
+<p class="hero-lede max-w-prose text-pretty text-on-surface-variant lg:max-w-none">
                     Map-first routes for temples, trails, food, and viewpoints—plan darshan days and scenic walks with filters, distances, and a clear trip summary in one place.
                 </p>
-<div class="flex flex-wrap items-center justify-center gap-1.5 pt-0.5 lg:justify-start">
-<a href="trip_planner%20(1).html" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-secondary px-5 py-2 text-sm font-semibold text-on-secondary shadow-sm ring-1 ring-black/5 transition hover:shadow-md hover:brightness-[1.02]">
-<span class="material-symbols-outlined text-[20px]" data-icon="route" aria-hidden="true">route</span>
+<div class="hero-copy__actions">
+<a href="trip_planner%20(1).html" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-secondary px-5 py-2.5 text-sm font-semibold text-on-secondary shadow-sm ring-1 ring-black/5 transition hover:shadow-md hover:brightness-[1.02] sm:text-base">
+<span class="material-symbols-outlined text-[22px] sm:text-2xl" data-icon="route" aria-hidden="true">route</span>
                         Trip Planner
                     </a>
-<button type="button" id="btnDownloadCsv" class="inline-flex min-h-10 items-center justify-center gap-2 rounded-full border border-outline-variant bg-white/90 px-5 py-2 text-sm font-semibold text-primary shadow-sm backdrop-blur-sm transition hover:border-primary-container/50 hover:bg-amber-50/60">
-<span class="material-symbols-outlined text-[20px]" data-icon="download" aria-hidden="true">download</span>
+<button type="button" id="btnDownloadCsv" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-outline-variant bg-white/90 px-5 py-2.5 text-sm font-semibold text-primary shadow-sm backdrop-blur-sm transition hover:border-primary-container/50 hover:bg-amber-50/60 sm:text-base">
+<span class="material-symbols-outlined text-[22px] sm:text-2xl" data-icon="download" aria-hidden="true">download</span>
                         CSV
                     </button>
 </div>
 </div>
-<div class="mx-auto w-full max-w-[19.5rem] shrink-0 sm:max-w-[21rem] lg:mx-0 lg:max-w-none">
+<div class="mx-auto w-full max-w-[19.5rem] shrink-0 sm:max-w-[21rem] lg:mx-0 lg:max-w-none lg:-translate-x-2 lg:justify-self-start xl:-translate-x-3">
 <div class="group relative">
 <div class="absolute -inset-0.5 rounded-2xl bg-gradient-to-tr from-primary-container/20 to-tertiary-container/20 blur-lg transition-all group-hover:blur-xl"></div>
 <img alt="Tirumala Hills vista" class="relative aspect-[5/4] w-full max-h-[15.5rem] rounded-xl border-2 border-white object-cover shadow-lg sm:aspect-square sm:max-h-[17.5rem] lg:aspect-auto lg:max-h-none lg:h-[11.5rem] lg:rounded-2xl xl:h-[13rem]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkMuKjAlKE6GzVMQGylQ6fZf5OQHtA8FWJl-xzlvW3dfW_VKlFDdiyUReyXvGNZ2q0bMDW_NVg__4HWRXaNRhQsIGpqOD-7jayRcBKg1SWXJhD6mZSuLdwc8dPGThxamBm9899xTrn1vnLQNmYNMGxWDQob96eZjv93xXOkEfxlwiUpuEIgKOWMf7nuZnMnj87OzTyFYC0WuMV4t5q1OIBo2r5BY9crgP3UYgudKDDqxIitVxB9nGrTuc4uCs-PRTuq7qko6QIkIk"/>
-<p class="mt-1 text-center text-[10px] font-medium uppercase tracking-wider text-on-surface-variant lg:text-right">Tirumala Hills</p>
+<p class="mt-0.5 text-center text-[10px] font-medium uppercase tracking-wider text-on-surface-variant lg:text-right">Tirumala Hills</p>
 </div>
 </div>
 </section>
 <!-- Category Grid -->
-<section class="flex min-h-0 flex-1 flex-col gap-1 overflow-hidden border-t border-amber-500/10 pb-2 pt-2 lg:pb-3 lg:pt-2.5">
-<div class="flex shrink-0 flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+<section class="flex flex-col gap-4 overflow-hidden border-t border-amber-500/10 pb-2 pt-1.5 sm:gap-4 sm:pt-2 lg:pb-3 lg:pt-2">
+<div class="flex shrink-0 flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
 <div class="min-w-0 text-center sm:text-left">
 <h2 class="font-headline-lg text-base font-semibold tracking-tight text-on-surface sm:text-lg">Explore categories</h2>
 <p class="mx-auto mt-0.5 max-w-md text-pretty text-xs leading-relaxed text-on-surface-variant sm:mx-0 sm:text-sm">Pick a theme—food, adventure, temples, or sightseeing—to open the planner with matching filters.</p>
@@ -275,72 +527,72 @@
 <div class="grid min-h-0 flex-1 grid-cols-2 auto-rows-max items-start content-start gap-1 overflow-hidden lg:grid-cols-4 lg:grid-rows-[minmax(0,1fr)] lg:items-stretch lg:content-stretch lg:gap-1.5">
 <!-- Food Places -->
 <a href="trip_planner%20(1).html?category=food" class="glass-card flex min-h-[8.75rem] w-full flex-col overflow-hidden rounded-lg p-3 no-underline text-inherit group sm:min-h-[9.25rem] lg:h-full lg:min-h-0 lg:p-4">
-<div class="mb-1.5 w-fit shrink-0 rounded-lg bg-gradient-to-br from-amber-100 to-amber-50 p-2">
+<div class="mb-1 w-fit shrink-0 rounded-lg bg-gradient-to-br from-amber-100 to-amber-50 p-2">
 <span class="material-symbols-outlined text-amber-600 text-[24px] sm:text-[26px] lg:text-[28px]" data-icon="restaurant">restaurant</span>
 </div>
-<h3 class="mb-0.5 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Food</h3>
+<h3 class="mb-0 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Food</h3>
 <p class="mb-0 line-clamp-2 shrink-0 text-xs leading-snug text-on-surface-variant sm:text-sm lg:text-[0.95rem]">Prasadam &amp; local vegetarian fare.</p>
-<div class="flex min-h-0 flex-1 flex-col justify-center py-1.5 sm:py-2">
-<div class="w-full overflow-hidden rounded-lg ring-1 ring-amber-900/10">
-<img alt="Traditional vegetarian meal and prasadam" class="aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="food%20image.jpg" width="400"/>
+<div class="flex min-h-0 flex-1 flex-col justify-start py-0">
+<div class="w-full shrink-0 overflow-hidden rounded-lg ring-1 ring-amber-900/10">
+<img alt="Traditional vegetarian meal and prasadam" class="block aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="food%20image.jpg" width="400"/>
 </div>
 </div>
-<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-amber-500/10 pt-2">
-<div class="text-2xl font-bold tabular-nums leading-none text-primary sm:text-3xl lg:text-4xl" id="countFood">—</div>
+<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-amber-500/10 pt-1.5">
+<div class="text-2xl font-bold tabular-nums leading-none text-primary sm:text-3xl lg:text-4xl" id="countFood">20</div>
 <span class="text-[10px] font-semibold uppercase leading-none tracking-wide text-outline sm:text-xs lg:text-sm">Spots</span>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-amber-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 </a>
 <!-- Adventure -->
 <a href="trip_planner%20(1).html?category=adventure" class="glass-card flex min-h-[8.75rem] w-full flex-col overflow-hidden rounded-lg p-3 no-underline text-inherit group sm:min-h-[9.25rem] lg:h-full lg:min-h-0 lg:p-4">
-<div class="mb-1.5 w-fit shrink-0 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-50 p-2">
+<div class="mb-1 w-fit shrink-0 rounded-lg bg-gradient-to-br from-emerald-100 to-emerald-50 p-2">
 <span class="material-symbols-outlined text-emerald-600 text-[24px] sm:text-[26px] lg:text-[28px]" data-icon="landscape">landscape</span>
 </div>
-<h3 class="mb-0.5 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Adventure</h3>
+<h3 class="mb-0 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Adventure</h3>
 <p class="mb-0 line-clamp-2 shrink-0 text-xs leading-snug text-on-surface-variant sm:text-sm lg:text-[0.95rem]">Hills, forest trails &amp; treks.</p>
-<div class="flex min-h-0 flex-1 flex-col justify-center py-1.5 sm:py-2">
-<div class="w-full overflow-hidden rounded-lg ring-1 ring-emerald-900/10">
-<img alt="Hills and forest trails for trekking" class="aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="adventure%20image.jpg" width="400"/>
+<div class="flex min-h-0 flex-1 flex-col justify-start py-0">
+<div class="w-full shrink-0 overflow-hidden rounded-lg ring-1 ring-emerald-900/10">
+<img alt="Hills and forest trails for trekking" class="block aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="adventure%20image.jpg" width="400"/>
 </div>
 </div>
-<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-emerald-500/10 pt-2">
-<div class="text-2xl font-bold tabular-nums leading-none text-tertiary sm:text-3xl lg:text-4xl" id="countAdventure">—</div>
+<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-emerald-500/10 pt-1.5">
+<div class="text-2xl font-bold tabular-nums leading-none text-tertiary sm:text-3xl lg:text-4xl" id="countAdventure">20</div>
 <span class="text-[10px] font-semibold uppercase leading-none tracking-wide text-outline sm:text-xs lg:text-sm">Trails</span>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-emerald-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 </a>
 <!-- Temples -->
 <a href="trip_planner%20(1).html?category=temple" class="glass-card flex min-h-[8.75rem] w-full flex-col overflow-hidden rounded-lg border border-primary-container/30 p-3 no-underline text-inherit group sm:min-h-[9.25rem] lg:h-full lg:min-h-0 lg:p-4">
-<div class="mb-1.5 w-fit shrink-0 rounded-lg bg-gradient-to-br from-primary-fixed to-amber-100 p-2">
+<div class="mb-1 w-fit shrink-0 rounded-lg bg-gradient-to-br from-primary-fixed to-amber-100 p-2">
 <span class="material-symbols-outlined text-[24px] text-primary-container sm:text-[26px] lg:text-[28px]" data-icon="temple_hindu">temple_hindu</span>
 </div>
-<h3 class="mb-0.5 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Temples</h3>
+<h3 class="mb-0 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Temples</h3>
 <p class="mb-0 line-clamp-2 shrink-0 text-xs leading-snug text-on-surface-variant sm:text-sm lg:text-[0.95rem]">Shrines &amp; Venkateswara complexes.</p>
-<div class="flex min-h-0 flex-1 flex-col justify-center py-1.5 sm:py-2">
-<div class="w-full overflow-hidden rounded-lg ring-1 ring-amber-800/15">
-<img alt="Ornate temple gopuram and shrine architecture" class="aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="temple%20image.jpg" width="400"/>
+<div class="flex flex-col py-0">
+<div class="w-full shrink-0 overflow-hidden rounded-lg ring-1 ring-amber-800/15">
+<img alt="Ornate temple gopuram and shrine architecture" class="block aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="temple%20image.jpg" width="400"/>
 </div>
 </div>
-<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-primary-container/15 pt-2">
-<div class="text-2xl font-bold tabular-nums leading-none text-primary-container sm:text-3xl lg:text-4xl" id="countTemple">—</div>
+<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-primary-container/15 pt-1.5">
+<div class="text-2xl font-bold tabular-nums leading-none text-primary-container sm:text-3xl lg:text-4xl" id="countTemple">20</div>
 <span class="text-[10px] font-semibold uppercase leading-none tracking-wide text-outline sm:text-xs lg:text-sm">Shrines</span>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-primary-container/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
 </a>
 <!-- Sightseeing -->
 <a href="trip_planner%20(1).html?category=sightseeing" class="glass-card flex min-h-[8.75rem] w-full flex-col overflow-hidden rounded-lg p-3 no-underline text-inherit group sm:min-h-[9.25rem] lg:h-full lg:min-h-0 lg:p-4">
-<div class="mb-1.5 w-fit shrink-0 rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 p-2">
+<div class="mb-1 w-fit shrink-0 rounded-lg bg-gradient-to-br from-blue-100 to-blue-50 p-2">
 <span class="material-symbols-outlined text-[24px] text-blue-600 sm:text-[26px] lg:text-[28px]" data-icon="photo_camera">photo_camera</span>
 </div>
-<h3 class="mb-0.5 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Sightseeing</h3>
+<h3 class="mb-0 font-headline-md text-base font-semibold leading-tight sm:text-lg lg:text-xl">Sightseeing</h3>
 <p class="mb-0 line-clamp-2 shrink-0 text-xs leading-snug text-on-surface-variant sm:text-sm lg:text-[0.95rem]">Waterfalls, viewpoints &amp; heritage.</p>
-<div class="flex min-h-0 flex-1 flex-col justify-center py-1.5 sm:py-2">
-<div class="w-full overflow-hidden rounded-lg ring-1 ring-blue-900/10">
-<img alt="Scenic viewpoints and heritage landscapes" class="aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="site%20seeng%20image.avif" width="400"/>
+<div class="flex min-h-0 flex-1 flex-col justify-start py-0">
+<div class="w-full shrink-0 overflow-hidden rounded-lg ring-1 ring-blue-900/10">
+<img alt="Scenic viewpoints and heritage landscapes" class="block aspect-[5/3] w-full max-h-24 object-cover object-center sm:max-h-28 lg:max-h-[9rem]" decoding="async" height="240" loading="lazy" src="site%20seeng%20image.avif" width="400"/>
 </div>
 </div>
-<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-blue-500/10 pt-2">
-<div class="text-2xl font-bold tabular-nums leading-none text-blue-700 sm:text-3xl lg:text-4xl" id="countSightseeing">—</div>
+<div class="mt-auto flex shrink-0 items-end justify-between gap-2 border-t border-blue-500/10 pt-1.5">
+<div class="text-2xl font-bold tabular-nums leading-none text-blue-700 sm:text-3xl lg:text-4xl" id="countSightseeing">20</div>
 <span class="text-[10px] font-semibold uppercase leading-none tracking-wide text-outline sm:text-xs lg:text-sm">Points</span>
 </div>
 <div class="absolute inset-0 bg-gradient-to-t from-blue-600/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
@@ -348,25 +600,6 @@
 </div>
 </section>
 </main>
-<!-- Footer -->
-<footer class="mt-auto w-full shrink-0 border-t border-slate-200 bg-[#FDFCF9] py-2 dark:border-slate-800 dark:bg-slate-950">
-<div class="flex w-full max-w-none flex-col items-center gap-1.5 px-2 sm:px-3 lg:px-4">
-<div class="flex flex-wrap justify-center gap-x-4 gap-y-1 font-headline-md text-[9px] uppercase tracking-wide text-slate-500 sm:gap-x-6 sm:text-[10px]">
-<a class="hover:text-amber-600 dark:text-slate-500 dark:hover:text-amber-400" href="#">About</a>
-<a class="hover:text-amber-600 dark:text-slate-500 dark:hover:text-amber-400" href="#">Guidelines</a>
-<a class="hover:text-amber-600 dark:text-slate-500 dark:hover:text-amber-400" href="#">Terms</a>
-<a class="hover:text-amber-600 dark:text-slate-500 dark:hover:text-amber-400" href="#">Support</a>
-</div>
-<div class="flex gap-2 opacity-60">
-<span class="material-symbols-outlined text-base text-amber-800 dark:text-amber-600" data-icon="public">public</span>
-<span class="material-symbols-outlined text-base text-amber-800 dark:text-amber-600" data-icon="map">map</span>
-<span class="material-symbols-outlined text-base text-amber-800 dark:text-amber-600" data-icon="policy">policy</span>
-</div>
-<p class="text-center text-[9px] font-headline-md uppercase tracking-wide text-amber-800/80 dark:text-amber-500/90">
-                © 2024 TTD Tourism GeoTrip
-            </p>
-</div>
-</footer>
 </div>
 
 <script>
