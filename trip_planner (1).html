@@ -848,122 +848,209 @@
             font-family: inherit;
         }
 
-        .map-legend {
-            position: absolute;
-            z-index: 1200;
-            left: 10px;
-            bottom: 28px;
+        .leaflet-div-icon.start-home-icon {
+            border: none;
+            background: transparent;
+        }
+
+        .start-home-pin {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border: 3px solid #0ea5e9;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
             display: flex;
-            flex-direction: column;
-            max-width: min(300px, calc(100vw - 24px));
-            max-height: min(320px, 42vh);
-            background: rgba(255, 255, 255, 0.98);
-            border: 1px solid var(--gov-border);
-            border-radius: 8px;
-            padding: 12px 12px 10px;
-            font-size: 0.8125rem;
-            line-height: 1.45;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .start-home-pin .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 22px;
+            color: #0369a1;
+            font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .start-home-pin--typed {
+            border-color: #a855f7;
+        }
+
+        .start-home-pin--typed .material-symbols-outlined {
+            color: #7c3aed;
+        }
+
+        /* Start (home / GPS) popup — same visual language as place marker cards */
+        .start-place-card {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 300px;
+            max-width: min(400px, 94vw);
+            text-align: left;
             color: var(--gov-text);
-            box-shadow: 0 6px 20px rgba(15, 41, 64, 0.1);
-            pointer-events: auto;
-            backdrop-filter: blur(6px);
         }
 
-        .map-legend.hidden {
-            display: none;
+        .start-place-card--gps {
+            --start-ink: #0c4a6e;
+            --start-soft: #e0f2fe;
+            --start-icon: #0369a1;
         }
 
-        .map-legend-heading {
-            display: block;
-            font-size: 0.8125rem;
-            font-weight: 700;
-            color: var(--gov-navy);
-            padding-bottom: 8px;
-            margin-bottom: 2px;
-            border-bottom: 1px solid var(--gov-border);
-            flex-shrink: 0;
+        .start-place-card--typed {
+            --start-ink: #5b21b6;
+            --start-soft: #f5f3ff;
+            --start-icon: #7c3aed;
         }
 
-        .map-legend-body {
-            display: block;
-            margin-top: 6px;
+        .start-place-card__ribbon {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            padding: 8px 40px 8px 12px;
+            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            color: #f8fafc;
+        }
+
+        .start-place-card--typed .start-place-card__ribbon {
+            background: linear-gradient(104deg, #1e1b4b 0%, #4c1d95 38%, #5b21b6 100%);
+        }
+
+        .start-place-card__ribbon-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             flex: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            overscroll-behavior: contain;
-            scrollbar-width: thin;
-            padding-right: 4px;
+            min-width: 0;
         }
 
-        .map-legend-warn {
-            font-size: 0.8125rem;
-            color: #9a3412;
-            margin-bottom: 8px;
-            line-height: 1.45;
+        .start-place-card__badge {
+            flex-shrink: 0;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 10px;
+            border-radius: 999px;
+            line-height: 1.2;
         }
 
-        .map-legend-day {
-            margin-bottom: 10px;
-        }
-
-        .map-legend-day:last-child {
-            margin-bottom: 0;
-        }
-
-        .map-legend-day-title {
-            font-size: 0.8125rem;
+        .start-place-card__ribbon-title {
+            font-size: 12px;
             font-weight: 700;
-            color: var(--gov-navy-mid);
-            margin-bottom: 6px;
             letter-spacing: 0.02em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .map-legend-stops {
-            margin: 0;
-            padding: 0 0 0 1.1rem;
-            list-style: decimal;
+        .start-place-card__hero {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: linear-gradient(180deg, #fdfcfa 0%, var(--start-soft) 55%, #f8fafc 100%);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.07);
         }
 
-        .map-legend-stops li {
-            margin: 3px 0;
-            padding-left: 2px;
-            word-break: break-word;
+        .start-place-card__icon-ring {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px solid rgba(15, 75, 110, 0.12);
+            box-shadow: 0 4px 14px rgba(15, 41, 64, 0.08);
         }
 
-        .map-legend-stop-time {
-            display: block;
-            font-size: 0.75rem;
+        .start-place-card--typed .start-place-card__icon-ring {
+            border-color: rgba(91, 33, 182, 0.2);
+        }
+
+        .start-place-card__icon-ring .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 28px;
+            line-height: 1;
+            color: var(--start-icon);
+            font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .start-place-card__hero-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .start-place-card__eyebrow {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
             color: var(--gov-text-muted);
+            margin-bottom: 3px;
+        }
+
+        .start-place-card__subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--start-ink);
+        }
+
+        .start-place-card__body {
+            padding: 12px 14px 12px;
+            background: #fff;
+        }
+
+        .start-place-card__label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gov-text-muted);
+            margin-bottom: 6px;
+        }
+
+        .start-place-card__addr {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #0f172a;
             font-weight: 500;
-            margin-top: 2px;
+            word-wrap: break-word;
+        }
+
+        .start-place-card__addr em {
+            font-style: italic;
+            font-weight: 400;
+            color: #64748b;
+        }
+
+        .start-place-card__footer {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            font-size: 11px;
+            line-height: 1.45;
+            color: #475569;
+            font-variant-numeric: tabular-nums;
         }
 
         @media (max-width: 720px) {
-            .map-legend {
-                left: 8px;
-                right: 8px;
-                bottom: 10px;
-                max-width: none;
-                max-height: min(260px, 36vh);
+            .start-place-card {
+                min-width: min(100%, 272px);
+                max-width: 100%;
             }
-        }
 
-        .user-marker-gps .dot,
-        .user-marker-typed .dot {
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
-        }
-
-        .user-marker-gps .dot {
-            background: #0ea5e9;
-        }
-
-        .user-marker-typed .dot {
-            background: #a855f7;
+            .start-place-card__ribbon {
+                padding-right: 36px;
+            }
         }
 
         .leaflet-div-icon.place-pin-icon {
@@ -1017,6 +1104,218 @@
             font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
         }
 
+        /* —— Place marker popup: clear, dignified “information card” (public / Tirupati context) —— */
+        .leaflet-popup.place-popup--gov .leaflet-popup-content-wrapper {
+            padding: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(15, 41, 64, 0.14), 0 2px 8px rgba(15, 41, 64, 0.06);
+            border: 1px solid rgba(15, 75, 110, 0.14);
+            background: #fff;
+        }
+
+        .leaflet-popup.place-popup--gov .leaflet-popup-content {
+            margin: 0;
+            width: 100% !important;
+            min-width: 0;
+        }
+
+        .leaflet-popup.place-popup--gov .leaflet-popup-tip {
+            box-shadow: 0 2px 8px rgba(15, 41, 64, 0.08);
+            border: 1px solid rgba(15, 75, 110, 0.12);
+            border-top: none;
+            border-left: none;
+        }
+
+        .leaflet-popup.place-popup--gov a.leaflet-popup-close-button {
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            font-size: 18px;
+            line-height: 26px;
+            color: rgba(248, 250, 252, 0.92);
+            font-weight: 600;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.2);
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .leaflet-popup.place-popup--gov a.leaflet-popup-close-button:hover {
+            background: rgba(15, 23, 42, 0.38);
+            color: #fff;
+        }
+
+        .place-card {
+            --pp-accent: #0e7490;
+            --pp-accent-ink: #0c4a6e;
+            --pp-soft: #ecfeff;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 300px;
+            max-width: min(400px, 94vw);
+            font-family: inherit;
+            text-align: left;
+            color: var(--gov-text);
+        }
+
+        .place-card__ribbon {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            padding: 8px 40px 8px 12px;
+            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            color: #f8fafc;
+        }
+
+        .place-card__ribbon-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .place-card__badge {
+            flex-shrink: 0;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 4px 10px;
+            border-radius: 999px;
+            line-height: 1.2;
+        }
+
+        .place-card__status {
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.25;
+            color: rgba(248, 250, 252, 0.94);
+            letter-spacing: 0.01em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .place-card__status strong {
+            color: #fef3c7;
+            font-weight: 700;
+        }
+
+        .place-card__hero {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: linear-gradient(180deg, #fdfcfa 0%, var(--pp-soft) 50%, #f8fafc 100%);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+        }
+
+        .place-card__icon-ring {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px solid rgba(15, 75, 110, 0.12);
+            box-shadow: 0 2px 10px rgba(15, 41, 64, 0.06);
+        }
+
+        .place-card__icon-ring .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 24px;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .place-card__title-wrap {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .place-card__title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 700;
+            line-height: 1.28;
+            letter-spacing: -0.012em;
+            color: #0f172a;
+        }
+
+        .place-card__body {
+            padding: 10px 12px 12px;
+            background: #fff;
+        }
+
+        .place-card__meta {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px 8px;
+            margin: 0;
+        }
+
+        .place-card__chip {
+            display: inline-flex;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 7px;
+            background: var(--pp-soft);
+            color: var(--pp-accent-ink);
+            border: 1px solid rgba(15, 75, 110, 0.1);
+            line-height: 1.25;
+        }
+
+        .place-card__chip--accent {
+            background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: rgba(180, 83, 9, 0.22);
+            color: #92400e;
+        }
+
+        .place-card__section {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .place-card__label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gov-text-muted);
+            margin-bottom: 4px;
+        }
+
+        .place-card__slots {
+            font-size: 11.5px;
+            line-height: 1.45;
+            color: #334155;
+            font-weight: 500;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #f8fafc;
+            border: 1px solid rgba(148, 163, 184, 0.32);
+        }
+
+        .place-card__desc {
+            margin: 0;
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 1.45;
+            color: #475569;
+        }
+
         @keyframes routePulse {
             0%, 100% { stroke-opacity: 0.75; }
             50% { stroke-opacity: 1; }
@@ -1050,6 +1349,15 @@
             .map-pane {
                 height: 50%;
                 flex: none;
+            }
+
+            .place-card {
+                min-width: min(100%, 272px);
+                max-width: 100%;
+            }
+
+            .place-card__ribbon {
+                padding-right: 36px;
             }
         }
     </style>
@@ -1153,10 +1461,6 @@
 
         <main class="map-pane">
             <div id="map"></div>
-            <div class="map-legend hidden" id="mapLegend" role="region" aria-label="Visit order on map">
-                <strong class="map-legend-heading">Visit order</strong>
-                <div class="map-legend-body" id="mapLegendBody">Apply filters to show the map and road visit order.</div>
-            </div>
             <div class="map-overlay" id="mapOverlay">
                 <p><strong>Map is hidden</strong> until you apply filters. Set <strong>outing start/end</strong> (only open places show), choose category/search, then tap <strong>Apply filters &amp; show map</strong>.</p>
             </div>
@@ -1181,23 +1485,108 @@
         let routeGeneration = 0;
         let gpsRouteTimer = null;
         let geocodeDebounce = null;
+        // AbortController for in-flight OSRM / Nominatim requests — aborted when a new route run starts.
+        let routeAbortCtrl = null;
         // Cached road-optimized stop order (from OSRM Trip).
         // Shared between the route polyline, map markers and the sidebar visit list
         // so they all reflect the same shortest-road sequence.
         let lastOptimizedOrder = null;
 
-        const iconGps = L.divIcon({
-            className: 'user-marker-gps',
-            html: '<div class="dot"></div>',
-            iconSize: [14, 14],
-            iconAnchor: [7, 7]
+        const iconStartHomeGps = L.divIcon({
+            className: 'start-home-icon',
+            html:
+                '<div class="start-home-pin" role="img" aria-label="Starting point (GPS)">' +
+                '<span class="material-symbols-outlined">home</span></div>',
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            popupAnchor: [0, -18]
         });
-        const iconTyped = L.divIcon({
-            className: 'user-marker-typed',
-            html: '<div class="dot"></div>',
-            iconSize: [14, 14],
-            iconAnchor: [7, 7]
+        const iconStartHomeTyped = L.divIcon({
+            className: 'start-home-icon',
+            html:
+                '<div class="start-home-pin start-home-pin--typed" role="img" aria-label="Starting point (address)">' +
+                '<span class="material-symbols-outlined">home</span></div>',
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            popupAnchor: [0, -18]
         });
+
+        function formatNominatimAddressLine(hit) {
+            if (!hit) return '';
+            const dn = (hit.display_name || '').trim();
+            if (dn) return dn;
+            const a = hit.address || {};
+            const parts = [];
+            const first = (keys) => {
+                for (const k of keys) {
+                    if (a[k]) return a[k];
+                }
+                return '';
+            };
+            const p1 = first(['hamlet', 'village', 'neighbourhood', 'suburb', 'quarter']);
+            if (p1) parts.push(p1);
+            const p2 = first(['city_district', 'town', 'city', 'municipality', 'county']);
+            if (p2) parts.push(p2);
+            if (a.state) parts.push(a.state);
+            if (a.postcode) parts.push(a.postcode);
+            if (a.country) parts.push(a.country);
+            return parts.filter(Boolean).join(', ');
+        }
+
+        async function reverseGeocodeAddress(lat, lng, signal) {
+            if (lat == null || lng == null || isNaN(lat) || isNaN(lng)) return null;
+            try {
+                const url =
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${encodeURIComponent(String(lat))}` +
+                    `&lon=${encodeURIComponent(String(lng))}&addressdetails=1&zoom=18`;
+                const r = await fetch(url, { headers: { Accept: 'application/json' }, signal });
+                if (!r.ok) return null;
+                const j = await r.json();
+                if (!j || j.error) return null;
+                return j;
+            } catch (e) {
+                if (e.name === 'AbortError') return null;
+                return null;
+            }
+        }
+
+        /**
+         * @param {'gps'|'typed'} mode
+         * @param {string} addressHtml — already escaped (may include <wbr> after commas)
+         * @param {string} [metaLine] — plain text, will be escaped
+         */
+        function buildStartPopupHtml(mode, addressHtml, metaLine) {
+            const mod = mode === 'typed' ? 'typed' : 'gps';
+            const badge = mode === 'typed' ? 'Address' : 'GPS';
+            const ribbonTitle = mode === 'typed' ? 'Starting point · typed location' : 'Starting point · live location';
+            const subtitle =
+                mode === 'typed'
+                    ? 'Resolved from your search text'
+                    : 'Coordinates from your device';
+            const footer = metaLine
+                ? `<div class="start-place-card__footer">${escapeHtml(metaLine)}</div>`
+                : '';
+            return (
+                `<div class="start-place-card start-place-card--${mod}">` +
+                `<div class="start-place-card__ribbon">` +
+                `<div class="start-place-card__ribbon-left">` +
+                `<span class="start-place-card__badge">${badge}</span>` +
+                `<span class="start-place-card__ribbon-title">${escapeHtml(ribbonTitle)}</span>` +
+                `</div></div>` +
+                `<div class="start-place-card__hero">` +
+                `<div class="start-place-card__icon-ring" aria-hidden="true">` +
+                `<span class="material-symbols-outlined">home</span></div>` +
+                `<div class="start-place-card__hero-text">` +
+                `<div class="start-place-card__eyebrow">Trip origin</div>` +
+                `<div class="start-place-card__subtitle">${escapeHtml(subtitle)}</div>` +
+                `</div></div>` +
+                `<div class="start-place-card__body">` +
+                `<div class="start-place-card__label">Full address</div>` +
+                `<div class="start-place-card__addr">${addressHtml}</div>` +
+                footer +
+                `</div></div>`
+            );
+        }
 
         function categoryKeyFromCsv(cat) {
             const c = (cat || '').toLowerCase();
@@ -1528,12 +1917,14 @@
          * Keeps the first point (user start) fixed at index 0.
          * Returns an array of original indices in the visit order, or null on failure.
          */
-        async function fetchOsrmTripOrder(points, stableGen) {
+        async function fetchOsrmTripOrder(points, stableGen, signal) {
             if (!points || points.length < 3 || points.length > OSRM_TRIP_MAX) return null;
             const path = points.map((p) => `${p.lng},${p.lat}`).join(';');
             try {
-                const url = `${OSRM_TRIP_BASE}/${path}?source=first&roundtrip=true&overview=false`;
-                const r = await fetch(url);
+                // roundtrip=false + destination=last gives a one-way optimised order
+                // (roundtrip=true was producing circular/reversed stop sequences)
+                const url = `${OSRM_TRIP_BASE}/${path}?source=first&destination=last&roundtrip=false&overview=false`;
+                const r = await fetch(url, { signal });
                 if (!r.ok) return null;
                 const j = await r.json();
                 if (stableGen !== routeGeneration) return null;
@@ -1546,55 +1937,37 @@
                 }
                 pairs.sort((a, b) => a.visitIdx - b.visitIdx);
                 return pairs.map((x) => x.inputIdx);
-            } catch {
+            } catch (e) {
+                if (e.name === 'AbortError') return null;
                 return null;
             }
         }
 
-        async function fetchRoadRouteMulti(points, stableGen) {
+        async function fetchRoadRouteMulti(points, stableGen, signal) {
             if (!points || points.length < 2) return null;
             const slice = points.slice(0, OSRM_MAX_WAYPOINTS);
             const path = slice.map((p) => `${p.lng},${p.lat}`).join(';');
             try {
                 const url = `${OSRM_BASE}/${path}?overview=full&geometries=geojson`;
-                const r = await fetch(url);
+                const r = await fetch(url, { signal });
                 if (!r.ok) return null;
                 const j = await r.json();
                 if (stableGen !== routeGeneration) return null;
                 if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
                 return j.routes[0].geometry.coordinates.map((c) => [c[1], c[0]]);
-            } catch {
+            } catch (e) {
+                if (e.name === 'AbortError') return null;
                 return null;
             }
         }
 
-        async function drawItineraryFromWaypoints(waypoints, stableGen) {
+        async function drawItineraryFromWaypoints(waypoints, stableGen, signal) {
             if (!routeLayerGroup || waypoints.length < 2) return;
-            let latlngs = await fetchRoadRouteMulti(waypoints, stableGen);
+            let latlngs = await fetchRoadRouteMulti(waypoints, stableGen, signal);
             if (stableGen !== routeGeneration) return;
             if (!latlngs || latlngs.length < 2) {
-                latlngs = [];
-                for (let i = 0; i < waypoints.length - 1; i++) {
-                    const seg = await fetchRoadRoute(
-                        waypoints[i].lat,
-                        waypoints[i].lng,
-                        waypoints[i + 1].lat,
-                        waypoints[i + 1].lng
-                    );
-                    if (stableGen !== routeGeneration) return;
-                    if (seg && seg.length) {
-                        if (latlngs.length) {
-                            const last = latlngs[latlngs.length - 1];
-                            if (seg[0][0] === last[0] && seg[0][1] === last[1]) {
-                                latlngs.push(...seg.slice(1));
-                            } else {
-                                latlngs.push(...seg);
-                            }
-                        } else {
-                            latlngs.push(...seg);
-                        }
-                    }
-                }
+                // Fallback: straight lines between stops (avoids N slow serial OSRM calls)
+                latlngs = waypoints.map((w) => [w.lat, w.lng]);
             }
             if (stableGen !== routeGeneration) return;
             if (latlngs && latlngs.length >= 2) {
@@ -1694,16 +2067,17 @@
             return best;
         }
 
-        async function fetchRoadRoute(lat1, lng1, lat2, lng2) {
+        async function fetchRoadRoute(lat1, lng1, lat2, lng2, signal) {
             try {
                 const url = `${OSRM_BASE}/${lng1},${lat1};${lng2},${lat2}?overview=full&geometries=geojson`;
-                const r = await fetch(url);
+                const r = await fetch(url, { signal });
                 if (!r.ok) return null;
                 const j = await r.json();
                 if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
                 const coords = j.routes[0].geometry.coordinates;
                 return coords.map((c) => [c[1], c[0]]);
-            } catch {
+            } catch (e) {
+                if (e.name === 'AbortError') return null;
                 return null;
             }
         }
@@ -1718,24 +2092,37 @@
             return out;
         }
 
-        async function geocodeAddress(query) {
+        async function geocodeAddress(query, signal) {
             const q = (query || '').trim();
             if (!q) return null;
             if (geocodeCache.q === q && geocodeCache.lat != null) {
                 return { lat: geocodeCache.lat, lng: geocodeCache.lng, label: geocodeCache.label };
             }
             try {
-                const url = `https://nominatim.openstreetmap.org/search?format=json&limit=1&q=${encodeURIComponent(q)}`;
-                const r = await fetch(url, { headers: { Accept: 'application/json' } });
+                // Bias search toward Tirupati–Tirumala region (India, Andhra Pradesh).
+                // limit=3 lets us pick the closest result inside the viewbox when multiple match.
+                const url =
+                    `https://nominatim.openstreetmap.org/search?format=json&limit=3&addressdetails=1` +
+                    `&countrycode=in&viewbox=79.0,13.3,79.7,14.0&bounded=0` +
+                    `&q=${encodeURIComponent(q)}`;
+                const r = await fetch(url, { headers: { Accept: 'application/json' }, signal });
                 if (!r.ok) return null;
                 const arr = await r.json();
                 if (!arr || !arr[0]) return null;
-                const lat = parseFloat(arr[0].lat);
-                const lng = parseFloat(arr[0].lon);
+                // Prefer a result inside the Tirupati bounding box
+                const inBox = arr.find((x) => {
+                    const la = parseFloat(x.lat), lo = parseFloat(x.lon);
+                    return la >= 13.3 && la <= 14.0 && lo >= 79.0 && lo <= 79.7;
+                });
+                const hit = inBox || arr[0];
+                const lat = parseFloat(hit.lat);
+                const lng = parseFloat(hit.lon);
                 if (isNaN(lat) || isNaN(lng)) return null;
-                geocodeCache = { q, lat, lng, label: arr[0].display_name || q };
-                return { lat, lng, label: geocodeCache.label };
-            } catch {
+                const label = formatNominatimAddressLine(hit) || hit.display_name || q;
+                geocodeCache = { q, lat, lng, label };
+                return { lat, lng, label };
+            } catch (e) {
+                if (e.name === 'AbortError') return null;
                 return null;
             }
         }
@@ -1751,7 +2138,7 @@
         function animatePolylineAlong(latlngs, style, stableGen) {
             if (!routeLayerGroup || latlngs.length < 2) return null;
             const line = L.polyline([], { ...style, interactive: false }).addTo(routeLayerGroup);
-            const duration = 1800;
+            const duration = 900;
             const n = latlngs.length;
             const t0 = performance.now();
 
@@ -1787,6 +2174,12 @@
 
         async function refreshRoutesToNearest() {
             if (!map || !filtersApplied) return;
+
+            // Cancel any in-flight OSRM / Nominatim requests from the previous run.
+            if (routeAbortCtrl) routeAbortCtrl.abort();
+            routeAbortCtrl = new AbortController();
+            const signal = routeAbortCtrl.signal;
+
             const myGen = ++routeGeneration;
             lastOptimizedOrder = null;
             ensureRouteLayers();
@@ -1794,182 +2187,147 @@
             userLayerGroup.clearLayers();
 
             const candidates = routeCandidates();
-            const legendEl = document.getElementById('mapLegend');
-            const legendBody = document.getElementById('mapLegendBody');
             if (!candidates.length) {
-                legendEl.classList.remove('hidden');
-                if (legendBody) {
-                    legendBody.replaceChildren();
-                    const empty = document.createElement('p');
-                    empty.className = 'map-legend-warn';
-                    const base = getSearchCategoryFiltered().length;
-                    empty.textContent = base
-                        ? 'No places are open between your outing times for this filter. Widen your hours or search.'
-                        : 'No places match this category/search.';
-                    legendBody.appendChild(empty);
-                }
+                updateTripOverview();
                 return;
             }
 
+            // — Resolve start location ————————————————————————————————————————
             let startLat = null;
             let startLng = null;
             if (isGeoEnabled && lastGps) {
                 startLat = lastGps.lat;
                 startLng = lastGps.lng;
-                L.marker([lastGps.lat, lastGps.lng], { icon: iconGps, zIndexOffset: 700 })
-                    .bindPopup('<strong>Start</strong><br>Your GPS position')
+                const rev = await reverseGeocodeAddress(lastGps.lat, lastGps.lng, signal);
+                if (myGen !== routeGeneration) return;
+                const addrLine = rev ? formatNominatimAddressLine(rev) : '';
+                const addrHtml = addrLine
+                    ? escapeHtml(addrLine).replace(/,/g, ',<wbr>')
+                    : '<em>Address lookup unavailable — using GPS coordinates.</em>';
+                const meta =
+                    'GPS · ' +
+                    lastGps.lat.toFixed(5) +
+                    ', ' +
+                    lastGps.lng.toFixed(5) +
+                    (lastGps.accuracy != null ? ' · ±' + Math.round(lastGps.accuracy) + ' m' : '');
+                const m = L.marker([lastGps.lat, lastGps.lng], { icon: iconStartHomeGps, zIndexOffset: 700 })
+                    .bindPopup(buildStartPopupHtml('gps', addrHtml, meta), {
+                        minWidth: 300,
+                        maxWidth: 420,
+                        className: 'place-popup--gov place-popup--start'
+                    })
                     .addTo(userLayerGroup);
+                m.openPopup();
             } else {
                 const typedQ = startLocationInput ? startLocationInput.value.trim() : '';
                 if (typedQ) {
-                    const geo = await geocodeAddress(typedQ);
+                    const geo = await geocodeAddress(typedQ, signal);
                     if (myGen !== routeGeneration) return;
                     if (geo) {
                         startLat = geo.lat;
                         startLng = geo.lng;
-                        L.marker([geo.lat, geo.lng], { icon: iconTyped, zIndexOffset: 600 })
-                            .bindPopup('<strong>Start</strong><br>' + escapeHtml(geo.label))
+                        const addrLine = geo.label || typedQ;
+                        const addrHtml = escapeHtml(addrLine).replace(/,/g, ',<wbr>');
+                        const meta = 'Typed search · ' + geo.lat.toFixed(5) + ', ' + geo.lng.toFixed(5);
+                        const m = L.marker([geo.lat, geo.lng], { icon: iconStartHomeTyped, zIndexOffset: 600 })
+                            .bindPopup(buildStartPopupHtml('typed', addrHtml, meta), {
+                                minWidth: 300,
+                                maxWidth: 420,
+                                className: 'place-popup--gov place-popup--start'
+                            })
                             .addTo(userLayerGroup);
+                        m.openPopup();
                     }
                 }
             }
 
             if (myGen !== routeGeneration) return;
 
+            // — Initial stop ordering (nearest-neighbour from start location) ——
             let ordered = orderPlacesForItinerary(candidates.slice(), startLat, startLng);
-            const openAfterTimeOrder = ordered.length;
             const durCapRes = applyOutingDurationCap(ordered);
             ordered = durCapRes.list;
-            const durationCapped = durCapRes.capped;
-            const countAfterDurationCap = ordered.length;
-            let truncated = false;
-            const countBeforeOsrmCap = ordered.length;
             if (ordered.length > OSRM_MAX_WAYPOINTS - 5) {
-                truncated = true;
                 ordered = ordered.slice(0, OSRM_MAX_WAYPOINTS - 5);
             }
 
-            // Road-optimal reorder using OSRM Trip service (TSP on driving network).
-            // Keeps the user's start point first and reorders stops so the drawn route
-            // actually follows the shortest road path through them, not a long zig-zag.
+            const hasStart = startLat != null && startLng != null && !isNaN(startLat) && !isNaN(startLng);
+
+            // Draw nearest-neighbour markers immediately so the map is never empty.
+            // These will be replaced with TSP-optimised numbers below.
+            updateMapMarkers(ordered, true);
+
+            // — Show a placeholder polyline so the user sees something instantly ——
+            let placeholderLine = null;
+            if (ordered.length >= 1 && routeLayerGroup) {
+                const plPts = [];
+                if (hasStart) plPts.push([startLat, startLng]);
+                ordered.forEach((p) => plPts.push([p.lat, p.lng]));
+                if (plPts.length >= 2) {
+                    placeholderLine = L.polyline(plPts, {
+                        color: '#94a3b8', weight: 3, opacity: 0.40,
+                        dashArray: '7 7', interactive: false
+                    }).addTo(routeLayerGroup);
+                    const bPts = ordered.map((p) => [p.lat, p.lng]);
+                    if (hasStart) bPts.push([startLat, startLng]);
+                    map.fitBounds(bPts, { padding: [40, 40], maxZoom: 13, animate: true });
+                }
+            }
+
+            // — Road-optimal reorder (OSRM Trip TSP) ——————————————————————————
+            // Always try TSP when we have enough points — no "≤5" skip any more,
+            // because small category filters (e.g. Food) can easily have 3-6 stops
+            // where TSP still makes a meaningful difference.
             let roadOptimized = false;
-            if (ordered.length >= 2) {
-                const tripPts = [];
-                const hasStart = startLat != null && startLng != null && !isNaN(startLat) && !isNaN(startLng);
-                if (hasStart) tripPts.push({ lat: startLat, lng: startLng });
-                ordered.forEach((p) => tripPts.push({ lat: p.lat, lng: p.lng }));
-                if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX) {
-                    const newOrder = await fetchOsrmTripOrder(tripPts, myGen);
-                    if (myGen !== routeGeneration) return;
-                    if (newOrder && newOrder.length === tripPts.length) {
-                        const stopOffset = hasStart ? 1 : 0;
-                        const stopOrder = newOrder.filter((idx) => idx >= stopOffset);
-                        if (stopOrder.length === ordered.length) {
-                            ordered = stopOrder.map((idx) => ordered[idx - stopOffset]);
-                            roadOptimized = true;
-                        }
+            const tripPts = [];
+            if (hasStart) tripPts.push({ lat: startLat, lng: startLng });
+            ordered.forEach((p) => tripPts.push({ lat: p.lat, lng: p.lng }));
+
+            if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX) {
+                const newOrder = await fetchOsrmTripOrder(tripPts, myGen, signal);
+                if (myGen !== routeGeneration) return;
+                if (newOrder && newOrder.length === tripPts.length) {
+                    const stopOffset = hasStart ? 1 : 0;
+                    const stopOrder = newOrder.filter((idx) => idx >= stopOffset);
+                    if (stopOrder.length === ordered.length) {
+                        ordered = stopOrder.map((idx) => ordered[idx - stopOffset]);
+                        roadOptimized = true;
                     }
                 }
             }
 
-            // Cache and broadcast the road-optimized order so the sidebar visit list
-            // and the numbered markers render the same sequence as the drawn route.
+            // Cache TSP-optimised order and redraw markers with final stop numbers.
             if (roadOptimized) {
-                lastOptimizedOrder = {
-                    signature: stopSetSignature(ordered),
-                    ordered: ordered.slice()
-                };
-                updateTripOverview();
-                updateMapMarkers(getFilteredPlaces());
+                lastOptimizedOrder = { signature: stopSetSignature(ordered), ordered: ordered.slice() };
             } else {
                 lastOptimizedOrder = null;
             }
+            // Always redraw markers to reflect the final order (TSP or nearest-neighbour).
+            updateMapMarkers(ordered, false);
 
-            const numDaysEl = document.getElementById('numDays');
-            const numDays = Math.max(1, parseInt((numDaysEl && numDaysEl.value) || '1', 10) || 1);
-            const dayChunks = splitIntoDays(ordered, numDays);
-
+            // — Fetch actual road geometry and draw final animated route ————————
             const waypoints = [];
-            if (startLat != null && startLng != null && !isNaN(startLat) && !isNaN(startLng)) {
-                waypoints.push({ lat: startLat, lng: startLng });
-            }
+            if (hasStart) waypoints.push({ lat: startLat, lng: startLng });
             ordered.forEach((p) => waypoints.push({ lat: p.lat, lng: p.lng }));
-
             const deduped = waypoints.filter(
                 (w, i, a) => i === 0 || w.lat !== a[i - 1].lat || w.lng !== a[i - 1].lng
             );
 
             if (deduped.length >= 2) {
-                await drawItineraryFromWaypoints(deduped, myGen);
+                // Remove the placeholder before drawing the real road route
+                if (placeholderLine && routeLayerGroup) {
+                    routeLayerGroup.removeLayer(placeholderLine);
+                    placeholderLine = null;
+                }
+                await drawItineraryFromWaypoints(deduped, myGen, signal);
             }
 
             if (myGen !== routeGeneration) return;
 
-            if (legendBody) {
-                legendBody.replaceChildren();
-                if (durationCapped && openAfterTimeOrder > countAfterDurationCap) {
-                    const om = getOutingDurationMinutes();
-                    const w = document.createElement('p');
-                    w.className = 'map-legend-warn';
-                    w.textContent =
-                        'Showing ' +
-                        countAfterDurationCap +
-                        ' of ' +
-                        openAfterTimeOrder +
-                        ' open stops (outing ~' +
-                        om +
-                        ' min, ~' +
-                        MINUTES_BUDGET_PER_STOP +
-                        ' min per stop). Widen your outing times for more.';
-                    legendBody.appendChild(w);
-                }
-                if (truncated) {
-                    const warn = document.createElement('p');
-                    warn.className = 'map-legend-warn';
-                    warn.textContent =
-                        'Showing first ' +
-                        ordered.length +
-                        ' of ' +
-                        countBeforeOsrmCap +
-                        ' stops (routing limit).';
-                    legendBody.appendChild(warn);
-                }
-                let stopCounter = 0;
-                dayChunks.forEach((chunk, di) => {
-                    if (!chunk.length) return;
-                    const dayEl = document.createElement('div');
-                    dayEl.className = 'map-legend-day';
-                    const title = document.createElement('div');
-                    title.className = 'map-legend-day-title';
-                    title.textContent = 'Day ' + (di + 1);
-                    dayEl.appendChild(title);
-                    const ol = document.createElement('ol');
-                    ol.className = 'map-legend-stops';
-                    ol.setAttribute('start', String(stopCounter + 1));
-                    chunk.forEach((p) => {
-                        stopCounter += 1;
-                        const li = document.createElement('li');
-                        const name = document.createElement('span');
-                        name.textContent = p.name;
-                        li.appendChild(name);
-                        const times = document.createElement('span');
-                        times.className = 'map-legend-stop-time';
-                        times.textContent = formatPlaceHoursForLegend(p);
-                        li.appendChild(times);
-                        ol.appendChild(li);
-                    });
-                    dayEl.appendChild(ol);
-                    legendBody.appendChild(dayEl);
-                });
-                if (!legendBody.childNodes.length) {
-                    legendBody.textContent = '—';
-                }
-            }
-            legendEl.classList.remove('hidden');
+            updateTripOverview();
 
             const boundsPts = ordered.map((p) => [p.lat, p.lng]);
-            if (isGeoEnabled && lastGps) boundsPts.push([lastGps.lat, lastGps.lng]);
-            else if (deduped.length) boundsPts.push([deduped[0].lat, deduped[0].lng]);
+            if (hasStart) boundsPts.push([startLat, startLng]);
             if (boundsPts.length) {
                 map.fitBounds(boundsPts, { padding: [40, 40], maxZoom: 13, animate: true });
             }
@@ -1978,9 +2336,11 @@
         function scheduleRefreshRoutes() {
             if (!filtersApplied || !map) return;
             clearTimeout(gpsRouteTimer);
+            // 1.5 s debounce: GPS fires several times a second; batching prevents
+            // flooding OSRM with a new round-trip every position update.
             gpsRouteTimer = setTimeout(() => {
                 refreshRoutesToNearest();
-            }, 600);
+            }, 1500);
         }
 
         function stopGeoWatch() {
@@ -2133,12 +2493,87 @@
             markerLayer = L.layerGroup().addTo(map);
         }
 
-        function updateMapMarkers(list) {
+        function normalizeHoursToken(s) {
+            return (s || '')
+                .replace(/\s/g, '')
+                .replace(/–|—/g, '-')
+                .replace(/\|/g, '')
+                .toLowerCase();
+        }
+
+        /** Show detailed timings block only when it adds info beyond the summary chip. */
+        function placePopupShowDetailedSlots(p, hoursLegendPlain) {
+            const slots = (p.timings || '').trim();
+            if (!slots) return false;
+            if (slots.includes('|')) return true;
+            const a = normalizeHoursToken(hoursLegendPlain);
+            const b = normalizeHoursToken(slots);
+            if (a && b && a === b) return false;
+            return true;
+        }
+
+        function buildPlacePopupHtml(p, orderNum, o) {
+            const hoursPlain = formatPlaceHoursForLegend(p);
+            const hours = escapeHtml(hoursPlain);
+            const cat = escapeHtml(p.category);
+            const name = escapeHtml(p.name);
+            const descRaw = (p.description || '').trim();
+            const desc =
+                descRaw.length > 180
+                    ? escapeHtml(descRaw.slice(0, 180)) + '…'
+                    : escapeHtml(descRaw);
+            const slotsRaw = (p.timings || '').trim();
+            const slotsShort =
+                slotsRaw.length > 200
+                    ? escapeHtml(slotsRaw.slice(0, 200)) + '…'
+                    : escapeHtml(slotsRaw);
+            const chipAccent =
+                p.categoryKey === 'temple' || p.categoryKey === 'food' ? ' place-card__chip--accent' : '';
+            const accentInk =
+                {
+                    food: '#9a3412',
+                    temple: '#78350f',
+                    adventure: '#065f46',
+                    sightseeing: '#1e40af',
+                    other: '#334155'
+                }[p.categoryKey] || '#334155';
+            const slotsBlock =
+                slotsRaw && placePopupShowDetailedSlots(p, hoursPlain)
+                    ? `<div class="place-card__section"><div class="place-card__label">Detailed timings</div><div class="place-card__slots">${slotsShort}</div></div>`
+                    : '';
+            return (
+                `<div class="place-card" style="--pp-accent:${o.fg};--pp-soft:${o.bg};--pp-accent-ink:${accentInk};">` +
+                `<div class="place-card__ribbon">` +
+                `<div class="place-card__ribbon-left">` +
+                `<span class="place-card__badge">Stop ${orderNum}</span>` +
+                `<span class="place-card__status"><strong>Open</strong> · itinerary route</span>` +
+                `</div></div>` +
+                `<div class="place-card__hero">` +
+                `<div class="place-card__icon-ring" aria-hidden="true">` +
+                `<span class="material-symbols-outlined" style="color:${o.fg}">${o.sym}</span>` +
+                `</div>` +
+                `<div class="place-card__title-wrap"><h3 class="place-card__title">${name}</h3></div>` +
+                `</div>` +
+                `<div class="place-card__body">` +
+                `<div class="place-card__meta">` +
+                `<span class="place-card__chip${chipAccent}">${cat}</span>` +
+                `<span class="place-card__chip">${hours}</span></div>` +
+                slotsBlock +
+                (descRaw ? `<p class="place-card__desc">${desc}</p>` : '') +
+                `</div></div>`
+            );
+        }
+
+        /**
+         * Render numbered markers that EXACTLY match the given ordered list.
+         * Pass the already-computed visit order so markers always agree with the route.
+         * @param {Array} ordered - places in visit order (already optimised)
+         * @param {boolean} fitMap - whether to fitBounds after placing markers
+         */
+        function updateMapMarkers(ordered, fitMap = true) {
             if (!map || !markerLayer) return;
             markerLayer.clearLayers();
-            const orderedFull = orderPlacesForItinerary(list.slice(), null, null);
-            const ordered = applyCachedRoadOrder(applyOutingDurationCap(orderedFull).list);
-            if (ordered.length === 0) {
+            if (!ordered || ordered.length === 0) {
                 map.setView([13.65, 79.35], 10);
                 return;
             }
@@ -2150,23 +2585,17 @@
                     icon: placeMarkerIconWithOrder(p.categoryKey, orderNum),
                     zIndexOffset: 400 + idx
                 });
-                const popupHead =
-                    `<div style="text-align:center;margin-bottom:8px">` +
-                    `<span class="place-popup-icon" style="color:${o.fg}">${o.sym}</span></div>`;
-                m.bindPopup(
-                    popupHead +
-                    `<div style="font-size:11px;font-weight:700;color:#0f766e;margin-bottom:4px">Stop ${orderNum} · Open during your outing · nearest route</div>` +
-                    `<strong>${escapeHtml(p.name)}</strong><br>` +
-                    `<span style="font-size:11px;color:#64748b">${escapeHtml(p.category)} · ${escapeHtml(formatPlaceHoursForLegend(p))}</span><br>` +
-                    (p.timings
-                        ? `<span style="font-size:10px;color:#64748b">Slots: ${escapeHtml(p.timings).slice(0, 140)}${p.timings.length > 140 ? '…' : ''}</span><br>`
-                        : '') +
-                    `<span style="font-size:11px">${escapeHtml(p.description).slice(0, 120)}${p.description.length > 120 ? '…' : ''}</span>`
-                );
+                m.bindPopup(buildPlacePopupHtml(p, orderNum, o), {
+                    minWidth: 300,
+                    maxWidth: 420,
+                    className: 'place-popup--gov'
+                });
                 m.addTo(markerLayer);
                 bounds.push([p.lat, p.lng]);
             });
-            map.fitBounds(bounds, { padding: [36, 36], maxZoom: 12 });
+            if (fitMap && bounds.length) {
+                map.fitBounds(bounds, { padding: [36, 36], maxZoom: 12 });
+            }
         }
 
         function escapeHtml(s) {
@@ -2194,9 +2623,11 @@
             if (!btn) return;
             selectedCategory = btn.dataset.cat || 'all';
             document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.toggle('active', c === btn));
+            // Clear stale road order so markers immediately reflect the new filter
+            lastOptimizedOrder = null;
             updateTripOverview();
             if (filtersApplied) {
-                updateMapMarkers(getFilteredPlaces());
+                // refreshRoutesToNearest redraws markers + route with the new category
                 refreshRoutesToNearest();
             }
         });
@@ -2206,9 +2637,9 @@
         });
 
         document.getElementById('placeSearch').addEventListener('input', () => {
+            lastOptimizedOrder = null;
             updateTripOverview();
             if (filtersApplied) {
-                updateMapMarkers(getFilteredPlaces());
                 refreshRoutesToNearest();
             }
         });
@@ -2217,9 +2648,9 @@
             const el = document.getElementById(id);
             if (!el) return;
             const onTripField = () => {
+                lastOptimizedOrder = null;
                 updateTripOverview();
                 if (filtersApplied) {
-                    updateMapMarkers(getFilteredPlaces());
                     scheduleRefreshRoutes();
                 }
             };
@@ -2315,22 +2746,63 @@
             refreshRoutesToNearest();
         });
 
-        function syncCategoryFromUrl() {
-            const p = new URLSearchParams(window.location.search).get('category');
-            if (!p) return;
-            const key = p.toLowerCase();
-            const chip = document.querySelector(`#categoryChips .chip[data-cat="${key}"]`);
-            if (chip) {
-                document.querySelectorAll('#categoryChips .chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                selectedCategory = key;
+        /** Read deep-link query params from the landing-page preflight (or bookmarks). */
+        function syncPlannerFromUrl() {
+            const sp = new URLSearchParams(window.location.search);
+            let autoApply = false;
+
+            const cat = sp.get('category');
+            if (cat) {
+                const key = cat.toLowerCase();
+                const chip = document.querySelector(`#categoryChips .chip[data-cat="${key}"]`);
+                if (chip) {
+                    document.querySelectorAll('#categoryChips .chip').forEach((c) => c.classList.remove('active'));
+                    chip.classList.add('active');
+                    selectedCategory = key;
+                }
             }
+
+            const qs = sp.get('q');
+            if (qs) {
+                document.getElementById('placeSearch').value = qs;
+            }
+
+            const st = sp.get('start');
+            const en = sp.get('end');
+            if (st) document.getElementById('tripStartTime').value = st;
+            if (en) document.getElementById('tripEndTime').value = en;
+
+            const d = sp.get('date');
+            if (d) document.getElementById('tripDate').value = d;
+
+            const days = sp.get('days');
+            if (days != null && days !== '') {
+                const n = parseInt(days, 10);
+                if (!isNaN(n) && n >= 1 && n <= 365) {
+                    document.getElementById('numDays').value = String(n);
+                }
+            }
+
+            const loc = sp.get('loc');
+            if (loc) {
+                document.getElementById('startLocation').value = loc;
+            }
+
+            const ap = sp.get('apply');
+            if (ap === '1' || ap === 'true' || ap === 'yes') {
+                autoApply = true;
+            }
+
+            return autoApply;
         }
 
         (async function init() {
             await loadPlaces();
-            syncCategoryFromUrl();
+            const autoApply = syncPlannerFromUrl();
             updateTripOverview();
+            if (autoApply) {
+                applyFiltersAndShowMap();
+            }
         })();
     </script>
 </body>
