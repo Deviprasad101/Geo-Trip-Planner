@@ -711,6 +711,12 @@
             outline: none;
             box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.2);
         }
+        .planner-preflight-hint {
+            margin: 0.35rem 0 0;
+            font-size: 0.7rem;
+            color: rgba(55, 48, 40, 0.72);
+            line-height: 1.35;
+        }
         .planner-preflight-row2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -1060,6 +1066,11 @@
                 </div>
             </div>
             <div class="planner-preflight-field">
+                <label for="plannerPreflightTripSpend">Total trip spend (₹)</label>
+                <input type="number" id="plannerPreflightTripSpend" min="0" step="100" placeholder="e.g. 15000" inputmode="decimal" autocomplete="off"/>
+                <p class="planner-preflight-hint">Optional — your planned or actual budget for the whole trip. Carries to the map planner.</p>
+            </div>
+            <div class="planner-preflight-field">
                 <label for="plannerPreflightSearch">Search places (optional)</label>
                 <input type="search" id="plannerPreflightSearch" placeholder="Name or description…" autocomplete="off"/>
             </div>
@@ -1258,6 +1269,7 @@
     }
 
     function initPlannerPreflight() {
+        const TRIP_SPEND_STORAGE = 'tirupati_trip_total_spend';
         const dlg = document.getElementById('plannerPreflightDialog');
         const subtitle = document.getElementById('plannerPreflightSubtitle');
         const catRoot = document.getElementById('plannerPreflightCatChips');
@@ -1268,10 +1280,26 @@
         const dateEl = document.getElementById('plannerPreflightDate');
         const daysEl = document.getElementById('plannerPreflightDays');
         const locEl = document.getElementById('plannerPreflightLoc');
+        const spendEl = document.getElementById('plannerPreflightTripSpend');
         const closeBtn = document.getElementById('plannerPreflightClose');
         const cancelBtn = document.getElementById('plannerPreflightCancel');
         const goBtn = document.getElementById('plannerPreflightGo');
         if (!dlg || !catRoot || !grid || !searchEl || !startEl || !endEl || !dateEl || !daysEl || !locEl || !goBtn) return;
+
+        if (spendEl) {
+            spendEl.addEventListener('input', function () {
+                const v = spendEl.value.trim();
+                if (v) {
+                    try {
+                        window.localStorage.setItem(TRIP_SPEND_STORAGE, v);
+                    } catch (err) { /* ignore */ }
+                } else {
+                    try {
+                        window.localStorage.removeItem(TRIP_SPEND_STORAGE);
+                    } catch (err2) { /* ignore */ }
+                }
+            });
+        }
 
         const PLANNER = 'trip_planner%20(1).html';
         let selectedCat = 'all';
@@ -1297,6 +1325,13 @@
             startEl.value = '09:00';
             endEl.value = '21:00';
             locEl.value = 'Tirupati';
+            if (spendEl) {
+                var savedSpend = '';
+                try {
+                    savedSpend = window.localStorage.getItem(TRIP_SPEND_STORAGE) || '';
+                } catch (e) { /* ignore */ }
+                spendEl.value = savedSpend;
+            }
             syncCatChipUi();
             dlg.showModal();
             window.requestAnimationFrame(function () {
@@ -1338,6 +1373,15 @@
             if (!isNaN(nd) && nd >= 1) p.set('days', String(nd));
             const loc = locEl.value.trim();
             if (loc) p.set('loc', loc);
+            if (spendEl) {
+                var spendRaw = spendEl.value.trim();
+                if (spendRaw !== '') {
+                    var sn = parseFloat(spendRaw);
+                    if (isFinite(sn) && sn >= 0) {
+                        p.set('spend', String(Math.round(sn)));
+                    }
+                }
+            }
             p.set('apply', '1');
             window.location.href = PLANNER + '?' + p.toString();
         });

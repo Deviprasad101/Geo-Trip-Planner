@@ -52,16 +52,16 @@
             --accent: #d4af37;
             --teal: #006d40;
             --teal-mid: #0f766e;
-            --bg: #f9f9fc;
+            --bg: #f4f6f9;
             --card: #ffffff;
             --text: #1a1c1e;
-            --muted: #4d4635;
-            --border: #e7e5e4;
+            --muted: #465167;
+            --border: #d7dde7;
             --amber-line: rgba(251, 191, 36, 0.45);
             --success: #15803d;
             --danger: #b91c1c;
             --radius: 14px;
-            --shadow: 0 4px 24px rgba(115, 92, 0, 0.07);
+            --shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
         }
         * { box-sizing: border-box; }
         html.budget-page-root,
@@ -327,6 +327,10 @@
             color: #fff;
             min-height: 44px;
             transition: background 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
         }
         .budget-app .sidebar .btn-apply:hover {
             background: var(--gov-blue-hover);
@@ -667,25 +671,26 @@
         .site-header__inner {
             max-width: 80rem;
             margin: 0 auto;
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             align-items: center;
-            justify-content: space-between;
             gap: 1rem;
         }
-        .site-header__brand {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .site-header__meta {
             min-width: 0;
         }
         .site-header__logo {
-            height: 44px;
+            height: clamp(56px, 8vh, 86px);
             width: auto;
-            max-width: 140px;
+            max-width: min(46vw, 420px);
             object-fit: contain;
-            border-radius: 6px;
+            object-position: center;
+            border-radius: 8px;
             background: #fff;
-            padding: 4px 8px;
+            padding: 3px 6px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+            justify-self: center;
         }
         .site-header__titles h1 {
             margin: 0;
@@ -705,10 +710,12 @@
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            justify-self: end;
         }
         .site-header__back {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.35rem;
             padding: 0.5rem 1rem;
             border-radius: 9999px;
@@ -733,19 +740,148 @@
             border: 2px solid rgba(212, 175, 55, 0.35);
         }
         .wrap {
-            max-width: 80rem;
+            max-width: 90rem;
             margin: 0 auto;
-            padding: 1.25rem clamp(1rem, 3vw, 2rem) 2.5rem;
+            padding: 1.1rem clamp(1rem, 2.6vw, 2rem) 2.5rem;
         }
+        .section-heading {
+            margin: 1.15rem 0 0.7rem;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #334155;
+            border-left: 4px solid rgba(143, 78, 0, 0.75);
+            padding-left: 0.6rem;
+        }
+        .dashboard-controls {
+            margin: 0.95rem 0 1.1rem;
+            padding: 0.7rem 0.8rem;
+            border: 1px solid #d6dde8;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #ffffff 0%, #f5f8fc 100%);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.65rem;
+        }
+        .dashboard-controls__title {
+            margin: 0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: #334155;
+            font-weight: 800;
+        }
+        .dashboard-controls__actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+        .ctrl-btn {
+            border: 1px solid #cbd5e1;
+            border-radius: 9px;
+            background: #fff;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.82rem;
+            min-height: 2.3rem;
+            padding: 0.45rem 0.75rem;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+        .ctrl-btn:hover { background: #f8fafc; }
+        .ctrl-btn--primary {
+            background: linear-gradient(135deg, #0f766e, #0ea5a1);
+            border-color: #0f766e;
+            color: #fff;
+        }
+        .ctrl-btn--primary:hover { filter: brightness(1.05); }
+        .kpi-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(160px, 1fr));
+            gap: 0.65rem;
+            margin-bottom: 1rem;
+        }
+        .kpi-chip {
+            border: 1px solid #d8e0eb;
+            border-radius: 10px;
+            background: #fff;
+            padding: 0.6rem 0.75rem;
+            min-height: 4.2rem;
+        }
+        .kpi-chip__label {
+            display: block;
+            color: #64748b;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.3rem;
+        }
+        .kpi-chip__value {
+            margin: 0;
+            color: #0f172a;
+            font-size: 1.12rem;
+            font-weight: 800;
+            font-family: "Noto Serif", serif;
+        }
+        .kpi-chip--status .kpi-chip__value { font-size: 0.95rem; font-family: inherit; }
+        .kpi-chip--status.good { border-color: #86efac; background: #f0fdf4; }
+        .kpi-chip--status.warn { border-color: #fecaca; background: #fef2f2; }
+        .kpi-chip--status.neutral { border-color: #d8e0eb; background: #fff; }
         .card {
             background: var(--card);
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            border: 1px solid rgba(251, 191, 36, 0.35);
+            border: 1px solid var(--border);
             padding: 1.35rem 1.5rem;
-            transition: box-shadow 0.2s ease, transform 0.2s ease;
+            transition: box-shadow 0.2s ease;
         }
-        .card:hover { box-shadow: 0 10px 32px rgba(115, 92, 0, 0.1); }
+        .card:hover { box-shadow: 0 10px 28px rgba(15, 23, 42, 0.09); }
+        .card--context {
+            background: linear-gradient(145deg, #ffffff 0%, #eef7ff 100%);
+            border-color: #c7deff;
+        }
+        .card--inputs {
+            background: linear-gradient(145deg, #ffffff 0%, #fff8eb 100%);
+            border-color: #f3d7a7;
+        }
+        .card--travel {
+            background: linear-gradient(145deg, #ffffff 0%, #fff4f1 100%);
+            border-color: #f7c6b8;
+        }
+        .card--stay {
+            background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
+            border-color: #bfdfff;
+        }
+        .card--food {
+            background: linear-gradient(145deg, #ffffff 0%, #f6ffef 100%);
+            border-color: #c7eab0;
+        }
+        .card--activities {
+            background: linear-gradient(145deg, #ffffff 0%, #f4f2ff 100%);
+            border-color: #d4c9ff;
+        }
+        .card--buffer {
+            background: linear-gradient(145deg, #ffffff 0%, #fff7f0 100%);
+            border-color: #ffd6bb;
+        }
+        .card--chart-pie {
+            background: linear-gradient(145deg, #ffffff 0%, #eff8ff 100%);
+            border-color: #cde7ff;
+        }
+        .card--chart-bar {
+            background: linear-gradient(145deg, #ffffff 0%, #f2fff6 100%);
+            border-color: #ccefd7;
+        }
+        .card--map {
+            background: linear-gradient(145deg, #ffffff 0%, #eefcf9 100%);
+            border-color: #bde8dd;
+        }
         .card__head {
             display: flex;
             align-items: center;
@@ -770,45 +906,59 @@
         .card__icon--accent { background: linear-gradient(135deg, #92400e, var(--secondary)); }
         .card__icon--teal { background: linear-gradient(135deg, var(--teal), var(--teal-mid)); }
         .card__title {
-            font-size: 1.05rem;
+            font-size: 1.07rem;
             font-weight: 700;
             margin: 0;
             font-family: "Noto Serif", serif;
-            color: #78350f;
+            color: #1f2937;
         }
-        .card__subtitle { font-size: 0.75rem; color: var(--muted); margin: 0.15rem 0 0; }
+        .card__subtitle { font-size: 0.77rem; color: var(--muted); margin: 0.15rem 0 0; }
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1rem 1.25rem;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1rem 1.15rem;
+            align-items: start;
         }
         label {
             display: block;
-            font-size: 0.6875rem;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.06em;
-            color: var(--muted);
+            color: #334155;
             margin-bottom: 0.35rem;
         }
         input, select {
             width: 100%;
-            padding: 0.55rem 0.75rem;
+            padding: 0.58rem 0.75rem;
             border: 1px solid var(--border);
             border-radius: 10px;
             font-size: 0.9375rem;
             font-family: inherit;
-            background: #fff;
+            background: #fbfdff;
+            color: #111827;
         }
         input:focus, select:focus {
             outline: none;
-            border-color: #f59e0b;
-            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.35);
+            border-color: #475569;
+            box-shadow: 0 0 0 3px rgba(71, 85, 105, 0.18);
+        }
+        /* Bus/train ticket: plain text-style number field (no stepper arrows) */
+        #ticketPrice::-webkit-outer-spin-button,
+        #ticketPrice::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+        #ticketPrice[type="number"] {
+            -moz-appearance: textfield;
+            appearance: textfield;
         }
         .hint {
-            font-size: 0.6875rem;
+            font-size: 0.72rem;
             color: var(--muted);
             margin-top: 0.25rem;
+            line-height: 1.4;
         }
         .formula-row {
             display: flex;
@@ -820,6 +970,15 @@
             margin-top: 0.75rem;
             padding-top: 0.75rem;
             border-top: 1px dashed var(--border);
+        }
+        .formula-row > span:first-child {
+            min-width: 0;
+            flex: 1;
+            line-height: 1.45;
+        }
+        .formula-row .amount {
+            flex-shrink: 0;
+            align-self: center;
         }
         .formula-row code {
             font-size: 0.75rem;
@@ -845,73 +1004,21 @@
             z-index: 0;
         }
         .planner-split {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-            align-items: start;
+            display: block;
+            max-width: 56rem;
+            margin: 0 auto;
             position: relative;
-            z-index: 2;
-        }
-        @media (min-width: 1080px) {
-            .planner-split {
-                grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
-            }
-        }
-        .map-pane {
-            display: flex;
-            flex-direction: column;
-            gap: 0.9rem;
-        }
-        .map-controls {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 0.75rem;
-        }
-        .map-controls__actions {
-            display: flex;
-            justify-content: flex-end;
-        }
-        .btn-map {
-            border: none;
-            border-radius: 10px;
-            background: var(--secondary);
-            color: #fff;
-            font-size: 0.875rem;
-            font-weight: 700;
-            padding: 0.6rem 0.9rem;
-            cursor: pointer;
-            transition: filter 0.15s ease;
-        }
-        .btn-map:hover {
-            filter: brightness(1.05);
-        }
-        .map-status {
-            min-height: 1.2rem;
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
-        .map-status--error {
-            color: var(--danger);
-        }
-        #routeMap {
-            width: 100%;
-            min-height: 360px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            background: #e2e8f0;
-            position: relative;
-            overflow: hidden;
-            isolation: isolate;
+            z-index: 1;
         }
         .summary-card {
             position: relative;
             z-index: 0;
             margin-top: 1.5rem;
-            background: linear-gradient(145deg, #fff 0%, #fefce8 55%, #fff 100%);
-            border: 2px solid rgba(212, 175, 55, 0.65);
+            background: linear-gradient(145deg, #fffef8 0%, #fff7e8 52%, #fffef8 100%);
+            border: 1px solid #cbd5e1;
             border-radius: var(--radius);
             padding: 1.5rem 1.75rem;
-            box-shadow: 0 12px 40px rgba(115, 92, 0, 0.1);
+            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
         }
         .summary-card h2 {
             margin: 0 0 1rem;
@@ -939,11 +1046,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        .total-line .label { font-size: 1rem; font-weight: 800; color: #78350f; font-family: "Noto Serif", serif; }
+        .total-line .label { font-size: 1rem; font-weight: 800; color: #1f2937; font-family: "Noto Serif", serif; }
         .total-line .value {
             font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: 800;
-            color: #735c00;
+            color: #0f766e;
             font-family: "Noto Serif", serif;
         }
         .remaining-box {
@@ -956,6 +1063,88 @@
         .remaining-box.ok { background: #DCFCE7; color: var(--success); }
         .remaining-box.bad { background: #FEE2E2; color: var(--danger); }
         .remaining-box.neutral { background: #f3f3f6; color: var(--muted); border: 1px solid var(--border); }
+        .budget-modal[hidden] { display: none; }
+        .budget-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(2px);
+        }
+        .budget-modal__dialog {
+            width: min(42rem, 100%);
+            max-height: min(86vh, 44rem);
+            overflow: auto;
+            background: #fff;
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 14px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
+            padding: 1rem 1.1rem;
+        }
+        .budget-modal__title {
+            margin: 0;
+            font-size: 1.15rem;
+            color: #7f1d1d;
+            font-family: "Noto Serif", serif;
+        }
+        .budget-modal__desc {
+            margin: 0.4rem 0 0;
+            color: #475569;
+            font-size: 0.9rem;
+            line-height: 1.45;
+        }
+        .budget-modal__delta {
+            margin-top: 0.9rem;
+            border: 1px solid #fecaca;
+            border-radius: 10px;
+            background: #fef2f2;
+            padding: 0.75rem 0.85rem;
+            color: #991b1b;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        .budget-modal__list {
+            margin: 0.9rem 0 0;
+            padding-left: 1.05rem;
+            color: #334155;
+            line-height: 1.45;
+            font-size: 0.88rem;
+        }
+        .budget-modal__list li + li {
+            margin-top: 0.45rem;
+        }
+        .budget-modal__actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+        .budget-modal__close {
+            border: none;
+            border-radius: 10px;
+            padding: 0.58rem 0.85rem;
+            background: #0f766e;
+            color: #fff;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .budget-modal__close:hover { filter: brightness(1.05); }
+        .chart-wrap canvas {
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .chart-note {
+            margin: 0.35rem 0 0.25rem;
+            color: #475569;
+            font-size: 0.74rem;
+            line-height: 1.35;
+        }
         .charts {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -1016,6 +1205,20 @@
             border-radius: 6px;
             margin-bottom: 0.5rem;
         }
+        .btn-apply,
+        .btn-submit,
+        .btn-reset,
+        .site-header__back,
+        .budget-modal__close {
+            min-height: 2.5rem;
+        }
+        button:focus-visible,
+        a:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 2px solid #1d4ed8;
+            outline-offset: 2px;
+        }
         @media (max-width: 900px) {
             html.budget-page-root,
             body.budget-page-root {
@@ -1072,7 +1275,7 @@
                             <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
                         </div>
                         <input type="text" class="search-input" id="sbPlaceSearch" placeholder="Search name or description…" autocomplete="off"/>
-                        <button type="button" class="btn-apply" id="sbApplyFilters">Apply filters &amp; show map</button>
+                        <button type="button" class="btn-apply" id="sbApplyFilters"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">map</span> Apply filters &amp; show map</button>
                     </div>
                 </details>
             </div>
@@ -1151,14 +1354,14 @@
     <div class="budget-main">
     <header class="site-header sticky top-0 z-50 shrink-0">
         <div class="site-header__inner">
-            <div class="site-header__brand">
-                <img class="site-header__logo" src="geointellab_logo.jpeg" alt="Institution logo" width="140" height="44" decoding="async"/>
+            <div class="site-header__meta">
                 <div class="site-header__titles">
                     <span class="module-badge">GeoTrip · Smart Budget Trip Planner</span>
                     <h1>Budget Calculator</h1>
                     <p>Plan and estimate your travel expenses efficiently</p>
                 </div>
             </div>
+            <img class="site-header__logo" src="geointellab_logo.jpeg" alt="Institution logo" width="420" height="86" decoding="async"/>
             <div class="site-header__actions">
                 <a class="site-header__back" href="tirupati_beautiful%20(1).html"><span class="material-symbols-outlined" style="font-size:18px">arrow_back</span> Main site</a>
                 <div class="avatar" title="Profile" aria-hidden="true">
@@ -1170,14 +1373,37 @@
 
     <div class="budget-main-scroll">
     <main class="wrap">
-        <section class="card linked-workspace" aria-labelledby="linkedCtxHeading">
+        <section class="dashboard-controls" aria-label="Dashboard controls">
+            <p class="dashboard-controls__title">Operational controls</p>
+            <div class="dashboard-controls__actions">
+                <button type="button" class="ctrl-btn ctrl-btn--primary" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
+                <button type="button" class="ctrl-btn" id="resetBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">ink_eraser</span>Clear inputs</button>
+                <button type="button" class="ctrl-btn" id="focusMapBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">pin_drop</span>Focus map panel</button>
+            </div>
+        </section>
+        <section class="kpi-strip" aria-label="Decision summary strip">
+            <article class="kpi-chip">
+                <span class="kpi-chip__label">Estimated Total</span>
+                <p class="kpi-chip__value" id="kpiTotal">₹0</p>
+            </article>
+            <article class="kpi-chip">
+                <span class="kpi-chip__label">Budget Delta</span>
+                <p class="kpi-chip__value" id="kpiDelta">—</p>
+            </article>
+            <article class="kpi-chip kpi-chip--status neutral" id="kpiStatusChip">
+                <span class="kpi-chip__label">Compliance Status</span>
+                <p class="kpi-chip__value" id="kpiStatus">Awaiting inputs</p>
+            </article>
+        </section>
+        <h2 class="section-heading">Planner Context</h2>
+        <section class="card card--context linked-workspace" aria-labelledby="linkedCtxHeading">
             <div class="card__head">
                 <div class="card__icon card__icon--teal">
                     <span class="material-symbols-outlined">sync_alt</span>
                 </div>
                 <div>
                     <h2 class="card__title" id="linkedCtxHeading">Linked trip planner context</h2>
-                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place — budget totals use <strong>Number of days</strong> and the route map uses <strong>Starting location</strong> when GPS is off.</p>
+                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place — budget totals use <strong>Number of days</strong>; <strong>Starting location</strong> stays in sync for the trip map below the charts.</p>
                 </div>
             </div>
             <dl class="ctx-grid">
@@ -1198,7 +1424,8 @@
             </dl>
         </section>
         <div class="planner-split">
-            <section class="card" aria-labelledby="inputsHeading">
+            <h2 class="section-heading">Budget Inputs</h2>
+            <section class="card card--inputs" aria-labelledby="inputsHeading">
                 <div class="card__head">
                     <div class="card__icon card__icon--primary">
                         <span class="material-symbols-outlined">edit_calendar</span>
@@ -1210,23 +1437,34 @@
                 </div>
                 <div class="form-grid">
                     <div>
+                        <label for="userBudget">Your total budget (₹) <span class="tooltip-btn" title="Optional — shows remaining vs estimated total">?</span></label>
+                        <input type="number" id="userBudget" min="0" step="100" inputmode="decimal" placeholder="Enter your budget"/>
+                        <p class="hint">Leave 0 to hide remaining budget.</p>
+                    </div>
+                    <div>
                         <label for="travelMode">Travel mode</label>
                         <select id="travelMode" aria-describedby="travelModeHint">
+                            <option value="" selected disabled>Select travel mode</option>
                             <option value="car">Car</option>
                             <option value="bike">Bike</option>
                             <option value="bus">Bus</option>
                             <option value="train">Train</option>
                         </select>
-                        <p class="hint" id="travelModeHint">Car/Bike use fuel formula; Bus/Train use ticket × people.</p>
+                        <p class="hint" id="travelModeHint">Car/Bike use fixed <strong>15 km/l</strong> and <strong>₹105/l</strong>. Bus or train: use the ticket field (same box; label switches with mode) — <code>price × people</code> for travel.</p>
+                    </div>
+                    <div id="transitTicketField" hidden>
+                        <label for="ticketPrice" id="transitTicketLabel">Bus ticket price (₹) per person</label>
+                        <input type="number" id="ticketPrice" min="0" step="1" inputmode="decimal" placeholder="Enter ticket fare"/>
+                        <p class="hint" id="transitTicketHint">One field for both bus and train; switch mode to change the label. Travel cost = this amount × number of people.</p>
                     </div>
                     <div>
                         <label for="distance">Total distance (km)</label>
-                        <input type="number" id="distance" min="0" step="0.1" value="120" inputmode="decimal"/>
-                        <p class="hint" id="distanceMapHint">After you plot, distance is total <strong>road</strong> km along the route: through filtered CSV stops (shortest-path style ordering + OSRM Trip when possible), or start→Tirumala if no stops match. Starting location syncs with the sidebar when GPS is off.</p>
+                        <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="Enter total distance"/>
+                        <p class="hint" id="distanceMapHint">Enter total trip distance (km) for fuel-based travel. Starting location syncs with the sidebar for the <strong>Filtered trip map</strong> below the charts.</p>
                     </div>
                     <div>
                         <label for="routeStartLocation">Starting location</label>
-                        <input type="text" id="routeStartLocation" value="Tirupati Railway Station" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
+                        <input type="text" id="routeStartLocation" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
                     </div>
                     <div>
                         <label for="mainTripDate">Trip date</label>
@@ -1235,96 +1473,58 @@
                     </div>
                     <div>
                         <label for="mainOutingStart">Outing start</label>
-                        <input type="time" id="mainOutingStart" value="09:00" required/>
+                        <input type="time" id="mainOutingStart" required/>
                     </div>
                     <div>
                         <label for="mainOutingEnd">Outing end</label>
-                        <input type="time" id="mainOutingEnd" value="21:00" required/>
-                    </div>
-                    <div>
-                        <label for="mileage">Mileage (km/l) <span class="tooltip-btn" title="Used for Car and Bike only">?</span></label>
-                        <input type="number" id="mileage" min="0.1" step="0.1" value="15" inputmode="decimal"/>
-                    </div>
-                    <div>
-                        <label for="fuelPrice">Fuel price (₹/l)</label>
-                        <input type="number" id="fuelPrice" min="0" step="0.1" value="105" inputmode="decimal"/>
-                    </div>
-                    <div>
-                        <label for="ticketPrice">Ticket price (₹) <span class="tooltip-btn" title="Per person for Bus/Train; optional for Car/Bike">?</span></label>
-                        <input type="number" id="ticketPrice" min="0" step="1" value="0" inputmode="decimal"/>
+                        <input type="time" id="mainOutingEnd" required/>
                     </div>
                     <div>
                         <label for="people">Number of people</label>
-                        <input type="number" id="people" min="1" step="1" value="2" inputmode="numeric"/>
+                        <input type="number" id="people" min="1" step="1" inputmode="numeric" placeholder="Number of people"/>
                     </div>
                     <div>
                         <label for="days">Number of days</label>
-                        <input type="number" id="days" min="1" step="1" value="3" inputmode="numeric"/>
+                        <input type="number" id="days" min="1" step="1" inputmode="numeric" placeholder="Trip days"/>
                     </div>
                     <div>
                         <label for="rooms">Rooms required</label>
-                        <input type="number" id="rooms" min="0" step="1" value="1" inputmode="numeric"/>
+                        <input type="number" id="rooms" min="0" step="1" inputmode="numeric" placeholder="Rooms"/>
                     </div>
                     <div>
                         <label for="roomCost">Cost per room (₹/night)</label>
-                        <input type="number" id="roomCost" min="0" step="1" value="2500" inputmode="decimal"/>
+                        <input type="number" id="roomCost" min="0" step="1" inputmode="decimal" placeholder="Cost per room"/>
                     </div>
                     <div>
                         <label for="foodPerDay">Food cost per person per day (₹)</label>
-                        <input type="number" id="foodPerDay" min="0" step="1" value="600" inputmode="decimal"/>
-                    </div>
-                    <div>
-                        <label for="entryFee">Entry fee (₹) <span class="tooltip-btn" title="Per person for activities / sites">?</span></label>
-                        <input type="number" id="entryFee" min="0" step="1" value="300" inputmode="decimal"/>
-                    </div>
-                    <div>
-                        <label for="userBudget">Your total budget (₹) <span class="tooltip-btn" title="Optional — shows remaining vs estimated total">?</span></label>
-                        <input type="number" id="userBudget" min="0" step="100" value="0" inputmode="decimal"/>
-                        <p class="hint">Leave 0 to hide remaining budget.</p>
+                        <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Food/day per person"/>
                     </div>
                     <div>
                         <p class="hint" style="grid-column: 1 / -1; margin: 0;">Number of days is synced with the sidebar planner. Change it here or in the sidebar — stay, food, and buffer costs update automatically.</p>
                     </div>
                 </div>
             </section>
-            <section class="card map-pane" aria-labelledby="mapHeading">
-                <div class="card__head">
-                    <div class="card__icon card__icon--teal">
-                        <span class="material-symbols-outlined">map</span>
-                    </div>
-                    <div>
-                        <h2 class="card__title" id="mapHeading">Route map</h2>
-                        <p class="card__subtitle">Uses the same logic as the trip planner: nearest stops from your start, optional OSRM Trip road order, then one road polyline through all stops (or start→Tirumala if no places match filters).</p>
-                    </div>
-                </div>
-                <div class="map-controls">
-                    <div class="map-controls__actions">
-                        <button type="button" id="plotRouteBtn" class="btn-map">Plot locations</button>
-                    </div>
-                    <div id="mapStatus" class="map-status" aria-live="polite"></div>
-                </div>
-                <div id="routeMap" role="region" aria-label="Map showing route from start to Tirumala Temple"></div>
-            </section>
         </div>
 
+        <h2 class="section-heading">Cost Breakdown</h2>
         <div class="grid-breakdown">
-            <section class="card" aria-labelledby="travelCardTitle">
+            <section class="card card--travel" aria-labelledby="travelCardTitle">
                 <div class="card__head">
                     <div class="card__icon card__icon--secondary">
                         <span class="material-symbols-outlined">directions_car</span>
                     </div>
                     <div>
                         <h2 class="card__title" id="travelCardTitle">Travel cost</h2>
-                        <p class="card__subtitle">Fuel or tickets</p>
+                        <p class="card__subtitle">Car/bike: fixed fuel rate. Bus/train: ticket price × people.</p>
                     </div>
                 </div>
                 <div class="formula-row">
-                    <span><strong>Car/Bike:</strong> <code>(Distance ÷ Mileage) × Fuel price</code><br/><strong>Bus/Train:</strong> <code>Ticket × People</code></span>
+                    <span><strong>Car/Bike:</strong> <code>(Distance ÷ 15 km/l) × ₹105/l</code> (fixed).<br/><strong>Bus/Train:</strong> <code>Ticket price × People</code> (one ticket field; label follows mode).</span>
                     <span class="amount" id="outTravel">₹0</span>
                 </div>
             </section>
 
-            <section class="card" aria-labelledby="stayCardTitle">
+            <section class="card card--stay" aria-labelledby="stayCardTitle">
                 <div class="card__head">
                     <div class="card__icon card__icon--primary">
                         <span class="material-symbols-outlined">hotel</span>
@@ -1340,7 +1540,7 @@
                 </div>
             </section>
 
-            <section class="card" aria-labelledby="foodCardTitle">
+            <section class="card card--food" aria-labelledby="foodCardTitle">
                 <div class="card__head">
                     <div class="card__icon card__icon--accent">
                         <span class="material-symbols-outlined">restaurant</span>
@@ -1356,23 +1556,23 @@
                 </div>
             </section>
 
-            <section class="card" aria-labelledby="actCardTitle">
+            <section class="card card--activities" aria-labelledby="actCardTitle">
                 <div class="card__head">
                     <div class="card__icon card__icon--teal">
                         <span class="material-symbols-outlined">confirmation_number</span>
                     </div>
                     <div>
                         <h2 class="card__title" id="actCardTitle">Activities cost</h2>
-                        <p class="card__subtitle">Entry &amp; permits</p>
+                        <p class="card__subtitle">Sites &amp; permits (not estimated here)</p>
                     </div>
                 </div>
                 <div class="formula-row">
-                    <span><code>Entry fee × People</code></span>
+                    <span>Entry fee input removed — <code>₹0</code> in totals.</span>
                     <span class="amount" id="outActivities">₹0</span>
                 </div>
             </section>
 
-            <section class="card" aria-labelledby="extraCardTitle">
+            <section class="card card--buffer" aria-labelledby="extraCardTitle">
                 <div class="card__head">
                     <div class="card__icon card__icon--accent">
                         <span class="material-symbols-outlined">shield_with_heart</span>
@@ -1389,6 +1589,7 @@
             </section>
         </div>
 
+        <h2 class="section-heading">Budget Summary</h2>
         <section class="summary-card" aria-labelledby="summaryHeading">
             <h2 id="summaryHeading">
                 <span class="material-symbols-outlined" style="vertical-align:middle">account_balance_wallet</span>
@@ -1406,12 +1607,13 @@
                 <span class="value" id="sumTotal">₹0</span>
             </div>
             <div class="remaining-box neutral" id="remainingBox" role="status" aria-live="polite">
-                Enter a total budget above to see if you are within plan.
+                Enter your total budget (first field in Trip inputs) to see if you are within plan.
             </div>
         </section>
 
+        <h2 class="section-heading">Analytics</h2>
         <section class="charts" aria-label="Cost analytics">
-            <div class="card">
+            <div class="card card--chart-pie">
                 <div class="card__head">
                     <div class="card__icon card__icon--primary">
                         <span class="material-symbols-outlined">pie_chart</span>
@@ -1422,10 +1624,11 @@
                     </div>
                 </div>
                 <div class="chart-wrap">
+                    <p class="chart-note">Donut chart updates instantly from entered values to show relative cost share.</p>
                     <canvas id="pieChart" aria-label="Pie chart of costs"></canvas>
                 </div>
             </div>
-            <div class="card">
+            <div class="card card--chart-bar">
                 <div class="card__head">
                     <div class="card__icon card__icon--secondary">
                         <span class="material-symbols-outlined">bar_chart</span>
@@ -1436,12 +1639,14 @@
                     </div>
                 </div>
                 <div class="chart-wrap">
+                    <p class="chart-note">Bar chart compares absolute rupee amount per category for quick review.</p>
                     <canvas id="barChart" aria-label="Bar chart of costs"></canvas>
                 </div>
             </div>
         </section>
 
-        <section class="card budget-plan-map-card" id="budgetTripMapPanel" hidden aria-labelledby="budgetTripMapHeading">
+        <h2 class="section-heading">Embedded Trip Map</h2>
+        <section class="card card--map budget-plan-map-card" id="budgetTripMapPanel" hidden aria-labelledby="budgetTripMapHeading">
             <div class="card__head">
                 <div class="card__icon card__icon--teal">
                     <span class="material-symbols-outlined">map</span>
@@ -1459,6 +1664,17 @@
             </div>
         </section>
     </main>
+    <div class="budget-modal" id="overBudgetModal" hidden>
+        <div class="budget-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="overBudgetTitle" aria-describedby="overBudgetDesc" tabindex="-1">
+            <h2 class="budget-modal__title" id="overBudgetTitle">Budget exceeded</h2>
+            <p class="budget-modal__desc" id="overBudgetDesc">Your current plan is above the budget. Try one or more suggestions below to reduce the total cost.</p>
+            <div class="budget-modal__delta" id="overBudgetDelta">Over by ₹0</div>
+            <ul class="budget-modal__list" id="overBudgetTips"></ul>
+            <div class="budget-modal__actions">
+                <button type="button" class="budget-modal__close" id="overBudgetCloseBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">check_circle</span>Understood</button>
+            </div>
+        </div>
+    </div>
     </div>
     </div>
 </div>
@@ -1493,6 +1709,8 @@ window.addEventListener('budget-show-trip-map', function () {
 });
 (function () {
     const fmt = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
+    let overBudgetTriggered = false;
+    let overBudgetDismissed = false;
     function rupee(n) {
         return '₹' + fmt.format(Math.round(n));
     }
@@ -1503,33 +1721,130 @@ window.addEventListener('budget-show-trip-map', function () {
     }
     let pieChart;
     let barChart;
-    let routeMap;
-    let budgetMarkerLayer = null;
-    let budgetRouteLayerGroup = null;
-    let budgetRouteGen = 0;
-    let budgetRouteAbort = null;
-    const DEFAULT_ROUTE_END_QUERY = 'Tirumala Temple';
-    const OSRM_MAX_WAYPOINTS_BUDGET = 90;
-    const OSRM_TRIP_MAX_BUDGET = 25;
-    const OSRM_TRIP_BASE_BUDGET = 'https://router.project-osrm.org/trip/v1/driving';
 
-    const mtdInit = document.getElementById('mainTripDate');
-    if (mtdInit && !mtdInit.value) {
-        mtdInit.value = new Date().toISOString().split('T')[0];
+    const overBudgetModal = document.getElementById('overBudgetModal');
+    const overBudgetDialog = overBudgetModal ? overBudgetModal.querySelector('.budget-modal__dialog') : null;
+    const overBudgetDelta = document.getElementById('overBudgetDelta');
+    const overBudgetTips = document.getElementById('overBudgetTips');
+    const overBudgetCloseBtn = document.getElementById('overBudgetCloseBtn');
+    const kpiTotal = document.getElementById('kpiTotal');
+    const kpiDelta = document.getElementById('kpiDelta');
+    const kpiStatus = document.getElementById('kpiStatus');
+    const kpiStatusChip = document.getElementById('kpiStatusChip');
+    const recalcBudgetBtn = document.getElementById('recalcBudgetBtn');
+    const resetBudgetBtn = document.getElementById('resetBudgetBtn');
+    const focusMapBtn = document.getElementById('focusMapBtn');
+
+    function renderOverBudgetModal(overBy, details) {
+        if (!overBudgetModal || !overBudgetDelta || !overBudgetTips) return;
+        const tips = [];
+        const busFare = details.ticketInput > 0 ? details.ticketInput : 120;
+        const trainFare = details.ticketInput > 0 ? Math.max(details.ticketInput * 0.85, 1) : 90;
+        const busEstimate = busFare * details.people;
+        const trainEstimate = trainFare * details.people;
+        const bikeEstimate = (details.distance / 35) * 105;
+
+        overBudgetDelta.textContent = 'Over budget by ' + rupee(overBy);
+        tips.push('Switch to bus: approx ' + rupee(busEstimate) + ' travel for ' + details.people + ' people (~₹' + fmt.format(Math.round(busFare)) + '/person).');
+        tips.push('Switch to train: approx ' + rupee(trainEstimate) + ' travel for ' + details.people + ' people (~₹' + fmt.format(Math.round(trainFare)) + '/person).');
+        tips.push('Use bike for short hops: at ~35 km/l, travel can drop to about ' + rupee(bikeEstimate) + ' (vs current ' + rupee(details.travel) + ').');
+        tips.push('Reduce hotel or food rates slightly (for example 10-15%) to quickly recover the extra ' + rupee(overBy) + '.');
+
+        overBudgetTips.innerHTML = tips.map(function (t) {
+            return '<li>' + t + '</li>';
+        }).join('');
+    }
+
+    function openOverBudgetModal() {
+        if (!overBudgetModal || !overBudgetDialog) return;
+        overBudgetModal.hidden = false;
+        document.body.style.overflow = 'hidden';
+        window.requestAnimationFrame(function () {
+            overBudgetDialog.focus();
+        });
+    }
+
+    function closeOverBudgetModal() {
+        if (!overBudgetModal) return;
+        overBudgetModal.hidden = true;
+        document.body.style.overflow = '';
+    }
+
+    if (overBudgetCloseBtn) {
+        overBudgetCloseBtn.addEventListener('click', function () {
+            overBudgetDismissed = true;
+            closeOverBudgetModal();
+        });
+    }
+    if (overBudgetModal) {
+        overBudgetModal.addEventListener('click', function (ev) {
+            if (ev.target === overBudgetModal) {
+                overBudgetDismissed = true;
+                closeOverBudgetModal();
+            }
+        });
+    }
+    document.addEventListener('keydown', function (ev) {
+        if (ev.key === 'Escape' && overBudgetModal && !overBudgetModal.hidden) {
+            overBudgetDismissed = true;
+            closeOverBudgetModal();
+        }
+        if (ev.key === 'Tab' && overBudgetModal && !overBudgetModal.hidden && overBudgetDialog) {
+            const focusable = overBudgetDialog.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (!focusable.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            const active = document.activeElement;
+            if (ev.shiftKey && active === first) {
+                ev.preventDefault();
+                last.focus();
+            } else if (!ev.shiftKey && active === last) {
+                ev.preventDefault();
+                first.focus();
+            }
+        }
+    });
+
+    function syncTransitTicketField() {
+        const modeEl = document.getElementById('travelMode');
+        const wrap = document.getElementById('transitTicketField');
+        const label = document.getElementById('transitTicketLabel');
+        const hint = document.getElementById('transitTicketHint');
+        if (!modeEl || !wrap || !label) return;
+        const mode = modeEl.value;
+        if (mode === 'bus') {
+            wrap.hidden = false;
+            label.textContent = 'Bus ticket price (₹) per person';
+            if (hint) {
+                hint.textContent =
+                    'Same field when you switch to train — label updates. Travel cost = this amount × number of people.';
+            }
+        } else if (mode === 'train') {
+            wrap.hidden = false;
+            label.textContent = 'Train ticket price (₹) per person';
+            if (hint) {
+                hint.textContent =
+                    'Same field as for bus — enter train fare per person. Travel cost = this amount × number of people.';
+            }
+        } else {
+            wrap.hidden = true;
+        }
     }
 
     function calc() {
+        syncTransitTicketField();
         const mode = document.getElementById('travelMode').value;
         const distance = num('distance');
-        const mileage = Math.max(num('mileage'), 0.0001);
-        const fuelPrice = num('fuelPrice');
-        const ticket = num('ticketPrice');
+        const mileage = 15;
+        const fuelPrice = 105;
+        const ticketInput = num('ticketPrice');
+        const ticket = mode === 'bus' || mode === 'train' ? ticketInput : 0;
         const people = Math.max(num('people'), 1);
         const days = Math.max(num('days'), 1);
         const rooms = Math.max(num('rooms'), 0);
         const roomCost = num('roomCost');
         const foodPerDay = num('foodPerDay');
-        const entry = num('entryFee');
+        const entry = 0;
 
         let travel = 0;
         if (mode === 'car' || mode === 'bike') {
@@ -1557,20 +1872,49 @@ window.addEventListener('budget-show-trip-map', function () {
         document.getElementById('sumAct').textContent = rupee(activities);
         document.getElementById('sumBuf').textContent = rupee(buffer);
         document.getElementById('sumTotal').textContent = rupee(total);
+        if (kpiTotal) kpiTotal.textContent = rupee(total);
 
         const userB = num('userBudget');
         const box = document.getElementById('remainingBox');
         if (userB <= 0) {
             box.className = 'remaining-box neutral';
-            box.textContent = 'Enter a total budget above to see if you are within plan.';
+            box.textContent = 'Enter your total budget (first field) to see if you are within plan.';
+            if (kpiDelta) kpiDelta.textContent = 'Set budget';
+            if (kpiStatus) kpiStatus.textContent = 'Awaiting budget';
+            if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status neutral';
+            overBudgetTriggered = false;
+            overBudgetDismissed = false;
+            closeOverBudgetModal();
         } else {
             const remaining = userB - total;
             if (remaining >= 0) {
                 box.className = 'remaining-box ok';
                 box.textContent = 'Remaining budget: ' + rupee(remaining) + ' — within plan.';
+                if (kpiDelta) kpiDelta.textContent = '+' + rupee(remaining);
+                if (kpiStatus) kpiStatus.textContent = 'Within approved budget';
+                if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status good';
+                overBudgetTriggered = false;
+                overBudgetDismissed = false;
+                closeOverBudgetModal();
             } else {
                 box.className = 'remaining-box bad';
                 box.textContent = 'Over budget by ' + rupee(Math.abs(remaining)) + ' — reduce costs or increase budget.';
+                if (kpiDelta) kpiDelta.textContent = '-' + rupee(Math.abs(remaining));
+                if (kpiStatus) kpiStatus.textContent = 'Exceeds approved budget';
+                if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status warn';
+                renderOverBudgetModal(Math.abs(remaining), {
+                    distance: distance,
+                    people: people,
+                    travel: travel,
+                    ticketInput: ticketInput
+                });
+                if (!overBudgetTriggered) {
+                    overBudgetTriggered = true;
+                    overBudgetDismissed = false;
+                    openOverBudgetModal();
+                } else if (!overBudgetDismissed) {
+                    openOverBudgetModal();
+                }
             }
         }
 
@@ -1626,7 +1970,6 @@ window.addEventListener('budget-show-trip-map', function () {
                     plugins: { legend: { display: false } }
                 }
             });
-            scheduleMapResize();
             return;
         }
 
@@ -1694,402 +2037,22 @@ window.addEventListener('budget-show-trip-map', function () {
                 }
             }
         });
-        scheduleMapResize();
-    }
-
-    function setMapStatus(message, isError) {
-        const el = document.getElementById('mapStatus');
-        if (!el) return;
-        el.textContent = message || '';
-        el.classList.toggle('map-status--error', Boolean(isError));
-    }
-
-    function initBaseMap() {
-        if (typeof L === 'undefined') {
-            setMapStatus('Map failed to load. Please check internet connectivity.', true);
-            return;
-        }
-        const mapEl = document.getElementById('routeMap');
-        if (!mapEl) return;
-        routeMap = L.map(mapEl, { zoomControl: true }).setView([13.6288, 79.4192], 11);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(routeMap);
-        budgetMarkerLayer = L.layerGroup().addTo(routeMap);
-        budgetRouteLayerGroup = L.layerGroup().addTo(routeMap);
-        setMapStatus('Enter a starting location and click "Plot locations" to update the map.');
-        window.setTimeout(function () {
-            if (routeMap) routeMap.invalidateSize();
-        }, 150);
-    }
-
-    function clearBudgetRouteMap() {
-        if (budgetMarkerLayer) budgetMarkerLayer.clearLayers();
-        if (budgetRouteLayerGroup) budgetRouteLayerGroup.clearLayers();
-    }
-
-    function escapeHtmlBudget(s) {
-        const d = document.createElement('div');
-        d.textContent = s == null ? '' : String(s);
-        return d.innerHTML;
-    }
-
-    async function fetchOsrmTripOrderBudget(points, stableGen, signal) {
-        if (!points || points.length < 3 || points.length > OSRM_TRIP_MAX_BUDGET) return null;
-        const path = points
-            .map(function (p) {
-                return p.lng + ',' + p.lat;
-            })
-            .join(';');
-        try {
-            const url =
-                OSRM_TRIP_BASE_BUDGET +
-                '/' +
-                path +
-                '?source=first&destination=last&roundtrip=false&overview=false';
-            const r = await fetch(url, { signal: signal });
-            if (!r.ok) return null;
-            const j = await r.json();
-            if (stableGen !== budgetRouteGen) return null;
-            if (j.code !== 'Ok' || !Array.isArray(j.waypoints)) return null;
-            const pairs = [];
-            for (let i = 0; i < j.waypoints.length; i++) {
-                const wi = j.waypoints[i].waypoint_index;
-                if (typeof wi !== 'number') return null;
-                pairs.push({ inputIdx: i, visitIdx: wi });
-            }
-            pairs.sort(function (a, b) {
-                return a.visitIdx - b.visitIdx;
-            });
-            return pairs.map(function (x) {
-                return x.inputIdx;
-            });
-        } catch (e) {
-            if (e && e.name === 'AbortError') return null;
-            return null;
-        }
-    }
-
-    async function fetchRoadRouteMultiBudget(points, stableGen, signal) {
-        if (!points || points.length < 2) return null;
-        const profile = osrmProfileForTravelMode();
-        const slice = points.slice(0, OSRM_MAX_WAYPOINTS_BUDGET);
-        const path = slice
-            .map(function (p) {
-                return p.lng + ',' + p.lat;
-            })
-            .join(';');
-        try {
-            const url =
-                'https://router.project-osrm.org/route/v1/' +
-                profile +
-                '/' +
-                path +
-                '?overview=full&geometries=geojson';
-            const r = await fetch(url, { signal: signal, headers: { Accept: 'application/json' } });
-            if (!r.ok) return null;
-            const j = await r.json();
-            if (stableGen !== budgetRouteGen) return null;
-            if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
-            const coords = j.routes[0].geometry.coordinates;
-            const latLngs = coords.map(function (c) {
-                return [c[1], c[0]];
-            });
-            return { latLngs: latLngs, distanceM: j.routes[0].distance || 0 };
-        } catch (e) {
-            if (e && e.name === 'AbortError') return null;
-            return null;
-        }
-    }
-
-    async function plotFallbackStartToTemple(start, myGen, signal) {
-        const endText = DEFAULT_ROUTE_END_QUERY;
-        const end = await geocodePlace(endText);
-        if (myGen !== budgetRouteGen) return;
-        if (!end || !isFinite(end.lat) || !isFinite(end.lon)) {
-            setMapStatus('Could not locate Tirumala Temple for fallback route.', true);
-            return;
-        }
-        L.marker([start.lat, start.lon])
-            .addTo(budgetMarkerLayer)
-            .bindPopup('<strong>Start:</strong><br/>' + escapeHtmlBudget(start.label));
-        L.marker([end.lat, end.lon])
-            .addTo(budgetMarkerLayer)
-            .bindPopup('<strong>End:</strong><br/>' + escapeHtmlBudget(end.label));
-        const road = await fetchRoadRoute(start.lat, start.lon, end.lat, end.lon);
-        if (myGen !== budgetRouteGen) return;
-        if (!road || !road.latLngs || road.latLngs.length < 2) {
-            setMapStatus('No road route found to Tirumala. Try a more specific start.', true);
-            L.polyline(
-                [
-                    [start.lat, start.lon],
-                    [end.lat, end.lon]
-                ],
-                { color: '#94a3b8', weight: 3, opacity: 0.6, dashArray: '6 8' }
-            ).addTo(budgetRouteLayerGroup);
-            routeMap.fitBounds(
-                L.latLngBounds([
-                    [start.lat, start.lon],
-                    [end.lat, end.lon]
-                ]).pad(0.2)
-            );
-            scheduleMapResize();
-            return;
-        }
-        const mainLine = L.polyline(road.latLngs, {
-            color: '#8f4e00',
-            weight: 5,
-            opacity: 0.92
-        }).addTo(budgetRouteLayerGroup);
-        routeMap.fitBounds(mainLine.getBounds().pad(0.08));
-        scheduleMapResize();
-        const km = road.distanceM / 1000;
-        const distEl = document.getElementById('distance');
-        if (distEl) distEl.value = String(Math.round(km * 10) / 10);
-        calc();
-        const profileLabel = osrmProfileForTravelMode() === 'cycling' ? 'cycling' : 'driving';
-        setMapStatus(
-            'No filtered stops for current outing — ' +
-                profileLabel +
-                ' route to Tirumala: ' +
-                (Math.round(km * 10) / 10) +
-                ' km.'
-        );
-    }
-
-    function scheduleMapResize() {
-        if (!routeMap) return;
-        window.requestAnimationFrame(function () {
-            routeMap.invalidateSize();
+        if (window.BudgetTripPlannerMap && typeof window.BudgetTripPlannerMap.invalidate === 'function') {
             window.requestAnimationFrame(function () {
-                routeMap.invalidateSize();
+                window.BudgetTripPlannerMap.invalidate();
             });
-        });
-    }
-
-    async function geocodePlace(query) {
-        const q = (query || '').trim();
-        if (!q) return null;
-        const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=' + encodeURIComponent(q);
-        const res = await fetch(url, {
-            headers: {
-                'Accept': 'application/json'
-            }
-        });
-        if (!res.ok) return null;
-        const list = await res.json();
-        if (!Array.isArray(list) || !list.length) return null;
-        return {
-            lat: parseFloat(list[0].lat),
-            lon: parseFloat(list[0].lon),
-            label: list[0].display_name || q
-        };
-    }
-
-    function osrmProfileForTravelMode() {
-        const mode = (document.getElementById('travelMode') && document.getElementById('travelMode').value) || 'car';
-        return mode === 'bike' ? 'cycling' : 'driving';
-    }
-
-    async function fetchRoadRoute(lat1, lon1, lat2, lon2) {
-        const profile = osrmProfileForTravelMode();
-        const coordPath = lon1 + ',' + lat1 + ';' + lon2 + ',' + lat2;
-        const url = 'https://router.project-osrm.org/route/v1/' + profile + '/' + coordPath + '?overview=full&geometries=geojson';
-        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
-        if (!res.ok) return null;
-        const data = await res.json();
-        if (!data || data.code !== 'Ok' || !data.routes || !data.routes.length) return null;
-        const r = data.routes[0];
-        const geom = r.geometry;
-        if (!geom || geom.type !== 'LineString' || !Array.isArray(geom.coordinates) || !geom.coordinates.length) {
-            return null;
-        }
-        const latLngs = geom.coordinates.map(function (c) {
-            return [c[1], c[0]];
-        });
-        return { distanceM: r.distance, latLngs: latLngs };
-    }
-
-    async function plotLocations() {
-        if (!routeMap || !budgetMarkerLayer || !budgetRouteLayerGroup) return;
-        if (budgetRouteAbort) {
-            budgetRouteAbort.abort();
-        }
-        budgetRouteAbort = new AbortController();
-        const signal = budgetRouteAbort.signal;
-        const myGen = ++budgetRouteGen;
-
-        const startText = (document.getElementById('routeStartLocation').value || '').trim();
-        if (!startText) {
-            setMapStatus('Please enter a starting location.', true);
-            return;
-        }
-
-        clearBudgetRouteMap();
-        setMapStatus('Finding start and matching sidebar places…');
-
-        try {
-            const start = await geocodePlace(startText);
-            if (myGen !== budgetRouteGen) return;
-            if (!start || !isFinite(start.lat) || !isFinite(start.lon)) {
-                setMapStatus('Could not locate start. Try a more specific name.', true);
-                return;
-            }
-
-            const api = window.budgetTripRouteApi;
-            let ordered =
-                api && typeof api.getOrderedStopsForBudgetMap === 'function'
-                    ? api.getOrderedStopsForBudgetMap(start.lat, start.lon)
-                    : [];
-
-            if (!ordered.length) {
-                await plotFallbackStartToTemple(start, myGen, signal);
-                return;
-            }
-
-            if (ordered.length > OSRM_MAX_WAYPOINTS_BUDGET - 5) {
-                ordered = ordered.slice(0, OSRM_MAX_WAYPOINTS_BUDGET - 5);
-            }
-
-            const hasStart = true;
-            let tripPts = [{ lat: start.lat, lng: start.lon }];
-            ordered.forEach(function (p) {
-                tripPts.push({ lat: p.lat, lng: p.lng });
-            });
-
-            let roadOptimized = false;
-            if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX_BUDGET) {
-                setMapStatus('Optimising stop order on the road network (OSRM Trip)…');
-                const newOrder = await fetchOsrmTripOrderBudget(tripPts, myGen, signal);
-                if (myGen !== budgetRouteGen) return;
-                if (newOrder && newOrder.length === tripPts.length) {
-                    const stopOffset = hasStart ? 1 : 0;
-                    const stopOrder = newOrder.filter(function (idx) {
-                        return idx >= stopOffset;
-                    });
-                    if (stopOrder.length === ordered.length) {
-                        ordered = stopOrder.map(function (idx) {
-                            return ordered[idx - stopOffset];
-                        });
-                        roadOptimized = true;
-                    }
-                }
-            }
-
-            L.marker([start.lat, start.lon])
-                .addTo(budgetMarkerLayer)
-                .bindPopup('<strong>Start:</strong><br/>' + escapeHtmlBudget(start.label));
-
-            ordered.forEach(function (p, idx) {
-                L.marker([p.lat, p.lng])
-                    .addTo(budgetMarkerLayer)
-                    .bindPopup(
-                        '<strong>' +
-                            (idx + 1) +
-                            '.</strong> ' +
-                            escapeHtmlBudget(p.name) +
-                            '<br/><span style="font-size:0.85em;color:#64748b">' +
-                            escapeHtmlBudget(p.category || '') +
-                            '</span>'
-                    );
-            });
-
-            const waypoints = [{ lat: start.lat, lng: start.lon }];
-            ordered.forEach(function (p) {
-                waypoints.push({ lat: p.lat, lng: p.lng });
-            });
-            const deduped = waypoints.filter(function (w, i, a) {
-                return i === 0 || w.lat !== a[i - 1].lat || w.lng !== a[i - 1].lng;
-            });
-
-            setMapStatus('Drawing road route through all stops…');
-            let multi = await fetchRoadRouteMultiBudget(deduped, myGen, signal);
-            if (myGen !== budgetRouteGen) return;
-
-            if (!multi || !multi.latLngs || multi.latLngs.length < 2) {
-                const straight = deduped.map(function (w) {
-                    return [w.lat, w.lng];
-                });
-                L.polyline(straight, {
-                    color: '#94a3b8',
-                    weight: 3,
-                    opacity: 0.65,
-                    dashArray: '8 6'
-                }).addTo(budgetRouteLayerGroup);
-                routeMap.fitBounds(L.latLngBounds(straight).pad(0.12));
-            } else {
-                const routePoly = L.polyline(multi.latLngs, {
-                    color: '#0f766e',
-                    weight: 5,
-                    opacity: 0.92
-                }).addTo(budgetRouteLayerGroup);
-                routeMap.fitBounds(routePoly.getBounds().pad(0.1));
-            }
-            scheduleMapResize();
-
-            let km = 0;
-            if (multi && multi.distanceM) {
-                km = multi.distanceM / 1000;
-            } else if (deduped.length >= 2) {
-                let acc = 0;
-                for (let i = 1; i < deduped.length; i++) {
-                    const a = deduped[i - 1];
-                    const b = deduped[i];
-                    const R = 6371000;
-                    const toR = Math.PI / 180;
-                    const dLat = (b.lat - a.lat) * toR;
-                    const dLng = (b.lng - a.lng) * toR;
-                    const x =
-                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                        Math.cos(a.lat * toR) *
-                            Math.cos(b.lat * toR) *
-                            Math.sin(dLng / 2) *
-                            Math.sin(dLng / 2);
-                    acc += 2 * R * Math.asin(Math.min(1, Math.sqrt(x)));
-                }
-                km = acc / 1000;
-            }
-            const distEl = document.getElementById('distance');
-            if (distEl) {
-                distEl.value = String(Math.round(km * 10) / 10);
-            }
-            calc();
-
-            const profileLabel = osrmProfileForTravelMode() === 'cycling' ? 'cycling' : 'driving';
-            const orderNote = roadOptimized ? 'OSRM Trip road order' : 'nearest-neighbour order';
-            const geomNote =
-                multi && multi.latLngs && multi.latLngs.length >= 2 ? 'full road geometry' : 'straight-line fallback';
-            setMapStatus(
-                ordered.length +
-                    ' stop(s), ' +
-                    orderNote +
-                    ', ' +
-                    profileLabel +
-                    ' — ' +
-                    geomNote +
-                    ': ' +
-                    (Math.round(km * 10) / 10) +
-                    ' km total.'
-            );
-        } catch (err) {
-            if (err && err.name === 'AbortError') return;
-            setMapStatus('Unable to plot route right now. Please try again.', true);
         }
     }
 
     [
         'travelMode',
-        'distance',
-        'mileage',
-        'fuelPrice',
         'ticketPrice',
+        'distance',
         'people',
         'days',
         'rooms',
         'roomCost',
         'foodPerDay',
-        'entryFee',
         'userBudget'
     ].forEach(function (id) {
         const el = document.getElementById(id);
@@ -2099,28 +2062,28 @@ window.addEventListener('budget-show-trip-map', function () {
         }
     });
 
-    const plotBtn = document.getElementById('plotRouteBtn');
-    if (plotBtn) plotBtn.addEventListener('click', plotLocations);
-    const routeStartEl = document.getElementById('routeStartLocation');
-    if (routeStartEl) {
-        routeStartEl.addEventListener('change', plotLocations);
-        routeStartEl.addEventListener('keydown', function (ev) {
-            if (ev.key === 'Enter') {
-                ev.preventDefault();
-                plotLocations();
-            }
-        });
-    }
-
-    const travelModeEl = document.getElementById('travelMode');
-    if (travelModeEl) {
-        travelModeEl.addEventListener('change', function () {
-            const s = (document.getElementById('routeStartLocation').value || '').trim();
-            if (s) plotLocations();
-        });
-    }
-
     window.__recalcBudget = calc;
+    if (recalcBudgetBtn) recalcBudgetBtn.addEventListener('click', calc);
+    if (resetBudgetBtn) {
+        resetBudgetBtn.addEventListener('click', function () {
+            ['userBudget', 'travelMode', 'ticketPrice', 'distance', 'routeStartLocation', 'mainTripDate', 'mainOutingStart', 'mainOutingEnd', 'people', 'days', 'rooms', 'roomCost', 'foodPerDay'].forEach(function (id) {
+                const el = document.getElementById(id);
+                if (!el) return;
+                if (el.tagName === 'SELECT') el.selectedIndex = 0;
+                else el.value = '';
+            });
+            overBudgetTriggered = false;
+            overBudgetDismissed = false;
+            closeOverBudgetModal();
+            calc();
+        });
+    }
+    if (focusMapBtn) {
+        focusMapBtn.addEventListener('click', function () {
+            const panel = document.getElementById('budgetTripMapPanel');
+            if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
 
     function wireMainSidebarSync() {
         if (!window.budgetSidebarBridge || typeof window.budgetSidebarBridge.applyMainToSidebar !== 'function') {
@@ -2153,23 +2116,7 @@ window.addEventListener('budget-show-trip-map', function () {
         window.budgetSidebarBridge.pullFromMain();
     }
 
-    initBaseMap();
     calc();
-    if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
-        window.budgetTripPlacesReady.then(plotLocations).catch(function () {
-            plotLocations();
-        });
-    } else {
-        window.setTimeout(function () {
-            if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
-                window.budgetTripPlacesReady.then(plotLocations).catch(function () {
-                    plotLocations();
-                });
-            } else {
-                plotLocations();
-            }
-        }, 400);
-    }
 })();
     </script>
 </body>

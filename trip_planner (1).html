@@ -31,6 +31,11 @@
             --secondary: #1d4ed8;
             --dark: #0f172a;
             --light: #f8fafc;
+            --accent-amber: #d97706;
+            --accent-indigo: #4f46e5;
+            --accent-emerald: #0f766e;
+            --accent-rose: #be123c;
+            --accent-violet: #7c3aed;
         }
 
         html, body {
@@ -41,7 +46,7 @@
         body {
             font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
             font-size: 16px;
-            background: #e2e8f0;
+            background: linear-gradient(180deg, #eaf0f6 0%, #f4f7fb 58%, #eef3f9 100%);
             color: var(--gov-text);
         }
 
@@ -233,11 +238,21 @@
             border-radius: 8px;
             padding: 14px 14px 16px;
             background: var(--gov-surface);
+            box-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
+            border-left: 4px solid rgba(71, 85, 105, 0.55);
         }
 
         .sidebar .panel {
             border-color: rgba(212, 175, 55, 0.22);
             box-shadow: 0 1px 0 rgba(115, 92, 0, 0.04);
+        }
+        .sidebar-scroll > .panel:first-child {
+            border-left-color: rgba(217, 119, 6, 0.85);
+            background: linear-gradient(180deg, #ffffff 0%, #fffbf3 100%);
+        }
+        .sidebar .panel.trip-form-scroll {
+            border-left-color: rgba(15, 118, 110, 0.85);
+            background: linear-gradient(180deg, #ffffff 0%, #f5fffc 100%);
         }
 
         .sidebar-scroll > .panel:not(.trip-form-scroll) {
@@ -286,6 +301,7 @@
             user-select: none;
             padding: 4px 0;
             margin-bottom: 0;
+            border-radius: 8px;
         }
 
         .sidebar-details > summary::-webkit-details-marker {
@@ -320,7 +336,7 @@
 
         .chip {
             border: 1px solid var(--gov-border);
-            background: var(--gov-surface);
+            background: #ffffff;
             color: var(--gov-text);
             padding: 8px 14px;
             border-radius: 6px;
@@ -334,7 +350,7 @@
 
         .chip:hover {
             border-color: var(--gov-blue);
-            background: #eff6ff;
+            background: #f8fafc;
         }
 
         .chip:focus-visible {
@@ -358,6 +374,30 @@
             border-color: #d97706;
             color: #b45309;
         }
+        .chip[data-cat="all"] {
+            border-color: rgba(71, 85, 105, 0.35);
+            color: #334155;
+        }
+        .chip[data-cat="food"] {
+            border-color: rgba(217, 119, 6, 0.45);
+            color: #9a3412;
+            background: #fff7ed;
+        }
+        .chip[data-cat="adventure"] {
+            border-color: rgba(5, 150, 105, 0.4);
+            color: #065f46;
+            background: #ecfdf5;
+        }
+        .chip[data-cat="temple"] {
+            border-color: rgba(124, 58, 237, 0.45);
+            color: #5b21b6;
+            background: #f5f3ff;
+        }
+        .chip[data-cat="sightseeing"] {
+            border-color: rgba(37, 99, 235, 0.45);
+            color: #1e40af;
+            background: #eff6ff;
+        }
 
         .search-input {
             width: 100%;
@@ -368,6 +408,7 @@
             margin-bottom: 12px;
             font-family: inherit;
             color: var(--gov-text);
+            background: #fbfdff;
         }
 
         .search-input:focus {
@@ -390,14 +431,14 @@
             font-weight: 700;
             cursor: pointer;
             font-family: inherit;
-            background: var(--gov-blue);
+            background: linear-gradient(135deg, #8f4e00, #b45309);
             color: #fff;
             min-height: 44px;
             transition: background 0.15s ease, box-shadow 0.15s ease;
         }
 
         .btn-apply:hover {
-            background: var(--gov-blue-hover);
+            filter: brightness(1.06);
         }
 
         .btn-apply:focus-visible {
@@ -499,8 +540,11 @@
         .form-fields-block {
             flex-shrink: 0;
             padding-bottom: 4px;
-            border-bottom: 1px solid var(--gov-border);
+            border-bottom: 1px solid rgba(15, 118, 110, 0.22);
             margin-bottom: 12px;
+            background: rgba(255, 255, 255, 0.72);
+            border-radius: 8px;
+            padding: 10px 10px 4px;
         }
 
         .trip-overview {
@@ -508,8 +552,8 @@
             min-height: 120px;
             margin-top: 0;
             padding: 14px;
-            background: var(--gov-surface-2);
-            border: 1px solid var(--gov-border);
+            background: linear-gradient(180deg, #f8fffd 0%, #f3fdfb 100%);
+            border: 1px solid rgba(15, 118, 110, 0.25);
             border-radius: 6px;
             display: flex;
             flex-direction: column;
@@ -579,9 +623,9 @@
             overflow-x: hidden;
             margin-top: 0;
             padding: 10px 8px 10px 4px;
-            border: 1px solid var(--gov-border);
+            border: 1px solid rgba(15, 118, 110, 0.22);
             border-radius: 6px;
-            background: var(--gov-surface);
+            background: #ffffff;
             font-size: 0.9375rem;
             color: var(--gov-text);
             line-height: 1.5;
@@ -757,14 +801,14 @@
         }
 
         .btn-submit {
-            background: var(--gov-blue);
+            background: linear-gradient(135deg, #0f766e, #0ea5a1);
             color: #fff;
-            border: 1px solid var(--gov-blue);
+            border: 1px solid #0f766e;
         }
 
         .btn-submit:hover {
-            background: var(--gov-blue-hover);
-            border-color: var(--gov-blue-hover);
+            filter: brightness(1.06);
+            border-color: #0f766e;
         }
 
         .btn-submit:focus-visible {
@@ -773,9 +817,9 @@
         }
 
         .btn-reset {
-            background: var(--gov-surface);
-            color: var(--gov-navy-mid);
-            border: 1px solid var(--gov-border);
+            background: #fff7ed;
+            color: #9a3412;
+            border: 1px solid #fdba74;
         }
 
         .btn-reset:hover {
@@ -807,7 +851,8 @@
             min-width: 0;
             min-height: 0;
             position: relative;
-            background: #e8ecf0;
+            background: linear-gradient(180deg, #edf2f7 0%, #dbe8f2 100%);
+            border-left: 1px solid rgba(15, 23, 42, 0.08);
         }
 
         #map {
@@ -823,7 +868,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(248, 250, 252, 0.92);
+            background: rgba(248, 250, 252, 0.9);
             text-align: center;
             padding: 16px;
             pointer-events: none;
@@ -1437,6 +1482,10 @@
                     <form id="tripForm" class="form-compact">
                         <div class="form-fields-block">
                             <div class="fg">
+                                <label for="tripTotalSpend">Total trip spend (₹)</label>
+                                <input type="number" id="tripTotalSpend" min="0" step="100" placeholder="Whole-trip budget or actual spend" inputmode="decimal" autocomplete="off" title="Optional — for your records; shown in the live summary below"/>
+                            </div>
+                            <div class="fg">
                                 <div class="toggle-row">
                                     <span class="row-icon material-symbols-outlined" aria-hidden="true">my_location</span>
                                     <span>Use GPS location</span>
@@ -1482,6 +1531,8 @@
                                 <dd id="ovSchedule">—</dd>
                                 <dt>Trip length</dt>
                                 <dd id="ovSpan">—</dd>
+                                <dt>Trip spend</dt>
+                                <dd id="ovSpend">—</dd>
                                 <dt>Places</dt>
                                 <dd id="ovMap">—</dd>
                             </dl>
@@ -2452,6 +2503,21 @@
             const days = document.getElementById('numDays').value.trim();
             spanEl.textContent = days ? `${days} day(s)` : '—';
 
+            const spendDd = document.getElementById('ovSpend');
+            const spendInput = document.getElementById('tripTotalSpend');
+            if (spendDd && spendInput) {
+                const rawSpend = spendInput.value.trim();
+                if (rawSpend === '') {
+                    spendDd.textContent = '—';
+                } else {
+                    const sn = parseFloat(rawSpend);
+                    spendDd.textContent =
+                        isFinite(sn) && sn >= 0
+                            ? `₹${new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 }).format(Math.round(sn))}`
+                            : '—';
+                }
+            }
+
             const orderedFull = orderPlacesForItinerary(openList.slice(), null, null);
             const durCapOv = applyOutingDurationCap(orderedFull);
             const ordered = applyCachedRoadOrder(durCapOv.list);
@@ -2744,8 +2810,28 @@
             }
         });
 
+        const TRIP_SPEND_STORAGE = 'tirupati_trip_total_spend';
+        const tripSpendField = document.getElementById('tripTotalSpend');
+        if (tripSpendField) {
+            tripSpendField.addEventListener('input', () => {
+                const v = tripSpendField.value.trim();
+                try {
+                    if (v) window.localStorage.setItem(TRIP_SPEND_STORAGE, v);
+                    else window.localStorage.removeItem(TRIP_SPEND_STORAGE);
+                } catch (err) { /* ignore */ }
+            });
+        }
+
         tripForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            const spendRaw = tripSpendField ? tripSpendField.value.trim() : '';
+            let tripSpendRupee = null;
+            if (spendRaw !== '') {
+                const sn = parseFloat(spendRaw);
+                if (isFinite(sn) && sn >= 0) {
+                    tripSpendRupee = Math.round(sn);
+                }
+            }
             const formData = {
                 gpsEnabled: isGeoEnabled,
                 location: isGeoEnabled ? 'Auto-detected by GPS' : startLocationInput.value,
@@ -2753,6 +2839,7 @@
                 endTime: document.getElementById('tripEndTime').value,
                 date: document.getElementById('tripDate').value,
                 days: document.getElementById('numDays').value,
+                totalTripSpendRupee: tripSpendRupee,
                 filteredPlaces: getFilteredPlaces().map((p) => p.name)
             };
             console.log('Trip Details:', formData);
@@ -2828,6 +2915,19 @@
             const loc = sp.get('loc');
             if (loc) {
                 document.getElementById('startLocation').value = loc;
+            }
+
+            const spendInput = document.getElementById('tripTotalSpend');
+            if (spendInput) {
+                const spendQs = sp.get('spend');
+                if (spendQs != null && spendQs !== '') {
+                    spendInput.value = spendQs;
+                } else {
+                    try {
+                        const saved = window.localStorage.getItem('tirupati_trip_total_spend');
+                        if (saved) spendInput.value = saved;
+                    } catch (e) { /* ignore */ }
+                }
             }
 
             const ap = sp.get('apply');
