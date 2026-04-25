@@ -41,6 +41,8 @@
         };
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <style>
         :root {
             --primary: #735c00;
@@ -260,6 +262,61 @@
             gap: 1.25rem;
             margin-top: 1.5rem;
         }
+        .planner-split {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.25rem;
+            align-items: start;
+        }
+        @media (min-width: 1080px) {
+            .planner-split {
+                grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+            }
+        }
+        .map-pane {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            min-height: 100%;
+        }
+        .map-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+        .map-controls__actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .btn-map {
+            border: none;
+            border-radius: 10px;
+            background: var(--secondary);
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            padding: 0.6rem 0.9rem;
+            cursor: pointer;
+            transition: filter 0.15s ease;
+        }
+        .btn-map:hover {
+            filter: brightness(1.05);
+        }
+        .map-status {
+            min-height: 1.2rem;
+            font-size: 0.78rem;
+            color: var(--muted);
+        }
+        .map-status--error {
+            color: var(--danger);
+        }
+        #routeMap {
+            width: 100%;
+            min-height: 360px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            background: #e2e8f0;
+        }
         .summary-card {
             margin-top: 1.5rem;
             background: linear-gradient(145deg, #fff 0%, #fefce8 55%, #fff 100%);
@@ -368,74 +425,103 @@
     </header>
 
     <main class="wrap">
-        <section class="card" aria-labelledby="inputsHeading">
-            <div class="card__head">
-                <div class="card__icon card__icon--primary">
-                    <span class="material-symbols-outlined">edit_calendar</span>
+        <div class="planner-split">
+            <section class="card" aria-labelledby="inputsHeading">
+                <div class="card__head">
+                    <div class="card__icon card__icon--primary">
+                        <span class="material-symbols-outlined">edit_calendar</span>
+                    </div>
+                    <div>
+                        <h2 class="card__title" id="inputsHeading">Trip inputs</h2>
+                        <p class="card__subtitle">All amounts in ₹ unless noted. Values update the breakdown in real time.</p>
+                    </div>
                 </div>
-                <div>
-                    <h2 class="card__title" id="inputsHeading">Trip inputs</h2>
-                    <p class="card__subtitle">All amounts in ₹ unless noted. Values update the breakdown in real time.</p>
+                <div class="form-grid">
+                    <div>
+                        <label for="travelMode">Travel mode</label>
+                        <select id="travelMode" aria-describedby="travelModeHint">
+                            <option value="car">Car</option>
+                            <option value="bike">Bike</option>
+                            <option value="bus">Bus</option>
+                            <option value="train">Train</option>
+                        </select>
+                        <p class="hint" id="travelModeHint">Car/Bike use fuel formula; Bus/Train use ticket × people.</p>
+                    </div>
+                    <div>
+                        <label for="distance">Total distance (km)</label>
+                        <input type="number" id="distance" min="0" step="0.1" value="120" inputmode="decimal"/>
+                        <p class="hint" id="distanceMapHint">After you plot start and end on the map, this field is filled with the <strong>road</strong> distance (km).</p>
+                    </div>
+                    <div>
+                        <label for="startLocation">Starting location</label>
+                        <input type="text" id="startLocation" value="Tirupati Railway Station" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
+                    </div>
+                    <div>
+                        <label for="endLocation">Ending location</label>
+                        <input type="text" id="endLocation" value="Tirumala Temple" autocomplete="street-address" placeholder="e.g. Tirumala Temple"/>
+                    </div>
+                    <div>
+                        <label for="mileage">Mileage (km/l) <span class="tooltip-btn" title="Used for Car and Bike only">?</span></label>
+                        <input type="number" id="mileage" min="0.1" step="0.1" value="15" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="fuelPrice">Fuel price (₹/l)</label>
+                        <input type="number" id="fuelPrice" min="0" step="0.1" value="105" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="ticketPrice">Ticket price (₹) <span class="tooltip-btn" title="Per person for Bus/Train; optional for Car/Bike">?</span></label>
+                        <input type="number" id="ticketPrice" min="0" step="1" value="0" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="people">Number of people</label>
+                        <input type="number" id="people" min="1" step="1" value="2" inputmode="numeric"/>
+                    </div>
+                    <div>
+                        <label for="days">Number of days</label>
+                        <input type="number" id="days" min="1" step="1" value="3" inputmode="numeric"/>
+                    </div>
+                    <div>
+                        <label for="rooms">Rooms required</label>
+                        <input type="number" id="rooms" min="0" step="1" value="1" inputmode="numeric"/>
+                    </div>
+                    <div>
+                        <label for="roomCost">Cost per room (₹/night)</label>
+                        <input type="number" id="roomCost" min="0" step="1" value="2500" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="foodPerDay">Food cost per person per day (₹)</label>
+                        <input type="number" id="foodPerDay" min="0" step="1" value="600" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="entryFee">Entry fee (₹) <span class="tooltip-btn" title="Per person for activities / sites">?</span></label>
+                        <input type="number" id="entryFee" min="0" step="1" value="300" inputmode="decimal"/>
+                    </div>
+                    <div>
+                        <label for="userBudget">Your total budget (₹) <span class="tooltip-btn" title="Optional — shows remaining vs estimated total">?</span></label>
+                        <input type="number" id="userBudget" min="0" step="100" value="0" inputmode="decimal"/>
+                        <p class="hint">Leave 0 to hide remaining budget.</p>
+                    </div>
                 </div>
-            </div>
-            <div class="form-grid">
-                <div>
-                    <label for="travelMode">Travel mode</label>
-                    <select id="travelMode" aria-describedby="travelModeHint">
-                        <option value="car">Car</option>
-                        <option value="bike">Bike</option>
-                        <option value="bus">Bus</option>
-                        <option value="train">Train</option>
-                    </select>
-                    <p class="hint" id="travelModeHint">Car/Bike use fuel formula; Bus/Train use ticket × people.</p>
+            </section>
+            <section class="card map-pane" aria-labelledby="mapHeading">
+                <div class="card__head">
+                    <div class="card__icon card__icon--teal">
+                        <span class="material-symbols-outlined">map</span>
+                    </div>
+                    <div>
+                        <h2 class="card__title" id="mapHeading">Route map</h2>
+                        <p class="card__subtitle">Road route between start and end; distance syncs to trip inputs.</p>
+                    </div>
                 </div>
-                <div>
-                    <label for="distance">Total distance (km)</label>
-                    <input type="number" id="distance" min="0" step="0.1" value="120" inputmode="decimal"/>
+                <div class="map-controls">
+                    <div class="map-controls__actions">
+                        <button type="button" id="plotRouteBtn" class="btn-map">Plot locations</button>
+                    </div>
+                    <div id="mapStatus" class="map-status" aria-live="polite"></div>
                 </div>
-                <div>
-                    <label for="mileage">Mileage (km/l) <span class="tooltip-btn" title="Used for Car and Bike only">?</span></label>
-                    <input type="number" id="mileage" min="0.1" step="0.1" value="15" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="fuelPrice">Fuel price (₹/l)</label>
-                    <input type="number" id="fuelPrice" min="0" step="0.1" value="105" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="ticketPrice">Ticket price (₹) <span class="tooltip-btn" title="Per person for Bus/Train; optional for Car/Bike">?</span></label>
-                    <input type="number" id="ticketPrice" min="0" step="1" value="0" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="people">Number of people</label>
-                    <input type="number" id="people" min="1" step="1" value="2" inputmode="numeric"/>
-                </div>
-                <div>
-                    <label for="days">Number of days</label>
-                    <input type="number" id="days" min="1" step="1" value="3" inputmode="numeric"/>
-                </div>
-                <div>
-                    <label for="rooms">Rooms required</label>
-                    <input type="number" id="rooms" min="0" step="1" value="1" inputmode="numeric"/>
-                </div>
-                <div>
-                    <label for="roomCost">Cost per room (₹/night)</label>
-                    <input type="number" id="roomCost" min="0" step="1" value="2500" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="foodPerDay">Food cost per person per day (₹)</label>
-                    <input type="number" id="foodPerDay" min="0" step="1" value="600" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="entryFee">Entry fee (₹) <span class="tooltip-btn" title="Per person for activities / sites">?</span></label>
-                    <input type="number" id="entryFee" min="0" step="1" value="300" inputmode="decimal"/>
-                </div>
-                <div>
-                    <label for="userBudget">Your total budget (₹) <span class="tooltip-btn" title="Optional — shows remaining vs estimated total">?</span></label>
-                    <input type="number" id="userBudget" min="0" step="100" value="0" inputmode="decimal"/>
-                    <p class="hint">Leave 0 to hide remaining budget.</p>
-                </div>
-            </div>
-        </section>
+                <div id="routeMap" role="region" aria-label="Map showing start and end locations"></div>
+            </section>
+        </div>
 
         <div class="grid-breakdown">
             <section class="card" aria-labelledby="travelCardTitle">
@@ -585,6 +671,10 @@
     }
     let pieChart;
     let barChart;
+    let routeMap;
+    let startMarker;
+    let endMarker;
+    let routeLine;
 
     function calc() {
         const mode = document.getElementById('travelMode').value;
@@ -763,6 +853,130 @@
         });
     }
 
+    function setMapStatus(message, isError) {
+        const el = document.getElementById('mapStatus');
+        if (!el) return;
+        el.textContent = message || '';
+        el.classList.toggle('map-status--error', Boolean(isError));
+    }
+
+    function initBaseMap() {
+        if (typeof L === 'undefined') {
+            setMapStatus('Map failed to load. Please check internet connectivity.', true);
+            return;
+        }
+        const mapEl = document.getElementById('routeMap');
+        if (!mapEl) return;
+        routeMap = L.map(mapEl, { zoomControl: true }).setView([13.6288, 79.4192], 11);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(routeMap);
+        setMapStatus('Enter locations and click "Plot locations" to update the map.');
+    }
+
+    async function geocodePlace(query) {
+        const q = (query || '').trim();
+        if (!q) return null;
+        const url = 'https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=' + encodeURIComponent(q);
+        const res = await fetch(url, {
+            headers: {
+                'Accept': 'application/json'
+            }
+        });
+        if (!res.ok) return null;
+        const list = await res.json();
+        if (!Array.isArray(list) || !list.length) return null;
+        return {
+            lat: parseFloat(list[0].lat),
+            lon: parseFloat(list[0].lon),
+            label: list[0].display_name || q
+        };
+    }
+
+    function osrmProfileForTravelMode() {
+        const mode = (document.getElementById('travelMode') && document.getElementById('travelMode').value) || 'car';
+        return mode === 'bike' ? 'cycling' : 'driving';
+    }
+
+    async function fetchRoadRoute(lat1, lon1, lat2, lon2) {
+        const profile = osrmProfileForTravelMode();
+        const coordPath = lon1 + ',' + lat1 + ';' + lon2 + ',' + lat2;
+        const url = 'https://router.project-osrm.org/route/v1/' + profile + '/' + coordPath + '?overview=full&geometries=geojson';
+        const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (!data || data.code !== 'Ok' || !data.routes || !data.routes.length) return null;
+        const r = data.routes[0];
+        const geom = r.geometry;
+        if (!geom || geom.type !== 'LineString' || !Array.isArray(geom.coordinates) || !geom.coordinates.length) {
+            return null;
+        }
+        const latLngs = geom.coordinates.map(function (c) {
+            return [c[1], c[0]];
+        });
+        return { distanceM: r.distance, latLngs: latLngs };
+    }
+
+    async function plotLocations() {
+        if (!routeMap) return;
+        const startText = (document.getElementById('startLocation').value || '').trim();
+        const endText = (document.getElementById('endLocation').value || '').trim();
+        if (!startText || !endText) {
+            setMapStatus('Please enter both starting and ending locations.', true);
+            return;
+        }
+        setMapStatus('Finding locations on map...');
+        try {
+            const [start, end] = await Promise.all([geocodePlace(startText), geocodePlace(endText)]);
+            if (!start || !end || !isFinite(start.lat) || !isFinite(start.lon) || !isFinite(end.lat) || !isFinite(end.lon)) {
+                setMapStatus('Could not locate one or both places. Try a more specific name.', true);
+                return;
+            }
+
+            if (startMarker) routeMap.removeLayer(startMarker);
+            if (endMarker) routeMap.removeLayer(endMarker);
+            if (routeLine) routeMap.removeLayer(routeLine);
+
+            startMarker = L.marker([start.lat, start.lon]).addTo(routeMap).bindPopup('<strong>Start:</strong><br/>' + start.label);
+            endMarker = L.marker([end.lat, end.lon]).addTo(routeMap).bindPopup('<strong>End:</strong><br/>' + end.label);
+
+            setMapStatus('Computing road route...');
+            const road = await fetchRoadRoute(start.lat, start.lon, end.lat, end.lon);
+            if (!road || !road.latLngs || road.latLngs.length < 2) {
+                setMapStatus('No road route found between these points. Try nearby towns or major roads.', true);
+                routeLine = L.polyline([[start.lat, start.lon], [end.lat, end.lon]], {
+                    color: '#94a3b8',
+                    weight: 3,
+                    opacity: 0.6,
+                    dashArray: '6 8'
+                }).addTo(routeMap);
+                const bounds = L.latLngBounds([[start.lat, start.lon], [end.lat, end.lon]]);
+                routeMap.fitBounds(bounds.pad(0.2));
+                return;
+            }
+
+            routeLine = L.polyline(road.latLngs, {
+                color: '#8f4e00',
+                weight: 5,
+                opacity: 0.92
+            }).addTo(routeMap);
+
+            routeMap.fitBounds(routeLine.getBounds().pad(0.08));
+
+            const km = road.distanceM / 1000;
+            const distEl = document.getElementById('distance');
+            if (distEl) {
+                distEl.value = String(Math.round(km * 10) / 10);
+            }
+            calc();
+            const profileLabel = osrmProfileForTravelMode() === 'cycling' ? 'cycling' : 'driving';
+            setMapStatus('Road route (' + profileLabel + '): ' + (Math.round(km * 10) / 10) + ' km — distance field updated.');
+        } catch (err) {
+            setMapStatus('Unable to fetch map locations right now. Please try again.', true);
+        }
+    }
+
     [
         'travelMode',
         'distance',
@@ -784,7 +998,33 @@
         }
     });
 
+    const plotBtn = document.getElementById('plotRouteBtn');
+    if (plotBtn) plotBtn.addEventListener('click', plotLocations);
+    ['startLocation', 'endLocation'].forEach(function (id) {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('change', plotLocations);
+            el.addEventListener('keydown', function (ev) {
+                if (ev.key === 'Enter') {
+                    ev.preventDefault();
+                    plotLocations();
+                }
+            });
+        }
+    });
+
+    const travelModeEl = document.getElementById('travelMode');
+    if (travelModeEl) {
+        travelModeEl.addEventListener('change', function () {
+            const s = (document.getElementById('startLocation').value || '').trim();
+            const e = (document.getElementById('endLocation').value || '').trim();
+            if (s && e) plotLocations();
+        });
+    }
+
+    initBaseMap();
     calc();
+    plotLocations();
 })();
     </script>
 </body>
