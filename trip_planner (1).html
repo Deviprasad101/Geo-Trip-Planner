@@ -1321,8 +1321,35 @@
             50% { stroke-opacity: 1; }
         }
 
+        /* Budget page embed: map only, full area inside iframe */
+        html.tp-embed,
+        html.tp-embed body {
+            height: 100%;
+            overflow: hidden;
+        }
+        html.tp-embed .app {
+            height: 100vh;
+            height: 100dvh;
+        }
+        html.tp-embed .sidebar {
+            display: none !important;
+        }
+        html.tp-embed .map-pane {
+            flex: 1;
+            width: 100%;
+            min-height: 0;
+            height: 100%;
+        }
+        html.tp-embed .btn-back {
+            display: none !important;
+        }
+
         @media (max-width: 720px) {
             .app {
+                flex-direction: column;
+            }
+
+            html.tp-embed .app {
                 flex-direction: column;
             }
 
@@ -1351,6 +1378,12 @@
                 flex: none;
             }
 
+            html.tp-embed .map-pane {
+                height: 100%;
+                flex: 1;
+                max-height: none;
+            }
+
             .place-card {
                 min-width: min(100%, 272px);
                 max-width: 100%;
@@ -1363,6 +1396,15 @@
     </style>
 </head>
 <body>
+    <script>
+        (function () {
+            try {
+                if (new URLSearchParams(window.location.search).get('embed') === '1') {
+                    document.documentElement.classList.add('tp-embed');
+                }
+            } catch (e) {}
+        })();
+    </script>
     <div class="app">
         <aside class="sidebar" aria-label="Trip planning controls">
             <div class="sidebar-top">

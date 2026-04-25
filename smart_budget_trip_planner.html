@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html class="light budget-page-root" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -42,6 +42,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="trip_planner_map_embed.css"/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <style>
         :root {
@@ -63,13 +64,592 @@
             --shadow: 0 4px 24px rgba(115, 92, 0, 0.07);
         }
         * { box-sizing: border-box; }
-        body {
+        html.budget-page-root,
+        body.budget-page-root {
+            height: 100%;
+            overflow: hidden;
+        }
+        body.budget-page-root {
             margin: 0;
             font-family: "Public Sans", system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
-            min-height: 100vh;
             -webkit-font-smoothing: antialiased;
+        }
+        .budget-app {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow: hidden;
+        }
+        .budget-main {
+            flex: 1;
+            min-width: 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .budget-main-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* Map planner–style rail (same visual language as trip_planner) */
+        .budget-app .sidebar {
+            --sb-on-surface: #1a1c1e;
+            --sb-muted: #64748b;
+            --sb-bg: rgba(253, 252, 249, 0.96);
+            --sb-bg-page: #f9f9fc;
+            --sb-border-amber: rgba(245, 158, 11, 0.2);
+            --sb-amber-50: #fffbeb;
+            --sb-amber-200: #fde68a;
+            --sb-amber-600: #d97706;
+            --sb-amber-700: #b45309;
+            --sb-surface: #ffffff;
+            --gov-navy-mid: #554300;
+            --gov-text: #1a1c1e;
+            --gov-text-muted: #64748b;
+            --gov-border: rgba(208, 197, 175, 0.95);
+            --gov-surface: #ffffff;
+            --gov-surface-2: #f3f3f6;
+            --gov-focus: #d4af37;
+            --gov-navy: #0f172a;
+            --gov-blue: #8f4e00;
+            --gov-blue-hover: #7a4300;
+            width: min(440px, 46vw);
+            min-width: 300px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--sb-bg);
+            border-right: 1px solid var(--sb-border-amber);
+            box-shadow: 2px 0 16px rgba(115, 92, 0, 0.08);
+            min-height: 0;
+            color: var(--sb-on-surface);
+        }
+        .budget-app .sidebar-top {
+            flex-shrink: 0;
+            background: linear-gradient(180deg, #fdfcf9 0%, var(--sb-bg-page) 100%);
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid rgba(245, 158, 11, 0.12);
+        }
+        .budget-app .sidebar-top h1 {
+            margin: 0;
+            font-size: 1.125rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.3;
+            color: #0f172a;
+            font-family: "Noto Serif", serif;
+        }
+        .budget-app .sidebar-top h1 .header-icon.material-symbols-outlined {
+            font-size: 1.35rem;
+            font-weight: 400;
+            color: var(--sb-amber-700);
+        }
+        .budget-app .sidebar-top p {
+            font-size: 0.875rem;
+            color: var(--sb-muted);
+            margin: 6px 0 0;
+            line-height: 1.45;
+            font-weight: 400;
+        }
+        .budget-app .sidebar .btn-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 12px 0;
+            padding: 10px 14px;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--sb-amber-700);
+            background: var(--sb-amber-50);
+            border: 1px solid var(--sb-amber-200);
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+        .budget-app .sidebar .btn-back:hover {
+            background: #fff7ed;
+            border-color: var(--sb-amber-600);
+            color: #92400e;
+        }
+        .budget-app .sidebar .btn-back:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
+        }
+        .budget-app .sidebar-scroll {
+            flex: 1;
+            min-height: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            padding: 12px 12px 14px;
+            gap: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+        .budget-app .sidebar-scroll > .panel:not(.trip-form-scroll) {
+            flex: 0 0 auto;
+        }
+        .budget-app .sidebar-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .budget-app .sidebar-scroll::-webkit-scrollbar-track {
+            background: #f3f3f6;
+            border-radius: 4px;
+        }
+        .budget-app .sidebar-scroll::-webkit-scrollbar-thumb {
+            background: rgba(143, 78, 0, 0.35);
+            border-radius: 4px;
+        }
+        .budget-app .panel {
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 8px;
+            padding: 14px 14px 16px;
+            background: var(--gov-surface);
+            box-shadow: 0 1px 0 rgba(115, 92, 0, 0.04);
+        }
+        .budget-app .sidebar-details {
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+        .budget-app .sidebar-details > summary {
+            list-style: none;
+            cursor: pointer;
+            user-select: none;
+            font-size: 0.8125rem;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--gov-navy-mid);
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            line-height: 1.4;
+            padding: 4px 0;
+        }
+        .budget-app .sidebar-details > summary::-webkit-details-marker {
+            display: none;
+        }
+        .budget-app .sidebar-details > summary .sec-icon.material-symbols-outlined {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: #d4af37;
+        }
+        .budget-app .sidebar-details > summary::after {
+            content: "expand_more";
+            font-family: "Material Symbols Outlined", sans-serif;
+            font-weight: 400;
+            margin-left: auto;
+            font-size: 1.35rem;
+            line-height: 1;
+            color: var(--gov-text-muted);
+            transition: transform 0.2s ease;
+        }
+        .budget-app .sidebar-details[open] > summary::after {
+            transform: rotate(180deg);
+        }
+        .budget-app .sidebar-details-body {
+            padding-top: 10px;
+        }
+        /* Trip planner sidebar controls (scoped to budget sidebar) */
+        .budget-app .sidebar .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .budget-app .sidebar .chip {
+            border: 1px solid var(--gov-border);
+            background: var(--gov-surface);
+            color: var(--gov-text);
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            min-height: 40px;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+        .budget-app .sidebar .chip:hover {
+            border-color: rgba(245, 158, 11, 0.45);
+            background: rgba(255, 251, 235, 0.55);
+        }
+        .budget-app .sidebar .chip:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
+        }
+        .budget-app .sidebar .chip.active {
+            background: rgba(255, 251, 235, 0.95);
+            border-color: #d97706;
+            color: #b45309;
+        }
+        .budget-app .sidebar .search-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            margin-bottom: 12px;
+            font-family: inherit;
+            color: var(--gov-text);
+        }
+        .budget-app .sidebar .search-input:focus {
+            outline: none;
+            border-color: rgba(143, 78, 0, 0.55);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
+        }
+        .budget-app .sidebar .btn-apply {
+            width: 100%;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            background: var(--gov-blue);
+            color: #fff;
+            min-height: 44px;
+            transition: background 0.15s ease;
+        }
+        .budget-app .sidebar .btn-apply:hover {
+            background: var(--gov-blue-hover);
+        }
+        .budget-app .sidebar .btn-apply:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
+        }
+        .budget-app .sidebar .panel.trip-form-scroll {
+            flex: 1 1 0;
+            min-height: 0;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+        .budget-app .sidebar .panel.trip-form-scroll > .sidebar-details {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .budget-app .sidebar .panel.trip-form-scroll .sidebar-details-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+        .budget-app .sidebar .panel.trip-form-scroll #sbTripForm {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+        .budget-app .sidebar .form-compact .fg {
+            margin-bottom: 12px;
+        }
+        .budget-app .sidebar .form-compact label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gov-text);
+        }
+        .budget-app .sidebar .form-compact input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            background: var(--gov-surface);
+            color: var(--gov-text);
+            font-family: inherit;
+            min-height: 42px;
+        }
+        .budget-app .sidebar .form-compact input:focus {
+            outline: none;
+            border-color: rgba(143, 78, 0, 0.55);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+        .budget-app .sidebar .form-compact .row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .budget-app .sidebar .time-filter-hint {
+            font-size: 0.8125rem;
+            color: var(--gov-text-muted);
+            margin: 0 0 12px;
+            line-height: 1.5;
+        }
+        .budget-app .sidebar .form-fields-block {
+            flex-shrink: 0;
+            padding-bottom: 4px;
+            border-bottom: 1px solid var(--gov-border);
+            margin-bottom: 12px;
+        }
+        .budget-app .sidebar .trip-overview {
+            flex: 1;
+            min-height: 120px;
+            margin-top: 0;
+            padding: 14px;
+            background: rgba(249, 249, 252, 0.98);
+            border: 1px solid rgba(212, 175, 55, 0.22);
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .budget-app .sidebar .trip-overview-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gov-navy-mid);
+            font-weight: 700;
+            margin-bottom: 10px;
+            flex-shrink: 0;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--gov-border);
+        }
+        .budget-app .sidebar .trip-overview-divider {
+            height: 1px;
+            background: var(--gov-border);
+            margin: 4px 0 12px;
+            flex-shrink: 0;
+        }
+        .budget-app .sidebar .trip-overview-subtitle {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--gov-navy-mid);
+            font-weight: 700;
+            margin: 0 0 8px;
+            flex-shrink: 0;
+        }
+        .budget-app .sidebar .trip-overview-grid {
+            display: grid;
+            grid-template-columns: minmax(5.5rem, auto) 1fr;
+            gap: 8px 12px;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            line-height: 1.45;
+        }
+        .budget-app .sidebar .trip-overview-grid dt {
+            color: var(--gov-text-muted);
+            font-weight: 600;
+        }
+        .budget-app .sidebar .trip-overview-grid dd {
+            color: var(--gov-text);
+            word-break: break-word;
+            margin: 0;
+            font-weight: 500;
+        }
+        .budget-app .sidebar .trip-overview-list {
+            flex: 1;
+            min-height: 100px;
+            max-height: min(280px, 36vh);
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-top: 0;
+            padding: 10px 8px 10px 4px;
+            border: 1px solid var(--gov-border);
+            border-radius: 6px;
+            background: var(--gov-surface);
+            font-size: 0.9375rem;
+            color: var(--gov-text);
+            line-height: 1.5;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
+        }
+        .budget-app .sidebar .trip-overview-list:empty::before {
+            content: "Set outing times and filters. The visit list previews here; tap Apply filters & show map below the charts.";
+            display: block;
+            color: var(--gov-text-muted);
+            font-size: 0.875rem;
+            line-height: 1.45;
+            padding: 4px 2px 0;
+        }
+        .budget-app .sidebar .ov-itin {
+            font-size: 0.9375rem;
+            line-height: 1.5;
+            color: var(--gov-text);
+        }
+        .budget-app .sidebar .ov-hint {
+            color: var(--gov-text-muted);
+            margin-bottom: 12px;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+        }
+        .budget-app .sidebar .ov-day-title {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: var(--gov-navy-mid);
+            margin-top: 10px;
+        }
+        .budget-app .sidebar .ov-day-title:first-child {
+            margin-top: 0;
+        }
+        .budget-app .sidebar .ov-msg--warn {
+            color: #9a3412;
+            background: #fff7ed;
+            padding: 10px 12px;
+            border-radius: 6px;
+            border: 1px solid #fdba74;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .budget-app .sidebar .ov-ul {
+            margin: 6px 0 0;
+            padding-left: 1.25em;
+        }
+        .budget-app .sidebar .ov-ul li {
+            margin-bottom: 8px;
+        }
+        .budget-app .sidebar .ov-more {
+            list-style: none;
+            margin-left: -1em;
+            color: var(--gov-text-muted);
+            font-style: italic;
+            font-size: 0.875rem;
+        }
+        .budget-app .sidebar .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--gov-text);
+            margin-bottom: 6px;
+        }
+        .budget-app .sidebar .toggle-row .row-icon.material-symbols-outlined {
+            font-size: 1.25rem;
+            color: var(--gov-blue);
+        }
+        .budget-app .sidebar .toggle-switch {
+            width: 48px;
+            height: 26px;
+            background: #cbd5e1;
+            border-radius: 13px;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            transition: background 0.2s ease;
+        }
+        .budget-app .sidebar .toggle-switch:hover {
+            background: #94a3b8;
+        }
+        .budget-app .sidebar .toggle-switch.active {
+            background: var(--gov-blue);
+        }
+        .budget-app .sidebar .toggle-switch::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #fff;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: left 0.2s;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        .budget-app .sidebar .toggle-switch.active::after {
+            left: 24px;
+        }
+        .budget-app .sidebar .gps-line {
+            font-size: 0.8125rem;
+            color: #7c2d12;
+            background: #fff7ed;
+            padding: 8px 10px;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            border: 1px solid #fed7aa;
+            line-height: 1.45;
+        }
+        .budget-app .sidebar .gps-line.on {
+            color: #14532d;
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+        .budget-app .sidebar .hidden {
+            display: none !important;
+        }
+        .budget-app .sidebar .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--gov-border);
+            flex-shrink: 0;
+        }
+        .budget-app .sidebar .btn-row button {
+            flex: 1;
+            padding: 12px 14px;
+            border-radius: 6px;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            min-height: 44px;
+            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+        }
+        .budget-app .sidebar .btn-submit {
+            background: var(--gov-blue);
+            color: #fff;
+            border: 1px solid var(--gov-blue);
+        }
+        .budget-app .sidebar .btn-submit:hover {
+            background: var(--gov-blue-hover);
+            border-color: var(--gov-blue-hover);
+        }
+        .budget-app .sidebar .btn-submit:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
+        }
+        .budget-app .sidebar .btn-reset {
+            background: var(--gov-surface);
+            color: var(--gov-navy-mid);
+            border: 1px solid var(--gov-border);
+        }
+        .budget-app .sidebar .btn-reset:hover {
+            background: var(--gov-surface-2);
+            border-color: #94a3b8;
+        }
+        .budget-app .sidebar .btn-reset:focus-visible {
+            outline: 2px solid var(--gov-focus);
+            outline-offset: 2px;
+        }
+        .budget-app .sidebar .success-message {
+            display: none;
+            font-size: 0.875rem;
+            padding: 10px 12px;
+            margin-top: 12px;
+            border-radius: 6px;
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            color: #14532d;
+            text-align: center;
+            font-weight: 600;
+            flex-shrink: 0;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -126,7 +706,7 @@
             align-items: center;
             gap: 0.75rem;
         }
-        .btn-back {
+        .site-header__back {
             display: inline-flex;
             align-items: center;
             gap: 0.35rem;
@@ -141,7 +721,7 @@
             box-shadow: 0 1px 4px rgba(143, 78, 0, 0.15);
             transition: filter 0.15s ease, transform 0.15s ease;
         }
-        .btn-back:hover { filter: brightness(1.05); }
+        .site-header__back:hover { filter: brightness(1.05); }
         .avatar {
             width: 40px;
             height: 40px;
@@ -155,7 +735,7 @@
         .wrap {
             max-width: 80rem;
             margin: 0 auto;
-            padding: 1.5rem clamp(1rem, 3vw, 2rem) 3rem;
+            padding: 1.25rem clamp(1rem, 3vw, 2rem) 2.5rem;
         }
         .card {
             background: var(--card);
@@ -261,12 +841,16 @@
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 1.25rem;
             margin-top: 1.5rem;
+            position: relative;
+            z-index: 0;
         }
         .planner-split {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.25rem;
             align-items: start;
+            position: relative;
+            z-index: 2;
         }
         @media (min-width: 1080px) {
             .planner-split {
@@ -277,7 +861,6 @@
             display: flex;
             flex-direction: column;
             gap: 0.9rem;
-            min-height: 100%;
         }
         .map-controls {
             display: grid;
@@ -316,8 +899,13 @@
             border-radius: 12px;
             border: 1px solid var(--border);
             background: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
         }
         .summary-card {
+            position: relative;
+            z-index: 0;
             margin-top: 1.5rem;
             background: linear-gradient(145deg, #fff 0%, #fefce8 55%, #fff 100%);
             border: 2px solid rgba(212, 175, 55, 0.65);
@@ -373,11 +961,41 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 1.25rem;
             margin-top: 1.5rem;
+            position: relative;
+            z-index: 0;
+        }
+        .budget-plan-map-card {
+            margin-top: 1.5rem;
+            position: relative;
+            z-index: 0;
+        }
+        .budget-inline-map-frame-wrap {
+            border: 1px solid var(--border);
         }
         .chart-wrap {
             position: relative;
             height: 280px;
             padding: 0.5rem;
+        }
+        .linked-workspace {
+            margin-bottom: 1.25rem;
+        }
+        .linked-workspace .ctx-grid {
+            display: grid;
+            grid-template-columns: minmax(7rem, auto) 1fr;
+            gap: 0.35rem 1rem;
+            font-size: 0.875rem;
+            line-height: 1.45;
+        }
+        .linked-workspace .ctx-grid dt {
+            color: var(--muted);
+            font-weight: 600;
+            margin: 0;
+        }
+        .linked-workspace .ctx-grid dd {
+            margin: 0;
+            color: var(--text);
+            word-break: break-word;
         }
         .tooltip-btn {
             cursor: help;
@@ -398,14 +1016,140 @@
             border-radius: 6px;
             margin-bottom: 0.5rem;
         }
+        @media (max-width: 900px) {
+            html.budget-page-root,
+            body.budget-page-root {
+                height: auto;
+                min-height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+            }
+            .budget-app {
+                flex-direction: column;
+                height: auto;
+                max-height: none;
+                overflow: visible;
+            }
+            .budget-app .sidebar {
+                width: 100%;
+                min-width: unset;
+                max-height: min(62vh, 32rem);
+                border-right: none;
+                border-bottom: 1px solid rgba(245, 158, 11, 0.2);
+                box-shadow: 0 4px 16px rgba(115, 92, 0, 0.06);
+            }
+            .budget-main {
+                overflow: visible;
+            }
+            .budget-main-scroll {
+                overflow-y: visible;
+            }
+        }
         @media (max-width: 640px) {
             .site-header__inner { flex-wrap: wrap; }
             .amount { font-size: 1.15rem; }
         }
     </style>
 </head>
-<body class="bg-background text-on-background antialiased">
-    <header class="site-header sticky top-0 z-50">
+<body class="budget-page-root bg-background text-on-background antialiased">
+<div class="budget-app">
+    <aside class="sidebar" aria-label="Trip planning controls">
+        <div class="sidebar-top">
+            <h1><span class="header-icon material-symbols-outlined" aria-hidden="true">map</span> Plan your trip</h1>
+            <p>Trip planning workspace · Tirupati places dataset</p>
+        </div>
+        <a class="btn-back" href="tirupati_beautiful%20(1).html">← Back to Tirupati Tourism</a>
+        <div class="sidebar-scroll">
+            <div class="panel">
+                <details class="sidebar-details" open>
+                    <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">tune</span> Map &amp; data filters</summary>
+                    <div class="sidebar-details-body">
+                        <div class="filter-row" id="sbCategoryChips">
+                            <button type="button" class="chip active" data-cat="all">All</button>
+                            <button type="button" class="chip" data-cat="food">Food</button>
+                            <button type="button" class="chip" data-cat="adventure">Adventure</button>
+                            <button type="button" class="chip" data-cat="temple">Temple</button>
+                            <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
+                        </div>
+                        <input type="text" class="search-input" id="sbPlaceSearch" placeholder="Search name or description…" autocomplete="off"/>
+                        <button type="button" class="btn-apply" id="sbApplyFilters">Apply filters &amp; show map</button>
+                    </div>
+                </details>
+            </div>
+
+            <div class="panel trip-form-scroll">
+                <details class="sidebar-details" open>
+                    <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">schedule</span> Trip details &amp; live summary</summary>
+                    <div class="sidebar-details-body">
+                        <form id="sbTripForm" class="form-compact">
+                            <div class="form-fields-block">
+                                <div class="fg">
+                                    <div class="toggle-row">
+                                        <span class="row-icon material-symbols-outlined" aria-hidden="true">my_location</span>
+                                        <span>Use GPS location</span>
+                                        <div class="toggle-switch" id="sbGeoToggle" role="button" tabindex="0" aria-label="Toggle GPS"></div>
+                                    </div>
+                                    <div class="gps-line" id="sbGpsStatus">GPS off — enter location below</div>
+                                </div>
+                                <div class="fg visible" id="sbStartLocationGroup">
+                                    <label for="sbStartLocation">Start location</label>
+                                    <input type="text" id="sbStartLocation" placeholder="e.g. Tirupati" required/>
+                                </div>
+                                <div class="fg hidden" id="sbGpsFailedGroup">
+                                    <div class="gps-line on">GPS on — location on submit</div>
+                                </div>
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label for="sbTripStartTime">Outing start</label>
+                                        <input type="time" id="sbTripStartTime" required title="Only places open during this window appear on the map"/>
+                                    </div>
+                                    <div class="fg">
+                                        <label for="sbTripEndTime">Outing end</label>
+                                        <input type="time" id="sbTripEndTime" required title="Only places open during this window appear on the map"/>
+                                    </div>
+                                </div>
+                                <p class="time-filter-hint">Map uses CSV <strong>timings</strong> slots (breakfast / lunch / dinner). Visit order = nearest open stops, then trimmed to fit your outing length (~28 min/stop).</p>
+                                <div class="row2">
+                                    <div class="fg">
+                                        <label for="sbTripDate">Date</label>
+                                        <input type="date" id="sbTripDate" required/>
+                                    </div>
+                                    <div class="fg">
+                                        <label for="sbNumDays">Days</label>
+                                        <input type="number" id="sbNumDays" min="1" max="365" placeholder="5" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="trip-overview" id="sbTripOverview" aria-live="polite">
+                                <div class="trip-overview-title" id="sbOvLiveSummaryHeading">Live summary</div>
+                                <dl class="trip-overview-grid" aria-labelledby="sbOvLiveSummaryHeading">
+                                    <dt>Start</dt>
+                                    <dd id="sbOvLocation">—</dd>
+                                    <dt>Day plan</dt>
+                                    <dd id="sbOvSchedule">—</dd>
+                                    <dt>Trip length</dt>
+                                    <dd id="sbOvSpan">—</dd>
+                                    <dt>Places</dt>
+                                    <dd id="sbOvMap">—</dd>
+                                </dl>
+                                <div class="trip-overview-divider" aria-hidden="true"></div>
+                                <div class="trip-overview-subtitle" id="sbOvVisitOrderHeading">Visit order</div>
+                                <div class="trip-overview-list" id="sbOvPlaceList" role="region" aria-labelledby="sbOvVisitOrderHeading"></div>
+                            </div>
+                            <div class="btn-row">
+                                <button type="submit" class="btn-submit">Plan</button>
+                                <button type="reset" class="btn-reset">Clear</button>
+                            </div>
+                            <div class="success-message" id="sbSuccessMessage">Trip saved (see browser console for details)</div>
+                        </form>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </aside>
+
+    <div class="budget-main">
+    <header class="site-header sticky top-0 z-50 shrink-0">
         <div class="site-header__inner">
             <div class="site-header__brand">
                 <img class="site-header__logo" src="geointellab_logo.jpeg" alt="Institution logo" width="140" height="44" decoding="async"/>
@@ -416,7 +1160,7 @@
                 </div>
             </div>
             <div class="site-header__actions">
-                <a class="btn-back" href="tirupati_beautiful%20(1).html"><span class="material-symbols-outlined" style="font-size:18px">arrow_back</span> Main site</a>
+                <a class="site-header__back" href="tirupati_beautiful%20(1).html"><span class="material-symbols-outlined" style="font-size:18px">arrow_back</span> Main site</a>
                 <div class="avatar" title="Profile" aria-hidden="true">
                     <span class="material-symbols-outlined text-white" style="font-size:22px">person</span>
                 </div>
@@ -424,7 +1168,35 @@
         </div>
     </header>
 
+    <div class="budget-main-scroll">
     <main class="wrap">
+        <section class="card linked-workspace" aria-labelledby="linkedCtxHeading">
+            <div class="card__head">
+                <div class="card__icon card__icon--teal">
+                    <span class="material-symbols-outlined">sync_alt</span>
+                </div>
+                <div>
+                    <h2 class="card__title" id="linkedCtxHeading">Linked trip planner context</h2>
+                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place — budget totals use <strong>Number of days</strong> and the route map uses <strong>Starting location</strong> when GPS is off.</p>
+                </div>
+            </div>
+            <dl class="ctx-grid">
+                <dt>Category</dt>
+                <dd id="linkCtxCategory">—</dd>
+                <dt>Search</dt>
+                <dd id="linkCtxSearch">—</dd>
+                <dt>Trip date</dt>
+                <dd id="linkCtxDate">—</dd>
+                <dt>Outing window</dt>
+                <dd id="linkCtxOuting">—</dd>
+                <dt>Trip length</dt>
+                <dd id="linkCtxDays">—</dd>
+                <dt>Planner start</dt>
+                <dd id="linkCtxStart">—</dd>
+                <dt>Places preview</dt>
+                <dd id="linkCtxPlacesLine">—</dd>
+            </dl>
+        </section>
         <div class="planner-split">
             <section class="card" aria-labelledby="inputsHeading">
                 <div class="card__head">
@@ -450,15 +1222,24 @@
                     <div>
                         <label for="distance">Total distance (km)</label>
                         <input type="number" id="distance" min="0" step="0.1" value="120" inputmode="decimal"/>
-                        <p class="hint" id="distanceMapHint">After you plot start and end on the map, this field is filled with the <strong>road</strong> distance (km).</p>
+                        <p class="hint" id="distanceMapHint">After you plot, distance is total <strong>road</strong> km along the route: through filtered CSV stops (shortest-path style ordering + OSRM Trip when possible), or start→Tirumala if no stops match. Starting location syncs with the sidebar when GPS is off.</p>
                     </div>
                     <div>
-                        <label for="startLocation">Starting location</label>
-                        <input type="text" id="startLocation" value="Tirupati Railway Station" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
+                        <label for="routeStartLocation">Starting location</label>
+                        <input type="text" id="routeStartLocation" value="Tirupati Railway Station" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
                     </div>
                     <div>
-                        <label for="endLocation">Ending location</label>
-                        <input type="text" id="endLocation" value="Tirumala Temple" autocomplete="street-address" placeholder="e.g. Tirumala Temple"/>
+                        <label for="mainTripDate">Trip date</label>
+                        <input type="date" id="mainTripDate" required/>
+                        <p class="hint">Synced with the sidebar; passed to the trip map when you apply filters.</p>
+                    </div>
+                    <div>
+                        <label for="mainOutingStart">Outing start</label>
+                        <input type="time" id="mainOutingStart" value="09:00" required/>
+                    </div>
+                    <div>
+                        <label for="mainOutingEnd">Outing end</label>
+                        <input type="time" id="mainOutingEnd" value="21:00" required/>
                     </div>
                     <div>
                         <label for="mileage">Mileage (km/l) <span class="tooltip-btn" title="Used for Car and Bike only">?</span></label>
@@ -501,6 +1282,9 @@
                         <input type="number" id="userBudget" min="0" step="100" value="0" inputmode="decimal"/>
                         <p class="hint">Leave 0 to hide remaining budget.</p>
                     </div>
+                    <div>
+                        <p class="hint" style="grid-column: 1 / -1; margin: 0;">Number of days is synced with the sidebar planner. Change it here or in the sidebar — stay, food, and buffer costs update automatically.</p>
+                    </div>
                 </div>
             </section>
             <section class="card map-pane" aria-labelledby="mapHeading">
@@ -510,7 +1294,7 @@
                     </div>
                     <div>
                         <h2 class="card__title" id="mapHeading">Route map</h2>
-                        <p class="card__subtitle">Road route between start and end; distance syncs to trip inputs.</p>
+                        <p class="card__subtitle">Uses the same logic as the trip planner: nearest stops from your start, optional OSRM Trip road order, then one road polyline through all stops (or start→Tirumala if no places match filters).</p>
                     </div>
                 </div>
                 <div class="map-controls">
@@ -519,7 +1303,7 @@
                     </div>
                     <div id="mapStatus" class="map-status" aria-live="polite"></div>
                 </div>
-                <div id="routeMap" role="region" aria-label="Map showing start and end locations"></div>
+                <div id="routeMap" role="region" aria-label="Map showing route from start to Tirumala Temple"></div>
             </section>
         </div>
 
@@ -656,9 +1440,57 @@
                 </div>
             </div>
         </section>
-    </main>
 
+        <section class="card budget-plan-map-card" id="budgetTripMapPanel" hidden aria-labelledby="budgetTripMapHeading">
+            <div class="card__head">
+                <div class="card__icon card__icon--teal">
+                    <span class="material-symbols-outlined">map</span>
+                </div>
+                <div>
+                    <h2 class="card__title" id="budgetTripMapHeading">Filtered trip map</h2>
+                    <p class="card__subtitle">Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters — no separate page.</p>
+                </div>
+            </div>
+            <div class="budget-trip-map-embed budget-inline-map-frame-wrap budget-trip-map-shell">
+                <div id="budgetTripMapInner" role="application" aria-label="Interactive trip map"></div>
+                <div id="budgetTripMapOverlay" class="map-overlay">
+                    <p><strong>Map is hidden</strong> until you apply filters. Set <strong>outing start/end</strong>, category, and search, then tap <strong>Apply filters &amp; show map</strong>.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    </div>
+    </div>
+</div>
+
+    <script src="budget_trip_sidebar.js"></script>
+    <script src="trip_planner_budget_map.js"></script>
     <script>
+window.addEventListener('budget-show-trip-map', function () {
+    const panel = document.getElementById('budgetTripMapPanel');
+    if (!panel) return;
+    panel.hidden = false;
+    var attempts = 0;
+    function runShow() {
+        if (window.BudgetTripPlannerMap && typeof window.BudgetTripPlannerMap.show === 'function') {
+            window.BudgetTripPlannerMap.show();
+            window.requestAnimationFrame(function () {
+                if (window.BudgetTripPlannerMap.invalidate) window.BudgetTripPlannerMap.invalidate();
+                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+            return;
+        }
+        attempts += 1;
+        if (attempts < 60) {
+            window.setTimeout(runShow, 40);
+        }
+    }
+    if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
+        window.budgetTripPlacesReady.then(runShow).catch(runShow);
+    } else {
+        runShow();
+    }
+});
 (function () {
     const fmt = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
     function rupee(n) {
@@ -672,9 +1504,19 @@
     let pieChart;
     let barChart;
     let routeMap;
-    let startMarker;
-    let endMarker;
-    let routeLine;
+    let budgetMarkerLayer = null;
+    let budgetRouteLayerGroup = null;
+    let budgetRouteGen = 0;
+    let budgetRouteAbort = null;
+    const DEFAULT_ROUTE_END_QUERY = 'Tirumala Temple';
+    const OSRM_MAX_WAYPOINTS_BUDGET = 90;
+    const OSRM_TRIP_MAX_BUDGET = 25;
+    const OSRM_TRIP_BASE_BUDGET = 'https://router.project-osrm.org/trip/v1/driving';
+
+    const mtdInit = document.getElementById('mainTripDate');
+    if (mtdInit && !mtdInit.value) {
+        mtdInit.value = new Date().toISOString().split('T')[0];
+    }
 
     function calc() {
         const mode = document.getElementById('travelMode').value;
@@ -784,6 +1626,7 @@
                     plugins: { legend: { display: false } }
                 }
             });
+            scheduleMapResize();
             return;
         }
 
@@ -851,6 +1694,7 @@
                 }
             }
         });
+        scheduleMapResize();
     }
 
     function setMapStatus(message, isError) {
@@ -872,7 +1716,156 @@
             maxZoom: 19,
             attribution: '&copy; OpenStreetMap contributors'
         }).addTo(routeMap);
-        setMapStatus('Enter locations and click "Plot locations" to update the map.');
+        budgetMarkerLayer = L.layerGroup().addTo(routeMap);
+        budgetRouteLayerGroup = L.layerGroup().addTo(routeMap);
+        setMapStatus('Enter a starting location and click "Plot locations" to update the map.');
+        window.setTimeout(function () {
+            if (routeMap) routeMap.invalidateSize();
+        }, 150);
+    }
+
+    function clearBudgetRouteMap() {
+        if (budgetMarkerLayer) budgetMarkerLayer.clearLayers();
+        if (budgetRouteLayerGroup) budgetRouteLayerGroup.clearLayers();
+    }
+
+    function escapeHtmlBudget(s) {
+        const d = document.createElement('div');
+        d.textContent = s == null ? '' : String(s);
+        return d.innerHTML;
+    }
+
+    async function fetchOsrmTripOrderBudget(points, stableGen, signal) {
+        if (!points || points.length < 3 || points.length > OSRM_TRIP_MAX_BUDGET) return null;
+        const path = points
+            .map(function (p) {
+                return p.lng + ',' + p.lat;
+            })
+            .join(';');
+        try {
+            const url =
+                OSRM_TRIP_BASE_BUDGET +
+                '/' +
+                path +
+                '?source=first&destination=last&roundtrip=false&overview=false';
+            const r = await fetch(url, { signal: signal });
+            if (!r.ok) return null;
+            const j = await r.json();
+            if (stableGen !== budgetRouteGen) return null;
+            if (j.code !== 'Ok' || !Array.isArray(j.waypoints)) return null;
+            const pairs = [];
+            for (let i = 0; i < j.waypoints.length; i++) {
+                const wi = j.waypoints[i].waypoint_index;
+                if (typeof wi !== 'number') return null;
+                pairs.push({ inputIdx: i, visitIdx: wi });
+            }
+            pairs.sort(function (a, b) {
+                return a.visitIdx - b.visitIdx;
+            });
+            return pairs.map(function (x) {
+                return x.inputIdx;
+            });
+        } catch (e) {
+            if (e && e.name === 'AbortError') return null;
+            return null;
+        }
+    }
+
+    async function fetchRoadRouteMultiBudget(points, stableGen, signal) {
+        if (!points || points.length < 2) return null;
+        const profile = osrmProfileForTravelMode();
+        const slice = points.slice(0, OSRM_MAX_WAYPOINTS_BUDGET);
+        const path = slice
+            .map(function (p) {
+                return p.lng + ',' + p.lat;
+            })
+            .join(';');
+        try {
+            const url =
+                'https://router.project-osrm.org/route/v1/' +
+                profile +
+                '/' +
+                path +
+                '?overview=full&geometries=geojson';
+            const r = await fetch(url, { signal: signal, headers: { Accept: 'application/json' } });
+            if (!r.ok) return null;
+            const j = await r.json();
+            if (stableGen !== budgetRouteGen) return null;
+            if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
+            const coords = j.routes[0].geometry.coordinates;
+            const latLngs = coords.map(function (c) {
+                return [c[1], c[0]];
+            });
+            return { latLngs: latLngs, distanceM: j.routes[0].distance || 0 };
+        } catch (e) {
+            if (e && e.name === 'AbortError') return null;
+            return null;
+        }
+    }
+
+    async function plotFallbackStartToTemple(start, myGen, signal) {
+        const endText = DEFAULT_ROUTE_END_QUERY;
+        const end = await geocodePlace(endText);
+        if (myGen !== budgetRouteGen) return;
+        if (!end || !isFinite(end.lat) || !isFinite(end.lon)) {
+            setMapStatus('Could not locate Tirumala Temple for fallback route.', true);
+            return;
+        }
+        L.marker([start.lat, start.lon])
+            .addTo(budgetMarkerLayer)
+            .bindPopup('<strong>Start:</strong><br/>' + escapeHtmlBudget(start.label));
+        L.marker([end.lat, end.lon])
+            .addTo(budgetMarkerLayer)
+            .bindPopup('<strong>End:</strong><br/>' + escapeHtmlBudget(end.label));
+        const road = await fetchRoadRoute(start.lat, start.lon, end.lat, end.lon);
+        if (myGen !== budgetRouteGen) return;
+        if (!road || !road.latLngs || road.latLngs.length < 2) {
+            setMapStatus('No road route found to Tirumala. Try a more specific start.', true);
+            L.polyline(
+                [
+                    [start.lat, start.lon],
+                    [end.lat, end.lon]
+                ],
+                { color: '#94a3b8', weight: 3, opacity: 0.6, dashArray: '6 8' }
+            ).addTo(budgetRouteLayerGroup);
+            routeMap.fitBounds(
+                L.latLngBounds([
+                    [start.lat, start.lon],
+                    [end.lat, end.lon]
+                ]).pad(0.2)
+            );
+            scheduleMapResize();
+            return;
+        }
+        const mainLine = L.polyline(road.latLngs, {
+            color: '#8f4e00',
+            weight: 5,
+            opacity: 0.92
+        }).addTo(budgetRouteLayerGroup);
+        routeMap.fitBounds(mainLine.getBounds().pad(0.08));
+        scheduleMapResize();
+        const km = road.distanceM / 1000;
+        const distEl = document.getElementById('distance');
+        if (distEl) distEl.value = String(Math.round(km * 10) / 10);
+        calc();
+        const profileLabel = osrmProfileForTravelMode() === 'cycling' ? 'cycling' : 'driving';
+        setMapStatus(
+            'No filtered stops for current outing — ' +
+                profileLabel +
+                ' route to Tirumala: ' +
+                (Math.round(km * 10) / 10) +
+                ' km.'
+        );
+    }
+
+    function scheduleMapResize() {
+        if (!routeMap) return;
+        window.requestAnimationFrame(function () {
+            routeMap.invalidateSize();
+            window.requestAnimationFrame(function () {
+                routeMap.invalidateSize();
+            });
+        });
     }
 
     async function geocodePlace(query) {
@@ -919,61 +1912,169 @@
     }
 
     async function plotLocations() {
-        if (!routeMap) return;
-        const startText = (document.getElementById('startLocation').value || '').trim();
-        const endText = (document.getElementById('endLocation').value || '').trim();
-        if (!startText || !endText) {
-            setMapStatus('Please enter both starting and ending locations.', true);
+        if (!routeMap || !budgetMarkerLayer || !budgetRouteLayerGroup) return;
+        if (budgetRouteAbort) {
+            budgetRouteAbort.abort();
+        }
+        budgetRouteAbort = new AbortController();
+        const signal = budgetRouteAbort.signal;
+        const myGen = ++budgetRouteGen;
+
+        const startText = (document.getElementById('routeStartLocation').value || '').trim();
+        if (!startText) {
+            setMapStatus('Please enter a starting location.', true);
             return;
         }
-        setMapStatus('Finding locations on map...');
+
+        clearBudgetRouteMap();
+        setMapStatus('Finding start and matching sidebar places…');
+
         try {
-            const [start, end] = await Promise.all([geocodePlace(startText), geocodePlace(endText)]);
-            if (!start || !end || !isFinite(start.lat) || !isFinite(start.lon) || !isFinite(end.lat) || !isFinite(end.lon)) {
-                setMapStatus('Could not locate one or both places. Try a more specific name.', true);
+            const start = await geocodePlace(startText);
+            if (myGen !== budgetRouteGen) return;
+            if (!start || !isFinite(start.lat) || !isFinite(start.lon)) {
+                setMapStatus('Could not locate start. Try a more specific name.', true);
                 return;
             }
 
-            if (startMarker) routeMap.removeLayer(startMarker);
-            if (endMarker) routeMap.removeLayer(endMarker);
-            if (routeLine) routeMap.removeLayer(routeLine);
+            const api = window.budgetTripRouteApi;
+            let ordered =
+                api && typeof api.getOrderedStopsForBudgetMap === 'function'
+                    ? api.getOrderedStopsForBudgetMap(start.lat, start.lon)
+                    : [];
 
-            startMarker = L.marker([start.lat, start.lon]).addTo(routeMap).bindPopup('<strong>Start:</strong><br/>' + start.label);
-            endMarker = L.marker([end.lat, end.lon]).addTo(routeMap).bindPopup('<strong>End:</strong><br/>' + end.label);
+            if (!ordered.length) {
+                await plotFallbackStartToTemple(start, myGen, signal);
+                return;
+            }
 
-            setMapStatus('Computing road route...');
-            const road = await fetchRoadRoute(start.lat, start.lon, end.lat, end.lon);
-            if (!road || !road.latLngs || road.latLngs.length < 2) {
-                setMapStatus('No road route found between these points. Try nearby towns or major roads.', true);
-                routeLine = L.polyline([[start.lat, start.lon], [end.lat, end.lon]], {
+            if (ordered.length > OSRM_MAX_WAYPOINTS_BUDGET - 5) {
+                ordered = ordered.slice(0, OSRM_MAX_WAYPOINTS_BUDGET - 5);
+            }
+
+            const hasStart = true;
+            let tripPts = [{ lat: start.lat, lng: start.lon }];
+            ordered.forEach(function (p) {
+                tripPts.push({ lat: p.lat, lng: p.lng });
+            });
+
+            let roadOptimized = false;
+            if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX_BUDGET) {
+                setMapStatus('Optimising stop order on the road network (OSRM Trip)…');
+                const newOrder = await fetchOsrmTripOrderBudget(tripPts, myGen, signal);
+                if (myGen !== budgetRouteGen) return;
+                if (newOrder && newOrder.length === tripPts.length) {
+                    const stopOffset = hasStart ? 1 : 0;
+                    const stopOrder = newOrder.filter(function (idx) {
+                        return idx >= stopOffset;
+                    });
+                    if (stopOrder.length === ordered.length) {
+                        ordered = stopOrder.map(function (idx) {
+                            return ordered[idx - stopOffset];
+                        });
+                        roadOptimized = true;
+                    }
+                }
+            }
+
+            L.marker([start.lat, start.lon])
+                .addTo(budgetMarkerLayer)
+                .bindPopup('<strong>Start:</strong><br/>' + escapeHtmlBudget(start.label));
+
+            ordered.forEach(function (p, idx) {
+                L.marker([p.lat, p.lng])
+                    .addTo(budgetMarkerLayer)
+                    .bindPopup(
+                        '<strong>' +
+                            (idx + 1) +
+                            '.</strong> ' +
+                            escapeHtmlBudget(p.name) +
+                            '<br/><span style="font-size:0.85em;color:#64748b">' +
+                            escapeHtmlBudget(p.category || '') +
+                            '</span>'
+                    );
+            });
+
+            const waypoints = [{ lat: start.lat, lng: start.lon }];
+            ordered.forEach(function (p) {
+                waypoints.push({ lat: p.lat, lng: p.lng });
+            });
+            const deduped = waypoints.filter(function (w, i, a) {
+                return i === 0 || w.lat !== a[i - 1].lat || w.lng !== a[i - 1].lng;
+            });
+
+            setMapStatus('Drawing road route through all stops…');
+            let multi = await fetchRoadRouteMultiBudget(deduped, myGen, signal);
+            if (myGen !== budgetRouteGen) return;
+
+            if (!multi || !multi.latLngs || multi.latLngs.length < 2) {
+                const straight = deduped.map(function (w) {
+                    return [w.lat, w.lng];
+                });
+                L.polyline(straight, {
                     color: '#94a3b8',
                     weight: 3,
-                    opacity: 0.6,
-                    dashArray: '6 8'
-                }).addTo(routeMap);
-                const bounds = L.latLngBounds([[start.lat, start.lon], [end.lat, end.lon]]);
-                routeMap.fitBounds(bounds.pad(0.2));
-                return;
+                    opacity: 0.65,
+                    dashArray: '8 6'
+                }).addTo(budgetRouteLayerGroup);
+                routeMap.fitBounds(L.latLngBounds(straight).pad(0.12));
+            } else {
+                const routePoly = L.polyline(multi.latLngs, {
+                    color: '#0f766e',
+                    weight: 5,
+                    opacity: 0.92
+                }).addTo(budgetRouteLayerGroup);
+                routeMap.fitBounds(routePoly.getBounds().pad(0.1));
             }
+            scheduleMapResize();
 
-            routeLine = L.polyline(road.latLngs, {
-                color: '#8f4e00',
-                weight: 5,
-                opacity: 0.92
-            }).addTo(routeMap);
-
-            routeMap.fitBounds(routeLine.getBounds().pad(0.08));
-
-            const km = road.distanceM / 1000;
+            let km = 0;
+            if (multi && multi.distanceM) {
+                km = multi.distanceM / 1000;
+            } else if (deduped.length >= 2) {
+                let acc = 0;
+                for (let i = 1; i < deduped.length; i++) {
+                    const a = deduped[i - 1];
+                    const b = deduped[i];
+                    const R = 6371000;
+                    const toR = Math.PI / 180;
+                    const dLat = (b.lat - a.lat) * toR;
+                    const dLng = (b.lng - a.lng) * toR;
+                    const x =
+                        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(a.lat * toR) *
+                            Math.cos(b.lat * toR) *
+                            Math.sin(dLng / 2) *
+                            Math.sin(dLng / 2);
+                    acc += 2 * R * Math.asin(Math.min(1, Math.sqrt(x)));
+                }
+                km = acc / 1000;
+            }
             const distEl = document.getElementById('distance');
             if (distEl) {
                 distEl.value = String(Math.round(km * 10) / 10);
             }
             calc();
+
             const profileLabel = osrmProfileForTravelMode() === 'cycling' ? 'cycling' : 'driving';
-            setMapStatus('Road route (' + profileLabel + '): ' + (Math.round(km * 10) / 10) + ' km — distance field updated.');
+            const orderNote = roadOptimized ? 'OSRM Trip road order' : 'nearest-neighbour order';
+            const geomNote =
+                multi && multi.latLngs && multi.latLngs.length >= 2 ? 'full road geometry' : 'straight-line fallback';
+            setMapStatus(
+                ordered.length +
+                    ' stop(s), ' +
+                    orderNote +
+                    ', ' +
+                    profileLabel +
+                    ' — ' +
+                    geomNote +
+                    ': ' +
+                    (Math.round(km * 10) / 10) +
+                    ' km total.'
+            );
         } catch (err) {
-            setMapStatus('Unable to fetch map locations right now. Please try again.', true);
+            if (err && err.name === 'AbortError') return;
+            setMapStatus('Unable to plot route right now. Please try again.', true);
         }
     }
 
@@ -1000,31 +2101,75 @@
 
     const plotBtn = document.getElementById('plotRouteBtn');
     if (plotBtn) plotBtn.addEventListener('click', plotLocations);
-    ['startLocation', 'endLocation'].forEach(function (id) {
-        const el = document.getElementById(id);
-        if (el) {
-            el.addEventListener('change', plotLocations);
-            el.addEventListener('keydown', function (ev) {
-                if (ev.key === 'Enter') {
-                    ev.preventDefault();
-                    plotLocations();
-                }
-            });
-        }
-    });
+    const routeStartEl = document.getElementById('routeStartLocation');
+    if (routeStartEl) {
+        routeStartEl.addEventListener('change', plotLocations);
+        routeStartEl.addEventListener('keydown', function (ev) {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                plotLocations();
+            }
+        });
+    }
 
     const travelModeEl = document.getElementById('travelMode');
     if (travelModeEl) {
         travelModeEl.addEventListener('change', function () {
-            const s = (document.getElementById('startLocation').value || '').trim();
-            const e = (document.getElementById('endLocation').value || '').trim();
-            if (s && e) plotLocations();
+            const s = (document.getElementById('routeStartLocation').value || '').trim();
+            if (s) plotLocations();
         });
+    }
+
+    window.__recalcBudget = calc;
+
+    function wireMainSidebarSync() {
+        if (!window.budgetSidebarBridge || typeof window.budgetSidebarBridge.applyMainToSidebar !== 'function') {
+            return;
+        }
+        function pushFromMainToSidebar() {
+            const d = document.getElementById('days');
+            const md = document.getElementById('mainTripDate');
+            const ms = document.getElementById('mainOutingStart');
+            const me = document.getElementById('mainOutingEnd');
+            const rs = document.getElementById('routeStartLocation');
+            window.budgetSidebarBridge.applyMainToSidebar({
+                days: d ? d.value : undefined,
+                tripDate: md ? md.value : undefined,
+                outingStart: ms ? ms.value : undefined,
+                outingEnd: me ? me.value : undefined,
+                routeStart: rs ? rs.value : undefined
+            });
+        }
+        ['days', 'mainTripDate', 'mainOutingStart', 'mainOutingEnd', 'routeStartLocation'].forEach(function (id) {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.addEventListener('change', pushFromMainToSidebar);
+            el.addEventListener('input', pushFromMainToSidebar);
+        });
+    }
+
+    wireMainSidebarSync();
+    if (window.budgetSidebarBridge && typeof window.budgetSidebarBridge.pullFromMain === 'function') {
+        window.budgetSidebarBridge.pullFromMain();
     }
 
     initBaseMap();
     calc();
-    plotLocations();
+    if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
+        window.budgetTripPlacesReady.then(plotLocations).catch(function () {
+            plotLocations();
+        });
+    } else {
+        window.setTimeout(function () {
+            if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
+                window.budgetTripPlacesReady.then(plotLocations).catch(function () {
+                    plotLocations();
+                });
+            } else {
+                plotLocations();
+            }
+        }, 400);
+    }
 })();
     </script>
 </body>
