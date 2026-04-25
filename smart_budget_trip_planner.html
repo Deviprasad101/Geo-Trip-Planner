@@ -1378,7 +1378,6 @@
             <div class="dashboard-controls__actions">
                 <button type="button" class="ctrl-btn ctrl-btn--primary" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
                 <button type="button" class="ctrl-btn" id="resetBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">ink_eraser</span>Clear inputs</button>
-                <button type="button" class="ctrl-btn" id="focusMapBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">pin_drop</span>Focus map panel</button>
             </div>
         </section>
         <section class="kpi-strip" aria-label="Decision summary strip">
@@ -1733,7 +1732,6 @@ window.addEventListener('budget-show-trip-map', function () {
     const kpiStatusChip = document.getElementById('kpiStatusChip');
     const recalcBudgetBtn = document.getElementById('recalcBudgetBtn');
     const resetBudgetBtn = document.getElementById('resetBudgetBtn');
-    const focusMapBtn = document.getElementById('focusMapBtn');
 
     function renderOverBudgetModal(overBy, details) {
         if (!overBudgetModal || !overBudgetDelta || !overBudgetTips) return;
@@ -2078,13 +2076,6 @@ window.addEventListener('budget-show-trip-map', function () {
             calc();
         });
     }
-    if (focusMapBtn) {
-        focusMapBtn.addEventListener('click', function () {
-            const panel = document.getElementById('budgetTripMapPanel');
-            if (panel) panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
-    }
-
     function wireMainSidebarSync() {
         if (!window.budgetSidebarBridge || typeof window.budgetSidebarBridge.applyMainToSidebar !== 'function') {
             return;
