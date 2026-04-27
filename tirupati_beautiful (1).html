@@ -414,8 +414,8 @@
         /* Logo + CTA: grid columns + gap; logo scales to show full strip (contain) */
         .site-header__end {
             display: inline-grid;
-            grid-template-columns: max-content max-content;
-            column-gap: 0.75rem;
+            grid-template-columns: max-content max-content max-content;
+            column-gap: 0.5rem;
             align-items: center;
             flex-shrink: 0;
             margin-left: 0.5rem;
@@ -424,14 +424,14 @@
         }
         @media (min-width: 640px) {
             .site-header__end {
-                column-gap: 1rem;
+                column-gap: 0.75rem;
                 margin-left: 0.75rem;
                 padding-left: 1rem;
             }
         }
         @media (min-width: 1024px) {
             .site-header__end {
-                column-gap: 1.125rem;
+                column-gap: 0.875rem;
             }
         }
         /* Full banner visible: height cap + wide max-width, object-fit contain (no hard crop) */
@@ -476,8 +476,14 @@
             object-fit: contain;
             object-position: left center;
         }
-        .site-header__cta-map {
+        .site-header__cta-packages {
             grid-column: 2;
+            justify-self: center;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        .site-header__cta-map {
+            grid-column: 3;
             justify-self: end;
             white-space: nowrap;
             box-sizing: border-box;
@@ -777,6 +783,7 @@
 </span>
 </a>
 <nav class="site-header__nav hidden min-w-0 flex-1 items-center justify-start gap-1 lg:flex" aria-label="Primary">
+<a class="site-header__link" href="tirupati_packages.html">Packages</a>
 <a class="site-header__link" href="smart_budget_trip_planner.html">Budget &amp; map planner</a>
 </nav>
 </div>
@@ -784,6 +791,9 @@
 <span class="site-header__logo-wrap">
 <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="280" height="56" decoding="async" loading="eager"/>
 </span>
+<a href="tirupati_packages.html" class="site-header__cta-packages inline-flex items-center justify-center rounded-full border border-amber-600/35 bg-white px-4 py-2 text-sm font-semibold text-amber-900 shadow-sm ring-1 ring-black/5 transition hover:bg-amber-50 sm:px-5 sm:text-base">
+                Packages
+            </a>
 <a href="smart_budget_trip_planner.html" class="site-header__cta-map inline-flex items-center justify-center rounded-full bg-secondary px-4 py-2 text-sm font-semibold text-on-secondary shadow-sm ring-1 ring-black/5 transition hover:brightness-[1.03] sm:px-5 sm:text-base">
                 Open map
             </a>
@@ -1032,6 +1042,7 @@
 </button>
 </div>
 <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
+<a href="tirupati_packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
 <a href="smart_budget_trip_planner.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> Budget &amp; map planner</a>
 <a href="smart_budget_trip_planner.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">payments</span> Open planner</a>
 </nav>
