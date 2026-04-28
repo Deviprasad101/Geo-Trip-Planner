@@ -1116,7 +1116,7 @@
 
 <script>
 (function () {
-    const CSV_URL = 'tirupati_places_updated_category_timings.csv';
+    const CSV_URL = 'tirupati_places_with_hospitals.csv';
 
     function categoryKeyFromCsv(cat) {
         const c = (cat || '').toLowerCase();
@@ -1130,6 +1130,7 @@
     function parseLine(line) {
         const parts = line.split(',');
         if (parts.length < 6) return null;
+        if (!(parts[0] || '').trim() && (parts[6] || '').trim()) return null;
         return { categoryKey: categoryKeyFromCsv(parts[1].trim()) };
     }
 
@@ -1458,7 +1459,9 @@
             const lines = text.trim().split(/\r?\n/);
             let food = 0, adventure = 0, temple = 0, sightseeing = 0;
             for (let i = 1; i < lines.length; i++) {
-                const row = parseLine(lines[i]);
+                const raw = lines[i];
+                if (/^name of the place/i.test(raw) || /^name,/i.test(raw)) continue;
+                const row = parseLine(raw);
                 if (!row) continue;
                 if (row.categoryKey === 'food') food++;
                 else if (row.categoryKey === 'adventure') adventure++;
