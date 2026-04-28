@@ -2454,6 +2454,7 @@
                             <button type="button" class="chip active" data-cat="all">All</button>
                             <button type="button" class="chip" data-cat="food">Food</button>
                             <button type="button" class="chip" data-cat="adventure">Adventure</button>
+                            <button type="button" class="chip" data-cat="wildlife">Wildlife</button>
                             <button type="button" class="chip" data-cat="temple">Temple</button>
                             <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
                         </div>
@@ -2882,6 +2883,7 @@
         if (c.includes('hospital')) return 'hospital';
         if (c.includes('food')) return 'food';
         if (c.includes('adventure')) return 'adventure';
+        if (c.includes('wildlife')) return 'wildlife';
         if (c.includes('temple')) return 'temple';
         if (c.includes('sight')) return 'sightseeing';
         return 'other';
@@ -2935,6 +2937,7 @@
             temple: ['05:00', '22:00'],
             food: ['06:00', '23:00'],
             adventure: ['09:00', '21:00'],
+            wildlife: ['06:00', '18:00'],
             sightseeing: ['09:00', '21:00'],
             hospital: ['00:00', '23:59'],
             other: ['09:00', '21:00']
@@ -3357,6 +3360,7 @@
             all: 'All categories',
             food: 'Food places',
             adventure: 'Adventure',
+            wildlife: 'Wildlife',
             temple: 'Temples',
             sightseeing: 'Sightseeing'
         };
@@ -3979,6 +3983,7 @@
             temple: ['05:00', '22:00'],
             food: ['06:00', '23:00'],
             adventure: ['09:00', '21:00'],
+            wildlife: ['06:00', '18:00'],
             sightseeing: ['09:00', '21:00'],
             hospital: ['00:00', '23:59'],
             other: ['09:00', '21:00']
@@ -4101,6 +4106,7 @@
         var styles = {
             food: { bg: '#fff7ed', fg: '#c2410c', sym: 'restaurant' },
             adventure: { bg: '#ecfdf5', fg: '#047857', sym: 'landscape' },
+            wildlife: { bg: '#f0fdf4', fg: '#15803d', sym: 'pets' },
             temple: { bg: '#fffbeb', fg: '#b45309', sym: 'temple_hindu' },
             sightseeing: { bg: '#eff6ff', fg: '#1d4ed8', sym: 'photo_camera' },
             hospital: { bg: '#fef2f2', fg: '#b91c1c', sym: 'local_hospital' },
@@ -4162,7 +4168,10 @@
         var slotsShort =
             slotsRaw.length > 200 ? escapeHtml(slotsRaw.slice(0, 200)) + '…' : escapeHtml(slotsRaw);
         var chipAccent =
-            p.categoryKey === 'temple' || p.categoryKey === 'food' || p.categoryKey === 'hospital'
+            p.categoryKey === 'temple' ||
+            p.categoryKey === 'food' ||
+            p.categoryKey === 'hospital' ||
+            p.categoryKey === 'wildlife'
                 ? ' place-card__chip--accent'
                 : '';
         var accentInk =
@@ -4170,6 +4179,7 @@
                 food: '#9a3412',
                 temple: '#78350f',
                 adventure: '#065f46',
+                wildlife: '#166534',
                 sightseeing: '#1e40af',
                 hospital: '#991b1b',
                 other: '#334155'

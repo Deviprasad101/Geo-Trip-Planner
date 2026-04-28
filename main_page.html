@@ -856,7 +856,7 @@
                     Plan routes, darshan days, and scenic stops in one map-first workspace.
                 </h1>
 <p class="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
-                    Filter by food, temples, adventure, or sightseeing—see distances, timings context, and a trip summary before you go.
+                    Filter by food, temples, adventure, wildlife, or sightseeing—see distances, timings context, and a trip summary before you go.
                 </p>
 <div class="flex flex-wrap items-center gap-3 pt-1">
 <a href="budget_calculator.html" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-lg transition hover:brightness-[1.05]">
@@ -899,7 +899,7 @@
 
 <div class="landing-max space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-12 lg:py-12">
 <!-- Live counts -->
-<section class="grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4" aria-label="Place counts by category">
+<section class="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4" aria-label="Place counts by category">
 <div class="rounded-2xl border border-amber-200/60 bg-white p-4 shadow-sm">
 <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Food</p>
 <p class="mt-1 text-3xl font-bold tabular-nums text-primary sm:text-4xl" id="countFood">—</p>
@@ -907,6 +907,10 @@
 <div class="rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-sm">
 <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Adventure</p>
 <p class="mt-1 text-3xl font-bold tabular-nums text-tertiary sm:text-4xl" id="countAdventure">—</p>
+</div>
+<div class="rounded-2xl border border-lime-200/70 bg-white p-4 shadow-sm">
+<p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Wildlife</p>
+<p class="mt-1 text-3xl font-bold tabular-nums text-lime-700 sm:text-4xl" id="countWildlife">—</p>
 </div>
 <div class="rounded-2xl border border-amber-300/70 bg-white p-4 shadow-sm">
 <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Temples</p>
@@ -926,7 +930,7 @@
 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">1</span>
 <div>
 <p class="font-semibold text-on-surface">Pick a theme</p>
-<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Choose food, adventure, temples, or sightseeing—or type in the filter below.</p>
+<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Choose food, adventure, wildlife, temples, or sightseeing—or type in the filter below.</p>
 </div>
 </div>
 <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
@@ -957,13 +961,14 @@
 <label class="sr-only" for="navSearch">Filter categories</label>
 <div class="relative max-w-xl">
 <span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 z-[1] -translate-y-1/2 text-amber-800/70" aria-hidden="true">search</span>
-<input id="navSearch" class="w-full rounded-xl border border-amber-200/80 bg-white py-3 pl-11 pr-4 text-base text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" placeholder="Type to filter (e.g. temple, trek, food…)" type="search" autocomplete="off" inputmode="search"/>
+<input id="navSearch" class="w-full rounded-xl border border-amber-200/80 bg-white py-3 pl-11 pr-4 text-base text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" placeholder="Type to filter (e.g. temple, wildlife, trek, food…)" type="search" autocomplete="off" inputmode="search"/>
 </div>
 <div class="flex flex-wrap gap-2" id="filterChips" role="group" aria-label="Quick filters">
 <button type="button" class="filter-chip is-active" data-set-filter="">All</button>
 <button type="button" class="filter-chip" data-set-filter="food">Food</button>
 <button type="button" class="filter-chip" data-set-filter="temple">Temples</button>
 <button type="button" class="filter-chip" data-set-filter="adventure">Adventure</button>
+<button type="button" class="filter-chip" data-set-filter="wildlife">Wildlife</button>
 <button type="button" class="filter-chip" data-set-filter="sight">Sightseeing</button>
 </div>
 <p id="categoryFilterStatus" class="sr-only" aria-live="polite"></p>
@@ -998,6 +1003,22 @@
 <div class="mt-auto flex items-end justify-between border-t border-emerald-100 pt-3">
 <span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
 <span class="text-2xl font-bold tabular-nums text-tertiary" id="countAdventureCard">20</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
+<button type="button" data-category-card="wildlife" data-theme-label="Wildlife" data-search-text="wildlife sanctuary national park deer peacock birds safari reserve crocodile zoo nature fauna" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-lime-100">
+<img alt="Wildlife and sanctuary trails near Tirupati" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/adventure%20image.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-lime-700 shadow-sm" aria-hidden="true">pets</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Wildlife</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Sanctuaries, deer parks, bird zones, and eco reserves.</p>
+<div class="mt-auto flex items-end justify-between border-t border-lime-100 pt-3">
+<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<span class="text-2xl font-bold tabular-nums text-lime-700" id="countWildlifeCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
 </div>
@@ -1114,6 +1135,7 @@
                     <button type="button" data-pf-cat="all">All</button>
                     <button type="button" data-pf-cat="food">Food</button>
                     <button type="button" data-pf-cat="adventure">Adventure</button>
+                    <button type="button" data-pf-cat="wildlife">Wildlife</button>
                     <button type="button" data-pf-cat="temple">Temple</button>
                     <button type="button" data-pf-cat="sightseeing">Sightseeing</button>
                 </div>
@@ -1167,6 +1189,7 @@
         const c = (cat || '').toLowerCase();
         if (c.includes('food')) return 'food';
         if (c.includes('adventure')) return 'adventure';
+        if (c.includes('wildlife')) return 'wildlife';
         if (c.includes('temple')) return 'temple';
         if (c.includes('sight')) return 'sightseeing';
         return 'other';
@@ -1367,7 +1390,7 @@
         function openFromCard(card) {
             const raw = (card.getAttribute('data-category-card') || 'all').toLowerCase();
             const label = (card.getAttribute('data-theme-label') || raw).trim() || raw;
-            const allowed = { food: 1, adventure: 1, temple: 1, sightseeing: 1, all: 1 };
+            const allowed = { food: 1, adventure: 1, wildlife: 1, temple: 1, sightseeing: 1, all: 1 };
             selectedCat = allowed[raw] ? raw : 'all';
             if (subtitle) {
                 subtitle.textContent =
@@ -1502,7 +1525,7 @@
             const res = await fetch(CSV_URL);
             const text = await res.text();
             const lines = text.trim().split(/\r?\n/);
-            let food = 0, adventure = 0, temple = 0, sightseeing = 0;
+            let food = 0, adventure = 0, wildlife = 0, temple = 0, sightseeing = 0;
             for (let i = 1; i < lines.length; i++) {
                 const raw = lines[i];
                 if (/^name of the place/i.test(raw) || /^name,/i.test(raw)) continue;
@@ -1510,25 +1533,30 @@
                 if (!row) continue;
                 if (row.categoryKey === 'food') food++;
                 else if (row.categoryKey === 'adventure') adventure++;
+                else if (row.categoryKey === 'wildlife') wildlife++;
                 else if (row.categoryKey === 'temple') temple++;
                 else if (row.categoryKey === 'sightseeing') sightseeing++;
             }
             set('countFood', food);
             set('countAdventure', adventure);
+            set('countWildlife', wildlife);
             set('countTemple', temple);
             set('countSightseeing', sightseeing);
             set('countFoodCard', food);
             set('countAdventureCard', adventure);
+            set('countWildlifeCard', wildlife);
             set('countTempleCard', temple);
             set('countSightseeingCard', sightseeing);
         } catch (e) {
             console.warn('CSV load failed', e);
             set('countFood', '—');
             set('countAdventure', '—');
+            set('countWildlife', '—');
             set('countTemple', '—');
             set('countSightseeing', '—');
             set('countFoodCard', '—');
             set('countAdventureCard', '—');
+            set('countWildlifeCard', '—');
             set('countTempleCard', '—');
             set('countSightseeingCard', '—');
         }
