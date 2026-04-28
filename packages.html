@@ -943,6 +943,29 @@
     var pkgHospitalLayer = null;
     var routeAbort = null;
     var emergencyAbort = null;
+    /** Fast fallback coords for emergency hospitals (used before network geocoding). */
+    var EMERGENCY_HOSPITAL_LATLNG_FALLBACK = {
+        'SVIMS Hospital': { lat: 13.642478, lng: 79.405348 },
+        'Ruia Government Hospital': { lat: 13.644965, lng: 79.405757 },
+        'Apollo Hospital Tirupati': { lat: 13.623068, lng: 79.429942 },
+        'Sri Chakra Hospital': { lat: 13.6360533, lng: 79.4210585 },
+        'Aster Narayanadri Hospital': { lat: 13.62846, lng: 79.463813 },
+        'Helios Hospital': { lat: 13.638177, lng: 79.423773 },
+        'Venkataramana Hospital': { lat: 13.6353807, lng: 79.4199327 },
+        'Suraksha Hospital': { lat: 13.635603, lng: 79.4204007 },
+        'Mother Hospital': { lat: 13.6382376, lng: 79.4184239 },
+        'Life Line Hospital': { lat: 13.6367942, lng: 79.4214374 },
+        'Balaji Hospital': { lat: 13.6366949, lng: 79.4274731 },
+        'Sree Ramadevi Hospital': { lat: 13.638003, lng: 79.4171204 },
+        'Padmavathi Hospital': { lat: 13.6398667, lng: 79.4162768 },
+        'Lotus Hospital': { lat: 13.6372, lng: 79.4215 },
+        'Sai Sudha Hospital': { lat: 13.635545, lng: 79.4215715 },
+        'Annapurna Hospital': { lat: 13.6349, lng: 79.4202 },
+        'Medicover Hospital Tirupati': { lat: 13.6355541, lng: 79.4183153 },
+        'Sankalpa Hospital': { lat: 13.6346953, lng: 79.420532 },
+        "People's Hospital": { lat: 13.6316368, lng: 79.4231711 },
+        'Cure Hospital': { lat: 13.622838, lng: 79.409767 }
+    };
 
     var pickerTierId = null;
     var pickerLimit = 0;
@@ -1017,6 +1040,30 @@
         return 2 * R * Math.asin(Math.min(1, Math.sqrt(a)));
     }
 
+    function orderStopsNearestFromStart(stops, startLat, startLng) {
+        if (!stops || !stops.length) return [];
+        var rem = stops.slice();
+        var out = [];
+        var curLat = startLat;
+        var curLng = startLng;
+        while (rem.length) {
+            var bestI = 0;
+            var bestD = Infinity;
+            for (var i = 0; i < rem.length; i++) {
+                var d = haversineKm(curLat, curLng, rem[i].lat, rem[i].lng);
+                if (d < bestD) {
+                    bestD = d;
+                    bestI = i;
+                }
+            }
+            var p = rem.splice(bestI, 1)[0];
+            out.push(p);
+            curLat = p.lat;
+            curLng = p.lng;
+        }
+        return out;
+    }
+
     function fetchOsrmTripOrder(waypointsLatLng, signal) {
         if (!waypointsLatLng || waypointsLatLng.length < 3) return Promise.resolve(null);
         var path = waypointsLatLng
@@ -1054,7 +1101,7 @@
             id: 'basic',
             shortTitle: 'Basic',
             title: 'Basic Package',
-            displayRange: '₹1 to ₹5,000',
+            displayRange: '1k to 5k',
             pickLimit: 5,
             tagline: 'Compact budget band — pick five must-see stops.',
             themeClass: 'pricing-card--basic'
@@ -1063,7 +1110,7 @@
             id: 'standard',
             shortTitle: 'Standard',
             title: 'Standard Package',
-            displayRange: '₹5,000 to ₹10,000',
+            displayRange: '5k to 10k',
             pickLimit: 10,
             tagline: 'Mid-range band — build a richer day with ten stops.',
             themeClass: 'pricing-card--standard'
@@ -1072,7 +1119,7 @@
             id: 'premium',
             shortTitle: 'Premium',
             title: 'Premium Package',
-            displayRange: '₹10,000 to ₹15,000',
+            displayRange: '10k to 15k',
             pickLimit: 15,
             tagline: 'Premium band — fifteen stops for maximum coverage.',
             themeClass: 'pricing-card--premium'
@@ -1356,7 +1403,7 @@
                 activeTierMeta.displayRange +
                 ' · ' +
                 lastSelectedStops.length +
-                ' stops · order follows your selection';
+                ' stops · map order uses nearest-next from your start';
         }
         chips.innerHTML = '';
         lastSelectedStops.forEach(function (p, i) {
@@ -1520,7 +1567,7 @@
         setMapStatus('Resolving start point…');
 
         function drawStopsAndRoute(startLat, startLng, startLabel) {
-            var ordered = lastSelectedStops.slice();
+            var ordered = orderStopsNearestFromStart(lastSelectedStops, startLat, startLng);
 
             var startIcon = L.divIcon({
                 className: 'pkg-start-icon',
@@ -1578,7 +1625,7 @@
                     pkgMap.invalidateSize();
                 }, 200);
                 if (coords && coords.length >= 2) {
-                    setMapStatus('Driving route · your ' + ordered.length + ' selected stops in order.');
+                    setMapStatus('Driving route · nearest-next order from your start across ' + ordered.length + ' selected stops.');
                 }
             });
 
@@ -1664,6 +1711,11 @@
 
     async function geocodeHospitalRecord(h, signal) {
         if (hospitalGeocodeCache[h.name]) return hospitalGeocodeCache[h.name];
+        var fb = EMERGENCY_HOSPITAL_LATLNG_FALLBACK[h.name];
+        if (fb) {
+            hospitalGeocodeCache[h.name] = { lat: fb.lat, lng: fb.lng, label: h.name };
+            return hospitalGeocodeCache[h.name];
+        }
         var q = h.name + ', Tirupati, Andhra Pradesh, India';
         var geo = await geocodeNominatim(q, signal);
         if (geo && !isNaN(geo.lat) && !isNaN(geo.lng)) {
@@ -1677,19 +1729,20 @@
         var out = [];
         for (var i = 0; i < hospitalStubs.length; i++) {
             if (signal.aborted) return out;
-            var g = await geocodeHospitalRecord(hospitalStubs[i], signal);
+            var h = hospitalStubs[i];
+            var cached = hospitalGeocodeCache[h.name];
+            var fb = EMERGENCY_HOSPITAL_LATLNG_FALLBACK[h.name];
+            var g = cached || (fb ? { lat: fb.lat, lng: fb.lng, label: h.name } : null);
+            if (!g) g = await geocodeHospitalRecord(h, signal);
             if (g) {
                 out.push({
-                    name: hospitalStubs[i].name,
-                    category: hospitalStubs[i].category,
-                    timings: hospitalStubs[i].timings,
+                    name: h.name,
+                    category: h.category,
+                    timings: h.timings,
                     lat: g.lat,
                     lng: g.lng
                 });
             }
-            await new Promise(function (r) {
-                window.setTimeout(r, 400);
-            });
         }
         return out;
     }
@@ -1709,7 +1762,7 @@
         emergencyAbort = new AbortController();
         var signal = emergencyAbort.signal;
         if (btn) btn.disabled = true;
-        if (hint) hint.textContent = 'Geocoding hospitals (may take a moment)…';
+        if (hint) hint.textContent = 'Locating nearest hospitals…';
 
         function fail(msg) {
             if (hint) hint.textContent = msg || 'Could not complete.';
