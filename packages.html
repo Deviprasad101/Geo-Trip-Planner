@@ -1492,7 +1492,7 @@
 
     function geocodeNominatim(query, signal) {
         var url =
-            'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' +
+            'https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=in&q=' +
             encodeURIComponent(query);
         return fetch(url, {
             signal: signal,
@@ -1512,6 +1512,43 @@
             .catch(function () {
                 return null;
             });
+    }
+
+    function buildStartGeocodeCandidates(raw) {
+        var q = (raw || '').trim();
+        if (!q) return ['Tirupati, Andhra Pradesh, India'];
+        var out = [q];
+        var lower = q.toLowerCase();
+        if (
+            lower.indexOf('tirupati') === -1 &&
+            lower.indexOf('andhra') === -1 &&
+            lower.indexOf('india') === -1
+        ) {
+            out.push(q + ', Tirupati, Andhra Pradesh, India');
+        }
+        out.push('Tirupati Railway Station, Tirupati, Andhra Pradesh, India');
+        return out;
+    }
+
+    function resolveStartGeoWithFallback(rawLoc, signal) {
+        var candidates = buildStartGeocodeCandidates(rawLoc);
+        var i = 0;
+        function nextTry() {
+            if (i >= candidates.length) {
+                return Promise.resolve({
+                    lat: 13.6288,
+                    lng: 79.4192,
+                    label: 'Tirupati (fallback center)',
+                    fallback: true
+                });
+            }
+            var q = candidates[i++];
+            return geocodeNominatim(q, signal).then(function (geo) {
+                if (geo && !isNaN(geo.lat) && !isNaN(geo.lng)) return geo;
+                return nextTry();
+            });
+        }
+        return nextTry();
     }
 
     function fetchOsrmRoute(latlngs, signal) {
@@ -1644,13 +1681,12 @@
                 { enableHighAccuracy: true, timeout: 18000, maximumAge: 0 }
             );
         } else {
-            geocodeNominatim(loc || 'Tirupati, India', signal).then(function (geo) {
+            resolveStartGeoWithFallback(loc || 'Tirupati', signal).then(function (geo) {
                 if (signal.aborted) return;
-                if (!geo || isNaN(geo.lat) || isNaN(geo.lng)) {
-                    setMapStatus('Could not find that address. Try a fuller place name.');
-                    return;
-                }
                 drawStopsAndRoute(geo.lat, geo.lng, geo.label || loc);
+                if (geo && geo.fallback) {
+                    setMapStatus('Address lookup was weak, so map started from Tirupati center.');
+                }
             });
         }
     }
