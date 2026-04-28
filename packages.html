@@ -794,6 +794,124 @@
             font-size: 0.75rem;
             color: #64748b;
         }
+
+        /* Rich map popup card style (base trip map) */
+        .leaflet-popup.pkg-map-popup .leaflet-popup-content-wrapper {
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #dbe5f1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.2);
+            background: #ffffff;
+        }
+        .leaflet-popup.pkg-map-popup .leaflet-popup-content {
+            margin: 0;
+            min-width: 248px;
+        }
+        .leaflet-popup.pkg-map-popup .leaflet-popup-tip {
+            background: #ffffff;
+            border: 1px solid #dbe5f1;
+        }
+        .pkg-popup-card {
+            font-family: "Public Sans", system-ui, sans-serif;
+            color: #0f172a;
+        }
+        .pkg-popup-topbar {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.6rem;
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+            color: #ecfeff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .pkg-popup-stop-pill {
+            border-radius: 999px;
+            padding: 0.2rem 0.55rem;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            line-height: 1;
+        }
+        .pkg-popup-title-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0.72rem 0.78rem 0.5rem;
+        }
+        .pkg-popup-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.6rem;
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            color: #166534;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+        .pkg-popup-title {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        .pkg-popup-meta {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            border: 1px solid #f1d7b0;
+            background: #fff7ed;
+            color: #9a3412;
+            font-size: 0.73rem;
+            font-weight: 700;
+            padding: 0.26rem 0.58rem;
+            margin: 0 0.78rem 0.45rem;
+        }
+        .pkg-popup-detail {
+            border-top: 1px solid #e2e8f0;
+            margin: 0 0.78rem;
+            padding: 0.45rem 0 0.6rem;
+        }
+        .pkg-popup-detail-label {
+            margin: 0;
+            font-size: 0.63rem;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+        .pkg-popup-detail-value {
+            margin: 0.32rem 0 0;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            padding: 0.38rem 0.52rem;
+            color: #1e293b;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+        .pkg-popup-foot {
+            margin: 0;
+            padding: 0 0.78rem 0.72rem;
+            color: #475569;
+            font-size: 0.81rem;
+            line-height: 1.4;
+        }
+        .pkg-popup-card--start .pkg-popup-topbar {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+        }
+        .pkg-popup-card--start .pkg-popup-icon {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+            color: #0f172a;
+        }
     </style>
 </head>
 <body class="packages-page-bg packages-page-shell text-slate-900">
@@ -1130,6 +1248,93 @@
         var d = document.createElement('div');
         d.textContent = s;
         return d.innerHTML;
+    }
+
+    function categoryThemeLabel(categoryKey, fallbackCategory) {
+        var key = (categoryKey || '').toLowerCase();
+        if (key === 'temple') return 'Temple';
+        if (key === 'food') return 'Food';
+        if (key === 'adventure') return 'Adventure';
+        if (key === 'sightseeing') return 'Sightseeing';
+        if (key === 'wildlife') return 'Wildlife';
+        if (key === 'hospital') return 'Hospital';
+        return fallbackCategory || 'Place';
+    }
+
+    function buildStartPopupHtml(startLabel) {
+        return (
+            '<article class="pkg-popup-card pkg-popup-card--start">' +
+            '<div class="pkg-popup-topbar"><span class="pkg-popup-stop-pill">Route start</span><span>First point fixed</span></div>' +
+            '<div class="pkg-popup-title-row">' +
+            '<span class="pkg-popup-icon" aria-hidden="true">&#8962;</span>' +
+            '<div><h3 class="pkg-popup-title">Start location</h3></div>' +
+            '</div>' +
+            '<p class="pkg-popup-meta">Navigation anchor</p>' +
+            '<div class="pkg-popup-detail">' +
+            '<p class="pkg-popup-detail-label">Address</p>' +
+            '<p class="pkg-popup-detail-value">' +
+            escapeHtml(startLabel || 'Current location') +
+            '</p>' +
+            '</div>' +
+            '<p class="pkg-popup-foot">Trip order begins from this point, then follows nearest-next stops.</p>' +
+            '</article>'
+        );
+    }
+
+    function buildPlacePopupHtml(p, stopNumber) {
+        var timings = (p && p.timings ? p.timings : 'Timings unavailable');
+        var categoryLabel = categoryThemeLabel(p && p.categoryKey, p && p.category);
+        var description = (p && p.description ? p.description : 'Included in your selected package route.');
+        return (
+            '<article class="pkg-popup-card">' +
+            '<div class="pkg-popup-topbar"><span class="pkg-popup-stop-pill">Stop ' +
+            stopNumber +
+            '</span><span>Open itinerary route</span></div>' +
+            '<div class="pkg-popup-title-row">' +
+            '<span class="pkg-popup-icon" aria-hidden="true">&#9679;</span>' +
+            '<div><h3 class="pkg-popup-title">' +
+            escapeHtml(p.name) +
+            '</h3></div>' +
+            '</div>' +
+            '<p class="pkg-popup-meta">' +
+            escapeHtml(categoryLabel) +
+            '</p>' +
+            '<div class="pkg-popup-detail">' +
+            '<p class="pkg-popup-detail-label">Detailed timings</p>' +
+            '<p class="pkg-popup-detail-value">' +
+            escapeHtml(timings) +
+            '</p>' +
+            '</div>' +
+            '<p class="pkg-popup-foot">' +
+            escapeHtml(description) +
+            '</p>' +
+            '</article>'
+        );
+    }
+
+    function buildHospitalPopupHtml(h, rankNumber) {
+        var timings = (h && h.timings ? h.timings : '24 Hours');
+        return (
+            '<article class="pkg-popup-card">' +
+            '<div class="pkg-popup-topbar"><span class="pkg-popup-stop-pill">Nearest ' +
+            rankNumber +
+            '</span><span>Emergency route</span></div>' +
+            '<div class="pkg-popup-title-row">' +
+            '<span class="pkg-popup-icon" aria-hidden="true">&#10010;</span>' +
+            '<div><h3 class="pkg-popup-title">' +
+            escapeHtml(h.name) +
+            '</h3></div>' +
+            '</div>' +
+            '<p class="pkg-popup-meta">Hospital</p>' +
+            '<div class="pkg-popup-detail">' +
+            '<p class="pkg-popup-detail-label">Detailed timings</p>' +
+            '<p class="pkg-popup-detail-value">' +
+            escapeHtml(timings) +
+            '</p>' +
+            '</div>' +
+            '<p class="pkg-popup-foot">Hospital from Tirupati CSV (emergency list only).</p>' +
+            '</article>'
+        );
     }
 
     function waveSvg() {
@@ -1614,7 +1819,10 @@
                 iconAnchor: [18, 18]
             });
             L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 800 })
-                .bindPopup('<strong>Start</strong><br/>' + escapeHtml(startLabel))
+                .bindPopup(buildStartPopupHtml(startLabel), {
+                    className: 'pkg-map-popup',
+                    maxWidth: 320
+                })
                 .addTo(pkgStartLayer);
 
             ordered.forEach(function (p, idx) {
@@ -1629,7 +1837,10 @@
                     iconAnchor: [14, 14]
                 });
                 L.marker([p.lat, p.lng], { icon: icon, zIndexOffset: 400 + idx })
-                    .bindPopup('<strong>' + escapeHtml(p.name) + '</strong><br/>' + escapeHtml(p.category))
+                    .bindPopup(buildPlacePopupHtml(p, num), {
+                        className: 'pkg-map-popup',
+                        maxWidth: 320
+                    })
                     .addTo(pkgMarkersLayer);
             });
 
@@ -1841,7 +2052,10 @@
                         iconAnchor: [17, 17]
                     });
                     L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
-                        .bindPopup('<strong>Your start</strong><br/>' + escapeHtml(startLabel))
+                        .bindPopup(buildStartPopupHtml(startLabel), {
+                            className: 'pkg-map-popup',
+                            maxWidth: 320
+                        })
                         .addTo(pkgHospitalLayer);
 
                     top3.forEach(function (h, idx) {
@@ -1856,14 +2070,10 @@
                             iconAnchor: [15, 15]
                         });
                         L.marker([h.lat, h.lng], { icon: ic, zIndexOffset: 500 + idx })
-                            .bindPopup(
-                                '<strong>#' +
-                                    n +
-                                    ' nearest · ' +
-                                    escapeHtml(h.name) +
-                                    '</strong><br/>' +
-                                    escapeHtml(h.timings || 'Hospital')
-                            )
+                            .bindPopup(buildHospitalPopupHtml(h, n), {
+                                className: 'pkg-map-popup',
+                                maxWidth: 320
+                            })
                             .addTo(pkgHospitalLayer);
                     });
 
