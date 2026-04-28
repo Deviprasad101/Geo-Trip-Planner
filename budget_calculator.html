@@ -40,6 +40,7 @@
             }
         };
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
 /* Trip planner map visuals — scoped for budget page embed only (see .budget-trip-map-shell) */
@@ -229,6 +230,34 @@
         .emergency-panel__foot .btn-emergency-map:disabled {
             opacity: 0.55;
             cursor: not-allowed;
+        }
+        .sidebar-pdf-export {
+            padding: 0.75rem 0.85rem 0.9rem;
+            border-top: 1px solid #dbe4ef;
+            background: #ffffff;
+        }
+        .btn-pdf-export {
+            width: 100%;
+            border: none;
+            border-radius: 0.7rem;
+            padding: 0.7rem 0.85rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            color: #ffffff;
+            background: linear-gradient(135deg, #1d4ed8, #0f766e);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.22);
+        }
+        .btn-pdf-export .material-symbols-outlined {
+            font-size: 1.1rem;
+        }
+        .btn-pdf-export:disabled {
+            opacity: 0.65;
+            cursor: wait;
         }
         .emergency-hint {
             margin: 0.5rem 0 0;
@@ -2503,6 +2532,12 @@
                 </details>
             </div>
         </div>
+        <div class="sidebar-pdf-export">
+            <button type="button" class="btn-pdf-export" id="sbDownloadPdfBtn">
+                <span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>
+                Download trip PDF
+            </button>
+        </div>
     </aside>
 
     <div class="budget-main">
@@ -3480,11 +3515,22 @@
             const days = $('sbNumDays') && $('sbNumDays').value.trim();
             spanEl.textContent = days ? days + ' day(s)' : '—';
 
-            const orderedFull = orderPlacesForItinerary(openList.slice(), null, null);
-            const durCapOv = applyOutingDurationCap(orderedFull);
-            const ordered = applyCachedRoadOrder(durCapOv.list);
+            const mapSnap = window.__BUDGET_MAP_ROUTE_SNAPSHOT || null;
+            const openSig = stopSetSignature(openList);
+            const hasMapSnap = !!(mapSnap && Array.isArray(mapSnap.ordered));
+            const mapAndSidebarInSync = hasMapSnap && mapSnap.openSignature === openSig;
+            let ordered;
+            let durCapOv;
+            if (hasMapSnap) {
+                ordered = mapSnap.ordered.slice();
+                durCapOv = { list: ordered.slice(), capped: mapSnap.capped === true };
+            } else {
+                const orderedFull = orderPlacesForItinerary(openList.slice(), null, null);
+                durCapOv = applyOutingDurationCap(orderedFull);
+                ordered = applyCachedRoadOrder(durCapOv.list);
+            }
             const nd = Math.max(1, parseInt($('sbNumDays') && $('sbNumDays').value, 10) || 1);
-            if (filtersApplied) {
+            if (filtersApplied || hasMapSnap) {
                 const om = getOutingDurationMinutes();
                 mapEl.textContent = durCapOv.capped
                     ? ordered.length +
@@ -3497,10 +3543,13 @@
                       ' day(s) · ' +
                       categoryLabel()
                     : ordered.length +
-                      ' open stop(s) · nearest-distance order · ' +
+                      ' open stop(s) · same order as base map route · ' +
                       nd +
                       ' day(s) · ' +
                       categoryLabel();
+                if (!mapAndSidebarInSync) {
+                    mapEl.textContent += ' · showing last applied map route';
+                }
             } else if (baseList.length && openList.length !== baseList.length) {
                 mapEl.textContent =
                     openList.length +
@@ -3522,11 +3571,11 @@
                 placeListEl.textContent = 'Loading places…';
                 return;
             }
-            if (baseList.length === 0) {
+            if (!hasMapSnap && baseList.length === 0) {
                 placeListEl.textContent = 'No rows match search/category. Try All or clear search.';
                 return;
             }
-            if (openList.length === 0) {
+            if (!hasMapSnap && openList.length === 0) {
                 const msg = document.createElement('div');
                 msg.className = 'ov-msg ov-msg--warn';
                 msg.textContent =
@@ -3549,7 +3598,7 @@
                       t1v +
                       ' – ' +
                       t2v +
-                      ': places must overlap a CSV timings slot. Visit list is nearest-distance among open stops, then limited to ~' +
+                      ': places must overlap a CSV timings slot. Visit list order matches the base map route (from live/typed start), then limited to ~' +
                       MINUTES_BUDGET_PER_STOP +
                       ' min per stop so short trips do not list every venue.'
                     : 'Set outing start and end. Filtering uses timings slots; list length scales with outing duration.';
@@ -3651,6 +3700,9 @@
                 updateTripOverview();
             });
         }
+        window.addEventListener('budget-map-route-updated', function () {
+            updateTripOverview();
+        });
 
         const applyBtn = $('sbApplyFilters');
         if (applyBtn) {
@@ -4686,9 +4738,14 @@
 
         var candidates = routeCandidates();
         if (!candidates.length) {
+            try {
+                window.__BUDGET_MAP_ROUTE_SNAPSHOT = null;
+                window.dispatchEvent(new CustomEvent('budget-map-route-updated'));
+            } catch (_) {}
             updateMapMarkers([], true);
             return;
         }
+        var openSignature = stopSetSignature(candidates);
 
         var startLat = null;
         var startLng = null;
@@ -4804,7 +4861,31 @@
         } else {
             lastOptimizedOrder = null;
         }
+        try {
+            window.__BUDGET_MAP_ROUTE_SNAPSHOT = {
+                openSignature: openSignature,
+                signature: stopSetSignature(ordered),
+                ordered: ordered.map(function (p) {
+                    return {
+                        name: p.name,
+                        category: p.category,
+                        categoryKey: p.categoryKey,
+                        lat: p.lat,
+                        lng: p.lng,
+                        visit_start: p.visit_start,
+                        visit_end: p.visit_end,
+                        description: p.description,
+                        timings: p.timings
+                    };
+                }),
+                capped: durCapRes && durCapRes.capped,
+                start: hasStart ? { lat: startLat, lng: startLng, mode: isGeoEnabled() ? 'gps' : 'typed' } : null
+            };
+        } catch (_) {}
         updateMapMarkers(ordered, false);
+        try {
+            window.dispatchEvent(new CustomEvent('budget-map-route-updated'));
+        } catch (_) {}
 
         var waypoints = [];
         if (hasStart) waypoints.push({ lat: startLat, lng: startLng });
@@ -5152,12 +5233,6 @@
         if (start && start.lat != null && start.lng != null && !isNaN(start.lat) && !isNaN(start.lng)) {
             refs.push({ lat: start.lat, lng: start.lng, kind: 'start' });
         }
-        var fromSidebar = routeCandidates();
-        for (var i = 0; i < fromSidebar.length; i++) {
-            var p = fromSidebar[i];
-            if (!p || p.lat == null || p.lng == null || isNaN(p.lat) || isNaN(p.lng)) continue;
-            refs.push({ lat: p.lat, lng: p.lng, kind: 'place', name: p.name || '' });
-        }
         if (!refs.length) {
             refs.push({ lat: 13.6288, lng: 79.4192, kind: 'fallback' });
         }
@@ -5367,6 +5442,320 @@
             if (map) map.invalidateSize();
         }
     };
+})();
+    </script>
+    <script>
+(function () {
+    function byId(id) {
+        return document.getElementById(id);
+    }
+
+    function val(id) {
+        var el = byId(id);
+        if (!el) return '';
+        if (typeof el.value === 'string') return el.value.trim();
+        return '';
+    }
+
+    function text(id) {
+        var el = byId(id);
+        return el ? (el.textContent || '').trim() : '';
+    }
+
+    function getVisitOrderRows() {
+        var snap = window.__BUDGET_MAP_ROUTE_SNAPSHOT;
+        if (snap && Array.isArray(snap.ordered) && snap.ordered.length) {
+            return snap.ordered.map(function (p, i) {
+                return (i + 1) + '. ' + p.name + ' (' + (p.timings || 'N/A') + ')';
+            });
+        }
+        var root = byId('sbOvPlaceList');
+        if (!root) return [];
+        var lis = root.querySelectorAll('li');
+        var out = [];
+        for (var i = 0; i < lis.length; i++) {
+            var t = (lis[i].textContent || '').trim();
+            if (t) out.push(t);
+        }
+        return out;
+    }
+
+    function getEntryRows() {
+        return [
+            ['Start mode', byId('sbGeoToggle') && byId('sbGeoToggle').classList.contains('active') ? 'Live GPS' : 'Entered location'],
+            ['Start location', val('sbStartLocation') || val('routeStartLocation') || '—'],
+            ['Trip date', val('sbTripDate') || val('mainTripDate') || '—'],
+            ['Outing window', (val('sbTripStartTime') || val('mainOutingStart') || '—') + ' to ' + (val('sbTripEndTime') || val('mainOutingEnd') || '—')],
+            ['Days', val('sbNumDays') || val('days') || '—'],
+            ['Category', text('linkCtxCategory') || 'All'],
+            ['Search text', val('sbPlaceSearch') || '—'],
+            ['Travel mode', val('travelMode') || '—'],
+            ['Distance (km)', val('distance') || '—'],
+            ['People', val('people') || '—'],
+            ['Rooms', val('rooms') || '—'],
+            ['Room cost/day', val('roomCost') || '—'],
+            ['Food/day per person', val('foodPerDay') || '—'],
+            ['Ticket fare per person', val('ticketPrice') || '—'],
+            ['Budget', val('userBudget') || '—'],
+            ['Estimated total', text('kpiTotal') || '—'],
+            ['Budget delta', text('kpiDelta') || '—'],
+            ['Status', text('kpiStatus') || '—']
+        ];
+    }
+
+    function loadImageAsDataURL(src) {
+        return new Promise(function (resolve) {
+            var img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = function () {
+                try {
+                    var c = document.createElement('canvas');
+                    c.width = img.naturalWidth;
+                    c.height = img.naturalHeight;
+                    var ctx = c.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    resolve(c.toDataURL('image/jpeg', 0.92));
+                } catch (_) {
+                    resolve(null);
+                }
+            };
+            img.onerror = function () {
+                resolve(null);
+            };
+            img.src = src;
+        });
+    }
+
+    async function downloadTripPdf() {
+        var btn = byId('sbDownloadPdfBtn');
+        if (btn) btn.disabled = true;
+        try {
+            var jspdfNS = window.jspdf;
+            if (!jspdfNS || !jspdfNS.jsPDF) {
+                alert('PDF library not loaded. Please refresh the page and try again.');
+                return;
+            }
+            var jsPDF = jspdfNS.jsPDF;
+            var doc = new jsPDF({ unit: 'pt', format: 'a4' });
+            var pageW = doc.internal.pageSize.getWidth();
+            var pageH = doc.internal.pageSize.getHeight();
+            var margin = 34;
+            var contentW = pageW - margin * 2;
+            var y = 28;
+
+            var C = {
+                navy: [15, 23, 42],
+                slate: [71, 85, 105],
+                gray: [148, 163, 184],
+                pale: [248, 250, 252],
+                line: [226, 232, 240],
+                accentA: [219, 234, 254],
+                accentB: [209, 250, 229],
+                title: [30, 64, 175],
+                titleSub: [13, 148, 136],
+                white: [255, 255, 255]
+            };
+
+            function drawHeaderBand() {
+                doc.setFillColor(C.accentA[0], C.accentA[1], C.accentA[2]);
+                doc.rect(0, 0, pageW, 142, 'F');
+                doc.setFillColor(C.accentB[0], C.accentB[1], C.accentB[2]);
+                doc.rect(0, 110, pageW, 32, 'F');
+            }
+
+            function drawFooter(pageNo) {
+                doc.setDrawColor(C.line[0], C.line[1], C.line[2]);
+                doc.line(margin, pageH - 30, pageW - margin, pageH - 30);
+                doc.setFont('helvetica', 'normal');
+                doc.setFontSize(9);
+                doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+                doc.text('Geo Trip Planner', margin, pageH - 16);
+                doc.text('Page ' + pageNo, pageW - margin - 36, pageH - 16);
+            }
+
+            function ensureSpace(h) {
+                if (y + h <= pageH - 44) return;
+                drawFooter(doc.getNumberOfPages());
+                doc.addPage();
+                y = 38;
+            }
+
+            function sectionTitle(title, subtitle) {
+                ensureSpace(40);
+                doc.setFillColor(C.pale[0], C.pale[1], C.pale[2]);
+                doc.roundedRect(margin, y - 18, contentW, 28, 8, 8, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(12.5);
+                doc.setTextColor(C.navy[0], C.navy[1], C.navy[2]);
+                doc.text(title, margin + 12, y);
+                y += 16;
+                if (subtitle) {
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(9.5);
+                    doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+                    doc.text(subtitle, margin + 2, y);
+                    y += 12;
+                }
+                y += 4;
+            }
+
+            function drawInfoCards(rows) {
+                var half = Math.ceil(rows.length / 2);
+                var leftRows = rows.slice(0, half);
+                var rightRows = rows.slice(half);
+                var colGap = 14;
+                var colW = (contentW - colGap) / 2;
+                var rowH = 34;
+                var blockH = Math.max(leftRows.length, rightRows.length) * rowH + 12;
+                ensureSpace(blockH + 8);
+
+                function drawCol(colRows, x) {
+                    for (var i = 0; i < colRows.length; i++) {
+                        var yy = y + i * rowH;
+                        doc.setFillColor(250, 252, 255);
+                        doc.roundedRect(x, yy, colW, rowH - 6, 6, 6, 'F');
+                        doc.setDrawColor(C.line[0], C.line[1], C.line[2]);
+                        doc.roundedRect(x, yy, colW, rowH - 6, 6, 6, 'S');
+
+                        var key = String(colRows[i][0] || '');
+                        var valText = colRows[i][1] == null || colRows[i][1] === '' ? '—' : String(colRows[i][1]);
+                        doc.setFont('helvetica', 'bold');
+                        doc.setFontSize(8.8);
+                        doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+                        doc.text(key.toUpperCase(), x + 9, yy + 12);
+
+                        doc.setFont('helvetica', 'normal');
+                        doc.setFontSize(10);
+                        doc.setTextColor(C.navy[0], C.navy[1], C.navy[2]);
+                        var wrapped = doc.splitTextToSize(valText, colW - 18);
+                        doc.text(String(wrapped[0] || ''), x + 9, yy + 25);
+                    }
+                }
+
+                drawCol(leftRows, margin);
+                drawCol(rightRows, margin + colW + colGap);
+                y += blockH + 4;
+            }
+
+            function drawVisitTable(rows) {
+                if (!rows.length) {
+                    ensureSpace(28);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setFontSize(10.5);
+                    doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+                    doc.text('No visit order is available yet. Apply filters and show map first.', margin + 2, y);
+                    y += 16;
+                    return;
+                }
+                var x = margin;
+                var colNo = 34;
+                var colPlace = contentW - 180;
+                var colTime = 146;
+                var rowH = 24;
+                var rowPalette = [
+                    [255, 247, 237],
+                    [239, 246, 255],
+                    [236, 253, 245],
+                    [245, 243, 255],
+                    [254, 242, 242],
+                    [254, 249, 195]
+                ];
+
+                ensureSpace(34);
+                doc.setFillColor(191, 219, 254);
+                doc.roundedRect(x, y - 2, contentW, 22, 6, 6, 'F');
+                doc.setFont('helvetica', 'bold');
+                doc.setFontSize(10);
+                doc.setTextColor(30, 41, 59);
+                doc.text('#', x + 10, y + 12);
+                doc.text('PLACE', x + colNo + 8, y + 12);
+                doc.text('TIMINGS', x + colNo + colPlace + 8, y + 12);
+                y += 26;
+
+                for (var i = 0; i < rows.length; i++) {
+                    var raw = String(rows[i] || '');
+                    var m = raw.match(/^\s*(\d+)\.\s*(.+?)\s*\(([^()]*)\)\s*$/);
+                    var no = m ? m[1] : String(i + 1);
+                    var place = m ? m[2] : raw.replace(/^\s*\d+\.\s*/, '');
+                    var tm = m ? m[3] : 'N/A';
+                    ensureSpace(rowH);
+
+                    var rp = rowPalette[i % rowPalette.length];
+                    doc.setFillColor(rp[0], rp[1], rp[2]);
+                    doc.rect(x, y - 2, contentW, rowH - 2, 'F');
+                    doc.setDrawColor(C.line[0], C.line[1], C.line[2]);
+                    doc.line(x, y + rowH - 2, x + contentW, y + rowH - 2);
+
+                    doc.setFont('helvetica', 'bold');
+                    doc.setFontSize(10);
+                    doc.setTextColor(C.navy[0], C.navy[1], C.navy[2]);
+                    doc.text(String(no), x + 10, y + 13);
+
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(30, 41, 59);
+                    var wrappedPlace = doc.splitTextToSize(place, colPlace - 14);
+                    doc.text(String(wrappedPlace[0] || ''), x + colNo + 8, y + 13);
+
+                    doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+                    var wrappedTime = doc.splitTextToSize(tm, colTime - 12);
+                    doc.text(String(wrappedTime[0] || ''), x + colNo + colPlace + 8, y + 13);
+
+                    y += rowH;
+                }
+            }
+
+            drawHeaderBand();
+            var logoData = await loadImageAsDataURL('images/geointellab_logo.jpeg');
+            if (logoData) {
+                doc.addImage(logoData, 'JPEG', margin, 18, contentW, 58);
+            }
+
+            doc.setFont('helvetica', 'bold');
+            doc.setFontSize(24);
+            doc.setTextColor(C.title[0], C.title[1], C.title[2]);
+            doc.text('Geo Trip Planner', pageW / 2, 96, { align: 'center' });
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(11.5);
+            doc.setTextColor(C.titleSub[0], C.titleSub[1], C.titleSub[2]);
+            doc.text('Professional Visit Order & User Details Report', pageW / 2, 123, { align: 'center' });
+
+            y = 162;
+            var now = new Date();
+            var stampText = now.toLocaleString();
+            doc.setFont('helvetica', 'normal');
+            doc.setFontSize(9.5);
+            doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
+            doc.text('Generated: ' + stampText, margin, y);
+            // Keep clear vertical gap so the next section card never overlaps timestamp text.
+            y += 34;
+
+            sectionTitle('User Entry Details', 'Captured from current Budget Calculator inputs');
+            drawInfoCards(getEntryRows());
+
+            sectionTitle('Visit Order Places', 'Matches the current base map route order');
+            drawVisitTable(getVisitOrderRows());
+
+            drawFooter(doc.getNumberOfPages());
+
+            var stamp =
+                now.getFullYear() +
+                String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0') +
+                '-' +
+                String(now.getHours()).padStart(2, '0') +
+                String(now.getMinutes()).padStart(2, '0');
+            doc.save('geo-trip-planner-report-' + stamp + '.pdf');
+        } finally {
+            if (btn) btn.disabled = false;
+        }
+    }
+
+    var pdfBtn = byId('sbDownloadPdfBtn');
+    if (pdfBtn) {
+        pdfBtn.addEventListener('click', function () {
+            downloadTripPdf();
+        });
+    }
 })();
     </script>
     <script>

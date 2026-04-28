@@ -1736,6 +1736,11 @@
                         fail('Map failed to load.');
                         return;
                     }
+                    // Emergency mode must replace package-selected markers/routes completely.
+                    if (routeAbort) routeAbort.abort();
+                    if (pkgMarkersLayer) pkgMarkersLayer.clearLayers();
+                    if (pkgRouteLayer) pkgRouteLayer.clearLayers();
+                    if (pkgStartLayer) pkgStartLayer.clearLayers();
                     if (pkgHospitalLayer) pkgHospitalLayer.clearLayers();
                     var startIcon = L.divIcon({
                         className: 'pkg-em-start',
