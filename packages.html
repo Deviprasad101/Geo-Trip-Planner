@@ -588,7 +588,8 @@
             color: #0f766e;
             margin-bottom: 0.45rem;
         }
-        .route-field input[type="text"] {
+        .route-field input[type="text"],
+        .route-field input[type="number"] {
             width: 100%;
             border-radius: 0.9rem;
             border: 2px solid #e2e8f0;
@@ -598,13 +599,16 @@
             color: #0f172a;
             transition: border-color 0.15s ease, box-shadow 0.15s ease;
         }
-        .route-field input[type="text"]::placeholder {
+        .route-field input[type="text"]::placeholder,
+        .route-field input[type="number"]::placeholder {
             color: #94a3b8;
         }
-        .route-field input[type="text"]:hover {
+        .route-field input[type="text"]:hover,
+        .route-field input[type="number"]:hover {
             border-color: #cbd5e1;
         }
-        .route-field input[type="text"]:focus {
+        .route-field input[type="text"]:focus,
+        .route-field input[type="number"]:focus {
             outline: none;
             border-color: #14b8a6;
             box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.22);
@@ -650,6 +654,237 @@
             color: #047857;
             opacity: 0.9;
             margin-top: 0.15rem;
+        }
+        .people-budget-toggle {
+            margin-top: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.48rem 0.72rem;
+            border-radius: 0.72rem;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            user-select: none;
+        }
+        .people-budget-toggle input[type="checkbox"] {
+            width: 1rem;
+            height: 1rem;
+            accent-color: #0f766e;
+            cursor: pointer;
+        }
+        .people-budget-cards {
+            margin-top: 1rem;
+            display: grid;
+            gap: 0.7rem;
+            grid-template-columns: 1fr;
+            align-items: stretch;
+        }
+        @media (min-width: 840px) {
+            .people-budget-cards {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+        }
+        .people-budget-cards[hidden] {
+            display: none !important;
+        }
+        .people-budget-card {
+            border: 1px solid #cbd5e1;
+            border-radius: 1.5rem;
+            background: #fff;
+            overflow: hidden;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.16s ease;
+            min-height: 31rem;
+            display: flex;
+            flex-direction: column;
+        }
+        .people-budget-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.14);
+        }
+        .people-budget-card.is-active {
+            border-color: #0f766e;
+            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2), 0 20px 48px rgba(15, 23, 42, 0.16);
+        }
+        .people-budget-card__head {
+            position: relative;
+            padding: 1.5rem 1.25rem 0.75rem;
+            color: #fff;
+            text-align: center;
+        }
+        .people-budget-card__head::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: -1px;
+            height: 26px;
+            background: radial-gradient(100% 120% at 50% 0%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 58%, #ffffff 59%, #ffffff 100%);
+        }
+        .people-budget-card--teal .people-budget-card__head {
+            background: linear-gradient(145deg, #22d3ee 0%, #2563eb 52%, #1d4ed8 100%);
+        }
+        .people-budget-card--orange .people-budget-card__head {
+            background: linear-gradient(145deg, #34d399 0%, #10b981 52%, #059669 100%);
+        }
+        .people-budget-card--pink .people-budget-card__head {
+            background: linear-gradient(145deg, #a78bfa 0%, #8b5cf6 46%, #7c3aed 100%);
+        }
+        .people-budget-card__title {
+            margin: 0;
+            font-size: 1.35rem;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            font-weight: 800;
+            opacity: 0.95;
+        }
+        .people-budget-card__topline {
+            margin: 0.5rem 0 0;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            opacity: 0.9;
+            line-height: 1.45;
+        }
+        .people-budget-card__badge {
+            position: relative;
+            margin: 1rem auto 0.25rem;
+            width: 6.5rem;
+            height: 6.5rem;
+            border-radius: 50%;
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0.35rem;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+        }
+        .people-budget-card__badge strong {
+            font-size: 0.92rem;
+            line-height: 1.15;
+            font-weight: 900;
+            color: #0f172a;
+        }
+        .people-budget-card__badge span {
+            margin-top: 0.22rem;
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            color: #64748b;
+        }
+        .people-budget-card__body {
+            padding: 0.35rem 1.35rem 1.5rem;
+            margin-top: -0.5rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .people-budget-card__range {
+            margin: 0 0 0.85rem;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.8125rem;
+            font-weight: 700;
+            color: #475569;
+            text-align: center;
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+        }
+        .people-budget-card__price {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 900;
+            letter-spacing: -0.01em;
+        }
+        .people-budget-card__hint {
+            margin: 0.4rem 0 0;
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: 600;
+            line-height: 1.45;
+            min-height: 2.2rem;
+            text-align: center;
+        }
+        .people-budget-card__actions {
+            margin-top: 1.15rem;
+            display: grid;
+            gap: 0.52rem;
+        }
+        .people-budget-card__btn {
+            border: none;
+            border-radius: 999px;
+            padding: 0.85rem 1rem;
+            font-size: 0.8125rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            color: #fff;
+            transition: filter 0.15s ease, transform 0.1s ease;
+        }
+        .people-budget-card__btn:hover {
+            filter: brightness(1.06);
+        }
+        .people-budget-card__btn:active {
+            transform: scale(0.98);
+        }
+        .people-budget-card__btn--select {
+            background: #0f766e;
+        }
+        .people-budget-card--teal .people-budget-card__price {
+            color: #1d4ed8;
+        }
+        .people-budget-card--teal .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #38bdf8, #2563eb);
+        }
+        .people-budget-card--orange .people-budget-card__price {
+            color: #047857;
+        }
+        .people-budget-card--orange .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #34d399, #059669);
+        }
+        .people-budget-card--pink .people-budget-card__price {
+            color: #7c3aed;
+        }
+        .people-budget-card--pink .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #a78bfa, #7c3aed);
+        }
+        .people-budget-card--day1 .people-budget-card__head {
+            background: linear-gradient(145deg, #22c55e 0%, #16a34a 52%, #15803d 100%);
+        }
+        .people-budget-card--day1 .people-budget-card__price {
+            color: #15803d;
+        }
+        .people-budget-card--day1 .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #22c55e, #15803d);
+        }
+        .people-budget-card--day2 .people-budget-card__head {
+            background: linear-gradient(145deg, #06b6d4 0%, #0891b2 52%, #0e7490 100%);
+        }
+        .people-budget-card--day2 .people-budget-card__price {
+            color: #0e7490;
+        }
+        .people-budget-card--day2 .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #06b6d4, #0e7490);
+        }
+        .people-budget-card--day3 .people-budget-card__head {
+            background: linear-gradient(145deg, #f59e0b 0%, #d97706 52%, #b45309 100%);
+        }
+        .people-budget-card--day3 .people-budget-card__price {
+            color: #b45309;
+        }
+        .people-budget-card--day3 .people-budget-card__btn--select {
+            background: linear-gradient(145deg, #f59e0b, #b45309);
+        }
+        .people-budget-card__actions .people-budget-card__btn {
+            width: 100%;
         }
 
         /* Emergency hospitals FAB + panel */
@@ -957,6 +1192,22 @@
                                 value="Tirupati"
                             />
                         </div>
+                        <div class="route-field">
+                            <label for="pkgTripDays">Number of days</label>
+                            <input type="number" id="pkgTripDays" min="1" step="1" inputmode="numeric" placeholder="e.g. 2" />
+                            <label class="people-budget-toggle">
+                                <input type="checkbox" id="enableDaysBudgetCards" />
+                                Show day pricing packages
+                            </label>
+                        </div>
+                        <div class="route-field">
+                            <label for="pkgTripPeople">Number of people</label>
+                            <input type="number" id="pkgTripPeople" min="1" step="1" inputmode="numeric" placeholder="e.g. 4" />
+                            <label class="people-budget-toggle">
+                                <input type="checkbox" id="enablePeopleBudgetCards" />
+                                Show people pricing packages
+                            </label>
+                        </div>
                         <label class="route-gps-tile">
                             <input type="checkbox" id="useLiveGps"/>
                             <span>
@@ -964,6 +1215,100 @@
                                 <span class="route-gps-hint">Best when you are already in Tirupati</span>
                             </span>
                         </label>
+                    </div>
+                    <div id="peopleBudgetCards" class="people-budget-cards" hidden>
+                        <article class="people-budget-card people-budget-card--teal" data-min="1" data-max="4" data-fill="4" data-tier="basic">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">People Basic</p>
+                                <p class="people-budget-card__topline">Small group slab</p>
+                                <div class="people-budget-card__badge"><strong>1 to 4</strong><span>people</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">1 to 4 people</p>
+                                <p class="people-budget-card__price">₹4000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-people-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="people-budget-card people-budget-card--orange" data-min="5" data-max="8" data-fill="8" data-tier="standard">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">People Standard</p>
+                                <p class="people-budget-card__topline">Medium group slab</p>
+                                <div class="people-budget-card__badge"><strong>5 to 8</strong><span>people</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">5 to 8 people</p>
+                                <p class="people-budget-card__price">₹7000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-people-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="people-budget-card people-budget-card--pink" data-min="8" data-max="10" data-fill="10" data-tier="premium">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">People Premium</p>
+                                <p class="people-budget-card__topline">Large group slab</p>
+                                <div class="people-budget-card__badge"><strong>8 to 10</strong><span>people</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">8 to 10 people</p>
+                                <p class="people-budget-card__price">₹9000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-people-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div id="daysBudgetCards" class="people-budget-cards" hidden>
+                        <article class="people-budget-card people-budget-card--day1" data-day="1" data-fill-day="1" data-tier="basic">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">Day Basic</p>
+                                <p class="people-budget-card__topline">Single day package</p>
+                                <div class="people-budget-card__badge"><strong>1 Day</strong><span>duration</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">1 day trip package</p>
+                                <p class="people-budget-card__price">₹3000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-day-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="people-budget-card people-budget-card--day2" data-day="2" data-fill-day="2" data-tier="standard">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">Day Standard</p>
+                                <p class="people-budget-card__topline">Two day package</p>
+                                <div class="people-budget-card__badge"><strong>2 Days</strong><span>duration</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">2 days trip package</p>
+                                <p class="people-budget-card__price">₹5000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-day-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="people-budget-card people-budget-card--day3" data-day="3" data-fill-day="3" data-tier="premium">
+                            <div class="people-budget-card__head">
+                                <p class="people-budget-card__title">Day Premium</p>
+                                <p class="people-budget-card__topline">Three day package</p>
+                                <div class="people-budget-card__badge"><strong>3 Days</strong><span>duration</span></div>
+                            </div>
+                            <div class="people-budget-card__body">
+                                <p class="people-budget-card__range">3 days trip package</p>
+                                <p class="people-budget-card__price">₹8000</p>
+                                <p class="people-budget-card__hint">Same flow as package cards</p>
+                                <div class="people-budget-card__actions">
+                                    <button type="button" class="people-budget-card__btn people-budget-card__btn--select" data-day-choose>Choose places</button>
+                                </div>
+                            </div>
+                        </article>
                     </div>
                 </div>
             </div>
@@ -1600,6 +1945,13 @@
         var title = document.getElementById('selectionTitle');
         var sub = document.getElementById('selectionSubtitle');
         var chips = document.getElementById('selectionChips');
+        var daysEl = document.getElementById('pkgTripDays');
+        var peopleEl = document.getElementById('pkgTripPeople');
+        var days = daysEl ? parseInt(daysEl.value, 10) : NaN;
+        var people = peopleEl ? parseInt(peopleEl.value, 10) : NaN;
+        var tripMeta = [];
+        if (!isNaN(days) && days > 0) tripMeta.push(days + ' day' + (days > 1 ? 's' : ''));
+        if (!isNaN(people) && people > 0) tripMeta.push(people + ' people');
         if (!strip || !chips) return;
         strip.classList.remove('hidden');
         if (title && activeTierMeta) title.textContent = activeTierMeta.title;
@@ -1608,7 +1960,9 @@
                 activeTierMeta.displayRange +
                 ' · ' +
                 lastSelectedStops.length +
-                ' stops · map order uses nearest-next from your start';
+                ' stops' +
+                (tripMeta.length ? ' · ' + tripMeta.join(' · ') : '') +
+                ' · map order uses nearest-next from your start';
         }
         chips.innerHTML = '';
         lastSelectedStops.forEach(function (p, i) {
@@ -2155,6 +2509,139 @@
     if (emergencyBackdropEl) emergencyBackdropEl.addEventListener('click', closeEmergencyPanel);
     var emergencyShowMapBtn = document.getElementById('emergencyShowMapBtn');
     if (emergencyShowMapBtn) emergencyShowMapBtn.addEventListener('click', showEmergencyNearestHospitals);
+
+    function syncPeopleBudgetCardActiveState() {
+        var peopleEl = document.getElementById('pkgTripPeople');
+        var val = peopleEl ? parseInt(peopleEl.value, 10) : NaN;
+        var cards = Array.prototype.slice.call(document.querySelectorAll('#peopleBudgetCards .people-budget-card'));
+        var chosenCard = null;
+        if (!isNaN(val)) {
+            cards.forEach(function (card) {
+                var min = parseInt(card.getAttribute('data-min'), 10);
+                var max = parseInt(card.getAttribute('data-max'), 10);
+                var inRange = !isNaN(min) && !isNaN(max) && val >= min && val <= max;
+                if (!inRange) return;
+                if (!chosenCard) {
+                    chosenCard = card;
+                    return;
+                }
+                var cMin = parseInt(chosenCard.getAttribute('data-min'), 10);
+                var cMax = parseInt(chosenCard.getAttribute('data-max'), 10);
+                var width = max - min;
+                var chosenWidth = cMax - cMin;
+                if (width < chosenWidth || (width === chosenWidth && min > cMin)) {
+                    chosenCard = card;
+                }
+            });
+        }
+        cards.forEach(function (card) {
+            var min = parseInt(card.getAttribute('data-min'), 10);
+            var max = parseInt(card.getAttribute('data-max'), 10);
+            var isInRange = !isNaN(val) && !isNaN(min) && !isNaN(max) && val >= min && val <= max;
+            card.classList.toggle('is-active', !!chosenCard ? card === chosenCard : isInRange);
+        });
+    }
+
+    function syncDayBudgetCardActiveState() {
+        var daysEl = document.getElementById('pkgTripDays');
+        var val = daysEl ? parseInt(daysEl.value, 10) : NaN;
+        document.querySelectorAll('#daysBudgetCards .people-budget-card').forEach(function (card) {
+            var day = parseInt(card.getAttribute('data-day'), 10);
+            card.classList.toggle('is-active', !isNaN(val) && !isNaN(day) && val === day);
+        });
+    }
+
+    (function initPeopleBudgetCards() {
+        var toggleEl = document.getElementById('enablePeopleBudgetCards');
+        var cardsWrap = document.getElementById('peopleBudgetCards');
+        var peopleEl = document.getElementById('pkgTripPeople');
+        if (!toggleEl || !cardsWrap || !peopleEl) return;
+
+        peopleEl.setAttribute('max', '10');
+
+        function choosePeopleFromCard(card) {
+            var fill = parseInt(card.getAttribute('data-fill'), 10);
+            if (!isNaN(fill) && fill > 0) {
+                peopleEl.value = String(fill);
+                syncPeopleBudgetCardActiveState();
+            }
+        }
+
+        function updateVisibility() {
+            cardsWrap.hidden = !toggleEl.checked;
+            if (toggleEl.checked) syncPeopleBudgetCardActiveState();
+        }
+
+        toggleEl.addEventListener('change', updateVisibility);
+        peopleEl.addEventListener('input', syncPeopleBudgetCardActiveState);
+        peopleEl.addEventListener('change', function () {
+            var val = parseInt(peopleEl.value, 10);
+            if (!isNaN(val) && val > 10) peopleEl.value = '10';
+            if (!isNaN(val) && val < 1) peopleEl.value = '1';
+            syncPeopleBudgetCardActiveState();
+        });
+        cardsWrap.querySelectorAll('.people-budget-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                choosePeopleFromCard(card);
+            });
+            var chooseBtn = card.querySelector('[data-people-choose]');
+            if (chooseBtn) {
+                chooseBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    choosePeopleFromCard(card);
+                    var tierId = card.getAttribute('data-tier') || '';
+                    if (!tierId) {
+                        alert('Could not open place picker for this card.');
+                        return;
+                    }
+                    openPlacePicker(tierId);
+                });
+            }
+        });
+        updateVisibility();
+    })();
+
+    (function initDayBudgetCards() {
+        var toggleEl = document.getElementById('enableDaysBudgetCards');
+        var cardsWrap = document.getElementById('daysBudgetCards');
+        var daysEl = document.getElementById('pkgTripDays');
+        if (!toggleEl || !cardsWrap || !daysEl) return;
+
+        function chooseDayFromCard(card) {
+            var fill = parseInt(card.getAttribute('data-fill-day'), 10);
+            if (!isNaN(fill) && fill > 0) {
+                daysEl.value = String(fill);
+                syncDayBudgetCardActiveState();
+            }
+        }
+
+        function updateVisibility() {
+            cardsWrap.hidden = !toggleEl.checked;
+            if (toggleEl.checked) syncDayBudgetCardActiveState();
+        }
+
+        toggleEl.addEventListener('change', updateVisibility);
+        daysEl.addEventListener('input', syncDayBudgetCardActiveState);
+        cardsWrap.querySelectorAll('.people-budget-card').forEach(function (card) {
+            card.addEventListener('click', function () {
+                chooseDayFromCard(card);
+            });
+            var chooseBtn = card.querySelector('[data-day-choose]');
+            if (chooseBtn) {
+                chooseBtn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    chooseDayFromCard(card);
+                    var tierId = card.getAttribute('data-tier') || '';
+                    if (!tierId) {
+                        alert('Could not open place picker for this card.');
+                        return;
+                    }
+                    openPlacePicker(tierId);
+                });
+            }
+        });
+        updateVisibility();
+    })();
 
     async function load() {
         var errEl = document.getElementById('loadError');
