@@ -2421,26 +2421,73 @@
             }
         }
         @media (max-width: 640px) {
-            .site-header__inner { flex-wrap: wrap; }
+            .site-header {
+                padding: 0.75rem 0.85rem;
+            }
+            .site-header__inner {
+                grid-template-columns: auto minmax(0, 1fr);
+                gap: 0.55rem 0.7rem;
+                align-items: center;
+            }
+            .site-header__meta {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                min-width: 0;
+            }
+            .site-header__titles h1 {
+                font-size: 1rem;
+                line-height: 1.2;
+            }
+            .site-header__titles p {
+                font-size: 0.74rem;
+                line-height: 1.35;
+            }
+            .site-header__logo {
+                grid-column: 1 / 2;
+                grid-row: 1;
+                justify-self: start;
+                height: 3.2rem;
+                max-width: min(58vw, 13rem);
+                padding: 5px 9px;
+                border-radius: 7px;
+            }
+            .site-header__actions {
+                grid-column: 2 / 3;
+                grid-row: 1;
+                width: auto;
+                justify-content: flex-start;
+                flex-direction: row;
+                align-items: center;
+                gap: 0.55rem;
+            }
             .amount { font-size: 1.15rem; }
             .grid-breakdown .amount { font-size: 0.98rem; }
-            .site-header__logo {
-                height: clamp(60px, 14vw, 88px);
-                max-width: min(72vw, 440px);
-            }
             .site-header__back {
                 font-size: 0.875rem;
-                padding: 0.55rem 1rem;
+                padding: 0.5rem 0.9rem;
             }
             .site-header__back .material-symbols-outlined {
                 font-size: 22px;
             }
             .avatar {
-                width: 46px;
-                height: 46px;
+                width: 40px;
+                height: 40px;
             }
             .avatar .material-symbols-outlined {
-                font-size: 26px;
+                font-size: 22px;
+            }
+            .wrap {
+                padding: 0.85rem 0.85rem 2rem;
+            }
+            .dashboard-controls {
+                padding: 0.75rem;
+            }
+            .dashboard-controls__actions {
+                width: 100%;
+            }
+            .dashboard-controls__actions .ctrl-btn {
+                flex: 1 1 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -2562,9 +2609,6 @@
             <img class="site-header__logo" src="images/geointellab_logo.jpeg" alt="Institution logo" width="520" height="104" decoding="async"/>
             <div class="site-header__actions">
                 <a class="site-header__back" href="main_page.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Main site</a>
-                <div class="avatar" title="Profile" aria-hidden="true">
-                    <span class="material-symbols-outlined text-white" aria-hidden="true">person</span>
-                </div>
             </div>
         </div>
     </header>
