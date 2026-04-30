@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Budget Splitter · GeoTrip Planner</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&amp;family=Outfit:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
     <style>
         :root {
             --accent: #d97706;
@@ -22,8 +27,15 @@
             --input-bg: #fffefb;
             --track: #e7e5e4;
         }
-        * { box-sizing: border-box; }
-        html { font-size: 105%; scroll-behavior: smooth; }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             min-height: 100dvh;
@@ -35,12 +47,21 @@
                 radial-gradient(700px 420px at 50% 100%, rgba(204, 251, 241, 0.55), transparent 42%),
                 linear-gradient(180deg, #fffdfb 0%, #faf8f5 38%, #f5f5f4 100%);
         }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
-        a { color: var(--link); text-underline-offset: 3px; }
-        a:hover { color: var(--link-hover); }
+
+        a {
+            color: var(--link);
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            color: var(--link-hover);
+        }
+
         .topbar {
             position: sticky;
             top: 0;
@@ -56,6 +77,7 @@
             border-bottom: 1px solid rgba(251, 191, 36, 0.28);
             box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8) inset;
         }
+
         .topbar__brand {
             display: flex;
             align-items: center;
@@ -67,6 +89,7 @@
             justify-self: start;
             min-width: 0;
         }
+
         .topbar__brand img {
             height: 2rem;
             width: auto;
@@ -77,6 +100,7 @@
             background: #fff;
             box-shadow: 0 2px 8px rgba(180, 83, 9, 0.06);
         }
+
         .topbar__logo-center {
             justify-self: center;
             display: inline-flex;
@@ -91,6 +115,7 @@
             height: 4.15rem;
             max-width: min(50vw, 20rem);
         }
+
         .topbar__logo-center img {
             display: block;
             width: auto;
@@ -98,6 +123,7 @@
             max-width: 100%;
             object-fit: contain;
         }
+
         .topbar__links {
             display: flex;
             flex-wrap: wrap;
@@ -106,6 +132,7 @@
             justify-self: end;
             justify-content: flex-end;
         }
+
         .topbar__links a {
             display: inline-flex;
             align-items: center;
@@ -120,44 +147,53 @@
             background: rgba(255, 255, 255, 0.95);
             transition: background 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
         }
+
         .topbar__links a:hover {
             background: #fffbeb;
             border-color: rgba(251, 191, 36, 0.55);
             transform: translateY(-1px);
         }
+
         .topbar__links a:focus-visible {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
         }
+
         @media (max-width: 760px) {
             .topbar {
                 grid-template-columns: minmax(0, 1fr) auto;
                 gap: 0.55rem 0.75rem;
             }
+
             .topbar__brand {
                 grid-column: 1 / 2;
                 font-size: 1rem;
             }
+
             .topbar__logo-center {
                 grid-column: 2 / 3;
                 height: 3.35rem;
                 max-width: min(56vw, 13rem);
             }
+
             .topbar__links {
                 grid-column: 1 / -1;
                 justify-self: start;
                 justify-content: flex-start;
             }
         }
+
         .shell {
             max-width: 52rem;
             margin: 0 auto;
             padding: 1.25rem 1rem 3rem;
         }
+
         .hero {
             text-align: center;
             padding: 1.5rem 0.5rem 2rem;
         }
+
         .hero__spark {
             display: inline-flex;
             align-items: center;
@@ -172,6 +208,7 @@
             border: 1px solid rgba(251, 191, 36, 0.4);
             color: #b45309;
         }
+
         .hero h1 {
             font-family: "Fraunces", serif;
             font-size: clamp(1.85rem, 5vw, 2.65rem);
@@ -183,6 +220,7 @@
             background-clip: text;
             color: transparent;
         }
+
         .hero p {
             margin: 0 auto;
             max-width: 36rem;
@@ -190,6 +228,7 @@
             color: var(--muted);
             line-height: 1.55;
         }
+
         .panel {
             border-radius: 1.35rem;
             padding: 1.35rem 1.25rem;
@@ -199,7 +238,11 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
-        .panel + .panel { margin-top: 1.25rem; }
+
+        .panel+.panel {
+            margin-top: 1.25rem;
+        }
+
         .panel__title {
             display: flex;
             align-items: center;
@@ -209,13 +252,18 @@
             font-weight: 700;
             margin: 0 0 1rem;
         }
+
         .grid-inputs {
             display: grid;
             gap: 1rem;
         }
+
         @media (min-width: 560px) {
-            .grid-inputs { grid-template-columns: 1fr 1fr 1fr; }
+            .grid-inputs {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
         }
+
         .field label {
             display: block;
             font-size: 0.95rem;
@@ -225,6 +273,7 @@
             color: var(--muted);
             margin-bottom: 0.35rem;
         }
+
         .field input,
         .field select {
             width: 100%;
@@ -236,18 +285,21 @@
             font-size: 1.1rem;
             font-family: inherit;
         }
+
         .field input:focus,
         .field select:focus {
             outline: none;
             border-color: rgba(245, 158, 11, 0.65);
             box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
         }
+
         .tiers {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1.15rem;
         }
+
         .tier-btn {
             flex: 1 1 auto;
             min-width: 6.5rem;
@@ -262,14 +314,32 @@
             cursor: pointer;
             transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
         }
-        .tier-btn:hover { transform: translateY(-1px); background: #fffbeb; border-color: rgba(251, 191, 36, 0.45); }
+
+        .tier-btn:hover {
+            transform: translateY(-1px);
+            background: #fffbeb;
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
         .tier-btn.is-active {
             border-color: rgba(217, 119, 6, 0.55);
             background: linear-gradient(145deg, #fffbeb, #ffedd5);
             box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
         }
-        .tier-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-        .tier-btn small { display: block; font-size: 0.85rem; font-weight: 500; color: var(--muted); margin-top: 0.2rem; }
+
+        .tier-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .tier-btn small {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
         .actions {
             margin-top: 1.25rem;
             display: flex;
@@ -277,6 +347,7 @@
             gap: 0.65rem;
             align-items: center;
         }
+
         .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -294,8 +365,17 @@
             box-shadow: 0 8px 24px rgba(217, 119, 6, 0.28);
             transition: filter 0.15s ease, transform 0.12s ease;
         }
-        .btn-primary:hover { filter: brightness(1.05); transform: translateY(-1px); }
-        .btn-primary:focus-visible { outline: 2px solid #f59e0b; outline-offset: 3px; }
+
+        .btn-primary:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:focus-visible {
+            outline: 2px solid #f59e0b;
+            outline-offset: 3px;
+        }
+
         .btn-ghost {
             padding: 0.65rem 1rem;
             border-radius: 999px;
@@ -307,7 +387,12 @@
             font-weight: 600;
             cursor: pointer;
         }
-        .btn-ghost:hover { background: #f5f5f4; border-color: #d6d3d1; }
+
+        .btn-ghost:hover {
+            background: #f5f5f4;
+            border-color: #d6d3d1;
+        }
+
         .err {
             margin-top: 0.75rem;
             padding: 0.65rem 0.85rem;
@@ -318,21 +403,37 @@
             font-size: 1.05rem;
             display: none;
         }
-        .err.is-visible { display: block; }
+
+        .err.is-visible {
+            display: block;
+        }
+
         .summary-grid {
             display: grid;
             gap: 0.75rem;
         }
+
         @media (min-width: 480px) {
-            .summary-grid { grid-template-columns: 1fr 1fr; }
+            .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
+
         .stat {
             padding: 1rem 1.1rem;
             border-radius: 1rem;
             background: linear-gradient(160deg, #fffefb 0%, #faf8f5 100%);
             border: 1px solid rgba(251, 191, 36, 0.22);
         }
-        .stat__label { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+        .stat__label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
         .stat__value {
             margin: 0.35rem 0 0;
             font-family: "Fraunces", serif;
@@ -340,8 +441,21 @@
             font-weight: 700;
             color: #92400e;
         }
-        .stat__hint { margin: 0.35rem 0 0; font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
-        .cats { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.85rem; }
+
+        .stat__hint {
+            margin: 0.35rem 0 0;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .cats {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
         .cat {
             display: grid;
             grid-template-columns: auto 1fr auto;
@@ -352,10 +466,30 @@
             background: #fffefb;
             border: 1px solid rgba(254, 243, 199, 0.85);
         }
-        .cat__icon { font-size: 1.35rem; line-height: 1; }
-        .cat__name { font-weight: 700; font-size: 1.15rem; }
-        .cat__pct { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
-        .cat__amt { font-weight: 700; color: #78350f; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+
+        .cat__icon {
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .cat__name {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        .cat__pct {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .cat__amt {
+            font-weight: 700;
+            color: #78350f;
+            font-size: 1.1rem;
+            font-variant-numeric: tabular-nums;
+        }
+
         .bar {
             grid-column: 1 / -1;
             height: 0.45rem;
@@ -363,30 +497,49 @@
             background: var(--track);
             overflow: hidden;
         }
-        .bar > i {
+
+        .bar>i {
             display: block;
             height: 100%;
             border-radius: inherit;
             width: 0%;
             transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
         }
-        .bar--stay > i { background: linear-gradient(90deg, #c4b5fd, #ddd6fe); }
-        .bar--food > i { background: linear-gradient(90deg, #fda4af, #fecdd3); }
-        .bar--transport > i { background: linear-gradient(90deg, #7dd3fc, #bae6fd); }
-        .bar--activities > i { background: linear-gradient(90deg, #6ee7b7, #a7f3d0); }
+
+        .bar--stay>i {
+            background: linear-gradient(90deg, #c4b5fd, #ddd6fe);
+        }
+
+        .bar--food>i {
+            background: linear-gradient(90deg, #fda4af, #fecdd3);
+        }
+
+        .bar--transport>i {
+            background: linear-gradient(90deg, #7dd3fc, #bae6fd);
+        }
+
+        .bar--activities>i {
+            background: linear-gradient(90deg, #6ee7b7, #a7f3d0);
+        }
+
         .source-note {
             margin-top: 0.85rem;
             font-size: 0.95rem;
             color: var(--muted);
             line-height: 1.45;
         }
-        .source-note strong { color: #b45309; }
+
+        .source-note strong {
+            color: #b45309;
+        }
+
         .user-split-section {
             margin-top: 1.35rem;
             padding-top: 1.25rem;
             border-top: 1px solid rgba(251, 191, 36, 0.35);
         }
-        .user-split-section > .user-split-heading {
+
+        .user-split-section>.user-split-heading {
             font-family: "Fraunces", serif;
             font-size: 1.3rem;
             font-weight: 700;
@@ -396,17 +549,20 @@
             align-items: center;
             gap: 0.4rem;
         }
+
         .user-split-lead {
             margin: 0 0 1rem;
             font-size: 1.05rem;
             color: var(--muted);
             line-height: 1.45;
         }
+
         .user-split-grid {
             display: grid;
             gap: 0.85rem;
             grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
         }
+
         .user-card {
             border: 1px solid rgba(251, 191, 36, 0.4);
             border-radius: 1rem;
@@ -414,6 +570,7 @@
             background: linear-gradient(165deg, #fffefb 0%, #fafaf9 100%);
             box-shadow: 0 4px 14px rgba(180, 83, 9, 0.06);
         }
+
         .user-card__title {
             font-weight: 800;
             font-size: 1.15rem;
@@ -421,6 +578,7 @@
             margin: 0 0 0.5rem;
             letter-spacing: 0.02em;
         }
+
         .user-card__total {
             font-family: "Fraunces", serif;
             font-size: 1.5rem;
@@ -430,6 +588,7 @@
             padding-bottom: 0.65rem;
             border-bottom: 1px solid rgba(231, 229, 228, 0.9);
         }
+
         .user-card__total span {
             display: block;
             font-family: "Outfit", sans-serif;
@@ -440,6 +599,7 @@
             letter-spacing: 0.06em;
             margin-top: 0.2rem;
         }
+
         .user-card__row {
             display: flex;
             justify-content: space-between;
@@ -449,9 +609,22 @@
             padding: 0.28rem 0;
             border-bottom: 1px dashed rgba(231, 229, 228, 0.95);
         }
-        .user-card__row:last-child { border-bottom: none; }
-        .user-card__label { color: var(--muted); font-weight: 600; }
-        .user-card__amt { font-weight: 700; color: #57534e; font-variant-numeric: tabular-nums; }
+
+        .user-card__row:last-child {
+            border-bottom: none;
+        }
+
+        .user-card__label {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .user-card__amt {
+            font-weight: 700;
+            color: #57534e;
+            font-variant-numeric: tabular-nums;
+        }
+
         .user-split-note {
             margin-top: 0.85rem;
             font-size: 0.9rem;
@@ -460,42 +633,53 @@
         }
     </style>
 </head>
+
 <body>
     <header class="topbar">
         <a class="topbar__brand" href="main_page.html">
             <span>Budget Splitter</span>
         </a>
         <span class="topbar__logo-center" aria-hidden="true">
-            <img src="images/geointellab_logo.jpeg" alt="" width="520" height="104" decoding="async" loading="eager"/>
+            <img src="images/geointellab_logo.jpeg" alt="" width="520" height="104" decoding="async" loading="eager" />
         </span>
         <div class="topbar__links">
-            <a href="main_page.html"><span class="material-symbols-outlined" style="font-size:18px" aria-hidden="true">home</span> Home</a>
-            <a href="budget_calculator.html"><span class="material-symbols-outlined" style="font-size:18px" aria-hidden="true">map</span> Map planner</a>
-            <a href="packages.html"><span class="material-symbols-outlined" style="font-size:18px" aria-hidden="true">inventory_2</span> Packages</a>
+            <a href="main_page.html"><span class="material-symbols-outlined" style="font-size:18px"
+                    aria-hidden="true">home</span> Home</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined" style="font-size:18px"
+                    aria-hidden="true">map</span> Map planner</a>
+            <a href="packages.html"><span class="material-symbols-outlined" style="font-size:18px"
+                    aria-hidden="true">inventory_2</span> Packages</a>
         </div>
     </header>
 
     <div class="shell">
         <div class="hero">
-            <span class="hero__spark"><span class="material-symbols-outlined" style="font-size:20px" aria-hidden="true">auto_awesome</span> Smart split</span>
+            <span class="hero__spark"><span class="material-symbols-outlined" style="font-size:20px"
+                    aria-hidden="true">auto_awesome</span> Smart split</span>
             <h1>Budget Splitter</h1>
-            <p>Divide your total trip budget into stay, food, transport, and activities — tuned for <strong>Basic</strong>, <strong>Balanced</strong>, or <strong>Premium</strong> trips. Pulls numbers from the map planner when you open this from there.</p>
+            <p>Divide your total trip budget into stay, food, transport, and activities — tuned for
+                <strong>Basic</strong>, <strong>Balanced</strong>, or <strong>Premium</strong> trips. Pulls numbers from
+                the map planner when you open this from there.</p>
         </div>
 
         <section class="panel" aria-labelledby="inputsTitle">
-            <h2 class="panel__title" id="inputsTitle"><span class="material-symbols-outlined" aria-hidden="true">tune</span> Your trip</h2>
+            <h2 class="panel__title" id="inputsTitle"><span class="material-symbols-outlined"
+                    aria-hidden="true">tune</span> Your trip</h2>
             <div class="grid-inputs">
                 <div class="field">
                     <label for="totalBudget">Total budget (₹)</label>
-                    <input type="number" id="totalBudget" min="0" step="100" inputmode="decimal" placeholder="e.g. 25000" autocomplete="off"/>
+                    <input type="number" id="totalBudget" min="0" step="100" inputmode="decimal"
+                        placeholder="e.g. 25000" autocomplete="off" />
                 </div>
                 <div class="field">
                     <label for="numPeople">People</label>
-                    <input type="number" id="numPeople" min="1" step="1" inputmode="numeric" placeholder="e.g. 4" autocomplete="off"/>
+                    <input type="number" id="numPeople" min="1" step="1" inputmode="numeric" placeholder="e.g. 4"
+                        autocomplete="off" />
                 </div>
                 <div class="field">
                     <label for="numDays">Days</label>
-                    <input type="number" id="numDays" min="1" step="1" inputmode="numeric" placeholder="e.g. 3" autocomplete="off"/>
+                    <input type="number" id="numDays" min="1" step="1" inputmode="numeric" placeholder="e.g. 3"
+                        autocomplete="off" />
                 </div>
             </div>
             <div class="tiers" role="group" aria-label="Trip style">
@@ -524,7 +708,8 @@
         </section>
 
         <section class="panel" id="resultPanel" hidden aria-labelledby="resultTitle">
-            <h2 class="panel__title" id="resultTitle"><span class="material-symbols-outlined" aria-hidden="true">pie_chart</span> Your split</h2>
+            <h2 class="panel__title" id="resultTitle"><span class="material-symbols-outlined"
+                    aria-hidden="true">pie_chart</span> Your split</h2>
             <div class="summary-grid">
                 <div class="stat">
                     <span class="stat__label">Per person</span>
@@ -543,8 +728,10 @@
                 </div>
             </div>
             <div class="user-split-section" id="userSplitSection" hidden>
-                <p class="user-split-heading"><span class="material-symbols-outlined" aria-hidden="true">groups</span> Per traveller</p>
-                <p class="user-split-lead">Trip budget shared equally — each person’s slice of Stay, Food, Transport, and Activities.</p>
+                <p class="user-split-heading"><span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                    Per traveller</p>
+                <p class="user-split-lead">Trip budget shared equally — each person’s slice of Stay, Food, Transport,
+                    and Activities.</p>
                 <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person"></div>
                 <p class="user-split-note" id="userSplitNote" hidden></p>
             </div>
@@ -553,287 +740,288 @@
     </div>
 
     <script>
-(function () {
-    var STORAGE_KEY = 'geotrip_budget_splitter_context';
-    var TRIP_SPEND_KEY = 'tirupati_trip_total_spend';
+        (function () {
+            var STORAGE_KEY = 'geotrip_budget_splitter_context';
+            var TRIP_SPEND_KEY = 'tirupati_trip_total_spend';
 
-    var TIERS = {
-        balanced: { stay: 0.40, food: 0.25, transport: 0.20, activities: 0.15, label: 'Balanced' },
-        basic: { stay: 0.32, food: 0.26, transport: 0.30, activities: 0.12, label: 'Basic' },
-        premium: { stay: 0.45, food: 0.22, transport: 0.15, activities: 0.18, label: 'Premium' }
-    };
+            var TIERS = {
+                balanced: { stay: 0.40, food: 0.25, transport: 0.20, activities: 0.15, label: 'Balanced' },
+                basic: { stay: 0.32, food: 0.26, transport: 0.30, activities: 0.12, label: 'Basic' },
+                premium: { stay: 0.45, food: 0.22, transport: 0.15, activities: 0.18, label: 'Premium' }
+            };
 
-    function fmtMoney(n) {
-        if (!isFinite(n) || n < 0) return '—';
-        try {
-            return '₹' + Math.round(n).toLocaleString('en-IN');
-        } catch (e) {
-            return '₹' + String(Math.round(n));
-        }
-    }
-
-    function splitBudget(totalBudget, people, days, tierKey) {
-        var t = TIERS[tierKey] || TIERS.balanced;
-        var stay = totalBudget * t.stay;
-        var food = totalBudget * t.food;
-        var transport = totalBudget * t.transport;
-        var activities = totalBudget * t.activities;
-        var foodPerPersonDay = people > 0 && days > 0 ? food / (people * days) : null;
-        return {
-            totalBudget: totalBudget,
-            people: people,
-            days: days,
-            tier: t.label,
-            tierKey: tierKey,
-            percents: { stay: t.stay, food: t.food, transport: t.transport, activities: t.activities },
-            perPerson: totalBudget / people,
-            perDay: totalBudget / days,
-            stay: stay,
-            food: food,
-            transport: transport,
-            activities: activities,
-            foodPerPersonDay: foodPerPersonDay
-        };
-    }
-
-    function validate(total, people, days) {
-        if (people <= 0 || days <= 0) return 'Enter at least 1 person and 1 day.';
-        if (!isFinite(total) || total < 0) return 'Enter a valid total budget (0 or more).';
-        return null;
-    }
-
-    var totalEl = document.getElementById('totalBudget');
-    var peopleEl = document.getElementById('numPeople');
-    var daysEl = document.getElementById('numDays');
-    var errBox = document.getElementById('errBox');
-    var resultPanel = document.getElementById('resultPanel');
-    var catList = document.getElementById('catList');
-    var sourceNote = document.getElementById('sourceNote');
-    var currentTier = 'balanced';
-
-    function setErr(msg) {
-        if (!errBox) return;
-        if (msg) {
-            errBox.textContent = msg;
-            errBox.classList.add('is-visible');
-        } else {
-            errBox.textContent = '';
-            errBox.classList.remove('is-visible');
-        }
-    }
-
-    function readUrlParams() {
-        var p = new URLSearchParams(window.location.search);
-        return {
-            budget: p.get('budget'),
-            people: p.get('people'),
-            days: p.get('days'),
-            tier: p.get('tier')
-        };
-    }
-
-    function readStored() {
-        try {
-            var raw = sessionStorage.getItem(STORAGE_KEY);
-            if (!raw) return null;
-            return JSON.parse(raw);
-        } catch (e) {
-            return null;
-        }
-    }
-
-    function readTripSpendLocal() {
-        try {
-            return window.localStorage.getItem(TRIP_SPEND_KEY) || '';
-        } catch (e) {
-            return '';
-        }
-    }
-
-    function prefill() {
-        var url = readUrlParams();
-        var st = readStored();
-        var budget = (url.budget != null && String(url.budget).trim() !== '') ? String(url.budget).trim() : '';
-        var people = (url.people != null && String(url.people).trim() !== '') ? String(url.people).trim() : '';
-        var days = (url.days != null && String(url.days).trim() !== '') ? String(url.days).trim() : '';
-
-        if (!budget && st && st.totalBudget) budget = String(st.totalBudget);
-        if (!people && st && st.people) people = String(st.people);
-        if (!days && st && st.days) days = String(st.days);
-
-        if (!budget) {
-            var ls = readTripSpendLocal();
-            if (ls && String(ls).trim() !== '') budget = String(ls).trim();
-        }
-
-        if (totalEl && budget) totalEl.value = budget;
-        if (peopleEl && people) peopleEl.value = people;
-        if (daysEl && days) daysEl.value = days;
-
-        if (url.tier && TIERS[url.tier]) {
-            currentTier = url.tier;
-            document.querySelectorAll('.tier-btn').forEach(function (b) {
-                var k = b.getAttribute('data-tier');
-                var on = k === currentTier;
-                b.classList.toggle('is-active', on);
-                b.setAttribute('aria-pressed', on ? 'true' : 'false');
-            });
-        }
-
-        if (sourceNote) {
-            if (st && st.source === 'budget_calculator') {
-                sourceNote.hidden = false;
-                sourceNote.innerHTML = 'Loaded values from <strong>Budget &amp; map planner</strong> (saved when you opened Budget Splitter). You can edit them here anytime.';
-            } else if (budget || people || days) {
-                sourceNote.hidden = false;
-                sourceNote.textContent = 'Some fields were filled from your last planner session or URL. Adjust and tap Calculate.';
-            } else {
-                sourceNote.hidden = true;
+            function fmtMoney(n) {
+                if (!isFinite(n) || n < 0) return '—';
+                try {
+                    return '₹' + Math.round(n).toLocaleString('en-IN');
+                } catch (e) {
+                    return '₹' + String(Math.round(n));
+                }
             }
-        }
-    }
 
-    function render(result) {
-        if (!resultPanel || !catList) return;
-        resultPanel.hidden = false;
-        document.getElementById('outPerPerson').textContent = fmtMoney(result.perPerson);
-        document.getElementById('outPerDay').textContent = fmtMoney(result.perDay);
-        var fpp = result.foodPerPersonDay;
-        document.getElementById('outFoodPerPersonDay').textContent =
-            fpp != null && isFinite(fpp) ? fmtMoney(fpp) : '—';
-
-        renderUserCards(result);
-
-        var rows = [
-            { key: 'stay', icon: '🏨', name: 'Stay', cls: 'bar--stay', amt: result.stay, pct: result.percents.stay },
-            { key: 'food', icon: '🍽️', name: 'Food', cls: 'bar--food', amt: result.food, pct: result.percents.food },
-            { key: 'transport', icon: '🚗', name: 'Transport', cls: 'bar--transport', amt: result.transport, pct: result.percents.transport },
-            { key: 'activities', icon: '🎟️', name: 'Activities', cls: 'bar--activities', amt: result.activities, pct: result.percents.activities }
-        ];
-
-        catList.innerHTML = rows.map(function (r) {
-            return (
-                '<div class="cat">' +
-                '<span class="cat__icon" aria-hidden="true">' + r.icon + '</span>' +
-                '<div><div class="cat__name">' + r.name + '</div><div class="cat__pct">' + Math.round(r.pct * 100) + '% of trip</div></div>' +
-                '<div class="cat__amt">' + fmtMoney(r.amt) + '</div>' +
-                '<div class="bar ' + r.cls + '" data-pct="' + String(Math.round(r.pct * 1000) / 10) + '"><i style="width:0%"></i></div>' +
-                '</div>'
-            );
-        }).join('');
-
-        window.requestAnimationFrame(function () {
-            catList.querySelectorAll('.bar > i').forEach(function (barInner, i) {
-                var row = rows[i];
-                if (!row) return;
-                barInner.style.width = String(Math.min(100, Math.round(row.pct * 1000) / 10)) + '%';
-            });
-        });
-    }
-
-    /** Equal split: each user gets total/N, and each category slice is divided by people. */
-    function renderUserCards(result) {
-        var section = document.getElementById('userSplitSection');
-        var wrap = document.getElementById('userSplitWrap');
-        var note = document.getElementById('userSplitNote');
-        if (!section || !wrap) return;
-
-        var n = Math.floor(result.people);
-        if (!isFinite(n) || n < 1) {
-            section.hidden = true;
-            wrap.innerHTML = '';
-            if (note) note.hidden = true;
-            return;
-        }
-
-        var maxCards = 24;
-        var showCount = Math.min(n, maxCards);
-        var shareStay = result.stay / n;
-        var shareFood = result.food / n;
-        var shareTransport = result.transport / n;
-        var shareActivities = result.activities / n;
-        var shareTotal = result.totalBudget / n;
-
-        var html = [];
-        for (var i = 1; i <= showCount; i++) {
-            html.push(
-                '<article class="user-card">' +
-                '<div class="user-card__title">User ' + i + '</div>' +
-                '<div class="user-card__total">' +
-                fmtMoney(shareTotal) +
-                '<span>Total share (equal)</span></div>' +
-                '<div class="user-card__row"><span class="user-card__label">🏨 Stay</span><span class="user-card__amt">' + fmtMoney(shareStay) + '</span></div>' +
-                '<div class="user-card__row"><span class="user-card__label">🍽️ Food</span><span class="user-card__amt">' + fmtMoney(shareFood) + '</span></div>' +
-                '<div class="user-card__row"><span class="user-card__label">🚗 Transport</span><span class="user-card__amt">' + fmtMoney(shareTransport) + '</span></div>' +
-                '<div class="user-card__row"><span class="user-card__label">🎟️ Activities</span><span class="user-card__amt">' + fmtMoney(shareActivities) + '</span></div>' +
-                '</article>'
-            );
-        }
-        wrap.innerHTML = html.join('');
-        section.hidden = false;
-
-        if (note) {
-            if (n > maxCards) {
-                note.hidden = false;
-                note.textContent =
-                    'Showing first ' + maxCards + ' travellers. Total group size: ' + n + ' — each share is still total ÷ ' + n + '.';
-            } else {
-                note.hidden = true;
-                note.textContent = '';
+            function splitBudget(totalBudget, people, days, tierKey) {
+                var t = TIERS[tierKey] || TIERS.balanced;
+                var stay = totalBudget * t.stay;
+                var food = totalBudget * t.food;
+                var transport = totalBudget * t.transport;
+                var activities = totalBudget * t.activities;
+                var foodPerPersonDay = people > 0 && days > 0 ? food / (people * days) : null;
+                return {
+                    totalBudget: totalBudget,
+                    people: people,
+                    days: days,
+                    tier: t.label,
+                    tierKey: tierKey,
+                    percents: { stay: t.stay, food: t.food, transport: t.transport, activities: t.activities },
+                    perPerson: totalBudget / people,
+                    perDay: totalBudget / days,
+                    stay: stay,
+                    food: food,
+                    transport: transport,
+                    activities: activities,
+                    foodPerPersonDay: foodPerPersonDay
+                };
             }
-        }
-    }
 
-    function runCalc() {
-        setErr('');
-        var total = parseFloat((totalEl && totalEl.value) ? totalEl.value : '0');
-        var people = parseInt((peopleEl && peopleEl.value) ? peopleEl.value : '0', 10);
-        var days = parseInt((daysEl && daysEl.value) ? daysEl.value : '0', 10);
-        var v = validate(total, people, days);
-        if (v) {
-            setErr(v);
-            if (resultPanel) resultPanel.hidden = true;
-            return;
-        }
-        var res = splitBudget(total, people, days, currentTier);
-        render(res);
-    }
+            function validate(total, people, days) {
+                if (people <= 0 || days <= 0) return 'Enter at least 1 person and 1 day.';
+                if (!isFinite(total) || total < 0) return 'Enter a valid total budget (0 or more).';
+                return null;
+            }
 
-    document.querySelectorAll('.tier-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            currentTier = btn.getAttribute('data-tier') || 'balanced';
-            document.querySelectorAll('.tier-btn').forEach(function (b) {
-                var on = b === btn;
-                b.classList.toggle('is-active', on);
-                b.setAttribute('aria-pressed', on ? 'true' : 'false');
+            var totalEl = document.getElementById('totalBudget');
+            var peopleEl = document.getElementById('numPeople');
+            var daysEl = document.getElementById('numDays');
+            var errBox = document.getElementById('errBox');
+            var resultPanel = document.getElementById('resultPanel');
+            var catList = document.getElementById('catList');
+            var sourceNote = document.getElementById('sourceNote');
+            var currentTier = 'balanced';
+
+            function setErr(msg) {
+                if (!errBox) return;
+                if (msg) {
+                    errBox.textContent = msg;
+                    errBox.classList.add('is-visible');
+                } else {
+                    errBox.textContent = '';
+                    errBox.classList.remove('is-visible');
+                }
+            }
+
+            function readUrlParams() {
+                var p = new URLSearchParams(window.location.search);
+                return {
+                    budget: p.get('budget'),
+                    people: p.get('people'),
+                    days: p.get('days'),
+                    tier: p.get('tier')
+                };
+            }
+
+            function readStored() {
+                try {
+                    var raw = sessionStorage.getItem(STORAGE_KEY);
+                    if (!raw) return null;
+                    return JSON.parse(raw);
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function readTripSpendLocal() {
+                try {
+                    return window.localStorage.getItem(TRIP_SPEND_KEY) || '';
+                } catch (e) {
+                    return '';
+                }
+            }
+
+            function prefill() {
+                var url = readUrlParams();
+                var st = readStored();
+                var budget = (url.budget != null && String(url.budget).trim() !== '') ? String(url.budget).trim() : '';
+                var people = (url.people != null && String(url.people).trim() !== '') ? String(url.people).trim() : '';
+                var days = (url.days != null && String(url.days).trim() !== '') ? String(url.days).trim() : '';
+
+                if (!budget && st && st.totalBudget) budget = String(st.totalBudget);
+                if (!people && st && st.people) people = String(st.people);
+                if (!days && st && st.days) days = String(st.days);
+
+                if (!budget) {
+                    var ls = readTripSpendLocal();
+                    if (ls && String(ls).trim() !== '') budget = String(ls).trim();
+                }
+
+                if (totalEl && budget) totalEl.value = budget;
+                if (peopleEl && people) peopleEl.value = people;
+                if (daysEl && days) daysEl.value = days;
+
+                if (url.tier && TIERS[url.tier]) {
+                    currentTier = url.tier;
+                    document.querySelectorAll('.tier-btn').forEach(function (b) {
+                        var k = b.getAttribute('data-tier');
+                        var on = k === currentTier;
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                }
+
+                if (sourceNote) {
+                    if (st && st.source === 'budget_calculator') {
+                        sourceNote.hidden = false;
+                        sourceNote.innerHTML = 'Loaded values from <strong>Budget &amp; map planner</strong> (saved when you opened Budget Splitter). You can edit them here anytime.';
+                    } else if (budget || people || days) {
+                        sourceNote.hidden = false;
+                        sourceNote.textContent = 'Some fields were filled from your last planner session or URL. Adjust and tap Calculate.';
+                    } else {
+                        sourceNote.hidden = true;
+                    }
+                }
+            }
+
+            function render(result) {
+                if (!resultPanel || !catList) return;
+                resultPanel.hidden = false;
+                document.getElementById('outPerPerson').textContent = fmtMoney(result.perPerson);
+                document.getElementById('outPerDay').textContent = fmtMoney(result.perDay);
+                var fpp = result.foodPerPersonDay;
+                document.getElementById('outFoodPerPersonDay').textContent =
+                    fpp != null && isFinite(fpp) ? fmtMoney(fpp) : '—';
+
+                renderUserCards(result);
+
+                var rows = [
+                    { key: 'stay', icon: '🏨', name: 'Stay', cls: 'bar--stay', amt: result.stay, pct: result.percents.stay },
+                    { key: 'food', icon: '🍽️', name: 'Food', cls: 'bar--food', amt: result.food, pct: result.percents.food },
+                    { key: 'transport', icon: '🚗', name: 'Transport', cls: 'bar--transport', amt: result.transport, pct: result.percents.transport },
+                    { key: 'activities', icon: '🎟️', name: 'Activities', cls: 'bar--activities', amt: result.activities, pct: result.percents.activities }
+                ];
+
+                catList.innerHTML = rows.map(function (r) {
+                    return (
+                        '<div class="cat">' +
+                        '<span class="cat__icon" aria-hidden="true">' + r.icon + '</span>' +
+                        '<div><div class="cat__name">' + r.name + '</div><div class="cat__pct">' + Math.round(r.pct * 100) + '% of trip</div></div>' +
+                        '<div class="cat__amt">' + fmtMoney(r.amt) + '</div>' +
+                        '<div class="bar ' + r.cls + '" data-pct="' + String(Math.round(r.pct * 1000) / 10) + '"><i style="width:0%"></i></div>' +
+                        '</div>'
+                    );
+                }).join('');
+
+                window.requestAnimationFrame(function () {
+                    catList.querySelectorAll('.bar > i').forEach(function (barInner, i) {
+                        var row = rows[i];
+                        if (!row) return;
+                        barInner.style.width = String(Math.min(100, Math.round(row.pct * 1000) / 10)) + '%';
+                    });
+                });
+            }
+
+            /** Equal split: each user gets total/N, and each category slice is divided by people. */
+            function renderUserCards(result) {
+                var section = document.getElementById('userSplitSection');
+                var wrap = document.getElementById('userSplitWrap');
+                var note = document.getElementById('userSplitNote');
+                if (!section || !wrap) return;
+
+                var n = Math.floor(result.people);
+                if (!isFinite(n) || n < 1) {
+                    section.hidden = true;
+                    wrap.innerHTML = '';
+                    if (note) note.hidden = true;
+                    return;
+                }
+
+                var maxCards = 24;
+                var showCount = Math.min(n, maxCards);
+                var shareStay = result.stay / n;
+                var shareFood = result.food / n;
+                var shareTransport = result.transport / n;
+                var shareActivities = result.activities / n;
+                var shareTotal = result.totalBudget / n;
+
+                var html = [];
+                for (var i = 1; i <= showCount; i++) {
+                    html.push(
+                        '<article class="user-card">' +
+                        '<div class="user-card__title">User ' + i + '</div>' +
+                        '<div class="user-card__total">' +
+                        fmtMoney(shareTotal) +
+                        '<span>Total share (equal)</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label">🏨 Stay</span><span class="user-card__amt">' + fmtMoney(shareStay) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label">🍽️ Food</span><span class="user-card__amt">' + fmtMoney(shareFood) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label">🚗 Transport</span><span class="user-card__amt">' + fmtMoney(shareTransport) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label">🎟️ Activities</span><span class="user-card__amt">' + fmtMoney(shareActivities) + '</span></div>' +
+                        '</article>'
+                    );
+                }
+                wrap.innerHTML = html.join('');
+                section.hidden = false;
+
+                if (note) {
+                    if (n > maxCards) {
+                        note.hidden = false;
+                        note.textContent =
+                            'Showing first ' + maxCards + ' travellers. Total group size: ' + n + ' — each share is still total ÷ ' + n + '.';
+                    } else {
+                        note.hidden = true;
+                        note.textContent = '';
+                    }
+                }
+            }
+
+            function runCalc() {
+                setErr('');
+                var total = parseFloat((totalEl && totalEl.value) ? totalEl.value : '0');
+                var people = parseInt((peopleEl && peopleEl.value) ? peopleEl.value : '0', 10);
+                var days = parseInt((daysEl && daysEl.value) ? daysEl.value : '0', 10);
+                var v = validate(total, people, days);
+                if (v) {
+                    setErr(v);
+                    if (resultPanel) resultPanel.hidden = true;
+                    return;
+                }
+                var res = splitBudget(total, people, days, currentTier);
+                render(res);
+            }
+
+            document.querySelectorAll('.tier-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    currentTier = btn.getAttribute('data-tier') || 'balanced';
+                    document.querySelectorAll('.tier-btn').forEach(function (b) {
+                        var on = b === btn;
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                    if (resultPanel && !resultPanel.hidden) runCalc();
+                });
             });
-            if (resultPanel && !resultPanel.hidden) runCalc();
-        });
-    });
 
-    var calcBtn = document.getElementById('calcBtn');
-    if (calcBtn) calcBtn.addEventListener('click', runCalc);
-    document.getElementById('resetBtn').addEventListener('click', function () {
-        if (totalEl) totalEl.value = '';
-        if (peopleEl) peopleEl.value = '';
-        if (daysEl) daysEl.value = '';
-        currentTier = 'balanced';
-        document.querySelectorAll('.tier-btn').forEach(function (b) {
-            var on = b.getAttribute('data-tier') === 'balanced';
-            b.classList.toggle('is-active', on);
-            b.setAttribute('aria-pressed', on ? 'true' : 'false');
-        });
-        setErr('');
-        if (resultPanel) resultPanel.hidden = true;
-        if (sourceNote) sourceNote.hidden = true;
-    });
+            var calcBtn = document.getElementById('calcBtn');
+            if (calcBtn) calcBtn.addEventListener('click', runCalc);
+            document.getElementById('resetBtn').addEventListener('click', function () {
+                if (totalEl) totalEl.value = '';
+                if (peopleEl) peopleEl.value = '';
+                if (daysEl) daysEl.value = '';
+                currentTier = 'balanced';
+                document.querySelectorAll('.tier-btn').forEach(function (b) {
+                    var on = b.getAttribute('data-tier') === 'balanced';
+                    b.classList.toggle('is-active', on);
+                    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                });
+                setErr('');
+                if (resultPanel) resultPanel.hidden = true;
+                if (sourceNote) sourceNote.hidden = true;
+            });
 
-    prefill();
-    if (totalEl && peopleEl && daysEl &&
-        totalEl.value && peopleEl.value && daysEl.value) {
-        runCalc();
-    }
-})();
+            prefill();
+            if (totalEl && peopleEl && daysEl &&
+                totalEl.value && peopleEl.value && daysEl.value) {
+                runCalc();
+            }
+        })();
     </script>
 </body>
+
 </html>
