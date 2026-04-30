@@ -122,12 +122,12 @@
         }
         .hero {
             text-align: center;
-            margin-bottom: 1.1rem;
-            border: 1px solid #cfd8e8;
-            border-radius: 1.05rem;
-            background: linear-gradient(125deg, rgba(255,255,255,0.98) 0%, rgba(240,249,255,0.95) 55%, rgba(255,251,235,0.94) 100%);
-            box-shadow: var(--gov-shadow);
-            padding: 1rem 1rem 1.1rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(219, 234, 254, 0.9);
+            border-radius: 1.75rem;
+            background: linear-gradient(135deg, #ffffff 0%, #eff6ff 50%, #fef3c7 100%);
+            box-shadow: 0 20px 40px -15px rgba(37, 99, 235, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+            padding: 2.5rem 1.5rem 2.8rem;
             position: relative;
             overflow: hidden;
         }
@@ -136,47 +136,60 @@
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(120deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
+            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            z-index: 1;
         }
         .hero::after {
             content: "";
             position: absolute;
-            inset: auto -8% -40% auto;
-            width: 220px;
-            height: 220px;
-            border-radius: 999px;
-            background: radial-gradient(circle at 30% 30%, rgba(191, 219, 254, 0.55), rgba(56, 189, 248, 0.02));
+            inset: auto -10% -30% auto;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.15) 0%, rgba(251, 191, 36, 0.08) 50%, transparent 70%);
             pointer-events: none;
+            filter: blur(20px);
+        }
+        .hero > * {
+            position: relative;
+            z-index: 2;
         }
         .hero__eyebrow {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
-            border: 1px solid #facc15;
+            gap: 0.45rem;
+            border: 1px solid rgba(245, 158, 11, 0.5);
             border-radius: 999px;
-            background: linear-gradient(90deg, #fff7ed, #fef9c3);
-            color: var(--gov-amber);
-            font-size: 0.68rem;
-            font-weight: 700;
+            background: linear-gradient(90deg, #fffbeb, #fef3c7);
+            color: #b45309;
+            font-size: 0.75rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            padding: 0.34rem 0.72rem;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.12em;
+            padding: 0.4rem 1rem;
+            margin-bottom: 1.1rem;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
         }
         .hero h1 {
             margin: 0;
             font-family: "Noto Serif", Georgia, serif;
-            font-size: clamp(1.45rem, 3.8vw, 2.25rem);
-            line-height: 1.15;
-            color: var(--gov-navy);
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            line-height: 1.1;
+            font-weight: 800;
+            background: linear-gradient(120deg, #1e3a8a 0%, #2563eb 40%, #b45309 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
             text-wrap: balance;
+            letter-spacing: -0.03em;
         }
         .hero p {
-            margin: 0.45rem auto 0;
+            margin: 1rem auto 0;
             max-width: 42rem;
-            color: var(--gov-muted);
-            font-size: clamp(0.9rem, 2.2vw, 1.02rem);
-            line-height: 1.5;
+            color: #475569;
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            line-height: 1.6;
+            font-weight: 500;
         }
 
         .booking-card {
