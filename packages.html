@@ -458,6 +458,71 @@
             padding-right: clamp(1rem, 3.5vw, 2.75rem);
             box-sizing: border-box;
         }
+        .packages-header-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            align-items: center;
+            gap: 0.85rem;
+        }
+        .packages-header__start {
+            justify-self: start;
+            min-width: 0;
+        }
+        .packages-header__center {
+            justify-self: center;
+            min-width: 0;
+        }
+        .packages-header__end {
+            justify-self: end;
+            min-width: 0;
+        }
+        .packages-header__logo-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 4rem;
+            max-width: min(52vw, 20rem);
+            padding: 0.2rem 0.35rem;
+            border-radius: 0.6rem;
+            border: 1px solid rgba(148, 163, 184, 0.22);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+            box-sizing: border-box;
+        }
+        .packages-header__logo {
+            display: block;
+            width: auto;
+            height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+        @media (min-width: 1024px) {
+            .packages-header__logo-wrap {
+                height: 4.75rem;
+                max-width: min(40vw, 24rem);
+            }
+        }
+        @media (max-width: 767px) {
+            .packages-header-inner {
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 0.55rem 0.75rem;
+            }
+            .packages-header__start {
+                grid-column: 1 / 2;
+            }
+            .packages-header__center {
+                grid-column: 2 / 3;
+            }
+            .packages-header__end {
+                grid-column: 1 / -1;
+                justify-self: start;
+            }
+            .packages-header__logo-wrap {
+                height: 3.15rem;
+                max-width: min(48vw, 12.75rem);
+            }
+        }
         .packages-main {
             flex: 1 0 auto;
             display: flex;
@@ -1152,11 +1217,16 @@
 <body class="packages-page-bg packages-page-shell text-slate-900">
     <header class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/90 backdrop-blur-md shadow-sm">
         <div class="packages-header-inner flex flex-wrap items-center justify-between gap-3 py-3">
-            <a href="main_page.html" class="flex min-w-0 items-center gap-2 text-slate-800 hover:text-amber-900">
+            <a href="main_page.html" class="packages-header__start flex min-w-0 items-center gap-2 text-slate-800 hover:text-amber-900">
                 <span class="material-symbols-outlined text-amber-800" aria-hidden="true">arrow_back</span>
                 <span class="truncate font-semibold">Tirupati home</span>
             </a>
-            <nav class="flex flex-wrap items-center gap-2">
+            <div class="packages-header__center">
+                <span class="packages-header__logo-wrap">
+                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="packages-header__logo" width="520" height="104" decoding="async" loading="eager"/>
+                </span>
+            </div>
+            <nav class="packages-header__end flex flex-wrap items-center gap-2">
                 <a href="budget_calculator.html" class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-semibold text-slate-800 shadow-sm hover:bg-slate-50">Budget &amp; map</a>
             </nav>
         </div>

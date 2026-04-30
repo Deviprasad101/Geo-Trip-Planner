@@ -669,8 +669,12 @@
         @media (prefers-reduced-motion: reduce) {
             .mobile-nav-backdrop,
             .mobile-nav-panel,
-            .cat-rail-card {
+            .cat-rail-card,
+            .testimonial-card {
                 transition: none;
+            }
+            .testimonial-card:hover {
+                transform: none;
             }
         }
         .drawer-nav {
@@ -692,6 +696,49 @@
         }
         .drawer-nav a:hover {
             background: #fef3c7;
+        }
+        .testimonial-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-radius: 1rem;
+            border: 1px solid rgba(251, 191, 36, 0.45);
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 8px 24px -8px rgba(115, 92, 0, 0.12);
+            padding: 1.25rem 1.15rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px -10px rgba(115, 92, 0, 0.18);
+        }
+        .testimonial-card__stars {
+            color: #d97706;
+            letter-spacing: 0.06em;
+            font-size: 0.9rem;
+            margin-bottom: 0.65rem;
+        }
+        .testimonial-card__quote {
+            margin: 0;
+            flex: 1;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+            color: #44403c;
+        }
+        .testimonial-card__footer {
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid rgba(254, 243, 199, 0.9);
+        }
+        .testimonial-card__name {
+            font-weight: 700;
+            font-size: 0.875rem;
+            color: #78350f;
+        }
+        .testimonial-card__meta {
+            font-size: 0.75rem;
+            color: #78716c;
+            margin-top: 0.15rem;
         }
         .planner-preflight-dialog {
             width: min(100% - 2rem, 26rem);
@@ -1114,6 +1161,74 @@ Booking
 </div>
 </section>
 
+<section id="testimonials" class="space-y-4 sm:space-y-5" aria-labelledby="testimonialsHeading">
+<h2 id="testimonialsHeading" class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">What travellers say</h2>
+<p class="max-w-2xl text-sm leading-relaxed text-on-surface-variant sm:text-base">Feedback-style notes from visitors who planned Tirumala &amp; Tirupati days with categories, maps, and budgets.</p>
+<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<figure class="testimonial-card">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“The map-first flow helped us cluster food and temple stops without doubling back. Distance hints matched what we saw on the ground.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Priya R.</div>
+<div class="testimonial-card__meta">Family trip · Chennai</div>
+</figcaption>
+</figure>
+<figure class="testimonial-card">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“Budget splitter plus the planner gave our group a simple per-person picture before we booked stays. Clear and quick.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Arjun M.</div>
+<div class="testimonial-card__meta">College friends · Hyderabad</div>
+</figcaption>
+</figure>
+<figure class="testimonial-card sm:col-span-2 lg:col-span-1">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“Loved filtering by sightseeing and wildlife. The CSV-backed counts made it easy to argue for one extra half-day in the hills.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Lakshmi K.</div>
+<div class="testimonial-card__meta">Solo traveller · Bengaluru</div>
+</figcaption>
+</figure>
+<figure class="testimonial-card">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“The booking options page gave us quick fare expectations from Tirupati to Tirumala before finalizing the day plan.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Naveen T.</div>
+<div class="testimonial-card__meta">Weekend trip · Vijayawada</div>
+</figcaption>
+</figure>
+<figure class="testimonial-card">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“Category chips and quick search were super useful. We locked temple + food stops in under ten minutes.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Sowmya P.</div>
+<div class="testimonial-card__meta">Parents + kids · Nellore</div>
+</figcaption>
+</figure>
+<figure class="testimonial-card">
+<div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+<blockquote class="testimonial-card__quote">
+<p class="m-0">“Per-person split helped our 5-member group settle costs calmly. The UI is simple enough for everyone to follow.”</p>
+</blockquote>
+<figcaption class="testimonial-card__footer">
+<div class="testimonial-card__name">Rahul S.</div>
+<div class="testimonial-card__meta">Friends group · Tirupati</div>
+</figcaption>
+</figure>
+</div>
+<p class="text-center text-xs text-on-surface-variant/90 sm:text-left">Illustrative traveller stories for the product experience — not paid endorsements.</p>
+</section>
+
 <!-- CTA band -->
 <section class="rounded-2xl bg-gradient-to-r from-amber-700 via-amber-600 to-amber-800 p-6 text-center shadow-lg sm:p-8 lg:p-10" aria-label="Call to action">
 <p class="font-headline-lg text-xl font-semibold text-amber-50 sm:text-2xl">Ready to lay your day on the map?</p>
@@ -1139,6 +1254,7 @@ Booking
 <li><a href="budget_calculator.html" class="font-medium text-amber-300 hover:text-amber-100 hover:underline">Budget &amp; map planner</a></li>
 <li><a href="#categorySection" class="font-medium text-amber-300 hover:text-amber-100 hover:underline">Categories</a></li>
 <li><a href="#howItWorks" class="font-medium text-amber-300 hover:text-amber-100 hover:underline">How it works</a></li>
+<li><a href="#testimonials" class="font-medium text-amber-300 hover:text-amber-100 hover:underline">Testimonials</a></li>
 </ul>
 </div>
 <div>
