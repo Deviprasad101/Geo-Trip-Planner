@@ -1432,6 +1432,33 @@
             transform: translateY(-1px);
             box-shadow: 0 4px 14px rgba(143, 78, 0, 0.22);
         }
+        .site-header__splitter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1rem;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            color: #78350f;
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.01em;
+            border: 1px solid rgba(245, 158, 11, 0.45);
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.18);
+            transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            white-space: nowrap;
+        }
+        .site-header__splitter:hover {
+            filter: brightness(1.04);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.22);
+        }
+        .site-header__splitter .material-symbols-outlined {
+            font-size: 20px;
+            line-height: 1;
+        }
         .avatar {
             width: 50px;
             height: 50px;
@@ -2455,10 +2482,23 @@
                 grid-column: 2 / 3;
                 grid-row: 1;
                 width: auto;
-                justify-content: flex-start;
+                max-width: 100%;
+                justify-content: flex-end;
                 flex-direction: row;
+                flex-wrap: wrap;
                 align-items: center;
-                gap: 0.55rem;
+                gap: 0.45rem;
+            }
+            .site-header__splitter {
+                font-size: 0.78rem;
+                padding: 0.45rem 0.72rem;
+                white-space: normal;
+                text-align: center;
+                max-width: 9.5rem;
+                line-height: 1.15;
+            }
+            .site-header__splitter .material-symbols-outlined {
+                font-size: 18px;
             }
             .amount { font-size: 1.15rem; }
             .grid-breakdown .amount { font-size: 0.98rem; }
@@ -2608,6 +2648,7 @@
             </div>
             <img class="site-header__logo" src="images/geointellab_logo.jpeg" alt="Institution logo" width="520" height="104" decoding="async"/>
             <div class="site-header__actions">
+                <a class="site-header__splitter" href="budget_splitter.html" id="budgetSplitterHeaderBtn"><span class="material-symbols-outlined" aria-hidden="true">pie_chart</span> Budget Splitter</a>
                 <a class="site-header__back" href="main_page.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Main site</a>
             </div>
         </div>
@@ -2684,14 +2725,13 @@
                     </div>
                     <div>
                         <label for="travelMode">Travel mode</label>
-                        <select id="travelMode" aria-describedby="travelModeHint">
+                        <select id="travelMode">
                             <option value="" selected disabled>Select travel mode</option>
                             <option value="car">Car</option>
                             <option value="bike">Bike</option>
                             <option value="bus">Bus</option>
                             <option value="train">Train</option>
                         </select>
-                        <p class="hint" id="travelModeHint">Car/Bike use fixed <strong>15 km/l</strong> and <strong>₹105/l</strong>. Bus or train: use the ticket field (same box; label switches with mode) — <code>price × people</code> for travel.</p>
                     </div>
                     <div id="transitTicketField" hidden>
                         <label for="ticketPrice" id="transitTicketLabel">Bus ticket price (₹) per person</label>
@@ -3862,6 +3902,35 @@
         if (sbnd) {
             sbnd.addEventListener('input', function () {
                 updateTripOverview();
+            });
+        }
+
+        const BUDGET_SPLITTER_STORAGE = 'geotrip_budget_splitter_context';
+        function syncBudgetSplitterContext() {
+            try {
+                const ub = $('userBudget');
+                const pe = $('people');
+                const de = $('days');
+                const sbD = $('sbNumDays');
+                window.sessionStorage.setItem(BUDGET_SPLITTER_STORAGE, JSON.stringify({
+                    totalBudget: ub && ub.value.trim() ? ub.value.trim() : '',
+                    people: pe && pe.value.trim() ? pe.value.trim() : '',
+                    days: (de && de.value.trim()) ? de.value.trim() : (sbD && sbD.value.trim() ? sbD.value.trim() : ''),
+                    source: 'budget_calculator',
+                    ts: Date.now()
+                }));
+            } catch (e) { /* ignore */ }
+        }
+        ['userBudget', 'people', 'days', 'sbNumDays'].forEach(function (id) {
+            const el = $(id);
+            if (!el) return;
+            el.addEventListener('input', syncBudgetSplitterContext);
+            el.addEventListener('change', syncBudgetSplitterContext);
+        });
+        const splitterBtn = $('budgetSplitterHeaderBtn');
+        if (splitterBtn) {
+            splitterBtn.addEventListener('click', function () {
+                syncBudgetSplitterContext();
             });
         }
 

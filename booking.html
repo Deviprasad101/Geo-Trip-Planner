@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Booking · Travel options · GeoTrip Planner</title>
+    <!-- Leaflet: no SRI — mismatched hashes block the script and the map stays blank -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&amp;family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --ink: #1c1917;
+            --muted: #78716c;
+            --amber: #d97706;
+            --amber-soft: #fffbeb;
+            --card: #ffffff;
+            --line: rgba(251, 191, 36, 0.35);
+            --shadow: 0 20px 50px rgba(180, 83, 9, 0.08), 0 4px 20px rgba(15, 23, 42, 0.06);
+            --rail: #e7e5e4;
+        }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100dvh;
+            font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+            color: var(--ink);
+            background:
+                radial-gradient(900px 480px at 0% 0%, rgba(254, 243, 199, 0.95), transparent 50%),
+                radial-gradient(800px 420px at 100% 10%, rgba(204, 251, 241, 0.5), transparent 45%),
+                linear-gradient(180deg, #fffdfb, #fafaf9);
+        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+        .bar {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 0.85rem 1.1rem;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+        }
+        .bar a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #78350f;
+            border: 1px solid #e7e5e4;
+            background: #fff;
+        }
+        .bar a:hover { background: var(--amber-soft); border-color: rgba(251, 191, 36, 0.6); }
+        .wrap { max-width: 46rem; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+        .hero {
+            text-align: center;
+            padding: 0.5rem 0 1.5rem;
+        }
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fef3c7, #ffedd5);
+            border: 1px solid var(--line);
+            color: #b45309;
+        }
+        .hero h1 {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.75rem, 4.5vw, 2.35rem);
+            font-weight: 700;
+            margin: 0.85rem 0 0.5rem;
+            color: #78350f;
+            line-height: 1.15;
+        }
+        .hero p { margin: 0 auto; max-width: 34rem; color: var(--muted); font-size: 1rem; line-height: 1.55; }
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 1.25rem;
+            padding: 1.35rem 1.25rem;
+            box-shadow: var(--shadow);
+            margin-bottom: 1.25rem;
+        }
+        .panel h2 {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: 1.15rem;
+            margin: 0 0 1rem;
+            color: #78350f;
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+        }
+        .grid2 { display: grid; gap: 1rem; }
+        @media (min-width: 520px) { .grid2 { grid-template-columns: 1fr 1fr; } }
+        label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 0.7rem 0.9rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e7e5e4;
+            font-size: 1rem;
+            font-family: inherit;
+            background: #fffefb;
+        }
+        input:focus {
+            outline: none;
+            border-color: rgba(245, 158, 11, 0.65);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+        }
+        .row-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            margin-top: 1.1rem;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            padding: 0.75rem 1.2rem;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 0.9375rem;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: filter 0.15s ease, transform 0.12s ease;
+        }
+        .btn:hover { filter: brightness(1.04); transform: translateY(-1px); }
+        .btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+        .btn--primary {
+            color: #fffbeb;
+            background: linear-gradient(120deg, #ea580c, #d97706);
+            box-shadow: 0 8px 22px rgba(217, 119, 6, 0.28);
+        }
+        .btn--secondary {
+            color: #44403c;
+            background: #f5f5f4;
+            border: 1px solid #e7e5e4;
+        }
+        .hint { margin: 0.65rem 0 0; font-size: 0.8125rem; color: var(--muted); line-height: 1.45; }
+        .msg {
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.75rem;
+            font-size: 0.875rem;
+            display: none;
+        }
+        .msg--err { display: block; background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; }
+        .msg--ok { display: block; background: #f0fdf4; border: 1px solid #bbf7d0; color: #166534; }
+        .msg--info { display: block; background: #fffbeb; border: 1px solid #fde68a; color: #92400e; }
+        .results { display: none; }
+        .results.is-visible { display: block; }
+        .route-line {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            padding: 0.75rem 1rem;
+            border-radius: 0.85rem;
+            background: linear-gradient(90deg, #fffbeb, #fff);
+            border: 1px dashed rgba(217, 119, 6, 0.35);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #57534e;
+            font-size: 0.9rem;
+        }
+        .route-line span.sep { color: #d6d3d1; }
+        .opts { display: grid; gap: 0.85rem; }
+        @media (min-width: 640px) { .opts { grid-template-columns: repeat(3, 1fr); } }
+        .opt {
+            position: relative;
+            padding: 1.15rem 1rem;
+            border-radius: 1.1rem;
+            border: 1px solid #e7e5e4;
+            background: linear-gradient(165deg, #fffefb 0%, #fafaf9 100%);
+            overflow: hidden;
+            transition: box-shadow 0.2s ease, transform 0.15s ease;
+        }
+        .opt:hover { box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08); transform: translateY(-2px); }
+        .opt::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            border-radius: 1.1rem 1.1rem 0 0;
+        }
+        .opt--train::before { background: linear-gradient(90deg, #6366f1, #a5b4fc); }
+        .opt--bus::before { background: linear-gradient(90deg, #0ea5e9, #7dd3fc); }
+        .opt--cab::before { background: linear-gradient(90deg, #10b981, #6ee7b7); }
+        .opt__icon { font-size: 1.75rem; line-height: 1; margin-bottom: 0.35rem; }
+        .opt__name { font-weight: 800; font-size: 0.95rem; color: #44403c; }
+        .opt__price { font-family: "Fraunces", Georgia, serif; font-size: 1.35rem; font-weight: 700; color: #92400e; margin: 0.35rem 0 0.15rem; }
+        .opt__time { font-size: 0.8125rem; color: var(--muted); font-weight: 600; }
+        .fineprint {
+            margin-top: 1.25rem;
+            font-size: 0.75rem;
+            color: var(--muted);
+            line-height: 1.5;
+            text-align: center;
+        }
+        .fineprint a { color: #0d9488; }
+        .map-wrap {
+            margin-top: 1rem;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            background: #e7e5e4;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.04);
+        }
+        #routeMap {
+            height: 280px;
+            width: 100%;
+            min-height: 220px;
+            z-index: 1;
+        }
+        @media (min-width: 640px) {
+            #routeMap { height: 340px; min-height: 280px; }
+        }
+        .map-caption {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--muted);
+            background: #fafaf9;
+            border-top: 1px solid #e7e5e4;
+        }
+    </style>
+</head>
+<body>
+    <header class="bar">
+        <a href="main_page.html"><span class="material-symbols-outlined" style="font-size:20px" aria-hidden="true">arrow_back</span> GeoTrip home</a>
+        <a href="budget_calculator.html"><span class="material-symbols-outlined" style="font-size:20px" aria-hidden="true">map</span> Map planner</a>
+    </header>
+
+    <div class="wrap">
+        <div class="hero">
+            <span class="pill"><span class="material-symbols-outlined" style="font-size:16px" aria-hidden="true">route</span> Level 1 · Trip helper</span>
+            <h1>Travel options</h1>
+            <p>Type <strong>source</strong> and <strong>destination</strong> — we draw the <strong>road route</strong> on the map, fill distance automatically, then show indicative train, bus, and cab options (not live booking).</p>
+        </div>
+
+        <section class="panel" aria-labelledby="formTitle">
+            <h2 id="formTitle"><span class="material-symbols-outlined" aria-hidden="true">edit_location_alt</span> Your route</h2>
+            <div class="grid2">
+                <div>
+                    <label for="src">Source</label>
+                    <input type="text" id="src" placeholder="e.g. Tirupati Railway Station" autocomplete="off"/>
+                </div>
+                <div>
+                    <label for="dst">Destination</label>
+                    <input type="text" id="dst" placeholder="e.g. Tirumala" autocomplete="off"/>
+                </div>
+            </div>
+            <div class="map-wrap" aria-label="Route map">
+                <div id="routeMap" role="application" aria-label="Map showing road route between source and destination"></div>
+                <div class="map-caption">
+                    <span id="mapStatus">Enter source and destination — route appears here.</span>
+                    <span>© OpenStreetMap · OSRM</span>
+                </div>
+            </div>
+            <div style="margin-top:1rem">
+                <label for="dist">Distance (km) <span style="text-transform:none;font-weight:500;color:var(--muted)">— auto from route</span></label>
+                <input type="number" id="dist" min="0" step="0.1" inputmode="decimal" placeholder="Filled when route loads" readonly/>
+            </div>
+            <p class="hint">Distance and fares update <strong>automatically</strong> a moment after both fields have text (geocode + OSRM driving route). You can edit places anytime to refresh.</p>
+            <div class="row-actions">
+                <button type="button" class="btn btn--secondary" id="btnRefresh"><span class="material-symbols-outlined" style="font-size:20px" aria-hidden="true">refresh</span> Refresh route</button>
+            </div>
+            <div id="msg" class="msg" role="status"></div>
+        </section>
+
+        <section class="panel results" id="results" aria-live="polite">
+            <h2><span class="material-symbols-outlined" aria-hidden="true">payments</span> Indicative options</h2>
+            <div class="route-line" id="routeSummary"></div>
+            <div class="opts">
+                <article class="opt opt--train" aria-labelledby="tTrain">
+                    <div class="opt__icon" aria-hidden="true">🚆</div>
+                    <div class="opt__name" id="tTrain">Train</div>
+                    <div class="opt__price" id="pTrain">—</div>
+                    <div class="opt__time" id="hTrain">—</div>
+                </article>
+                <article class="opt opt--bus" aria-labelledby="tBus">
+                    <div class="opt__icon" aria-hidden="true">🚌</div>
+                    <div class="opt__name" id="tBus">Bus</div>
+                    <div class="opt__price" id="pBus">—</div>
+                    <div class="opt__time" id="hBus">—</div>
+                </article>
+                <article class="opt opt--cab" aria-labelledby="tCab">
+                    <div class="opt__icon" aria-hidden="true">🚕</div>
+                    <div class="opt__name" id="tCab">Cab</div>
+                    <div class="opt__price" id="pCab">—</div>
+                    <div class="opt__time" id="hCab">—</div>
+                </article>
+            </div>
+        </section>
+
+        <p class="fineprint">Fares use a simple demo formula (not official rail or taxi rates). Routing data © <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer" target="_blank">OpenStreetMap</a> contributors.</p>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+(function () {
+    var BIAS = ', Andhra Pradesh, India';
+    var DEBOUNCE_MS = 950;
+    var MIN_LEN = 2;
+    var map = null;
+    var routeLayer = null;
+    var markerLayer = null;
+    var baseTiles = null;
+    var debounceTimer = null;
+    var gen = 0;
+
+    function getTravelOptions(distance) {
+        var d = Number(distance);
+        return {
+            train: Math.round(d * 0.5),
+            bus: Math.round(d * 1),
+            cab: Math.round(50 + d * 12)
+        };
+    }
+
+    function getTravelTimesHours(distance) {
+        var d = Number(distance);
+        if (!isFinite(d) || d <= 0) return { train: 0, bus: 0, cab: 0 };
+        return {
+            train: Math.max(0.5, d / 52),
+            bus: Math.max(0.5, d / 32),
+            cab: Math.max(0.25, d / 48)
+        };
+    }
+
+    function fmtRupee(n) {
+        if (!isFinite(n)) return '—';
+        try { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+        catch (e) { return '₹' + String(Math.round(n)); }
+    }
+
+    function fmtHours(h) {
+        if (!isFinite(h) || h <= 0) return '—';
+        var x = Math.round(h * 10) / 10;
+        var s = (x % 1 === 0) ? String(x) : String(x);
+        return s + ' hrs';
+    }
+
+    function setMsg(type, text) {
+        var el = document.getElementById('msg');
+        if (!el) return;
+        el.className = 'msg';
+        if (!text) { el.style.display = 'none'; return; }
+        el.style.display = 'block';
+        el.textContent = text;
+        if (type === 'err') el.classList.add('msg--err');
+        else if (type === 'ok') el.classList.add('msg--ok');
+        else el.classList.add('msg--info');
+    }
+
+    function setMapStatus(t) {
+        var el = document.getElementById('mapStatus');
+        if (el) el.textContent = t;
+    }
+
+    function escapeHtml(s) {
+        var d = document.createElement('div');
+        d.textContent = s;
+        return d.innerHTML;
+    }
+
+    function ensureMap() {
+        if (typeof L === 'undefined') {
+            throw new Error('Map library failed to load. Check network / ad-blocker.');
+        }
+        if (map) {
+            window.setTimeout(function () { map.invalidateSize(); }, 80);
+            return;
+        }
+        map = L.map('routeMap', { scrollWheelZoom: true, zoomControl: true });
+        baseTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>'
+        }).addTo(map);
+        routeLayer = L.layerGroup().addTo(map);
+        markerLayer = L.layerGroup().addTo(map);
+        map.setView([13.6288, 79.4192], 11);
+        window.setTimeout(function () { if (map) map.invalidateSize(); }, 50);
+        window.setTimeout(function () { if (map) map.invalidateSize(); }, 300);
+    }
+
+    function clearRouteLayers() {
+        if (routeLayer) routeLayer.clearLayers();
+        if (markerLayer) markerLayer.clearLayers();
+    }
+
+    function showResults(src, dst, km) {
+        var o = getTravelOptions(km);
+        var t = getTravelTimesHours(km);
+        document.getElementById('pTrain').textContent = fmtRupee(o.train);
+        document.getElementById('pBus').textContent = fmtRupee(o.bus);
+        document.getElementById('pCab').textContent = fmtRupee(o.cab);
+        document.getElementById('hTrain').textContent = '~ ' + fmtHours(t.train);
+        document.getElementById('hBus').textContent = '~ ' + fmtHours(t.bus);
+        document.getElementById('hCab').textContent = '~ ' + fmtHours(t.cab);
+        var rs = document.getElementById('routeSummary');
+        var a = (src || '').trim() || '—';
+        var b = (dst || '').trim() || '—';
+        rs.innerHTML = '<span>' + escapeHtml(a) + '</span> <span class="sep">→</span> <span>' + escapeHtml(b) + '</span> <span class="sep">·</span> <span>' + escapeHtml(String(Math.round(km * 10) / 10)) + ' km</span>';
+        document.getElementById('results').classList.add('is-visible');
+    }
+
+    async function nominatimOne(q) {
+        var url =
+            'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=in&addressdetails=0&q=' +
+            encodeURIComponent(q);
+        var r = await fetch(url, {
+            headers: {
+                Accept: 'application/json',
+                'Accept-Language': 'en'
+            },
+            mode: 'cors'
+        });
+        if (!r.ok) throw new Error('Geocode HTTP ' + r.status);
+        var data = await r.json();
+        if (!data || !data.length) throw new Error('Place not found');
+        return { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+    }
+
+    async function osrmRouteGeoJson(lon1, lat1, lon2, lat2) {
+        var coords = lon1 + ',' + lat1 + ';' + lon2 + ',' + lat2;
+        var url =
+            'https://router.project-osrm.org/route/v1/driving/' +
+            coords +
+            '?overview=full&geometries=geojson&alternatives=false';
+        var r = await fetch(url, { mode: 'cors' });
+        if (!r.ok) throw new Error('Route HTTP ' + r.status);
+        var data = await r.json();
+        if (data.code !== 'Ok' || !data.routes || !data.routes[0]) {
+            throw new Error(data.message || data.code || 'No driving route');
+        }
+        var rt = data.routes[0];
+        if (!rt.geometry || !rt.geometry.coordinates || !rt.geometry.coordinates.length) {
+            throw new Error('Empty route geometry');
+        }
+        return {
+            km: rt.distance / 1000,
+            geometry: rt.geometry
+        };
+    }
+
+    async function runRouteAndCalculate(myGen) {
+        var srcEl = document.getElementById('src');
+        var dstEl = document.getElementById('dst');
+        var src = srcEl.value.trim();
+        var dst = dstEl.value.trim();
+        setMsg('', '');
+        if (src.length < MIN_LEN || dst.length < MIN_LEN) {
+            setMapStatus('Type at least ' + MIN_LEN + ' characters in both fields.');
+            document.getElementById('dist').value = '';
+            clearRouteLayers();
+            document.getElementById('results').classList.remove('is-visible');
+            return;
+        }
+        setMapStatus('Finding places and road route…');
+        setMsg('info', 'Loading map route and fares…');
+        try {
+            ensureMap();
+            clearRouteLayers();
+            var a = await nominatimOne(src + BIAS);
+            await new Promise(function (r) { setTimeout(r, 1100); });
+            if (myGen !== gen) return;
+            var b = await nominatimOne(dst + BIAS);
+            if (myGen !== gen) return;
+            var route = await osrmRouteGeoJson(a.lon, a.lat, b.lon, b.lat);
+            if (myGen !== gen) return;
+            if (!isFinite(route.km) || route.km <= 0) throw new Error('Invalid distance');
+            if (route.km < 0.05) throw new Error('Start and end are the same (or too close).');
+
+            L.geoJSON(route.geometry, {
+                style: { color: '#c2410c', weight: 5, opacity: 0.92 }
+            }).addTo(routeLayer);
+
+            L.marker([a.lat, a.lon], { title: 'Start' }).addTo(markerLayer);
+            L.marker([b.lat, b.lon], { title: 'End' }).addTo(markerLayer);
+
+            var gj = L.geoJSON(route.geometry);
+            map.fitBounds(gj.getBounds(), { padding: [28, 28], maxZoom: 14 });
+            window.setTimeout(function () { if (map) map.invalidateSize(); }, 60);
+
+            var kmRounded = Math.round(route.km * 10) / 10;
+            document.getElementById('dist').value = String(kmRounded);
+            showResults(src, dst, route.km);
+            setMapStatus('Road route · ' + kmRounded + ' km');
+            setMsg('ok', 'Route drawn on the map. Indicative train / bus / cab options updated.');
+        } catch (e) {
+            if (myGen !== gen) return;
+            clearRouteLayers();
+            document.getElementById('dist').value = '';
+            document.getElementById('results').classList.remove('is-visible');
+            setMapStatus('Could not build route — check spelling or try again.');
+            var detail = (e && e.message) ? String(e.message) : 'Unknown error';
+            console.warn('GeoTrip booking route:', detail);
+            setMsg(
+                'err',
+                'Could not load route — try clearer place names, or open this site over http:// (not file://). Check the browser console for details.'
+            );
+        }
+    }
+
+    function scheduleRoute() {
+        gen += 1;
+        window.clearTimeout(debounceTimer);
+        debounceTimer = window.setTimeout(function () {
+            var myGen = gen;
+            runRouteAndCalculate(myGen);
+        }, DEBOUNCE_MS);
+    }
+
+    function bootMap() {
+        try {
+            ensureMap();
+            setMapStatus('Map ready — enter source and destination above.');
+        } catch (e) {
+            setMapStatus('Map could not start: open this page over http(s), not file://');
+            setMsg('err', 'Map library did not load. Use “Live Server” / host on http://localhost, or disable extensions blocking unpkg.com.');
+        }
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bootMap);
+    } else {
+        bootMap();
+    }
+
+    document.getElementById('src').addEventListener('input', scheduleRoute);
+    document.getElementById('dst').addEventListener('input', scheduleRoute);
+    document.getElementById('src').addEventListener('change', scheduleRoute);
+    document.getElementById('dst').addEventListener('change', scheduleRoute);
+    document.getElementById('btnRefresh').addEventListener('click', function () {
+        gen += 1;
+        window.clearTimeout(debounceTimer);
+        var myGen = gen;
+        runRouteAndCalculate(myGen);
+    });
+
+    window.addEventListener('resize', function () {
+        if (map) map.invalidateSize();
+    });
+})();
+    </script>
+</body>
+</html>
