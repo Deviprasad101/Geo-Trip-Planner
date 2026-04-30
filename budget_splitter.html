@@ -23,7 +23,7 @@
             --track: #e7e5e4;
         }
         * { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { font-size: 105%; scroll-behavior: smooth; }
         body {
             margin: 0;
             min-height: 100dvh;
@@ -186,7 +186,7 @@
         .hero p {
             margin: 0 auto;
             max-width: 36rem;
-            font-size: 1rem;
+            font-size: 1.15rem;
             color: var(--muted);
             line-height: 1.55;
         }
@@ -205,7 +205,7 @@
             align-items: center;
             gap: 0.5rem;
             font-family: "Fraunces", serif;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin: 0 0 1rem;
         }
@@ -218,7 +218,7 @@
         }
         .field label {
             display: block;
-            font-size: 0.78rem;
+            font-size: 0.95rem;
             font-weight: 600;
             letter-spacing: 0.04em;
             text-transform: uppercase;
@@ -233,7 +233,7 @@
             border: 1px solid rgba(214, 211, 209, 0.95);
             background: var(--input-bg);
             color: var(--text);
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-family: inherit;
         }
         .field input:focus,
@@ -257,7 +257,7 @@
             background: #fafaf9;
             color: var(--text);
             font-family: inherit;
-            font-size: 0.875rem;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
             transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
@@ -269,7 +269,7 @@
             box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
         }
         .tier-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-        .tier-btn small { display: block; font-size: 0.7rem; font-weight: 500; color: var(--muted); margin-top: 0.2rem; }
+        .tier-btn small { display: block; font-size: 0.85rem; font-weight: 500; color: var(--muted); margin-top: 0.2rem; }
         .actions {
             margin-top: 1.25rem;
             display: flex;
@@ -286,7 +286,7 @@
             border: none;
             border-radius: 999px;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             cursor: pointer;
             color: #fffbeb;
@@ -303,7 +303,7 @@
             background: #fafaf9;
             color: var(--text);
             font-family: inherit;
-            font-size: 0.875rem;
+            font-size: 1.05rem;
             font-weight: 600;
             cursor: pointer;
         }
@@ -315,7 +315,7 @@
             background: #fef2f2;
             border: 1px solid #fecaca;
             color: #991b1b;
-            font-size: 0.875rem;
+            font-size: 1.05rem;
             display: none;
         }
         .err.is-visible { display: block; }
@@ -332,15 +332,15 @@
             background: linear-gradient(160deg, #fffefb 0%, #faf8f5 100%);
             border: 1px solid rgba(251, 191, 36, 0.22);
         }
-        .stat__label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+        .stat__label { font-size: 0.9rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
         .stat__value {
             margin: 0.35rem 0 0;
             font-family: "Fraunces", serif;
-            font-size: 1.45rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #92400e;
         }
-        .stat__hint { margin: 0.35rem 0 0; font-size: 0.78rem; color: var(--muted); line-height: 1.4; }
+        .stat__hint { margin: 0.35rem 0 0; font-size: 0.95rem; color: var(--muted); line-height: 1.4; }
         .cats { margin-top: 1rem; display: flex; flex-direction: column; gap: 0.85rem; }
         .cat {
             display: grid;
@@ -353,9 +353,9 @@
             border: 1px solid rgba(254, 243, 199, 0.85);
         }
         .cat__icon { font-size: 1.35rem; line-height: 1; }
-        .cat__name { font-weight: 700; font-size: 0.95rem; }
-        .cat__pct { font-size: 0.75rem; color: var(--muted); font-weight: 600; }
-        .cat__amt { font-weight: 700; color: #78350f; font-variant-numeric: tabular-nums; }
+        .cat__name { font-weight: 700; font-size: 1.15rem; }
+        .cat__pct { font-size: 0.9rem; color: var(--muted); font-weight: 600; }
+        .cat__amt { font-weight: 700; color: #78350f; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
         .bar {
             grid-column: 1 / -1;
             height: 0.45rem;
@@ -376,7 +376,7 @@
         .bar--activities > i { background: linear-gradient(90deg, #6ee7b7, #a7f3d0); }
         .source-note {
             margin-top: 0.85rem;
-            font-size: 0.8125rem;
+            font-size: 0.95rem;
             color: var(--muted);
             line-height: 1.45;
         }
@@ -388,7 +388,7 @@
         }
         .user-split-section > .user-split-heading {
             font-family: "Fraunces", serif;
-            font-size: 1.05rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: #78350f;
             margin: 0 0 0.35rem;
@@ -398,7 +398,7 @@
         }
         .user-split-lead {
             margin: 0 0 1rem;
-            font-size: 0.875rem;
+            font-size: 1.05rem;
             color: var(--muted);
             line-height: 1.45;
         }
@@ -416,14 +416,14 @@
         }
         .user-card__title {
             font-weight: 800;
-            font-size: 0.9rem;
+            font-size: 1.15rem;
             color: #92400e;
             margin: 0 0 0.5rem;
             letter-spacing: 0.02em;
         }
         .user-card__total {
             font-family: "Fraunces", serif;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #78350f;
             margin: 0 0 0.65rem;
@@ -433,7 +433,7 @@
         .user-card__total span {
             display: block;
             font-family: "Outfit", sans-serif;
-            font-size: 0.68rem;
+            font-size: 0.85rem;
             font-weight: 600;
             color: var(--muted);
             text-transform: uppercase;
@@ -445,7 +445,7 @@
             justify-content: space-between;
             align-items: baseline;
             gap: 0.5rem;
-            font-size: 0.78rem;
+            font-size: 0.95rem;
             padding: 0.28rem 0;
             border-bottom: 1px dashed rgba(231, 229, 228, 0.95);
         }
@@ -454,7 +454,7 @@
         .user-card__amt { font-weight: 700; color: #57534e; font-variant-numeric: tabular-nums; }
         .user-split-note {
             margin-top: 0.85rem;
-            font-size: 0.75rem;
+            font-size: 0.9rem;
             color: var(--muted);
             line-height: 1.4;
         }
