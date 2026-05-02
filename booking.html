@@ -404,6 +404,474 @@
             display: none;
         }
         .toast.is-visible { display: block; }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .leaflet-container { font-family: inherit; }
+
+        /* Emergency hospitals FAB + panel (matches main_page.html) */
+        .emergency-fab {
+            position: fixed;
+            right: 1rem;
+            bottom: 1rem;
+            z-index: 10001;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            color: #fff;
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            box-shadow: 0 6px 22px rgba(153, 27, 27, 0.45);
+            font-family: inherit;
+        }
+
+        .emergency-fab:hover {
+            filter: brightness(1.06);
+        }
+
+        .emergency-fab .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+
+        .emergency-panel-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(15, 23, 42, 0.42);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .emergency-panel-backdrop.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .emergency-panel {
+            position: fixed;
+            top: 0.75rem;
+            right: 0;
+            width: min(100vw - 1rem, 22rem);
+            max-height: min(88vh, 34rem);
+            z-index: 9999;
+            background: #fff;
+            border-radius: 1rem 0 0 1rem;
+            box-shadow: -10px 0 36px rgba(0, 0, 0, 0.18);
+            transform: translateX(105%);
+            transition: transform 0.22s ease;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+
+        .emergency-panel.is-open {
+            transform: translateX(0);
+        }
+
+        .emergency-panel__head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+            padding: 1rem 1rem 0.5rem;
+            background: linear-gradient(180deg, #fef2f2 0%, #fff 100%);
+            border-bottom: 1px solid #fecaca;
+        }
+
+        .emergency-panel__head h2 {
+            margin: 0;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #991b1b;
+        }
+
+        .emergency-panel__close {
+            border: none;
+            background: #fff;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            color: #64748b;
+        }
+
+        .emergency-panel__lead {
+            margin: 0;
+            padding: 0.65rem 1rem;
+            font-size: 0.8125rem;
+            color: #475569;
+            line-height: 1.45;
+        }
+
+        .emergency-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0 0.75rem 0.75rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .emergency-list ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .emergency-list li {
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.65rem;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 0.4rem;
+            font-size: 0.8125rem;
+            color: #0f172a;
+        }
+
+        .emergency-list li span.meta {
+            display: block;
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 0.2rem;
+        }
+
+        .emergency-panel__foot {
+            padding: 0.75rem 1rem 1rem;
+            border-top: 1px solid #e2e8f0;
+            background: #f8fafc;
+        }
+
+        .emergency-panel__foot .btn-emergency-map {
+            width: 100%;
+            border: none;
+            border-radius: 0.75rem;
+            padding: 0.65rem 1rem;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            cursor: pointer;
+            color: #fff;
+            background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+        }
+
+        .emergency-panel__foot .btn-emergency-map:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        .emergency-hint {
+            margin: 0.5rem 0 0;
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .emergency-map-card {
+            margin-top: 1.25rem;
+            padding: 1rem 1.05rem 1.15rem;
+            border-radius: 0.85rem;
+            border: 1px solid var(--gov-border);
+            background: var(--gov-card);
+            box-shadow: var(--gov-shadow);
+        }
+
+        /* Rich map popup cards (matches main_page.html) */
+        .leaflet-popup.pkg-map-popup .leaflet-popup-content-wrapper {
+            border-radius: 16px;
+            padding: 0;
+            overflow: hidden;
+            border: 1px solid #dbe5f1;
+            box-shadow: 0 14px 34px rgba(15, 23, 42, 0.2);
+            background: #ffffff;
+        }
+
+        .leaflet-popup.pkg-map-popup .leaflet-popup-content {
+            margin: 0;
+            min-width: 248px;
+        }
+
+        .leaflet-popup.pkg-map-popup .leaflet-popup-tip {
+            background: #ffffff;
+            border: 1px solid #dbe5f1;
+        }
+
+        .pkg-popup-card {
+            font-family: "Public Sans", system-ui, sans-serif;
+            color: #0f172a;
+        }
+
+        .pkg-popup-topbar {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.45rem 0.6rem;
+            background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+            color: #ecfeff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .pkg-popup-stop-pill {
+            border-radius: 999px;
+            padding: 0.2rem 0.55rem;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            line-height: 1;
+        }
+
+        .pkg-popup-title-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            padding: 0.72rem 0.78rem 0.5rem;
+        }
+
+        .pkg-popup-icon {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.6rem;
+            border: 1px solid #bbf7d0;
+            background: #f0fdf4;
+            color: #166534;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .pkg-popup-title {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+
+        .pkg-popup-meta {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            border: 1px solid #f1d7b0;
+            background: #fff7ed;
+            color: #9a3412;
+            font-size: 0.73rem;
+            font-weight: 700;
+            padding: 0.26rem 0.58rem;
+            margin: 0 0.78rem 0.45rem;
+        }
+
+        .pkg-popup-detail {
+            border-top: 1px solid #e2e8f0;
+            margin: 0 0.78rem;
+            padding: 0.45rem 0 0.6rem;
+        }
+
+        .pkg-popup-detail-label {
+            margin: 0;
+            font-size: 0.63rem;
+            color: #64748b;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .pkg-popup-detail-value {
+            margin: 0.32rem 0 0;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            padding: 0.38rem 0.52rem;
+            color: #1e293b;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .pkg-popup-foot {
+            margin: 0;
+            padding: 0 0.78rem 0.72rem;
+            color: #334155;
+            font-size: 0.95rem;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        .pkg-popup-card--start .pkg-popup-topbar {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+        }
+
+        .pkg-popup-card--start .pkg-popup-icon {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .place-card {
+            font-family: "Public Sans", system-ui, -apple-system, sans-serif;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.05);
+            background: #fff;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .place-card * {
+            box-sizing: border-box;
+        }
+
+        .place-card__ribbon {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 40px 8px 12px;
+            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            color: #f8fafc;
+        }
+
+        .place-card__ribbon-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .place-card__badge {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            padding: 4px 10px;
+            border-radius: 999px;
+            line-height: 1.2;
+        }
+
+        .place-card__status {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(248, 250, 252, 0.94);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .place-card__status strong {
+            color: #fef3c7;
+            font-weight: 700;
+        }
+
+        .place-card__hero {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            background: linear-gradient(180deg, #fdfcfa 0%, var(--pp-soft) 50%, #f8fafc 100%);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+        }
+
+        .place-card__icon-ring {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px solid rgba(15, 75, 110, 0.12);
+            box-shadow: 0 2px 10px rgba(15, 41, 64, 0.06);
+        }
+
+        .place-card__icon-ring .material-symbols-outlined {
+            font-size: 24px;
+            font-variation-settings: "FILL" 0, "wght" 500;
+        }
+
+        .place-card__title-wrap {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .place-card__title {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.35;
+        }
+
+        .place-card__body {
+            padding: 10px 12px 12px;
+            background: #fff;
+        }
+
+        .place-card__meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px 8px;
+            margin: 0;
+        }
+
+        .place-card__chip {
+            display: inline-flex;
+            align-items: center;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 7px;
+            background: var(--pp-soft);
+            color: var(--pp-accent-ink);
+            border: 1px solid rgba(15, 75, 110, 0.1);
+        }
+
+        .place-card__chip--accent {
+            background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%);
+            border-color: rgba(180, 83, 9, 0.22);
+            color: #92400e;
+        }
+
+        .place-card__section {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .place-card__label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .place-card__slots {
+            font-size: 11.5px;
+            font-weight: 500;
+            padding: 6px 9px;
+            border-radius: 7px;
+            background: #f8fafc;
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            color: #334155;
+        }
+
+        .leaflet-popup-content {
+            width: auto !important;
+            min-width: 380px !important;
+            max-width: 520px !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
             .tab-panel.is-active,
             .cta,
@@ -414,6 +882,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 </head>
 <body>
     <header class="topbar">
@@ -554,7 +1023,32 @@
                 <p class="toast" aria-live="polite"></p>
             </section>
         </section>
+
+        <section class="emergency-map-card hidden" id="mapSection" aria-label="Emergency hospital map">
+            <input type="hidden" id="userStartLocation" value="Tirupati" />
+            <p id="pkgMapStatus" role="status" style="font-size:0.85rem;color:var(--gov-muted);margin:0 0 0.5rem"></p>
+            <div id="pkgTripMap" style="width:100%;min-height:380px;border-radius:0.72rem;border:1px solid var(--gov-border);overflow:hidden" aria-label="Interactive map"></div>
+        </section>
+
     </main>
+
+    <div id="emergencyBackdrop" class="emergency-panel-backdrop" aria-hidden="true"></div>
+    <div id="emergencyPanel" class="emergency-panel" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle" hidden aria-hidden="true">
+        <div class="emergency-panel__head">
+            <h2 id="emergencyTitle">Emergency - Hospitals</h2>
+            <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">x</button>
+        </div>
+        <p class="emergency-panel__lead">Hospitals listed in the Tirupati dataset. Open the map to see the <strong>three nearest</strong> to your route start with an OSRM-optimized driving path.</p>
+        <div id="emergencyListRoot" class="emergency-list"></div>
+        <div class="emergency-panel__foot">
+            <button type="button" class="btn-emergency-map" id="emergencyShowMapBtn">Show nearest 3 on map</button>
+            <p id="emergencyMapHint" class="emergency-hint" role="status"></p>
+        </div>
+    </div>
+    <button type="button" class="emergency-fab" id="emergencyFab" aria-haspopup="dialog" aria-controls="emergencyPanel" title="Emergency hospitals">
+        <span class="material-symbols-outlined" aria-hidden="true">local_hospital</span>
+        Emergency
+    </button>
 
     <script>
         (function () {
@@ -602,6 +1096,568 @@
                 });
             });
         })();
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+(function () {
+            var CSV_URL = 'tirupati_places_with_hospitals.csv';
+            var OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving';
+            var OSRM_TRIP_BASE = 'https://router.project-osrm.org/trip/v1/driving';
+
+            var places = [];
+            var hospitalStubs = [];
+            var hospitalGeocodeCache = {};
+            var lastSelectedStops = [];
+            var activeTierMeta = null;
+
+            var pkgMap = null;
+            var pkgMarkersLayer = null;
+            var pkgRouteLayer = null;
+            var pkgStartLayer = null;
+            var pkgHospitalLayer = null;
+            var routeAbort = null;
+            var emergencyAbort = null;
+            /** Fast fallback coords for emergency hospitals (used before network geocoding). */
+            var EMERGENCY_HOSPITAL_LATLNG_FALLBACK = {
+                'SVIMS Hospital': { lat: 13.642478, lng: 79.405348 },
+                'Ruia Government Hospital': { lat: 13.644965, lng: 79.405757 },
+                'Apollo Hospital Tirupati': { lat: 13.623068, lng: 79.429942 },
+                'Sri Chakra Hospital': { lat: 13.6360533, lng: 79.4210585 },
+                'Aster Narayanadri Hospital': { lat: 13.62846, lng: 79.463813 },
+                'Helios Hospital': { lat: 13.638177, lng: 79.423773 },
+                'Venkataramana Hospital': { lat: 13.6353807, lng: 79.4199327 },
+                'Suraksha Hospital': { lat: 13.635603, lng: 79.4204007 },
+                'Mother Hospital': { lat: 13.6382376, lng: 79.4184239 },
+                'Life Line Hospital': { lat: 13.6367942, lng: 79.4214374 },
+                'Balaji Hospital': { lat: 13.6366949, lng: 79.4274731 },
+                'Sree Ramadevi Hospital': { lat: 13.638003, lng: 79.4171204 },
+                'Padmavathi Hospital': { lat: 13.6398667, lng: 79.4162768 },
+                'Lotus Hospital': { lat: 13.6372, lng: 79.4215 },
+                'Sai Sudha Hospital': { lat: 13.635545, lng: 79.4215715 },
+                'Annapurna Hospital': { lat: 13.6349, lng: 79.4202 },
+                'Medicover Hospital Tirupati': { lat: 13.6355541, lng: 79.4183153 },
+                'Sankalpa Hospital': { lat: 13.6346953, lng: 79.420532 },
+                "People's Hospital": { lat: 13.6316368, lng: 79.4231711 },
+                'Cure Hospital': { lat: 13.622838, lng: 79.409767 }
+            };
+
+            function categoryKeyFromCsv(cat) {
+                var c = (cat || '').toLowerCase();
+                if (c.indexOf('hospital') !== -1) return 'hospital';
+                if (c.indexOf('food') !== -1) return 'food';
+                if (c.indexOf('adventure') !== -1) return 'adventure';
+                if (c.indexOf('wildlife') !== -1) return 'wildlife';
+                if (c.indexOf('temple') !== -1) return 'temple';
+                if (c.indexOf('sight') !== -1) return 'sightseeing';
+                return 'other';
+            }
+
+            function parseCSVLine(line) {
+                var parts = line.split(',');
+                if (parts.length < 6) return null;
+                var hName = (parts[6] || '').trim();
+                var hCat = (parts[7] || '').trim();
+                if (!(parts[0] || '').trim() && hName && hCat.toLowerCase().indexOf('hospital') !== -1) {
+                    var hTime = (parts[8] || '24 Hours').trim();
+                    return {
+                        name: hName,
+                        category: hCat,
+                        categoryKey: 'hospital',
+                        lat: NaN,
+                        lng: NaN,
+                        description: 'Hospital',
+                        timings: hTime,
+                        needsGeocode: true
+                    };
+                }
+                var name = (parts[0] || '').trim();
+                var category = (parts[1] || '').trim();
+                var lat = parseFloat(parts[2]);
+                var lng = parseFloat(parts[3]);
+                if (!name || isNaN(lat) || isNaN(lng)) return null;
+                var description = (parts[4] || '').trim();
+                var timings = (parts[5] || '').trim();
+                if (parts.length > 6) {
+                    var tail = parts.slice(6);
+                    var tailEmpty = tail.every(function (t) {
+                        return !(t || '').trim();
+                    });
+                    if (!tailEmpty && parts.length > 8) {
+                        timings = parts.slice(5, parts.length - 3).join(',').trim();
+                    }
+                }
+                return {
+                    name: name,
+                    category: category,
+                    categoryKey: categoryKeyFromCsv(category),
+                    lat: lat,
+                    lng: lng,
+                    description: description,
+                    timings: timings
+                };
+            }
+
+            function haversineKm(lat1, lng1, lat2, lng2) {
+                var R = 6371;
+                var toR = Math.PI / 180;
+                var dLat = (lat2 - lat1) * toR;
+                var dLng = (lng2 - lng1) * toR;
+                var a =
+                    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                    Math.cos(lat1 * toR) * Math.cos(lat2 * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+                return 2 * R * Math.asin(Math.min(1, Math.sqrt(a)));
+            }
+
+            function fetchOsrmTripOrder(waypointsLatLng, signal) {
+                if (!waypointsLatLng || waypointsLatLng.length < 3) return Promise.resolve(null);
+                var path = waypointsLatLng
+                    .map(function (w) {
+                        return w[1] + ',' + w[0];
+                    })
+                    .join(';');
+                var url = OSRM_TRIP_BASE + '/' + path + '?source=first&destination=last&roundtrip=false&overview=false';
+                return fetch(url, { signal: signal })
+                    .then(function (r) {
+                        return r.json();
+                    })
+                    .then(function (j) {
+                        if (!j || j.code !== 'Ok' || !Array.isArray(j.waypoints)) return null;
+                        var pairs = [];
+                        for (var i = 0; i < j.waypoints.length; i++) {
+                            var wi = j.waypoints[i].waypoint_index;
+                            if (typeof wi !== 'number') return null;
+                            pairs.push({ inputIdx: i, visitIdx: wi });
+                        }
+                        pairs.sort(function (a, b) {
+                            return a.visitIdx - b.visitIdx;
+                        });
+                        return pairs.map(function (x) {
+                            return x.inputIdx;
+                        });
+                    })
+                    .catch(function () {
+                        return null;
+                    });
+            }
+
+            function escapeHtml(s) {
+                var d = document.createElement('div');
+                d.textContent = s;
+                return d.innerHTML;
+            }
+
+            function buildStartPopupHtml(startLabel) {
+                return (
+                    '<article class="pkg-popup-card pkg-popup-card--start">' +
+                    '<div class="pkg-popup-topbar"><span class="pkg-popup-stop-pill">Route start</span><span>First point fixed</span></div>' +
+                    '<div class="pkg-popup-title-row">' +
+                    '<span class="pkg-popup-icon" aria-hidden="true">&#8962;</span>' +
+                    '<div><h3 class="pkg-popup-title">Start location</h3></div>' +
+                    '</div>' +
+                    '<p class="pkg-popup-meta">Navigation anchor</p>' +
+                    '<div class="pkg-popup-detail">' +
+                    '<p class="pkg-popup-detail-label">Address</p>' +
+                    '<p class="pkg-popup-detail-value">' +
+                    escapeHtml(startLabel || 'Current location') +
+                    '</p>' +
+                    '</div>' +
+                    '<p class="pkg-popup-foot">Trip order begins from this point, then follows nearest-next stops.</p>' +
+                    '</article>'
+                );
+            }
+            function buildHospitalPopupHtml(h, rankNumber) {
+                var o = { bg: '#fff0f2', fg: '#e11d48', sym: 'emergency' };
+                var accentInk = '#be123c'; 
+                var timings = escapeHtml(h && h.timings ? h.timings : '24 Hours');
+                var name = escapeHtml(h && h.name ? h.name : 'Hospital');
+
+                var coordsBlock = (h && h.lat && h.lng) ? '<div class="place-card__section"><div class="place-card__label">Coordinates</div><div class="place-card__slots" style="font-family: monospace; font-size:12px; background: #f1f5f9; border-color: #cbd5e1; display:flex; align-items:center; gap:6px; padding:8px 10px;"><span class="material-symbols-outlined" style="font-size:16px; color:#475569;">location_on</span> ' + h.lat + ', ' + h.lng + '</div></div>' : '';
+
+                var descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;"><li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#e11d48; font-size:16px; margin-top:2px;">play_arrow</span><span>Hospital from Tirupati CSV (emergency list only).</span></li></ul>';
+
+                return (
+                    '<div class="place-card" style="--pp-accent:' + o.fg + ';--pp-soft:' + o.bg + ';--pp-accent-ink:' + accentInk + ';">' +
+                    '<div class="place-card__ribbon">' +
+                    '<div class="place-card__ribbon-left">' +
+                    '<span class="place-card__badge" style="background-color: #e11d48; color: #fff;">Nearest ' + rankNumber + '</span>' +
+                    '<span class="place-card__status"><strong>Emergency route</strong></span>' +
+                    '</div></div>' +
+                    '<div class="place-card__hero">' +
+                    '<div class="place-card__icon-ring" aria-hidden="true">' +
+                    '<span class="material-symbols-outlined" style="color:' + o.fg + '">' + o.sym + '</span></div>' +
+                    '<div class="place-card__title-wrap"><h3 class="place-card__title">' + name + '</h3></div>' +
+                    '</div>' +
+                    '<div class="place-card__body">' +
+                    '<div class="place-card__meta">' +
+                    '<span class="place-card__chip place-card__chip--accent">Hospital</span>' +
+                    '<span class="place-card__chip">' + timings + '</span></div>' +
+                    coordsBlock +
+                    descHtml +
+                    '</div></div>'
+                );
+            }
+            function ensurePkgMap() {
+                if (typeof L === 'undefined') return false;
+                var el = document.getElementById('pkgTripMap');
+                if (!el) return false;
+                if (pkgMap) {
+                    if (!pkgHospitalLayer) pkgHospitalLayer = L.layerGroup().addTo(pkgMap);
+                    window.setTimeout(function () {
+                        pkgMap.invalidateSize();
+                    }, 120);
+                    return true;
+                }
+                pkgMap = L.map('pkgTripMap', { scrollWheelZoom: true }).setView([13.6288, 79.4192], 11);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap'
+                }).addTo(pkgMap);
+                pkgMarkersLayer = L.layerGroup().addTo(pkgMap);
+                pkgRouteLayer = L.layerGroup().addTo(pkgMap);
+                pkgStartLayer = L.layerGroup().addTo(pkgMap);
+                pkgHospitalLayer = L.layerGroup().addTo(pkgMap);
+                return true;
+            }
+
+            function setMapStatus(msg) {
+                var s = document.getElementById('pkgMapStatus');
+                if (s) s.textContent = msg || '';
+            }
+
+            function geocodeNominatim(query, signal) {
+                var url =
+                    'https://nominatim.openstreetmap.org/search?format=json&limit=5&countrycodes=in&q=' +
+                    encodeURIComponent(query);
+                return fetch(url, {
+                    signal: signal,
+                    headers: { Accept: 'application/json', 'Accept-Language': 'en' }
+                })
+                    .then(function (r) {
+                        return r.json();
+                    })
+                    .then(function (arr) {
+                        if (!arr || !arr.length) return null;
+                        return {
+                            lat: parseFloat(arr[0].lat),
+                            lng: parseFloat(arr[0].lon),
+                            label: arr[0].display_name || query
+                        };
+                    })
+                    .catch(function () {
+                        return null;
+                    });
+            }
+
+            function fetchOsrmRoute(latlngs, signal) {
+                if (!latlngs || latlngs.length < 2) return Promise.resolve(null);
+                var slice = latlngs.slice(0, 90);
+                var path = slice
+                    .map(function (p) {
+                        return p[1] + ',' + p[0];
+                    })
+                    .join(';');
+                var url = OSRM_BASE + '/' + path + '?overview=full&geometries=geojson';
+                return fetch(url, { signal: signal })
+                    .then(function (r) {
+                        return r.json();
+                    })
+                    .then(function (j) {
+                        if (j.code !== 'Ok' || !j.routes || !j.routes[0]) return null;
+                        return j.routes[0].geometry.coordinates.map(function (c) {
+                            return [c[1], c[0]];
+                        });
+                    })
+                    .catch(function () {
+                        return null;
+                    });
+            }
+
+            function renderEmergencyHospitalList() {
+                var root = document.getElementById('emergencyListRoot');
+                if (!root) return;
+                if (!hospitalStubs.length) {
+                    root.innerHTML = '<p style="padding:0.5rem 1rem;font-size:0.8125rem;color:#64748b;">No hospitals found in CSV.</p>';
+                    return;
+                }
+                var ul = document.createElement('ul');
+                hospitalStubs.forEach(function (h) {
+                    var li = document.createElement('li');
+                    li.innerHTML =
+                        '<strong>' +
+                        escapeHtml(h.name) +
+                        '</strong><span class="meta">' +
+                        escapeHtml(h.category) +
+                        (h.timings ? ' - ' + escapeHtml(h.timings) : '') +
+                        '</span>';
+                    ul.appendChild(li);
+                });
+                root.innerHTML = '';
+                root.appendChild(ul);
+            }
+
+            function openEmergencyPanel() {
+                var panel = document.getElementById('emergencyPanel');
+                var bd = document.getElementById('emergencyBackdrop');
+                if (panel) {
+                    panel.removeAttribute('hidden');
+                    panel.setAttribute('aria-hidden', 'false');
+                    panel.classList.add('is-open');
+                }
+                if (bd) {
+                    bd.classList.add('is-open');
+                    bd.setAttribute('aria-hidden', 'false');
+                }
+                renderEmergencyHospitalList();
+
+                var hint = document.getElementById('emergencyMapHint');
+                if (hint) {
+                    hint.textContent =
+                        'Tap Show nearest 3 on map to request live GPS first; if unavailable, a default start near Tirupati is used.';
+                    hint.style.color = '#64748b';
+                    hint.style.fontWeight = '';
+                }
+            }
+
+            function closeEmergencyPanel() {
+                var panel = document.getElementById('emergencyPanel');
+                var bd = document.getElementById('emergencyBackdrop');
+                if (panel) {
+                    panel.classList.remove('is-open');
+                    panel.setAttribute('hidden', 'hidden');
+                    panel.setAttribute('aria-hidden', 'true');
+                }
+                if (bd) {
+                    bd.classList.remove('is-open');
+                    bd.setAttribute('aria-hidden', 'true');
+                }
+            }
+
+            async function geocodeHospitalRecord(h, signal) {
+                if (hospitalGeocodeCache[h.name]) return hospitalGeocodeCache[h.name];
+                var fb = EMERGENCY_HOSPITAL_LATLNG_FALLBACK[h.name];
+                if (fb) {
+                    hospitalGeocodeCache[h.name] = { lat: fb.lat, lng: fb.lng, label: h.name };
+                    return hospitalGeocodeCache[h.name];
+                }
+                var q = h.name + ', Tirupati, Andhra Pradesh, India';
+                var geo = await geocodeNominatim(q, signal);
+                if (geo && !isNaN(geo.lat) && !isNaN(geo.lng)) {
+                    hospitalGeocodeCache[h.name] = { lat: geo.lat, lng: geo.lng, label: geo.label || q };
+                    return hospitalGeocodeCache[h.name];
+                }
+                return null;
+            }
+
+            async function geocodeAllHospitals(signal) {
+                var out = [];
+                for (var i = 0; i < hospitalStubs.length; i++) {
+                    if (signal.aborted) return out;
+                    var h = hospitalStubs[i];
+                    var cached = hospitalGeocodeCache[h.name];
+                    var fb = EMERGENCY_HOSPITAL_LATLNG_FALLBACK[h.name];
+                    var g = cached || (fb ? { lat: fb.lat, lng: fb.lng, label: h.name } : null);
+                    if (!g) g = await geocodeHospitalRecord(h, signal);
+                    if (g) {
+                        out.push({
+                            name: h.name,
+                            category: h.category,
+                            timings: h.timings,
+                            lat: g.lat,
+                            lng: g.lng
+                        });
+                    }
+                }
+                return out;
+            }
+
+            function showEmergencyNearestHospitals() {
+                var locInput = document.getElementById('userStartLocation');
+                var loc = locInput ? locInput.value.trim() : '';
+                var fallbackQuery = loc || 'Tirupati, India';
+                var btn = document.getElementById('emergencyShowMapBtn');
+                var hint = document.getElementById('emergencyMapHint');
+                if (emergencyAbort) emergencyAbort.abort();
+                emergencyAbort = new AbortController();
+                var signal = emergencyAbort.signal;
+                if (btn) btn.disabled = true;
+                if (hint) hint.textContent = 'Requesting live GPS...';
+
+                function fail(msg) {
+                    if (hint) hint.textContent = msg || 'Could not complete.';
+                    if (btn) btn.disabled = false;
+                }
+
+                function drawEmergencyFromStart(startLat, startLng, startLabel) {
+                    geocodeAllHospitals(signal)
+                        .then(function (geoHospitals) {
+                            if (signal.aborted) return;
+                            if (btn) btn.disabled = false;
+                            if (!geoHospitals.length) {
+                                fail('Could not geocode hospitals. Try again later.');
+                                return;
+                            }
+                            geoHospitals.sort(function (a, b) {
+                                return (
+                                    haversineKm(startLat, startLng, a.lat, a.lng) -
+                                    haversineKm(startLat, startLng, b.lat, b.lng)
+                                );
+                            });
+                            var top3 = geoHospitals.slice(0, 3);
+                            var mapSec = document.getElementById('mapSection');
+                            if (mapSec) mapSec.classList.remove('hidden');
+                            if (!ensurePkgMap()) {
+                                fail('Map failed to load.');
+                                return;
+                            }
+                            // Emergency mode must replace package-selected markers/routes completely.
+                            if (routeAbort) routeAbort.abort();
+                            if (pkgMarkersLayer) pkgMarkersLayer.clearLayers();
+                            if (pkgRouteLayer) pkgRouteLayer.clearLayers();
+                            if (pkgStartLayer) pkgStartLayer.clearLayers();
+                            if (pkgHospitalLayer) pkgHospitalLayer.clearLayers();
+                            var startIcon = L.divIcon({
+                                className: 'pkg-em-start',
+                                html:
+                                    '<div style="width:34px;height:34px;border-radius:50%;background:#0f172a;color:#fff;display:flex;align-items:center;justify-content:center;font-size:18px;">\u2302</div>',
+                                iconSize: [34, 34],
+                                iconAnchor: [17, 17]
+                            });
+                            L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
+                                .bindPopup(buildStartPopupHtml(startLabel), {
+                                    className: 'pkg-map-popup',
+                                    maxWidth: 520, minWidth: 380
+                                })
+                                .addTo(pkgHospitalLayer);
+
+                            top3.forEach(function (h, idx) {
+                                var n = idx + 1;
+                                var ic = L.divIcon({
+                                    className: 'pkg-hosp-icon',
+                                    html:
+                                        '<div style="min-width:30px;height:30px;border-radius:50%;background:#dc2626;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">' +
+                                        n +
+                                        '</div>',
+                                    iconSize: [30, 30],
+                                    iconAnchor: [15, 15]
+                                });
+                                L.marker([h.lat, h.lng], { icon: ic, zIndexOffset: 500 + idx })
+                                    .bindPopup(buildHospitalPopupHtml(h, n), {
+                                        className: 'pkg-map-popup',
+                                        maxWidth: 520, minWidth: 380
+                                    })
+                                    .addTo(pkgHospitalLayer);
+                            });
+
+                            var seqPts = [[startLat, startLng]].concat(
+                                top3.map(function (h) {
+                                    return [h.lat, h.lng];
+                                })
+                            );
+                            fetchOsrmTripOrder(seqPts, signal).then(function (orderIdx) {
+                                if (signal.aborted) return;
+                                var orderedPts =
+                                    orderIdx && orderIdx.length === seqPts.length
+                                        ? orderIdx.map(function (ix) {
+                                            return seqPts[ix];
+                                        })
+                                        : seqPts;
+                                fetchOsrmRoute(orderedPts, signal).then(function (coords) {
+                                    if (signal.aborted) return;
+                                    if (coords && coords.length >= 2) {
+                                        L.polyline(coords, { color: '#b91c1c', weight: 5, opacity: 0.9 }).addTo(pkgHospitalLayer);
+                                    } else {
+                                        L.polyline(orderedPts, {
+                                            color: '#f87171',
+                                            weight: 3,
+                                            dashArray: '6 5',
+                                            opacity: 0.85
+                                        }).addTo(pkgHospitalLayer);
+                                    }
+                                    var b = orderedPts.slice();
+                                    if (b.length && pkgMap) pkgMap.fitBounds(b, { padding: [40, 40], maxZoom: 13, animate: true });
+                                    window.setTimeout(function () {
+                                        if (pkgMap) pkgMap.invalidateSize();
+                                    }, 200);
+                                    if (hint) {
+                                        hint.textContent =
+                                            'Driving route via OSRM trip optimization (start fixed, last hospital fixed).';
+                                    }
+                                    setMapStatus('Emergency: 3 nearest hospitals + optimized driving route.');
+                                    closeEmergencyPanel();
+                                    if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                });
+                            });
+                        })
+                        .catch(function () {
+                            if (btn) btn.disabled = false;
+                            fail('Network error.');
+                        });
+                }
+
+                function tryGeocodedFallback() {
+                    if (hint) hint.textContent = 'Using default start (GPS unavailable)...';
+                    geocodeNominatim(fallbackQuery, signal).then(function (geo) {
+                        if (signal.aborted) return;
+                        if (!geo || isNaN(geo.lat)) {
+                            fail('Could not locate a start point. Try again later.');
+                            if (btn) btn.disabled = false;
+                            return;
+                        }
+                        drawEmergencyFromStart(geo.lat, geo.lng, geo.label || fallbackQuery);
+                    });
+                }
+
+                if (!navigator.geolocation) {
+                    if (hint) hint.textContent = 'Geocoding default start (no GPS API)...';
+                    tryGeocodedFallback();
+                    return;
+                }
+
+                navigator.geolocation.getCurrentPosition(
+                    function (pos) {
+                        if (signal.aborted) return;
+                        if (hint) hint.textContent = 'Locating nearest hospitals...';
+                        drawEmergencyFromStart(pos.coords.latitude, pos.coords.longitude, 'Live GPS');
+                    },
+                    function () {
+                        if (signal.aborted) return;
+                        tryGeocodedFallback();
+                    },
+                    { enableHighAccuracy: true, timeout: 25000, maximumAge: 0 }
+                );
+            }
+
+            var emergencyFabEl = document.getElementById('emergencyFab');
+            if (emergencyFabEl) emergencyFabEl.addEventListener('click', openEmergencyPanel);
+            var emergencyCloseBtn = document.getElementById('emergencyCloseBtn');
+            if (emergencyCloseBtn) emergencyCloseBtn.addEventListener('click', closeEmergencyPanel);
+            var emergencyBackdropEl = document.getElementById('emergencyBackdrop');
+            if (emergencyBackdropEl) emergencyBackdropEl.addEventListener('click', closeEmergencyPanel);
+            var emergencyShowMapBtn = document.getElementById('emergencyShowMapBtn');
+            if (emergencyShowMapBtn) emergencyShowMapBtn.addEventListener('click', showEmergencyNearestHospitals);
+
+            async function loadEmergencyCsv() {
+                try {
+                    var res = await fetch(CSV_URL);
+                    if (!res.ok) throw new Error('csv');
+                    var text = await res.text();
+                    var ls = text.trim().split(/\r?\n/);
+                    hospitalStubs = [];
+                    for (var i = 1; i < ls.length; i++) {
+                        var raw = ls[i];
+                        if (/^name of the place/i.test(raw) || /^name,/i.test(raw)) continue;
+                        var row = parseCSVLine(raw);
+                        if (!row) continue;
+                        if (row.needsGeocode) {
+                            hospitalStubs.push({ name: row.name, category: row.category, timings: row.timings });
+                        }
+                    }
+                } catch (e) { console.warn('Emergency CSV', e); }
+            }
+            loadEmergencyCsv();
+
+})();
+
     </script>
     <script src="chatbot.js" defer></script>
 </body>

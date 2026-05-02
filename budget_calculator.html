@@ -2901,7 +2901,7 @@
             <h2 id="emergencyTitle">Emergency - Hospitals</h2>
             <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">x</button>
         </div>
-        <p class="emergency-panel__lead">Hospitals from the Tirupati CSV only. <strong>Show nearest 3 on map</strong> uses your budget page start (sidebar <strong>Start location</strong>, main <strong>Starting location</strong>, or GPS) and shows them on the <strong>same trip map card</strong> below with OSRM driving route.</p>
+        <p class="emergency-panel__lead">Hospitals from the Tirupati CSV only. When you tap <strong>Show nearest 3 on map</strong>, we request your <strong>live GPS</strong> first; if that fails or you deny permission, we use sidebar <strong>Start location</strong> or main <strong>Starting location</strong>. Same trip map card below, OSRM route.</p>
         <div id="emergencyListRoot" class="emergency-list"></div>
         <div class="emergency-panel__foot">
             <button type="button" class="btn-emergency-map" id="emergencyShowMapBtn">Show nearest 3 on map</button>
@@ -3981,6 +3981,8 @@
     var lastOptimizedOrder = null;
     var geoWatchId = null;
     var lastGps = null;
+    /** Set only by emergency flow — never coupled to sidebar GPS toggle. */
+    var lastEmergencyGps = null;
     var geocodeCache = { q: '', lat: null, lng: null, label: '' };
     /** Nominatim viewbox: min_lon, min_lat, max_lon, max_lat (Chittoor district + Tirupati area). */
     var NOMINATIM_TIRUPATI_VIEWBOX = '78.72,13.08,80.12,14.22';
@@ -4873,6 +4875,31 @@
         }
         var openSignature = stopSetSignature(candidates);
 
+        /* GPS: watchPosition may not have fired yet; without lastGps we wrongly used the hidden typed start. */
+        if (isGeoEnabled() && !lastGps && navigator.geolocation) {
+            await new Promise(function (resolve) {
+                if (signal.aborted) {
+                    resolve();
+                    return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                    function (pos) {
+                        lastGps = {
+                            lat: pos.coords.latitude,
+                            lng: pos.coords.longitude,
+                            accuracy: pos.coords.accuracy
+                        };
+                        resolve();
+                    },
+                    function () {
+                        resolve();
+                    },
+                    { enableHighAccuracy: true, timeout: 20000, maximumAge: 60000 }
+                );
+            });
+        }
+        if (myGen !== routeGeneration) return;
+
         var startLat = null;
         var startLng = null;
         if (isGeoEnabled() && lastGps) {
@@ -5108,41 +5135,57 @@
     }
 
     async function resolveEmergencyStartBudget(signal) {
-        if (isGeoEnabled()) {
-            if (lastGps && lastGps.lat != null && lastGps.lng != null && !isNaN(lastGps.lat) && !isNaN(lastGps.lng)) {
-                return { lat: lastGps.lat, lng: lastGps.lng, label: 'Live GPS (trip map)', isGps: true };
+        function resolveFallbackTyped(resolveFn, sig) {
+            var fq = getTypedStartQueryForEmergency();
+            if (!fq) {
+                resolveFn(null);
+                return;
             }
-            return await new Promise(function (resolve) {
-                if (!navigator.geolocation) {
-                    resolve(null);
-                    return;
-                }
-                navigator.geolocation.getCurrentPosition(
-                    function (pos) {
-                        lastGps = {
-                            lat: pos.coords.latitude,
-                            lng: pos.coords.longitude,
-                            accuracy: pos.coords.accuracy
-                        };
-                        resolve({
-                            lat: pos.coords.latitude,
-                            lng: pos.coords.longitude,
-                            label: 'Live GPS',
-                            isGps: true
-                        });
-                    },
-                    function () {
-                        resolve(null);
-                    },
-                    { enableHighAccuracy: true, timeout: 18000, maximumAge: 0 }
-                );
-            });
+            geocodeAddress(fq, sig)
+                .then(function (g) {
+                    if (g) {
+                        resolveFn({ lat: g.lat, lng: g.lng, label: g.label || fq, isGps: false });
+                    } else {
+                        resolveFn(null);
+                    }
+                })
+                .catch(function () {
+                    resolveFn(null);
+                });
         }
-        var q = getTypedStartQueryForEmergency();
-        if (!q) return null;
-        var geo = await geocodeAddress(q, signal);
-        if (!geo) return null;
-        return { lat: geo.lat, lng: geo.lng, label: geo.label || q, isGps: false };
+
+        if (signal && signal.aborted) return null;
+
+        if (!navigator.geolocation) {
+            var q0 = getTypedStartQueryForEmergency();
+            if (!q0) return null;
+            var geo0 = await geocodeAddress(q0, signal);
+            if (!geo0) return null;
+            return { lat: geo0.lat, lng: geo0.lng, label: geo0.label || q0, isGps: false };
+        }
+
+        return await new Promise(function (resolve) {
+            navigator.geolocation.getCurrentPosition(
+                function (pos) {
+                    lastEmergencyGps = {
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        accuracy: pos.coords.accuracy
+                    };
+                    resolve({
+                        lat: pos.coords.latitude,
+                        lng: pos.coords.longitude,
+                        label: 'Live GPS (emergency)',
+                        isGps: true,
+                        accuracy: pos.coords.accuracy
+                    });
+                },
+                function () {
+                    resolveFallbackTyped(resolve, signal);
+                },
+                { enableHighAccuracy: true, timeout: 25000, maximumAge: 0 }
+            );
+        });
     }
 
     function renderBudgetEmergencyList() {
@@ -5185,7 +5228,13 @@
         }
         renderBudgetEmergencyList();
         var hint = $('emergencyMapHint');
-        if (hint) hint.textContent = '';
+        if (hint) {
+            hint.style.color = '';
+            hint.style.fontWeight = '';
+            hint.textContent =
+                'Tap Show nearest 3 on map to use live GPS first; if unavailable, your Start location / main Starting location is used.';
+            hint.style.color = '#64748b';
+        }
     }
 
     function closeBudgetEmergencyPanel() {
@@ -5389,14 +5438,14 @@
         emergencyAbortCtrl = new AbortController();
         var signal = emergencyAbortCtrl.signal;
         if (btn) btn.disabled = true;
-        if (hint) hint.textContent = 'Using your trip starting point...';
+        if (hint) hint.textContent = 'Requesting live GPS...';
 
         var start = await resolveEmergencyStartBudget(signal);
         if (signal.aborted) return;
         if (!start) {
             if (hint) {
                 hint.textContent =
-                    'Turn on GPS in the sidebar, or fill <strong>Starting location</strong> (main trip card) or <strong>Start location</strong> (sidebar).';
+                    'Live GPS was unavailable and no typed start was found. Allow location when prompted, or set <strong>Starting location</strong> / <strong>Start location</strong> and try again.';
             }
             if (btn) btn.disabled = false;
             return;
@@ -5459,12 +5508,18 @@
         if (routeAbortCtrl) routeAbortCtrl.abort();
 
         var addrHtml = escapeHtml(start.label).replace(/,/g, ',<wbr>');
+        var accM =
+            start.accuracy != null && !isNaN(start.accuracy)
+                ? start.accuracy
+                : lastEmergencyGps && lastEmergencyGps.accuracy != null
+                  ? lastEmergencyGps.accuracy
+                  : null;
         var metaLine = start.isGps
             ? 'GPS - ' +
               start.lat.toFixed(5) +
               ', ' +
               start.lng.toFixed(5) +
-              (lastGps && lastGps.accuracy != null ? ' - ±' + Math.round(lastGps.accuracy) + ' m' : '')
+              (accM != null ? ' - ±' + Math.round(accM) + ' m' : '')
             : 'Trip start (budget page) - ' + start.lat.toFixed(5) + ', ' + start.lng.toFixed(5);
         var startIcon = start.isGps ? iconStartHomeGps : iconStartHomeTyped;
         L.marker([start.lat, start.lng], { icon: startIcon, zIndexOffset: 700 })
