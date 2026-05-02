@@ -264,11 +264,18 @@
             height: 2.5rem;
             border: none;
             border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 255, 255, 0.35);
             color: #92400e;
-            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.12);
+            box-shadow: 0 1px 4px rgba(15, 23, 42, 0.08);
             cursor: pointer;
-            transition: background 0.15s ease, transform 0.15s ease;
+            transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .hero-slideshow__nav-btn .material-symbols-outlined {
+            opacity: 0.45;
+            transition: opacity 0.15s ease;
+        }
+        .hero-slideshow__nav-btn:hover .material-symbols-outlined {
+            opacity: 0.95;
         }
         #heroPrev {
             left: 0.75rem;
@@ -277,8 +284,9 @@
             right: 0.75rem;
         }
         .hero-slideshow__nav-btn:hover {
-            background: #fff;
+            background: rgba(255, 255, 255, 0.75);
             transform: translateY(-50%) scale(1.05);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
         }
         .hero-slideshow__nav-btn:focus-visible {
             outline: 2px solid #fbbf24;
