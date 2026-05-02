@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="light" lang="en">
 
 <head>
@@ -2216,27 +2216,34 @@
             }
 
             function buildHospitalPopupHtml(h, rankNumber) {
-                var timings = (h && h.timings ? h.timings : '24 Hours');
+                var o = { bg: '#fff0f2', fg: '#e11d48', sym: 'emergency' };
+                var accentInk = '#be123c'; 
+                var timings = escapeHtml(h && h.timings ? h.timings : '24 Hours');
+                var name = escapeHtml(h && h.name ? h.name : 'Hospital');
+
+                var coordsBlock = (h && h.lat && h.lng) ? '<div class="place-card__section"><div class="place-card__label">Coordinates</div><div class="place-card__slots" style="font-family: monospace; font-size:12px; background: #f1f5f9; border-color: #cbd5e1; display:flex; align-items:center; gap:6px; padding:8px 10px;"><span class="material-symbols-outlined" style="font-size:16px; color:#475569;">location_on</span> ' + h.lat + ', ' + h.lng + '</div></div>' : '';
+
+                var descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;"><li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#e11d48; font-size:16px; margin-top:2px;">play_arrow</span><span>Hospital from Tirupati CSV (emergency list only).</span></li></ul>';
+
                 return (
-                    '<article class="pkg-popup-card">' +
-                    '<div class="pkg-popup-topbar"><span class="pkg-popup-stop-pill">Nearest ' +
-                    rankNumber +
-                    '</span><span>Emergency route</span></div>' +
-                    '<div class="pkg-popup-title-row">' +
-                    '<span class="pkg-popup-icon" aria-hidden="true">&#10010;</span>' +
-                    '<div><h3 class="pkg-popup-title">' +
-                    escapeHtml(h.name) +
-                    '</h3></div>' +
+                    '<div class="place-card" style="--pp-accent:' + o.fg + ';--pp-soft:' + o.bg + ';--pp-accent-ink:' + accentInk + ';">' +
+                    '<div class="place-card__ribbon">' +
+                    '<div class="place-card__ribbon-left">' +
+                    '<span class="place-card__badge" style="background-color: #e11d48; color: #fff;">Nearest ' + rankNumber + '</span>' +
+                    '<span class="place-card__status"><strong>Emergency route</strong></span>' +
+                    '</div></div>' +
+                    '<div class="place-card__hero">' +
+                    '<div class="place-card__icon-ring" aria-hidden="true">' +
+                    '<span class="material-symbols-outlined" style="color:' + o.fg + '">' + o.sym + '</span></div>' +
+                    '<div class="place-card__title-wrap"><h3 class="place-card__title">' + name + '</h3></div>' +
                     '</div>' +
-                    '<p class="pkg-popup-meta">Hospital</p>' +
-                    '<div class="pkg-popup-detail">' +
-                    '<p class="pkg-popup-detail-label">Detailed timings</p>' +
-                    '<p class="pkg-popup-detail-value">' +
-                    escapeHtml(timings) +
-                    '</p>' +
-                    '</div>' +
-                    '<p class="pkg-popup-foot">Hospital from Tirupati CSV (emergency list only).</p>' +
-                    '</article>'
+                    '<div class="place-card__body">' +
+                    '<div class="place-card__meta">' +
+                    '<span class="place-card__chip place-card__chip--accent">Hospital</span>' +
+                    '<span class="place-card__chip">' + timings + '</span></div>' +
+                    coordsBlock +
+                    descHtml +
+                    '</div></div>'
                 );
             }
 
