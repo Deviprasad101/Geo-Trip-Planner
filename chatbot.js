@@ -133,6 +133,75 @@
         .gt-chatbot-option-btn:hover {
             background: #fffbeb;
         }
+        .gt-chatbot-cat-title {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #b45309;
+            margin-top: 10px;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .gt-chatbot-quick-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px dashed #fcd34d;
+        }
+        .gt-chatbot-quick-btn {
+            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            border: 1px solid #f59e0b;
+            color: #92400e;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .gt-chatbot-quick-btn:hover {
+            background: #fde68a;
+            transform: translateY(-1px);
+        }
+        .gt-chatbot-input-area {
+            display: flex;
+            padding: 12px;
+            background: #fff;
+            border-top: 1px solid #e7e5e4;
+            gap: 8px;
+        }
+        .gt-chatbot-input-area input {
+            flex: 1;
+            padding: 10px 14px;
+            border: 1px solid #d6d3d1;
+            border-radius: 20px;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        .gt-chatbot-input-area input:focus {
+            border-color: #d97706;
+        }
+        .gt-chatbot-input-area button {
+            background: linear-gradient(135deg, #ea580c, #b45309);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .gt-chatbot-input-area button:hover {
+            transform: scale(1.05);
+        }
         @media (max-width: 480px) {
             .gt-chatbot-window {
                 width: calc(100% - 48px);
@@ -141,20 +210,92 @@
     `;
     document.head.appendChild(style);
 
-    const qs = [
-        { q: "Show me quick links to all pages", a: "Here are the direct links to navigate around the project:<br><br>🏠 <a href='main_page.html'>Home / Main Page</a><br>📦 <a href='packages.html'>Tour Packages</a><br>🗺️ <a href='budget_calculator.html'>Map & Budget Planner</a><br>🍕 <a href='budget_splitter.html'>Smart Budget Splitter</a><br>🎟️ <a href='booking.html'>Official Booking</a>" },
-        { q: "What is GeoTrip Planner?", a: "GeoTrip Planner is a comprehensive travel planning tool designed specifically for Tirupati and Tirumala. It helps you discover local spots, plan darshan days, find accommodations, and split your budget efficiently." },
-        { q: "How do I use the Budget Splitter?", a: "You can find it via the <a href='budget_splitter.html'>Smart Budget Splitter</a> page. Simply enter your total trip budget, number of people, and trip duration. It will automatically calculate an ideal budget split for stay, food, transport, and activities based on your preferred trip style." },
-        { q: "How does the Map Planner work?", a: "The <a href='budget_calculator.html'>Map Planner</a> lets you view and filter places like temples, food joints, wildlife spots, and adventure activities. You can click on any location to get directions and see the live trip summary updating as you explore." },
-        { q: "Can I book my journey directly?", a: "Yes! Visit the <a href='booking.html'>Booking</a> page. We provide an official booking interface to select bus, cab, or train modes, and you can continue to partner booking portals with a seamless workflow." },
-        { q: "How to explore Tour Packages?", a: "Go to the <a href='packages.html'>Packages</a> page to explore a variety of curated tour packages for Tirupati. You can filter them by category, budget, and duration to find the perfect match for your trip." }
+    const faqData = [
+        {
+            category: "Basic / General",
+            items: [
+                { q: "Hello / Hi", a: "Hello! Welcome to GeoTrip Planner. I am here to help you plan your Tirupati trip efficiently." },
+                { q: "What can you do?", a: "I can help you explore tour packages, plan itineraries on the map, split your budget, and guide you to official booking portals." },
+                { q: "How does this app work?", a: "GeoTrip Planner combines a Map Planner for finding spots, a Budget Splitter to manage expenses, and curated Packages to give you a complete trip experience." }
+            ]
+        },
+        {
+            category: "Trip Planning",
+            items: [
+                { q: "How do I plan a trip?", a: "Go to the <a href='budget_calculator.html'>Map & Budget Planner</a>, add places like temples or food joints to your route, and see live estimates." },
+                { q: "Suggest places to visit", a: "Tirupati offers the main Sri Venkateswara Temple, ISKCON, Talakona Waterfalls, and SV Zoological Park. Check the <a href='packages.html'>Packages</a> page for curated lists!" },
+                { q: "Show nearby attractions", a: "You can find nearby attractions directly on the <a href='budget_calculator.html'>Map Planner</a> by clicking on the map pins." },
+                { q: "How to create itinerary?", a: "An itinerary is automatically created as you select places on the map in the <a href='budget_calculator.html'>Planner</a> page. It optimizes the route for you." }
+            ]
+        },
+        {
+            category: "Budget Splitter",
+            items: [
+                { q: "How to split expenses?", a: "Use the <a href='budget_splitter.html'>Smart Budget Splitter</a>. Enter your total budget, and it splits into Stay, Food, Transport, and Activities." },
+                { q: "Add members to trip", a: "In the Budget Splitter, adjust the 'People' input field. The system automatically recalculates the per-person share." },
+                { q: "Calculate total budget", a: "The total budget is entered by you or pulled automatically from your Map Planner session into the Budget Splitter." },
+                { q: "Who owes how much?", a: "The Budget Splitter currently assumes equal sharing. It shows the exact equal split amount under the 'Per traveller' section." }
+            ]
+        },
+        {
+            category: "Booking",
+            items: [
+                { q: "How to book bus/train/cab?", a: "Go to the <a href='booking.html'>Official Booking</a> page, select your transport mode, and continue to verified partner portals." },
+                { q: "Show available transport options", a: "The Booking page currently supports redirecting you to official portals for Bus (APSRTC), Train (IRCTC), and verified Cab services." },
+                { q: "Go to booking page", a: "Click here to <a href='booking.html'>Open Booking Page</a>." },
+                { q: "How to confirm booking?", a: "Bookings are confirmed directly on the official partner portals (like APSRTC or IRCTC). Check your email or SMS for their confirmation." }
+            ]
+        },
+        {
+            category: "Checklist Feature",
+            items: [
+                { q: "What should I pack?", a: "Essential items include comfortable traditional wear for darshan, ID proofs, walking shoes, and any personal medication." },
+                { q: "Show travel checklist", a: "We are currently integrating a checklist feature. For now, remember your ID cards, traditional clothes, and booking tickets!" },
+                { q: "Add items to checklist", a: "A personalized checklist feature is coming soon to the planner dashboard." }
+            ]
+        },
+        {
+            category: "Navigation / App Help",
+            items: [
+                { q: "Go to planner page", a: "Click here: <a href='budget_calculator.html'>Map & Budget Planner</a>" },
+                { q: "Open budget splitter", a: "Click here: <a href='budget_splitter.html'>Smart Budget Splitter</a>" },
+                { q: "Open booking page", a: "Click here: <a href='booking.html'>Official Booking</a>" },
+                { q: "How to use this feature?", a: "Select any query from this menu, and I will guide you with details or direct links!" }
+            ]
+        },
+        {
+            category: "Emergency / Extra",
+            items: [
+                { q: "Show nearby hospitals", a: "The <a href='packages.html'>Packages</a> and Map pages have an 'Emergency' button at the bottom right to instantly show the 3 nearest hospitals." },
+                { q: "Emergency contacts", a: "In Tirupati, Dial 100 for Police, 108 for Ambulance. Hospital details are mapped via the Emergency button on the map pages." }
+            ]
+        }
     ];
+
+    let flatQs = [];
+    let htmlOptions = `
+        <div class="gt-chatbot-quick-actions">
+            <button class="gt-chatbot-quick-btn" onclick="window.location.href='budget_calculator.html'">📍 Plan My Trip</button>
+            <button class="gt-chatbot-quick-btn" onclick="window.location.href='budget_splitter.html'">💰 Split Budget</button>
+            <button class="gt-chatbot-quick-btn" onclick="window.location.href='booking.html'">🚆 Book Tickets</button>
+            <button class="gt-chatbot-quick-btn" onclick="alert('Checklist coming soon! Remember IDs & Traditional wear.')">✅ Travel Checklist</button>
+        </div>
+    `;
+
+    faqData.forEach(group => {
+        htmlOptions += `<div class="gt-chatbot-cat-title">${group.category}</div>`;
+        group.items.forEach(item => {
+            let idx = flatQs.length;
+            flatQs.push(item);
+            htmlOptions += `<button class="gt-chatbot-option-btn" data-idx="${idx}">${item.q}</button>`;
+        });
+    });
 
     // Create UI
     const container = document.createElement('div');
     container.innerHTML = `
         <button class="gt-chatbot-btn" id="gtChatBtn" aria-label="Open Chat">
-            <span class="material-symbols-outlined">chat</span>
+            <span class="material-symbols-outlined">smart_toy</span>
         </button>
         <div class="gt-chatbot-window" id="gtChatWindow">
             <div class="gt-chatbot-header">
@@ -165,7 +306,11 @@
                 <div class="gt-chat-msg bot">Hello! I am your GeoTrip Assistant. Ask me anything about planning your trip!</div>
             </div>
             <div class="gt-chatbot-options" id="gtChatOptions">
-                ${qs.map((item, idx) => `<button class="gt-chatbot-option-btn" data-idx="${idx}">${item.q}</button>`).join('')}
+                ${htmlOptions}
+            </div>
+            <div class="gt-chatbot-input-area">
+                <input type="text" id="gtChatInput" placeholder="Type your question manually..." autocomplete="off" />
+                <button id="gtChatSend" aria-label="Send Message"><span class="material-symbols-outlined">send</span></button>
             </div>
         </div>
     `;
@@ -183,7 +328,7 @@
     options.addEventListener('click', (e) => {
         if(e.target.classList.contains('gt-chatbot-option-btn')) {
             const idx = e.target.getAttribute('data-idx');
-            const item = qs[idx];
+            const item = flatQs[idx];
             
             // Add user msg
             const uMsg = document.createElement('div');
@@ -203,5 +348,47 @@
                 body.scrollTop = body.scrollHeight;
             }, 400);
         }
+    });
+
+    const chatInput = document.getElementById('gtChatInput');
+    const chatSend = document.getElementById('gtChatSend');
+
+    function handleManualInput() {
+        const text = chatInput.value.trim();
+        if(!text) return;
+        
+        chatInput.value = '';
+        
+        // Add user msg
+        const uMsg = document.createElement('div');
+        uMsg.className = 'gt-chat-msg user';
+        uMsg.innerText = text;
+        body.appendChild(uMsg);
+        body.scrollTop = body.scrollHeight;
+
+        // Try to find matching answer
+        let answer = "I'm sorry, I don't have a specific answer for that. Please try rephrasing or select an option from above.";
+        const lowerText = text.toLowerCase();
+        
+        // Very basic matching based on question keywords
+        for(let item of flatQs) {
+            if(lowerText.includes(item.q.toLowerCase()) || item.q.toLowerCase().includes(lowerText)) {
+                answer = item.a;
+                break;
+            }
+        }
+
+        setTimeout(() => {
+            const bMsg = document.createElement('div');
+            bMsg.className = 'gt-chat-msg bot';
+            bMsg.innerHTML = answer;
+            body.appendChild(bMsg);
+            body.scrollTop = body.scrollHeight;
+        }, 500);
+    }
+
+    chatSend.addEventListener('click', handleManualInput);
+    chatInput.addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') handleManualInput();
     });
 })();
