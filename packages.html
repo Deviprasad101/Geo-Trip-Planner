@@ -29,6 +29,18 @@
             vertical-align: middle;
         }
 
+        .packages-page-shell > header {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.65);
+            box-shadow:
+                0 4px 18px rgba(15, 23, 42, 0.08),
+                0 1px 3px rgba(15, 23, 42, 0.05);
+        }
+
         .pricing-grid {
             display: grid;
             gap: 1.75rem;
@@ -595,9 +607,9 @@
 
         .packages-header-inner {
             display: grid;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+            grid-template-columns: minmax(0, 1fr) auto;
             align-items: center;
-            gap: 0.85rem;
+            gap: 0.75rem 1rem;
         }
 
         .packages-header__start {
@@ -605,68 +617,126 @@
             min-width: 0;
         }
 
-        .packages-header__center {
-            justify-self: center;
-            min-width: 0;
+        .packages-header__home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1rem 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: #fff;
+            color: #92400e;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .packages-header__home:hover {
+            border-color: rgba(217, 119, 6, 0.55);
+            background: #fffbeb;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
+        }
+
+        .packages-header__home:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+
+        .packages-header__home .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+
+        .packages-header__home-text {
+            font-family: "Public Sans", system-ui, sans-serif;
+        }
+
+        @media (min-width: 640px) {
+            .packages-header__home {
+                gap: 0.5rem;
+                padding: 0.55rem 1.15rem 0.55rem 0.95rem;
+                font-size: 0.875rem;
+            }
+
+            .packages-header__home .material-symbols-outlined {
+                font-size: 1.45rem;
+            }
         }
 
         .packages-header__end {
             justify-self: end;
             min-width: 0;
+            display: inline-flex;
+            align-items: center;
         }
 
+        /* Match main_page.html .site-header__logo-wrap sizing */
         .packages-header__logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            height: 4rem;
-            max-width: min(52vw, 20rem);
-            padding: 0.2rem 0.35rem;
-            border-radius: 0.6rem;
-            border: 1px solid rgba(148, 163, 184, 0.22);
-            background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+            height: 3.7rem;
+            max-height: 4.7rem;
+            max-width: min(calc(100vw - 7rem), 27rem);
+            width: auto;
+            border-radius: 0.25rem;
             box-sizing: border-box;
+            min-width: 8.5rem;
+            padding: 0;
+            border: none;
+            background: transparent;
+            box-shadow: none;
         }
 
         .packages-header__logo {
             display: block;
-            width: auto;
+            box-sizing: border-box;
             height: 100%;
             max-width: 100%;
+            max-height: 100%;
             object-fit: contain;
-            object-position: center;
+            object-position: right center;
+        }
+
+        @media (min-width: 480px) {
+            .packages-header__logo-wrap {
+                height: 4rem;
+                max-width: min(calc(100vw - 14rem), 29rem);
+            }
+        }
+
+        @media (min-width: 640px) {
+            .packages-header__logo-wrap {
+                height: 4.6rem;
+                max-width: min(calc(100vw - 20rem), 32rem);
+            }
         }
 
         @media (min-width: 1024px) {
             .packages-header__logo-wrap {
-                height: 4.75rem;
-                max-width: min(40vw, 24rem);
+                height: 5.1rem;
+                max-width: min(39vw, 28rem);
             }
         }
 
         @media (max-width: 767px) {
             .packages-header-inner {
                 grid-template-columns: minmax(0, 1fr) auto;
-                gap: 0.55rem 0.75rem;
+                gap: 0.5rem 0.65rem;
             }
 
-            .packages-header__start {
-                grid-column: 1 / 2;
-            }
-
-            .packages-header__center {
-                grid-column: 2 / 3;
-            }
-
-            .packages-header__end {
-                grid-column: 1 / -1;
-                justify-self: start;
+            .packages-header__home {
+                padding: 0.45rem 0.85rem 0.45rem 0.7rem;
+                font-size: 0.75rem;
+                gap: 0.35rem;
             }
 
             .packages-header__logo-wrap {
-                height: 3.15rem;
-                max-width: min(48vw, 12.75rem);
+                min-width: 0;
+                height: 3.7rem;
+                max-width: min(calc(100vw - 10rem), 27rem);
             }
         }
 
@@ -1630,24 +1700,20 @@
 
 <body class="packages-page-bg packages-page-shell text-slate-900">
     <header class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/90 backdrop-blur-md shadow-sm">
-        <div class="packages-header-inner flex flex-wrap items-center justify-between gap-3 py-3">
-            <a href="main_page.html"
-                class="packages-header__start flex min-w-0 items-center gap-2 text-slate-800 hover:text-amber-900">
-                <span class="material-symbols-outlined text-amber-800" aria-hidden="true">arrow_back</span>
-                <span class="truncate font-bold text-lg sm:text-xl">Trip packages</span>
-            </a>
-            <div class="packages-header__center">
+        <div class="packages-header-inner py-3">
+            <div class="packages-header__start">
+                <a href="main_page.html" class="packages-header__home shrink-0">
+                    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+                    <span class="packages-header__home-text">HOME</span>
+                </a>
+            </div>
+            <div class="packages-header__end">
                 <span class="packages-header__logo-wrap">
                     <img src="images/geointellab_logo.jpeg"
-                        alt="Geo-Intel Lab, IIT Tirupati NavavishkÄr I-Hub Foundation" class="packages-header__logo"
+                        alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="packages-header__logo"
                         width="520" height="104" decoding="async" loading="eager" />
                 </span>
             </div>
-            <nav class="packages-header__end flex flex-wrap items-center gap-2">
-                <a href="budget_calculator.html"
-                    class="rounded-full border border-slate-200 bg-white px-4 py-2 text-base font-bold text-slate-800 shadow-sm hover:bg-slate-50">Budget
-                    &amp; map</a>
-            </nav>
         </div>
     </header>
 

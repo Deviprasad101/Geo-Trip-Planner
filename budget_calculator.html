@@ -1343,13 +1343,19 @@
             vertical-align: middle;
         }
         .site-header {
-            background: rgba(255, 255, 255, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffff;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: var(--text);
             padding: 1rem clamp(1rem, 3vw, 2rem);
-            border-bottom: 1px solid var(--amber-line);
-            box-shadow: 0 1px 0 rgba(245, 158, 11, 0.15);
+            border-bottom: 1px solid rgba(180, 83, 9, 0.28);
+            box-shadow:
+                0 6px 20px rgba(15, 23, 42, 0.09),
+                0 2px 6px rgba(15, 23, 42, 0.05),
+                0 1px 0 rgba(245, 158, 11, 0.15);
         }
         .site-header__inner {
             max-width: 80rem;
