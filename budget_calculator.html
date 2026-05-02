@@ -664,9 +664,9 @@
 
         .place-card__title {
             margin: 0;
-            font-size: 1rem;
+            font-size: 1.15rem;
             font-weight: 700;
-            line-height: 1.28;
+            line-height: 1.35;
             letter-spacing: -0.012em;
             color: #0f172a;
         }
@@ -731,10 +731,18 @@
 
         .place-card__desc {
             margin: 0;
-            margin-top: 8px;
-            font-size: 12px;
-            line-height: 1.45;
-            color: #475569;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 1.55;
+            color: #334155;
+            font-weight: 500;
+        }
+        
+        /* Expand all leaflet popups */
+        .leaflet-popup-content {
+            width: auto !important;
+            min-width: 380px !important;
+            max-width: 520px !important;
         }
     </style>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -4264,8 +4272,12 @@
         var cat = escapeHtml(p.category);
         var name = escapeHtml(p.name);
         var descRaw = (p.description || '').trim();
-        var desc =
-            descRaw.length > 180 ? escapeHtml(descRaw.slice(0, 180)) + '…' : escapeHtml(descRaw);
+        var descHtml = '';
+        if (descRaw) {
+            var sentences = descRaw.split('. ').filter(function(s) { return s.trim().length > 0; });
+            var listItems = sentences.map(function(s) { return '<li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span style="color:#d97706; font-size:13px; margin-top:1px;">➤</span><span>' + escapeHtml(s.trim()) + (s.endsWith('.') ? '' : '.') + '</span></li>'; }).join('');
+            descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;">' + listItems + '</ul>';
+        }
         var slotsRaw = (p.timings || '').trim();
         var slotsShort =
             slotsRaw.length > 200 ? escapeHtml(slotsRaw.slice(0, 200)) + '…' : escapeHtml(slotsRaw);
@@ -4292,6 +4304,7 @@
                   slotsShort +
                   '</div></div>'
                 : '';
+        var coordsBlock = '<div class="place-card__section"><div class="place-card__label">Coordinates</div><div class="place-card__slots" style="font-family: monospace; font-size:12px; background: #f1f5f9; border-color: #cbd5e1; display:flex; align-items:center; gap:6px; padding:8px 10px;"><span class="material-symbols-outlined" style="font-size:16px; color:#475569;">location_on</span> ' + p.lat + ', ' + p.lng + '</div></div>';
         return (
             '<div class="place-card" style="--pp-accent:' +
             o.fg +
@@ -4329,7 +4342,8 @@
             hours +
             '</span></div>' +
             slotsBlock +
-            (descRaw ? '<p class="place-card__desc">' + desc + '</p>' : '') +
+            coordsBlock +
+            descHtml +
             '</div></div>'
         );
     }
