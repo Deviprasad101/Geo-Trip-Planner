@@ -4920,8 +4920,11 @@
 
         updateMapMarkers(ordered, true);
 
+        var sbSearchEl = document.getElementById('sbPlaceSearch');
+        var isDefaultState = (!getBudgetTypedStartQuery() && (!sbSearchEl || !sbSearchEl.value.trim()) && (typeof selectedCategory !== 'undefined' ? selectedCategory : 'all') === 'all' && (!isGeoEnabled() || typeof lastGps === 'undefined' || !lastGps));
+
         var placeholderLine = null;
-        if (ordered.length >= 1 && routeLayerGroup) {
+        if (!isDefaultState && ordered.length >= 1 && routeLayerGroup) {
             var plPts = [];
             if (hasStart) plPts.push([startLat, startLng]);
             for (var pi = 0; pi < ordered.length; pi++) {
@@ -4951,7 +4954,7 @@
             tripPts.push({ lat: ordered[ti].lat, lng: ordered[ti].lng });
         }
 
-        if (tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX) {
+        if (!isDefaultState && tripPts.length >= 3 && tripPts.length <= OSRM_TRIP_MAX) {
             var newOrder = await fetchOsrmTripOrder(tripPts, myGen, signal);
             if (myGen !== routeGeneration) return;
             if (newOrder && newOrder.length === tripPts.length) {
@@ -5008,7 +5011,7 @@
             return i === 0 || w.lat !== a[i - 1].lat || w.lng !== a[i - 1].lng;
         });
 
-        if (deduped.length >= 2) {
+        if (!isDefaultState && deduped.length >= 2) {
             if (placeholderLine && routeLayerGroup) {
                 routeLayerGroup.removeLayer(placeholderLine);
                 placeholderLine = null;
