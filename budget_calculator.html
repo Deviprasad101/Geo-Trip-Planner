@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light budget-page-root" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>Tirupati GeoTrip — Budget Calculator</title>
+    <title>Tirupati GeoTrip - Budget Calculator</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -43,7 +43,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <style>
-/* Trip planner map visuals — scoped for budget page embed only (see .budget-trip-map-shell) */
+/* Trip planner map visuals - scoped for budget page embed only (see .budget-trip-map-shell) */
 .budget-trip-map-embed {
     --gov-text: #0f172a;
     --gov-text-muted: #475569;
@@ -302,7 +302,7 @@
             color: #7c3aed;
         }
 
-        /* Start (home / GPS) popup — same visual language as place marker cards */
+        /* Start (home / GPS) popup - same visual language as place marker cards */
         .start-place-card {
             box-sizing: border-box;
             width: 100%;
@@ -525,7 +525,7 @@
             font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
         }
 
-        /* —— Place marker popup: clear, dignified “information card” (public / Tirupati context) —— */
+        /* -- Place marker popup: clear, dignified "information card" (public / Tirupati context) -- */
         .leaflet-popup.place-popup--gov .leaflet-popup-content-wrapper {
             padding: 0;
             border-radius: 14px;
@@ -1595,7 +1595,7 @@
             background: linear-gradient(145deg, #ffffff 0%, #eef7ff 100%);
             border-color: #dbeafe;
         }
-        /* Linked planner context — same structure as Trip inputs: no gloss wash, clear header + panel */
+        /* Linked planner context - same structure as Trip inputs: no gloss wash, clear header + panel */
         .card--context.linked-workspace::before,
         .card--context.linked-workspace::after {
             display: none;
@@ -2077,7 +2077,7 @@
         .remaining-box.bad { background: #FEE2E2; color: var(--danger); }
         .remaining-box.neutral { background: #f3f3f6; color: var(--muted); border: 1px solid var(--border); }
 
-        /* Cost breakdown + budget summary — same “panel + bar header” pattern, indigo vs teal */
+        /* Cost breakdown + budget summary - same "panel + bar header" pattern, indigo vs teal */
         .breakdown-stack {
             margin-top: 1.35rem;
             border-radius: 14px;
@@ -2285,7 +2285,7 @@
             position: relative;
             z-index: 0;
         }
-        /* Filtered trip map — same light shell + header band as linked workspace / trip inputs */
+        /* Filtered trip map - same light shell + header band as linked workspace / trip inputs */
         .budget-plan-map-card.card--map::before,
         .budget-plan-map-card.card--map::after {
             display: none;
@@ -2526,7 +2526,7 @@
     <aside class="sidebar" aria-label="Trip planning controls">
         <div class="sidebar-top">
             <h1><span class="header-icon material-symbols-outlined" aria-hidden="true">map</span> Plan your trip</h1>
-            <p>Trip planning workspace · Tirupati places dataset</p>
+            <p>Trip planning workspace - Tirupati places dataset</p>
         </div>
         <a class="btn-back" href="main_page.html">← Back to Tirupati Tourism</a>
         <div class="sidebar-scroll">
@@ -2542,7 +2542,7 @@
                             <button type="button" class="chip" data-cat="temple">Temple</button>
                             <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
                         </div>
-                        <input type="text" class="search-input" id="sbPlaceSearch" placeholder="Search name or description…" autocomplete="off"/>
+                        <input type="text" class="search-input" id="sbPlaceSearch" placeholder="Search name or description..." autocomplete="off"/>
                         <button type="button" class="btn-apply" id="sbApplyFilters"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">map</span> Apply filters &amp; show map</button>
                     </div>
                 </details>
@@ -2560,14 +2560,14 @@
                                         <span>Use GPS location</span>
                                         <div class="toggle-switch" id="sbGeoToggle" role="button" tabindex="0" aria-label="Toggle GPS"></div>
                                     </div>
-                                    <div class="gps-line" id="sbGpsStatus">GPS off — enter location below</div>
+                                    <div class="gps-line" id="sbGpsStatus">GPS off - enter location below</div>
                                 </div>
                                 <div class="fg visible" id="sbStartLocationGroup">
                                     <label for="sbStartLocation">Start location</label>
                                     <input type="text" id="sbStartLocation" placeholder="e.g. Tirupati" required/>
                                 </div>
                                 <div class="fg hidden" id="sbGpsFailedGroup">
-                                    <div class="gps-line on">GPS on — location on submit</div>
+                                    <div class="gps-line on">GPS on - location on submit</div>
                                 </div>
                                 <div class="row2">
                                     <div class="fg">
@@ -2595,13 +2595,13 @@
                                 <div class="trip-overview-title" id="sbOvLiveSummaryHeading">Live summary</div>
                                 <dl class="trip-overview-grid" aria-labelledby="sbOvLiveSummaryHeading">
                                     <dt>Start</dt>
-                                    <dd id="sbOvLocation">—</dd>
+                                    <dd id="sbOvLocation">-</dd>
                                     <dt>Day plan</dt>
-                                    <dd id="sbOvSchedule">—</dd>
+                                    <dd id="sbOvSchedule">-</dd>
                                     <dt>Trip length</dt>
-                                    <dd id="sbOvSpan">—</dd>
+                                    <dd id="sbOvSpan">-</dd>
                                     <dt>Places</dt>
-                                    <dd id="sbOvMap">—</dd>
+                                    <dd id="sbOvMap">-</dd>
                                 </dl>
                                 <div class="trip-overview-divider" aria-hidden="true"></div>
                                 <div class="trip-overview-subtitle" id="sbOvVisitOrderHeading">Visit order</div>
@@ -2630,7 +2630,7 @@
         <div class="site-header__inner">
             <div class="site-header__meta">
                 <div class="site-header__titles">
-                    <span class="module-badge">GeoTrip · Smart Budget Trip Planner</span>
+                    <span class="module-badge">GeoTrip - Smart Budget Trip Planner</span>
                     <h1>Budget Calculator</h1>
                     <p>Plan and estimate your travel expenses efficiently</p>
                 </div>
@@ -2655,11 +2655,11 @@
         <section class="kpi-strip" aria-label="Decision summary strip">
             <article class="kpi-chip">
                 <span class="kpi-chip__label">Estimated Total</span>
-                <p class="kpi-chip__value" id="kpiTotal">₹0</p>
+                <p class="kpi-chip__value" id="kpiTotal">Rs. 0</p>
             </article>
             <article class="kpi-chip">
                 <span class="kpi-chip__label">Budget Delta</span>
-                <p class="kpi-chip__value" id="kpiDelta">—</p>
+                <p class="kpi-chip__value" id="kpiDelta">-</p>
             </article>
             <article class="kpi-chip kpi-chip--status neutral" id="kpiStatusChip">
                 <span class="kpi-chip__label">Compliance Status</span>
@@ -2674,24 +2674,24 @@
                 </div>
                 <div>
                     <h2 class="card__title" id="linkedCtxHeading">Linked trip planner context</h2>
-                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place — budget totals use <strong>Number of days</strong>; <strong>Starting location</strong> stays in sync for the trip map further down this page.</p>
+                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place - budget totals use <strong>Number of days</strong>; <strong>Starting location</strong> stays in sync for the trip map further down this page.</p>
                 </div>
             </div>
             <dl class="ctx-grid">
                 <dt>Category</dt>
-                <dd id="linkCtxCategory">—</dd>
+                <dd id="linkCtxCategory">-</dd>
                 <dt>Search</dt>
-                <dd id="linkCtxSearch">—</dd>
+                <dd id="linkCtxSearch">-</dd>
                 <dt>Trip date</dt>
-                <dd id="linkCtxDate">—</dd>
+                <dd id="linkCtxDate">-</dd>
                 <dt>Outing window</dt>
-                <dd id="linkCtxOuting">—</dd>
+                <dd id="linkCtxOuting">-</dd>
                 <dt>Trip length</dt>
-                <dd id="linkCtxDays">—</dd>
+                <dd id="linkCtxDays">-</dd>
                 <dt>Planner start</dt>
-                <dd id="linkCtxStart">—</dd>
+                <dd id="linkCtxStart">-</dd>
                 <dt>Places preview</dt>
-                <dd id="linkCtxPlacesLine">—</dd>
+                <dd id="linkCtxPlacesLine">-</dd>
             </dl>
         </section>
         <div class="planner-split">
@@ -2703,14 +2703,14 @@
                     </div>
                     <div>
                         <h2 class="card__title" id="inputsHeading">Trip inputs</h2>
-                        <p class="card__subtitle">All amounts in ₹. Totals and the cost cards below refresh as you type.</p>
+                        <p class="card__subtitle">All amounts in Rs. . Totals and the cost cards below refresh as you type.</p>
                     </div>
                 </div>
                 <div class="form-grid">
                     <div class="inputs-field--budget">
-                        <label for="userBudget">Your total budget (₹) <span class="tooltip-btn" title="Optional — shows remaining vs estimated total">?</span></label>
+                        <label for="userBudget">Your total budget (Rs. ) <span class="tooltip-btn" title="Optional - shows remaining vs estimated total">?</span></label>
                         <input type="number" id="userBudget" min="0" step="100" inputmode="decimal" placeholder="Enter your budget"/>
-                        <p class="hint">Tip: leave <strong>0</strong> to hide the “remaining budget” line until you’re ready.</p>
+                        <p class="hint">Tip: leave <strong>0</strong> to hide the "remaining budget" line until you're ready.</p>
                     </div>
                     <div>
                         <label for="travelMode">Travel mode</label>
@@ -2723,14 +2723,14 @@
                         </select>
                     </div>
                     <div id="transitTicketField" hidden>
-                        <label for="ticketPrice" id="transitTicketLabel">Bus ticket price (₹) per person</label>
+                        <label for="ticketPrice" id="transitTicketLabel">Bus ticket price (Rs. ) per person</label>
                         <input type="number" id="ticketPrice" min="0" step="1" inputmode="decimal" placeholder="Enter ticket fare"/>
-                        <p class="hint" id="transitTicketHint">One field for both bus and train; switch mode to change the label. Travel cost = this amount × number of people.</p>
+                        <p class="hint" id="transitTicketHint">One field for both bus and train; switch mode to change the label. Travel cost = this amount x number of people.</p>
                     </div>
                     <div>
                         <label for="distance">Total distance (km)</label>
                         <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="Enter total distance"/>
-                        <p class="hint" id="distanceMapHint">Used for <strong>car / bike</strong> fuel cost. Matches the sidebar — same distance feeds the <strong>filtered trip map</strong> lower on this page.</p>
+                        <p class="hint" id="distanceMapHint">Used for <strong>car / bike</strong> fuel cost. Matches the sidebar - same distance feeds the <strong>filtered trip map</strong> lower on this page.</p>
                     </div>
                     <div>
                         <label for="routeStartLocation">Starting location</label>
@@ -2762,15 +2762,15 @@
                         <input type="number" id="rooms" min="0" step="1" inputmode="numeric" placeholder="Rooms"/>
                     </div>
                     <div>
-                        <label for="roomCost">Cost per room (₹/night)</label>
+                        <label for="roomCost">Cost per room (Rs. /night)</label>
                         <input type="number" id="roomCost" min="0" step="1" inputmode="decimal" placeholder="Cost per room"/>
                     </div>
                     <div>
-                        <label for="foodPerDay">Food cost per person per day (₹)</label>
+                        <label for="foodPerDay">Food cost per person per day (Rs. )</label>
                         <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Food/day per person"/>
                     </div>
                     <div>
-                        <p class="hint inputs-hint-wide" style="grid-column: 1 / -1; margin: 0;">Number of days stays <strong>in sync</strong> with the left sidebar — edit either place; stay, food, and buffer totals follow automatically.</p>
+                        <p class="hint inputs-hint-wide" style="grid-column: 1 / -1; margin: 0;">Number of days stays <strong>in sync</strong> with the left sidebar - edit either place; stay, food, and buffer totals follow automatically.</p>
                     </div>
                 </div>
             </section>
@@ -2789,7 +2789,7 @@
                     </div>
                 </div>
                 <div class="breakdown-card__foot">
-                    <span class="amount" id="outTravel">₹0</span>
+                    <span class="amount" id="outTravel">Rs. 0</span>
                 </div>
             </section>
 
@@ -2803,7 +2803,7 @@
                     </div>
                 </div>
                 <div class="breakdown-card__foot">
-                    <span class="amount" id="outStay">₹0</span>
+                    <span class="amount" id="outStay">Rs. 0</span>
                 </div>
             </section>
 
@@ -2817,7 +2817,7 @@
                     </div>
                 </div>
                 <div class="breakdown-card__foot">
-                    <span class="amount" id="outFood">₹0</span>
+                    <span class="amount" id="outFood">Rs. 0</span>
                 </div>
             </section>
 
@@ -2831,7 +2831,7 @@
                     </div>
                 </div>
                 <div class="breakdown-card__foot">
-                    <span class="amount" id="outActivities">₹0</span>
+                    <span class="amount" id="outActivities">Rs. 0</span>
                 </div>
             </section>
 
@@ -2845,7 +2845,7 @@
                     </div>
                 </div>
                 <div class="breakdown-card__foot">
-                    <span class="amount amount--accent" id="outBuffer">₹0</span>
+                    <span class="amount amount--accent" id="outBuffer">Rs. 0</span>
                 </div>
             </section>
         </div>
@@ -2859,15 +2859,15 @@
                 Final budget summary
             </h2>
             <div class="summary-lines">
-                <div class="summary-line"><span>Travel cost</span><strong id="sumTravel">₹0</strong></div>
-                <div class="summary-line"><span>Stay cost</span><strong id="sumStay">₹0</strong></div>
-                <div class="summary-line"><span>Food cost</span><strong id="sumFood">₹0</strong></div>
-                <div class="summary-line"><span>Activities cost</span><strong id="sumAct">₹0</strong></div>
-                <div class="summary-line"><span>Safety buffer (10%)</span><strong id="sumBuf">₹0</strong></div>
+                <div class="summary-line"><span>Travel cost</span><strong id="sumTravel">Rs. 0</strong></div>
+                <div class="summary-line"><span>Stay cost</span><strong id="sumStay">Rs. 0</strong></div>
+                <div class="summary-line"><span>Food cost</span><strong id="sumFood">Rs. 0</strong></div>
+                <div class="summary-line"><span>Activities cost</span><strong id="sumAct">Rs. 0</strong></div>
+                <div class="summary-line"><span>Safety buffer (10%)</span><strong id="sumBuf">Rs. 0</strong></div>
             </div>
             <div class="total-line">
-                <span class="label">Total budget (₹)</span>
-                <span class="value" id="sumTotal">₹0</span>
+                <span class="label">Total budget (Rs. )</span>
+                <span class="value" id="sumTotal">Rs. 0</span>
             </div>
             <div class="remaining-box neutral" id="remainingBox" role="status" aria-live="polite">
                 Enter your total budget (first field in Trip inputs) to see if you are within plan.
@@ -2883,7 +2883,7 @@
                 </div>
                 <div>
                     <h2 class="card__title" id="budgetTripMapHeading">Filtered trip map</h2>
-                    <p class="card__subtitle" id="budgetTripMapSubtitle">Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters — no separate page.</p>
+                    <p class="card__subtitle" id="budgetTripMapSubtitle">Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters - no separate page.</p>
                 </div>
             </div>
             <div class="budget-trip-map-embed budget-inline-map-frame-wrap budget-trip-map-shell">
@@ -2898,8 +2898,8 @@
     <div id="emergencyBackdrop" class="emergency-panel-backdrop" aria-hidden="true"></div>
     <div id="emergencyPanel" class="emergency-panel" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle" hidden aria-hidden="true">
         <div class="emergency-panel__head">
-            <h2 id="emergencyTitle">Emergency · Hospitals</h2>
-            <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">×</button>
+            <h2 id="emergencyTitle">Emergency - Hospitals</h2>
+            <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">x</button>
         </div>
         <p class="emergency-panel__lead">Hospitals from the Tirupati CSV only. <strong>Show nearest 3 on map</strong> uses your budget page start (sidebar <strong>Start location</strong>, main <strong>Starting location</strong>, or GPS) and shows them on the <strong>same trip map card</strong> below with OSRM driving route.</p>
         <div id="emergencyListRoot" class="emergency-list"></div>
@@ -2917,7 +2917,7 @@
         <div class="budget-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="overBudgetTitle" aria-describedby="overBudgetDesc" tabindex="-1">
             <h2 class="budget-modal__title" id="overBudgetTitle">Budget exceeded</h2>
             <p class="budget-modal__desc" id="overBudgetDesc">Your current plan is above the budget. Try one or more suggestions below to reduce the total cost.</p>
-            <div class="budget-modal__delta" id="overBudgetDelta">Over by ₹0</div>
+            <div class="budget-modal__delta" id="overBudgetDelta">Over by Rs. 0</div>
             <ul class="budget-modal__list" id="overBudgetTips"></ul>
             <div class="budget-modal__actions">
                 <button type="button" class="budget-modal__close" id="overBudgetCloseBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">check_circle</span>Understood</button>
@@ -2942,7 +2942,7 @@
     let places = [];
     let emergencyHospitals = [];
     let selectedCategory = 'all';
-    /** Always false here — filtered map is shown via host page iframe, not in this script. */
+    /** Always false here - filtered map is shown via host page iframe, not in this script. */
     const filtersApplied = false;
     let isGeoEnabled = false;
     const lastOptimizedOrder = null;
@@ -3490,23 +3490,23 @@
         }
         setText('linkCtxCategory', categoryLabel());
         const q = $('sbPlaceSearch');
-        setText('linkCtxSearch', (q && q.value.trim()) || '—');
+        setText('linkCtxSearch', (q && q.value.trim()) || '-');
         const dt = $('sbTripDate');
-        setText('linkCtxDate', (dt && dt.value) || '—');
+        setText('linkCtxDate', (dt && dt.value) || '-');
         const a = $('sbTripStartTime');
         const b = $('sbTripEndTime');
         setText(
             'linkCtxOuting',
-            a && b && a.value && b.value ? a.value + ' – ' + b.value : '—'
+            a && b && a.value && b.value ? a.value + ' – ' + b.value : '-'
         );
         const nd = $('sbNumDays');
-        setText('linkCtxDays', nd && nd.value ? nd.value + ' day(s)' : '—');
+        setText('linkCtxDays', nd && nd.value ? nd.value + ' day(s)' : '-');
         setText(
             'linkCtxStart',
-            isGeoEnabled ? 'GPS (trip map)' : ($('sbStartLocation') && $('sbStartLocation').value.trim()) || '—'
+            isGeoEnabled ? 'GPS (trip map)' : ($('sbStartLocation') && $('sbStartLocation').value.trim()) || '-'
         );
         const om = $('sbOvMap');
-        setText('linkCtxPlacesLine', om ? om.textContent : '—');
+        setText('linkCtxPlacesLine', om ? om.textContent : '-');
     }
 
     function pullMainIntoSidebarValuesOnly() {
@@ -3585,20 +3585,20 @@
             }
 
             locEl.textContent = isGeoEnabled
-                ? 'GPS — location when you show the trip map'
-                : startLocationInput.value.trim() || '—';
+                ? 'GPS - location when you show the trip map'
+                : startLocationInput.value.trim() || '-';
 
             const d = $('sbTripDate') && $('sbTripDate').value;
             const t1 = $('sbTripStartTime') && $('sbTripStartTime').value;
             const t2 = $('sbTripEndTime') && $('sbTripEndTime').value;
             if (d || t1 || t2) {
-                schedEl.textContent = [d || '—', t1 && t2 ? t1 + ' – ' + t2 : t1 || t2 || '—'].join(' · ');
+                schedEl.textContent = [d || '-', t1 && t2 ? t1 + ' – ' + t2 : t1 || t2 || '-'].join(' - ');
             } else {
-                schedEl.textContent = '—';
+                schedEl.textContent = '-';
             }
 
             const days = $('sbNumDays') && $('sbNumDays').value.trim();
-            spanEl.textContent = days ? days + ' day(s)' : '—';
+            spanEl.textContent = days ? days + ' day(s)' : '-';
 
             const mapSnap = window.__BUDGET_MAP_ROUTE_SNAPSHOT || null;
             const openSig = stopSetSignature(openList);
@@ -3623,37 +3623,37 @@
                       openList.length +
                       ' open (~' +
                       om +
-                      ' min outing) · ' +
+                      ' min outing) - ' +
                       nd +
-                      ' day(s) · ' +
+                      ' day(s) - ' +
                       categoryLabel()
                     : ordered.length +
-                      ' open stop(s) · same order as base map route · ' +
+                      ' open stop(s) - same order as base map route - ' +
                       nd +
-                      ' day(s) · ' +
+                      ' day(s) - ' +
                       categoryLabel();
                 if (!mapAndSidebarInSync) {
-                    mapEl.textContent += ' · showing last applied map route';
+                    mapEl.textContent += ' - showing last applied map route';
                 }
             } else if (baseList.length && openList.length !== baseList.length) {
                 mapEl.textContent =
                     openList.length +
                     ' open (of ' +
                     baseList.length +
-                    ' matches) · ' +
+                    ' matches) - ' +
                     categoryLabel() +
-                    ' — tap Apply filters & show map to view';
+                    ' - tap Apply filters & show map to view';
             } else {
                 mapEl.textContent =
                     openList.length +
-                    ' open place(s) · ' +
+                    ' open place(s) - ' +
                     categoryLabel() +
-                    ' — tap Apply filters & show map for route + stops';
+                    ' - tap Apply filters & show map for route + stops';
             }
 
             placeListEl.textContent = '';
             if (!places.length) {
-                placeListEl.textContent = 'Loading places…';
+                placeListEl.textContent = 'Loading places...';
                 return;
             }
             if (!hasMapSnap && baseList.length === 0) {
@@ -3695,7 +3695,7 @@
                 if (!chunk.length) return;
                 const h = document.createElement('div');
                 h.className = 'ov-day-title';
-                h.textContent = 'Day ' + (di + 1) + ' — ' + chunk.length + ' stop(s)';
+                h.textContent = 'Day ' + (di + 1) + ' - ' + chunk.length + ' stop(s)';
                 wrap.appendChild(h);
                 const ul = document.createElement('ul');
                 ul.className = 'ov-ul';
@@ -3709,7 +3709,7 @@
                 if (chunk.length > perDayCap) {
                     const li = document.createElement('li');
                     li.className = 'ov-more';
-                    li.textContent = '+ ' + (chunk.length - perDayCap) + ' more this day…';
+                    li.textContent = '+ ' + (chunk.length - perDayCap) + ' more this day...';
                     ul.appendChild(li);
                 }
                 dayStartIndex += chunk.length;
@@ -3744,13 +3744,13 @@
 
         geoToggle.classList.toggle('active', on);
         if (on) {
-            gpsStatus.textContent = 'GPS on — your position is used on the trip map when shown';
+            gpsStatus.textContent = 'GPS on - your position is used on the trip map when shown';
             gpsStatus.classList.add('on');
             startLocationGroup.classList.add('hidden');
             gpsFailedGroup.classList.remove('hidden');
             startLocationInput.removeAttribute('required');
         } else {
-            gpsStatus.textContent = 'GPS off — enter location below';
+            gpsStatus.textContent = 'GPS off - enter location below';
             gpsStatus.classList.remove('on');
             startLocationGroup.classList.remove('hidden');
             gpsFailedGroup.classList.add('hidden');
@@ -3974,7 +3974,7 @@
     var budgetMapEmergencyMode = false;
     var BUDGET_MAP_HEADING_DEFAULT = 'Filtered trip map';
     var BUDGET_MAP_SUBTITLE_DEFAULT =
-        'Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters — no separate page.';
+        'Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters - no separate page.';
     var routeGeneration = 0;
     var routeAbortCtrl = null;
     var emergencyAbortCtrl = null;
@@ -4251,7 +4251,7 @@
     function normalizeHoursToken(s) {
         return (s || '')
             .replace(/\s/g, '')
-            .replace(/–|—/g, '-')
+            .replace(/–|-/g, '-')
             .replace(/\|/g, '')
             .toLowerCase();
     }
@@ -4275,12 +4275,12 @@
         var descHtml = '';
         if (descRaw) {
             var sentences = descRaw.split('. ').filter(function(s) { return s.trim().length > 0; });
-            var listItems = sentences.map(function(s) { return '<li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span style="color:#d97706; font-size:13px; margin-top:1px;">➤</span><span>' + escapeHtml(s.trim()) + (s.endsWith('.') ? '' : '.') + '</span></li>'; }).join('');
+            var listItems = sentences.map(function(s) { return '<li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#d97706; font-size:16px; margin-top:2px;">play_arrow</span><span>' + escapeHtml(s.trim()) + (s.endsWith('.') ? '' : '.') + '</span></li>'; }).join('');
             descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;">' + listItems + '</ul>';
         }
         var slotsRaw = (p.timings || '').trim();
         var slotsShort =
-            slotsRaw.length > 200 ? escapeHtml(slotsRaw.slice(0, 200)) + '…' : escapeHtml(slotsRaw);
+            slotsRaw.length > 200 ? escapeHtml(slotsRaw.slice(0, 200)) + '...' : escapeHtml(slotsRaw);
         var chipAccent =
             p.categoryKey === 'temple' ||
             p.categoryKey === 'food' ||
@@ -4318,7 +4318,7 @@
             '<span class="place-card__badge">Stop ' +
             orderNum +
             '</span>' +
-            '<span class="place-card__status"><strong>Open</strong> · itinerary route</span>' +
+            '<span class="place-card__status"><strong>Open</strong> - itinerary route</span>' +
             '</div></div>' +
             '<div class="place-card__hero">' +
             '<div class="place-card__icon-ring" aria-hidden="true">' +
@@ -4352,7 +4352,7 @@
         var mod = mode === 'typed' ? 'typed' : 'gps';
         var badge = mode === 'typed' ? 'Address' : 'GPS';
         var ribbonTitle =
-            mode === 'typed' ? 'Starting point · typed location' : 'Starting point · live location';
+            mode === 'typed' ? 'Starting point - typed location' : 'Starting point - live location';
         var subtitle =
             mode === 'typed' ? 'Resolved from your search text' : 'Coordinates from your device';
         var footer = metaLine
@@ -4883,13 +4883,13 @@
             var addrLine = rev ? formatNominatimAddressLine(rev) : '';
             var addrHtml = addrLine
                 ? escapeHtml(addrLine).replace(/,/g, ',<wbr>')
-                : '<em>Address lookup unavailable — using GPS coordinates.</em>';
+                : '<em>Address lookup unavailable - using GPS coordinates.</em>';
             var meta =
-                'GPS · ' +
+                'GPS - ' +
                 lastGps.lat.toFixed(5) +
                 ', ' +
                 lastGps.lng.toFixed(5) +
-                (lastGps.accuracy != null ? ' · ±' + Math.round(lastGps.accuracy) + ' m' : '');
+                (lastGps.accuracy != null ? ' - ±' + Math.round(lastGps.accuracy) + ' m' : '');
             var m = L.marker([lastGps.lat, lastGps.lng], { icon: iconStartHomeGps, zIndexOffset: 700 })
                 .bindPopup(buildStartPopupHtml('gps', addrHtml, meta), {
                     minWidth: 300,
@@ -4908,7 +4908,7 @@
                     startLng = geo.lng;
                     var addrLine2 = geo.label || typedQ;
                     var addrHtml2 = escapeHtml(addrLine2).replace(/,/g, ',<wbr>');
-                    var meta2 = 'Typed search · ' + geo.lat.toFixed(5) + ', ' + geo.lng.toFixed(5);
+                    var meta2 = 'Typed search - ' + geo.lat.toFixed(5) + ', ' + geo.lng.toFixed(5);
                     var m2 = L.marker([geo.lat, geo.lng], { icon: iconStartHomeTyped, zIndexOffset: 600 })
                         .bindPopup(buildStartPopupHtml('typed', addrHtml2, meta2), {
                             minWidth: 300,
@@ -5076,7 +5076,7 @@
             function () {
                 var gpsStatus = $('sbGpsStatus');
                 if (gpsStatus) {
-                    gpsStatus.textContent = 'GPS on — waiting for position…';
+                    gpsStatus.textContent = 'GPS on - waiting for position...';
                 }
             },
             { enableHighAccuracy: true, maximumAge: 4000, timeout: 20000 }
@@ -5163,7 +5163,7 @@
                 escapeHtml(h.name) +
                 '</strong><span class="meta">' +
                 escapeHtml(h.category || 'Hospital') +
-                (h.timings ? ' · ' + escapeHtml(h.timings) : '') +
+                (h.timings ? ' - ' + escapeHtml(h.timings) : '') +
                 '</span>';
             ul.appendChild(li);
         }
@@ -5389,7 +5389,7 @@
         emergencyAbortCtrl = new AbortController();
         var signal = emergencyAbortCtrl.signal;
         if (btn) btn.disabled = true;
-        if (hint) hint.textContent = 'Using your trip starting point…';
+        if (hint) hint.textContent = 'Using your trip starting point...';
 
         var start = await resolveEmergencyStartBudget(signal);
         if (signal.aborted) return;
@@ -5402,7 +5402,7 @@
             return;
         }
 
-        if (hint) hint.textContent = 'Opening hospitals on map…';
+        if (hint) hint.textContent = 'Opening hospitals on map...';
         var geoHospitals = await geocodeAllHospitalsBudget(list, signal);
         if (signal.aborted) return;
         if (btn) btn.disabled = false;
@@ -5439,10 +5439,10 @@
 
         var mh = $('budgetTripMapHeading');
         var ms = $('budgetTripMapSubtitle');
-        if (mh) mh.textContent = 'Emergency · nearest hospitals (CSV)';
+        if (mh) mh.textContent = 'Emergency - nearest hospitals (CSV)';
         if (ms) {
             ms.textContent =
-                'Hospitals from the Tirupati CSV only — your budget start plus the three closest by straight-line distance, OSRM trip order, same map chrome as the planner below.';
+                'Hospitals from the Tirupati CSV only - your budget start plus the three closest by straight-line distance, OSRM trip order, same map chrome as the planner below.';
         }
 
         ensureMap();
@@ -5460,12 +5460,12 @@
 
         var addrHtml = escapeHtml(start.label).replace(/,/g, ',<wbr>');
         var metaLine = start.isGps
-            ? 'GPS · ' +
+            ? 'GPS - ' +
               start.lat.toFixed(5) +
               ', ' +
               start.lng.toFixed(5) +
-              (lastGps && lastGps.accuracy != null ? ' · ±' + Math.round(lastGps.accuracy) + ' m' : '')
-            : 'Trip start (budget page) · ' + start.lat.toFixed(5) + ', ' + start.lng.toFixed(5);
+              (lastGps && lastGps.accuracy != null ? ' - ±' + Math.round(lastGps.accuracy) + ' m' : '')
+            : 'Trip start (budget page) - ' + start.lat.toFixed(5) + ', ' + start.lng.toFixed(5);
         var startIcon = start.isGps ? iconStartHomeGps : iconStartHomeTyped;
         L.marker([start.lat, start.lng], { icon: startIcon, zIndexOffset: 700 })
             .bindPopup(buildStartPopupHtml(start.isGps ? 'gps' : 'typed', addrHtml, metaLine), {
@@ -5535,7 +5535,7 @@
         closeBudgetEmergencyPanel();
         if (hint) {
             hint.textContent =
-                'Trip map card shows CSV hospitals only. Use “Apply filters & show map” to restore the full filtered trip.';
+                'Trip map card shows CSV hospitals only. Use "Apply filters & show map" to restore the full filtered trip.';
         }
         if (tripPanel) tripPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         window.setTimeout(function () {
@@ -5612,23 +5612,23 @@
     function getEntryRows() {
         return [
             ['Start mode', byId('sbGeoToggle') && byId('sbGeoToggle').classList.contains('active') ? 'Live GPS' : 'Entered location'],
-            ['Start location', val('sbStartLocation') || val('routeStartLocation') || '—'],
-            ['Trip date', val('sbTripDate') || val('mainTripDate') || '—'],
-            ['Outing window', (val('sbTripStartTime') || val('mainOutingStart') || '—') + ' to ' + (val('sbTripEndTime') || val('mainOutingEnd') || '—')],
-            ['Days', val('sbNumDays') || val('days') || '—'],
+            ['Start location', val('sbStartLocation') || val('routeStartLocation') || '-'],
+            ['Trip date', val('sbTripDate') || val('mainTripDate') || '-'],
+            ['Outing window', (val('sbTripStartTime') || val('mainOutingStart') || '-') + ' to ' + (val('sbTripEndTime') || val('mainOutingEnd') || '-')],
+            ['Days', val('sbNumDays') || val('days') || '-'],
             ['Category', text('linkCtxCategory') || 'All'],
-            ['Search text', val('sbPlaceSearch') || '—'],
-            ['Travel mode', val('travelMode') || '—'],
-            ['Distance (km)', val('distance') || '—'],
-            ['People', val('people') || '—'],
-            ['Rooms', val('rooms') || '—'],
-            ['Room cost/day', val('roomCost') || '—'],
-            ['Food/day per person', val('foodPerDay') || '—'],
-            ['Ticket fare per person', val('ticketPrice') || '—'],
-            ['Budget', val('userBudget') || '—'],
-            ['Estimated total', text('kpiTotal') || '—'],
-            ['Budget delta', text('kpiDelta') || '—'],
-            ['Status', text('kpiStatus') || '—']
+            ['Search text', val('sbPlaceSearch') || '-'],
+            ['Travel mode', val('travelMode') || '-'],
+            ['Distance (km)', val('distance') || '-'],
+            ['People', val('people') || '-'],
+            ['Rooms', val('rooms') || '-'],
+            ['Room cost/day', val('roomCost') || '-'],
+            ['Food/day per person', val('foodPerDay') || '-'],
+            ['Ticket fare per person', val('ticketPrice') || '-'],
+            ['Budget', val('userBudget') || '-'],
+            ['Estimated total', text('kpiTotal') || '-'],
+            ['Budget delta', text('kpiDelta') || '-'],
+            ['Status', text('kpiStatus') || '-']
         ];
     }
 
@@ -5747,7 +5747,7 @@
                         doc.roundedRect(x, yy, colW, rowH - 6, 6, 6, 'S');
 
                         var key = String(colRows[i][0] || '');
-                        var valText = colRows[i][1] == null || colRows[i][1] === '' ? '—' : String(colRows[i][1]);
+                        var valText = colRows[i][1] == null || colRows[i][1] === '' ? '-' : String(colRows[i][1]);
                         doc.setFont('helvetica', 'bold');
                         doc.setFontSize(8.8);
                         doc.setTextColor(C.slate[0], C.slate[1], C.slate[2]);
@@ -5918,7 +5918,7 @@ window.addEventListener('budget-show-trip-map', function () {
     let overBudgetTriggered = false;
     let overBudgetDismissed = false;
     function rupee(n) {
-        return '₹' + fmt.format(Math.round(n));
+        return 'Rs. ' + fmt.format(Math.round(n));
     }
     function num(id) {
         const el = document.getElementById(id);
@@ -5947,8 +5947,8 @@ window.addEventListener('budget-show-trip-map', function () {
         const bikeEstimate = (details.distance / 35) * 105;
 
         overBudgetDelta.textContent = 'Over budget by ' + rupee(overBy);
-        tips.push('Switch to bus: approx ' + rupee(busEstimate) + ' travel for ' + details.people + ' people (~₹' + fmt.format(Math.round(busFare)) + '/person).');
-        tips.push('Switch to train: approx ' + rupee(trainEstimate) + ' travel for ' + details.people + ' people (~₹' + fmt.format(Math.round(trainFare)) + '/person).');
+        tips.push('Switch to bus: approx ' + rupee(busEstimate) + ' travel for ' + details.people + ' people (~Rs. ' + fmt.format(Math.round(busFare)) + '/person).');
+        tips.push('Switch to train: approx ' + rupee(trainEstimate) + ' travel for ' + details.people + ' people (~Rs. ' + fmt.format(Math.round(trainFare)) + '/person).');
         tips.push('Use bike for short hops: at ~35 km/l, travel can drop to about ' + rupee(bikeEstimate) + ' (vs current ' + rupee(details.travel) + ').');
         tips.push('Reduce hotel or food rates slightly (for example 10-15%) to quickly recover the extra ' + rupee(overBy) + '.');
 
@@ -6016,17 +6016,17 @@ window.addEventListener('budget-show-trip-map', function () {
         const mode = modeEl.value;
         if (mode === 'bus') {
             wrap.hidden = false;
-            label.textContent = 'Bus ticket price (₹) per person';
+            label.textContent = 'Bus ticket price (Rs. ) per person';
             if (hint) {
                 hint.textContent =
-                    'Same field when you switch to train — label updates. Travel cost = this amount × number of people.';
+                    'Same field when you switch to train - label updates. Travel cost = this amount x number of people.';
             }
         } else if (mode === 'train') {
             wrap.hidden = false;
-            label.textContent = 'Train ticket price (₹) per person';
+            label.textContent = 'Train ticket price (Rs. ) per person';
             if (hint) {
                 hint.textContent =
-                    'Same field as for bus — enter train fare per person. Travel cost = this amount × number of people.';
+                    'Same field as for bus - enter train fare per person. Travel cost = this amount x number of people.';
             }
         } else {
             wrap.hidden = true;
@@ -6091,7 +6091,7 @@ window.addEventListener('budget-show-trip-map', function () {
             const remaining = userB - total;
             if (remaining >= 0) {
                 box.className = 'remaining-box ok';
-                box.textContent = 'Remaining budget: ' + rupee(remaining) + ' — within plan.';
+                box.textContent = 'Remaining budget: ' + rupee(remaining) + ' - within plan.';
                 if (kpiDelta) kpiDelta.textContent = '+' + rupee(remaining);
                 if (kpiStatus) kpiStatus.textContent = 'Within approved budget';
                 if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status good';
@@ -6100,7 +6100,7 @@ window.addEventListener('budget-show-trip-map', function () {
                 closeOverBudgetModal();
             } else {
                 box.className = 'remaining-box bad';
-                box.textContent = 'Over budget by ' + rupee(Math.abs(remaining)) + ' — reduce costs or increase budget.';
+                box.textContent = 'Over budget by ' + rupee(Math.abs(remaining)) + ' - reduce costs or increase budget.';
                 if (kpiDelta) kpiDelta.textContent = '-' + rupee(Math.abs(remaining));
                 if (kpiStatus) kpiStatus.textContent = 'Exceeds approved budget';
                 if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status warn';
@@ -6198,3 +6198,4 @@ window.addEventListener('budget-show-trip-map', function () {
     <script src="chatbot.js" defer></script>
 </body>
 </html>
+
