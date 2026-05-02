@@ -2857,8 +2857,33 @@
                     bd.setAttribute('aria-hidden', 'false');
                 }
                 renderEmergencyHospitalList();
+                
                 var hint = document.getElementById('emergencyMapHint');
-                if (hint) hint.textContent = '';
+                if (hint) {
+                    hint.textContent = 'Accessing live location...';
+                    hint.style.color = '#e11d48';
+                    hint.style.fontWeight = '600';
+                }
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        if (hint) {
+                            hint.textContent = 'Accessed the live location. Click below to show on map.';
+                            hint.style.color = '#059669'; // Greenish success
+                        }
+                        
+                        // Set the GPS checkbox so the button click knows to use it
+                        var gpsEl = document.getElementById('useLiveGps');
+                        if (gpsEl) gpsEl.checked = true;
+                    }, function(error) {
+                        if (hint) {
+                            hint.textContent = 'Location access denied. Please enter address manually.';
+                            hint.style.color = '#475569';
+                        }
+                    });
+                } else {
+                    if (hint) hint.textContent = 'Geolocation not supported by this browser.';
+                }
             }
 
             function closeEmergencyPanel() {
