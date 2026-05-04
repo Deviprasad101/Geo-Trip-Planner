@@ -2,7 +2,7 @@
 <html class="light budget-page-root" lang="en">
 <head>
     <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <title>Tirupati GeoTrip - Budget Calculator</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
@@ -766,25 +766,37 @@
             --shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
         }
         * { box-sizing: border-box; }
-        html.budget-page-root,
-        body.budget-page-root {
+        html.budget-page-root {
             height: 100%;
+            height: 100dvh;
             overflow: hidden;
         }
         body.budget-page-root {
             margin: 0;
+            box-sizing: border-box;
+            height: 100%;
+            max-height: 100dvh;
+            padding: max(0.65rem, env(safe-area-inset-top, 0px))
+                max(0.85rem, env(safe-area-inset-right, 0px))
+                max(0.65rem, env(safe-area-inset-bottom, 0px))
+                max(0.85rem, env(safe-area-inset-left, 0px));
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             font-family: "Public Sans", system-ui, sans-serif;
             background: var(--bg);
             color: var(--text);
             -webkit-font-smoothing: antialiased;
         }
         .budget-app {
+            /* Inner column padding via --budget-page-gutter */
+            --budget-page-gutter: clamp(0.65rem, 1.6vw, 1.25rem);
+            --budget-page-max: 100%;
             display: flex;
             flex-direction: row;
+            flex: 1;
+            min-height: 0;
             width: 100%;
-            height: 100vh;
-            height: 100dvh;
-            max-height: 100dvh;
             overflow: hidden;
         }
         .budget-main {
@@ -796,547 +808,19 @@
             overflow: hidden;
         }
         .budget-main-scroll {
-            flex: 1;
+            flex: 1 1 0;
             min-height: 0;
             overflow-x: hidden;
             overflow-y: auto;
+            overscroll-behavior: contain;
             -webkit-overflow-scrolling: touch;
         }
-        /* Map planner–style rail (same visual language as trip_planner) */
-        .budget-app .sidebar {
-            --sb-on-surface: #1a1c1e;
-            --sb-muted: #64748b;
-            --sb-bg: rgba(253, 252, 249, 0.96);
-            --sb-bg-page: #f9f9fc;
-            --sb-border-amber: rgba(245, 158, 11, 0.2);
-            --sb-amber-50: #fffbeb;
-            --sb-amber-200: #fde68a;
-            --sb-amber-600: #d97706;
-            --sb-amber-700: #b45309;
-            --sb-surface: #ffffff;
-            --gov-navy-mid: #554300;
-            --gov-text: #1a1c1e;
-            --gov-text-muted: #64748b;
-            --gov-border: rgba(208, 197, 175, 0.95);
-            --gov-surface: #ffffff;
-            --gov-surface-2: #f3f3f6;
-            --gov-focus: #d4af37;
-            --gov-navy: #0f172a;
-            --gov-blue: #8f4e00;
-            --gov-blue-hover: #7a4300;
-            width: min(440px, 46vw);
-            min-width: 300px;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            background: var(--sb-bg);
-            border-right: 1px solid var(--sb-border-amber);
-            box-shadow: 2px 0 16px rgba(115, 92, 0, 0.08);
-            min-height: 0;
-            color: var(--sb-on-surface);
-        }
-        .budget-app .sidebar-top {
-            flex-shrink: 0;
-            background: linear-gradient(180deg, #fdfcf9 0%, var(--sb-bg-page) 100%);
-            padding: 14px 16px;
-            text-align: left;
-            border-bottom: 1px solid rgba(245, 158, 11, 0.12);
-        }
-        .budget-app .sidebar-top h1 {
-            margin: 0;
-            font-size: 1.125rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            line-height: 1.3;
-            color: #0f172a;
-            font-family: "Noto Serif", serif;
-        }
-        .budget-app .sidebar-top h1 .header-icon.material-symbols-outlined {
-            font-size: 1.35rem;
-            font-weight: 400;
-            color: var(--sb-amber-700);
-        }
-        .budget-app .sidebar-top p {
-            font-size: 0.875rem;
-            color: var(--sb-muted);
-            margin: 6px 0 0;
-            line-height: 1.45;
-            font-weight: 400;
-        }
-        .budget-app .sidebar .btn-back {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 10px 12px 0;
-            padding: 10px 14px;
-            border-radius: 0.75rem;
-            font-size: 0.875rem;
-            font-weight: 700;
-            color: var(--sb-amber-700);
-            background: var(--sb-amber-50);
-            border: 1px solid var(--sb-amber-200);
-            text-decoration: none;
-            text-align: center;
-            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-        .budget-app .sidebar .btn-back:hover {
-            background: #fff7ed;
-            border-color: var(--sb-amber-600);
-            color: #92400e;
-        }
-        .budget-app .sidebar .btn-back:focus-visible {
-            outline: 2px solid var(--gov-focus);
-            outline-offset: 2px;
-        }
-        .budget-app .sidebar-scroll {
-            flex: 1;
-            min-height: 0;
-            overflow-x: hidden;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            padding: 12px 12px 14px;
-            gap: 12px;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(143, 78, 0, 0.35) #f3f3f6;
-        }
-        .budget-app .sidebar-scroll > .panel:not(.trip-form-scroll) {
-            flex: 0 0 auto;
-        }
-        .budget-app .sidebar-scroll::-webkit-scrollbar {
-            width: 8px;
-        }
-        .budget-app .sidebar-scroll::-webkit-scrollbar-track {
-            background: #f3f3f6;
-            border-radius: 4px;
-        }
-        .budget-app .sidebar-scroll::-webkit-scrollbar-thumb {
-            background: rgba(143, 78, 0, 0.35);
-            border-radius: 4px;
-        }
-        .budget-app .panel {
-            border: 1px solid rgba(212, 175, 55, 0.22);
-            border-radius: 8px;
-            padding: 14px 14px 16px;
-            background: var(--gov-surface);
-            box-shadow: 0 1px 0 rgba(115, 92, 0, 0.04);
-        }
-        .budget-app .sidebar-details {
-            border: 0;
-            padding: 0;
-            margin: 0;
-        }
-        .budget-app .sidebar-details > summary {
-            list-style: none;
-            cursor: pointer;
-            user-select: none;
-            font-size: 0.8125rem;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            color: var(--gov-navy-mid);
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            line-height: 1.4;
-            padding: 4px 0;
-        }
-        .budget-app .sidebar-details > summary::-webkit-details-marker {
-            display: none;
-        }
-        .budget-app .sidebar-details > summary .sec-icon.material-symbols-outlined {
-            font-size: 1.25rem;
-            font-weight: 400;
-            color: #d4af37;
-        }
-        .budget-app .sidebar-details > summary::after {
-            content: "expand_more";
-            font-family: "Material Symbols Outlined", sans-serif;
-            font-weight: 400;
-            margin-left: auto;
-            font-size: 1.35rem;
-            line-height: 1;
-            color: var(--gov-text-muted);
-            transition: transform 0.2s ease;
-        }
-        .budget-app .sidebar-details[open] > summary::after {
-            transform: rotate(180deg);
-        }
-        .budget-app .sidebar-details-body {
-            padding-top: 10px;
-        }
-        /* Trip planner sidebar controls (scoped to budget sidebar) */
-        .budget-app .sidebar .filter-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-bottom: 12px;
-        }
-        .budget-app .sidebar .chip {
-            border: 1px solid var(--gov-border);
-            background: var(--gov-surface);
-            color: var(--gov-text);
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-            min-height: 40px;
-            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-        .budget-app .sidebar .chip:hover {
-            border-color: rgba(245, 158, 11, 0.45);
-            background: rgba(255, 251, 235, 0.55);
-        }
-        .budget-app .sidebar .chip:focus-visible {
-            outline: 2px solid var(--gov-focus);
-            outline-offset: 2px;
-        }
-        .budget-app .sidebar .chip.active {
-            background: rgba(255, 251, 235, 0.95);
-            border-color: #d97706;
-            color: #b45309;
-        }
-        .budget-app .sidebar .search-input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--gov-border);
-            border-radius: 6px;
-            font-size: 0.9375rem;
-            margin-bottom: 12px;
-            font-family: inherit;
-            color: var(--gov-text);
-        }
-        .budget-app .sidebar .search-input:focus {
-            outline: none;
-            border-color: rgba(143, 78, 0, 0.55);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22);
-        }
-        .budget-app .sidebar .btn-apply {
-            width: 100%;
-            padding: 12px 14px;
-            border: none;
-            border-radius: 6px;
-            font-size: 0.9375rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            background: var(--gov-blue);
-            color: #fff;
-            min-height: 44px;
-            transition: background 0.15s ease;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.45rem;
-        }
-        .budget-app .sidebar .btn-apply:hover {
-            background: var(--gov-blue-hover);
-        }
-        .budget-app .sidebar .btn-apply:focus-visible {
-            outline: 2px solid var(--gov-focus);
-            outline-offset: 2px;
-        }
-        .budget-app .sidebar .panel.trip-form-scroll {
-            flex: 0 0 auto;
-            display: flex;
-            flex-direction: column;
-        }
-        .budget-app .sidebar .panel.trip-form-scroll > .sidebar-details {
-            display: flex;
-            flex-direction: column;
-        }
-        .budget-app .sidebar .panel.trip-form-scroll .sidebar-details-body {
-            display: flex;
-            flex-direction: column;
-        }
-        .budget-app .sidebar .panel.trip-form-scroll #sbTripForm {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-        }
-        .budget-app .sidebar .form-compact .fg {
-            margin-bottom: 12px;
-        }
-        .budget-app .sidebar .form-compact label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-bottom: 4px;
-            color: var(--gov-text);
-        }
-        .budget-app .sidebar .form-compact input {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--gov-border);
-            border-radius: 6px;
-            font-size: 0.9375rem;
-            background: var(--gov-surface);
-            color: var(--gov-text);
-            font-family: inherit;
-            min-height: 42px;
-        }
-        .budget-app .sidebar .form-compact input:focus {
-            outline: none;
-            border-color: rgba(143, 78, 0, 0.55);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-        }
-        .budget-app .sidebar .form-compact .row2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .budget-app .sidebar .time-filter-hint {
-            font-size: 0.8125rem;
-            color: var(--gov-text-muted);
-            margin: 0 0 12px;
-            line-height: 1.5;
-        }
-        .budget-app .sidebar .form-fields-block {
-            flex-shrink: 0;
-            padding-bottom: 4px;
-            border-bottom: 1px solid var(--gov-border);
-            margin-bottom: 12px;
-        }
-        .budget-app .sidebar .trip-overview {
-            flex: 0 0 auto;
-            margin-top: 0;
-            padding: 14px;
-            background: rgba(249, 249, 252, 0.98);
-            border: 1px solid rgba(212, 175, 55, 0.22);
-            border-radius: 6px;
-            display: flex;
-            flex-direction: column;
-        }
-        .budget-app .sidebar .trip-overview-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gov-navy-mid);
-            font-weight: 700;
-            margin-bottom: 10px;
-            flex-shrink: 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid var(--gov-border);
-        }
-        .budget-app .sidebar .trip-overview-divider {
-            height: 1px;
-            background: var(--gov-border);
-            margin: 4px 0 12px;
-            flex-shrink: 0;
-        }
-        .budget-app .sidebar .trip-overview-subtitle {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--gov-navy-mid);
-            font-weight: 700;
-            margin: 0 0 8px;
-            flex-shrink: 0;
-        }
-        .budget-app .sidebar .trip-overview-grid {
-            display: grid;
-            grid-template-columns: minmax(5.5rem, auto) 1fr;
-            gap: 8px 12px;
-            font-size: 0.875rem;
-            flex-shrink: 0;
-            line-height: 1.45;
-        }
-        .budget-app .sidebar .trip-overview-grid dt {
-            color: var(--gov-text-muted);
-            font-weight: 600;
-        }
-        .budget-app .sidebar .trip-overview-grid dd {
-            color: var(--gov-text);
-            word-break: break-word;
-            margin: 0;
-            font-weight: 500;
-        }
-        .budget-app .sidebar .trip-overview-list {
-            flex: 0 0 auto;
-            margin-top: 0;
-            padding: 10px 8px 10px 4px;
-            border: 1px solid var(--gov-border);
-            border-radius: 6px;
-            background: var(--gov-surface);
-            font-size: 0.9375rem;
-            color: var(--gov-text);
-            line-height: 1.5;
-        }
-        .budget-app .sidebar .trip-overview-list:empty::before {
-            content: "Set outing times and filters. The visit list previews here; tap Apply filters & show map below.";
-            display: block;
-            color: var(--gov-text-muted);
-            font-size: 0.875rem;
-            line-height: 1.45;
-            padding: 4px 2px 0;
-        }
-        .budget-app .sidebar .ov-itin {
-            font-size: 0.9375rem;
-            line-height: 1.5;
-            color: var(--gov-text);
-        }
-        .budget-app .sidebar .ov-hint {
-            color: var(--gov-text-muted);
-            margin-bottom: 12px;
-            font-size: 0.8125rem;
-            line-height: 1.5;
-        }
-        .budget-app .sidebar .ov-day-title {
-            font-weight: 700;
-            font-size: 0.875rem;
-            color: var(--gov-navy-mid);
-            margin-top: 10px;
-        }
-        .budget-app .sidebar .ov-day-title:first-child {
-            margin-top: 0;
-        }
-        .budget-app .sidebar .ov-msg--warn {
-            color: #9a3412;
-            background: #fff7ed;
-            padding: 10px 12px;
-            border-radius: 6px;
-            border: 1px solid #fdba74;
-            font-size: 0.875rem;
-            line-height: 1.5;
-        }
-        .budget-app .sidebar .ov-ul {
-            margin: 6px 0 0;
-            padding-left: 1.25em;
-        }
-        .budget-app .sidebar .ov-ul li {
-            margin-bottom: 8px;
-        }
-        .budget-app .sidebar .ov-more {
-            list-style: none;
-            margin-left: -1em;
-            color: var(--gov-text-muted);
-            font-style: italic;
-            font-size: 0.875rem;
-        }
-        .budget-app .sidebar .toggle-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            color: var(--gov-text);
-            margin-bottom: 6px;
-        }
-        .budget-app .sidebar .toggle-row .row-icon.material-symbols-outlined {
-            font-size: 1.25rem;
-            color: var(--gov-blue);
-        }
-        .budget-app .sidebar .toggle-switch {
-            width: 48px;
-            height: 26px;
-            background: #cbd5e1;
-            border-radius: 13px;
-            cursor: pointer;
-            position: relative;
-            flex-shrink: 0;
-            transition: background 0.2s ease;
-        }
-        .budget-app .sidebar .toggle-switch:hover {
-            background: #94a3b8;
-        }
-        .budget-app .sidebar .toggle-switch.active {
-            background: var(--gov-blue);
-        }
-        .budget-app .sidebar .toggle-switch::after {
-            content: "";
-            position: absolute;
-            width: 22px;
-            height: 22px;
-            background: #fff;
-            border-radius: 50%;
-            top: 2px;
-            left: 2px;
-            transition: left 0.2s;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        .budget-app .sidebar .toggle-switch.active::after {
-            left: 24px;
-        }
-        .budget-app .sidebar .gps-line {
-            font-size: 0.8125rem;
-            color: #7c2d12;
-            background: #fff7ed;
-            padding: 8px 10px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            border: 1px solid #fed7aa;
-            line-height: 1.45;
-        }
-        .budget-app .sidebar .gps-line.on {
-            color: #14532d;
-            background: #f0fdf4;
-            border-color: #86efac;
-        }
-        .budget-app .sidebar .hidden {
+        /* Script-only #budgetPlannerSyncHost: sb* ids for map/trip sync (not shown) */
+        #budgetPlannerSyncHost .hidden {
             display: none !important;
         }
-        .budget-app .sidebar .btn-row {
-            display: flex;
-            gap: 10px;
-            margin-top: 14px;
-            padding-top: 14px;
-            border-top: 1px solid var(--gov-border);
-            flex-shrink: 0;
-        }
-        .budget-app .sidebar .btn-row button {
-            flex: 1;
-            padding: 12px 14px;
-            border-radius: 6px;
-            font-size: 0.9375rem;
-            font-weight: 700;
-            cursor: pointer;
-            font-family: inherit;
-            min-height: 44px;
-            transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-        }
-        .budget-app .sidebar .btn-submit {
-            background: var(--gov-blue);
-            color: #fff;
-            border: 1px solid var(--gov-blue);
-        }
-        .budget-app .sidebar .btn-submit:hover {
-            background: var(--gov-blue-hover);
-            border-color: var(--gov-blue-hover);
-        }
-        .budget-app .sidebar .btn-submit:focus-visible {
-            outline: 2px solid var(--gov-focus);
-            outline-offset: 2px;
-        }
-        .budget-app .sidebar .btn-reset {
-            background: var(--gov-surface);
-            color: var(--gov-navy-mid);
-            border: 1px solid var(--gov-border);
-        }
-        .budget-app .sidebar .btn-reset:hover {
-            background: var(--gov-surface-2);
-            border-color: #94a3b8;
-        }
-        .budget-app .sidebar .btn-reset:focus-visible {
-            outline: 2px solid var(--gov-focus);
-            outline-offset: 2px;
-        }
-        .budget-app .sidebar .success-message {
+        #budgetPlannerSyncHost .success-message {
             display: none;
-            font-size: 0.875rem;
-            padding: 10px 12px;
-            margin-top: 12px;
-            border-radius: 6px;
-            background: #f0fdf4;
-            border: 1px solid #86efac;
-            color: #14532d;
-            text-align: center;
-            font-weight: 600;
-            flex-shrink: 0;
         }
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -1350,35 +834,37 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             color: var(--text);
-            padding: 1rem clamp(1rem, 3vw, 2rem);
+            padding-top: 0.55rem;
+            padding-bottom: 0.6rem;
+            padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
+            padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
             border-bottom: 1px solid rgba(180, 83, 9, 0.28);
-            box-shadow:
-                0 6px 20px rgba(15, 23, 42, 0.09),
-                0 2px 6px rgba(15, 23, 42, 0.05),
-                0 1px 0 rgba(245, 158, 11, 0.15);
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
         }
         .site-header__inner {
-            max-width: 80rem;
-            margin: 0 auto;
+            max-width: var(--budget-page-max);
+            width: 100%;
+            margin: 0;
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             align-items: center;
-            gap: 1rem;
+            column-gap: 0.6rem;
+            row-gap: 0.35rem;
         }
         .site-header__meta {
             min-width: 0;
         }
         .site-header__logo {
-            height: clamp(72px, 11vh, 104px);
+            height: clamp(56px, 8.5vh, 88px);
             width: auto;
-            max-width: min(58vw, 520px);
+            max-width: min(52vw, 420px);
             object-fit: contain;
             object-position: center;
-            border-radius: 10px;
+            border-radius: 8px;
             background: #fff;
-            padding: 5px 10px;
+            padding: 4px 8px;
             border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 3px 12px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
             justify-self: center;
         }
         .site-header__titles h1 {
@@ -1390,7 +876,7 @@
             color: #78350f;
         }
         .site-header__titles p {
-            margin: 0.2rem 0 0;
+            margin: 0.08rem 0 0;
             font-size: 0.8125rem;
             color: var(--muted);
             font-weight: 500;
@@ -1398,7 +884,7 @@
         .site-header__actions {
             display: flex;
             align-items: center;
-            gap: 0.95rem;
+            gap: 0.45rem;
             justify-self: end;
         }
         .site-header__back {
@@ -1470,9 +956,80 @@
             line-height: 1;
         }
         .wrap {
-            max-width: 90rem;
-            margin: 0 auto;
-            padding: 1.1rem clamp(1rem, 2.6vw, 2rem) 2.5rem;
+            max-width: var(--budget-page-max);
+            width: 100%;
+            margin: 0;
+            box-sizing: border-box;
+            padding-top: 1rem;
+            padding-bottom: 2.5rem;
+            padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
+            padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
+        }
+        /* 60% entries (main) / 40% map (aside) — desktop */
+        .wrap.budget-page-split {
+            display: grid;
+            grid-template-columns: minmax(0, 6fr) minmax(0, 4fr);
+            gap: 0.65rem;
+            align-items: start;
+        }
+        .budget-page-split__primary {
+            min-width: 0;
+        }
+        .budget-page-split__map {
+            min-width: 0;
+            position: sticky;
+            top: 0;
+            align-self: start;
+            max-height: calc(100dvh - 0.5rem);
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-bottom: 0.5rem;
+        }
+        .section-heading--map-rail {
+            margin-top: 0.35rem;
+            margin-bottom: 0.4rem;
+        }
+        .budget-plan-map-card--rail .budget-trip-map-shell {
+            min-height: min(52vh, 420px);
+            height: min(52vh, 440px);
+        }
+        .budget-map-rail-placeholder {
+            border: 1px dashed rgba(13, 148, 136, 0.45);
+            border-radius: 12px;
+            background: linear-gradient(165deg, #f8fafc 0%, #ecfeff 100%);
+            padding: 1rem 1rem 1.15rem;
+            margin-bottom: 0.35rem;
+            min-height: min(52vh, 420px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 0.45rem;
+        }
+        .budget-map-rail-placeholder[hidden] {
+            display: none !important;
+        }
+        .budget-map-rail-placeholder__icon {
+            font-size: 2.25rem;
+            color: #0f766e;
+            opacity: 0.85;
+        }
+        .budget-map-rail-placeholder__title {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #134e4a;
+        }
+        .budget-map-rail-placeholder__text {
+            margin: 0;
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            color: #475569;
+            max-width: 22rem;
+        }
+        .budget-plan-map-card--rail.card--map > .card__head .card__subtitle {
+            max-width: none;
         }
         .section-heading {
             margin: 1.15rem 0 0.7rem;
@@ -1484,30 +1041,24 @@
             border-left: 4px solid rgba(143, 78, 0, 0.75);
             padding-left: 0.6rem;
         }
-        .dashboard-controls {
-            margin: 0.95rem 0 1.1rem;
-            padding: 0.7rem 0.8rem;
-            border: 1px solid #d6dde8;
-            border-radius: 12px;
-            background: linear-gradient(145deg, #ffffff 0%, #f5f8fc 100%);
+        .summary-stack .summary-card__actions-bottom {
             display: flex;
             flex-wrap: wrap;
+            justify-content: flex-end;
             align-items: center;
-            justify-content: space-between;
-            gap: 0.65rem;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 0.35rem;
         }
-        .dashboard-controls__title {
-            margin: 0;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.07em;
-            color: #334155;
-            font-weight: 800;
+        .summary-stack .summary-card__actions-bottom .btn-pdf-export {
+            width: auto;
+            flex: 0 1 auto;
+            padding: 0.5rem 0.85rem;
+            font-size: 0.78rem;
+            white-space: nowrap;
         }
-        .dashboard-controls__actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.55rem;
+        .summary-stack .summary-card__recalc {
+            white-space: nowrap;
         }
         .ctrl-btn {
             border: 1px solid #cbd5e1;
@@ -1596,86 +1147,6 @@
                 0 18px 36px rgba(17, 31, 55, 0.18),
                 0 8px 14px rgba(17, 31, 55, 0.09),
                 0 1px 0 rgba(255, 255, 255, 0.85) inset;
-        }
-        .card--context {
-            background: linear-gradient(145deg, #ffffff 0%, #eef7ff 100%);
-            border-color: #dbeafe;
-        }
-        /* Linked planner context - same structure as Trip inputs: no gloss wash, clear header + panel */
-        .card--context.linked-workspace::before,
-        .card--context.linked-workspace::after {
-            display: none;
-        }
-        .card--context.linked-workspace:hover {
-            border-color: #5eead4;
-            box-shadow:
-                0 10px 36px rgba(15, 118, 110, 0.12),
-                0 2px 0 rgba(255, 255, 255, 0.45) inset;
-        }
-        .card--context.linked-workspace {
-            background: #ebe4db;
-            border: 1px solid #e7e5e4;
-            border-top: 3px solid #7dd3fc;
-            box-shadow: 0 10px 36px rgba(28, 25, 23, 0.1);
-        }
-        .card--context.linked-workspace > .card__head {
-            gap: 1rem;
-            margin: -1px -1px 1rem -1px;
-            padding: 1rem 1.1rem 1.1rem;
-            border-radius: 0;
-            border-bottom: 1px solid rgba(13, 148, 136, 0.2);
-            background: linear-gradient(115deg, #f0fdfa 0%, #ccfbf1 48%, #d1fae5 100%);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
-        }
-        .card--context.linked-workspace > .card__head .card__icon--teal {
-            background: rgba(255, 255, 255, 0.85) !important;
-            border: 1px solid rgba(13, 148, 136, 0.35);
-            box-shadow: 0 1px 4px rgba(15, 118, 110, 0.12);
-        }
-        .card--context.linked-workspace > .card__head .card__icon--teal .material-symbols-outlined {
-            color: #0f766e !important;
-        }
-        .card--context.linked-workspace > .card__head .card__title {
-            color: #134e4a !important;
-            font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            text-shadow: none;
-            -webkit-font-smoothing: antialiased;
-        }
-        .card--context.linked-workspace > .card__head .card__subtitle {
-            font-size: clamp(0.82rem, 0.78rem + 0.2vw, 0.9rem);
-            font-weight: 500;
-            color: #475569 !important;
-            line-height: 1.55;
-            margin-top: 0.3rem;
-            max-width: 42rem;
-            text-shadow: none;
-        }
-        .card--context.linked-workspace > .card__head .card__subtitle strong {
-            color: #0f766e;
-            font-weight: 700;
-        }
-        .card--context.linked-workspace .ctx-grid {
-            padding: 0.95rem 1.05rem;
-            background: #ffffff;
-            border: 1px solid rgba(251, 191, 36, 0.55);
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(28, 25, 23, 0.07);
-            gap: 0.45rem 1rem;
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-        .card--context.linked-workspace .ctx-grid dt {
-            color: #334155;
-            font-weight: 700;
-            margin: 0;
-        }
-        .card--context.linked-workspace .ctx-grid dd {
-            margin: 0;
-            color: #0f172a;
-            font-weight: 600;
-            word-break: break-word;
         }
         /* Trip inputs: disable global card gloss overlay (it washed out header + fields) */
         .card--inputs::before {
@@ -2177,17 +1648,45 @@
             box-shadow: 0 2px 12px rgba(15, 118, 110, 0.12);
             padding: 1.25rem 1.35rem;
         }
-        .summary-stack .summary-card h2 {
-            color: #0d9488;
-            font-size: 1.05rem;
-            font-weight: 700;
+        .summary-stack .summary-card__head {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 0.5rem 0.75rem;
             border-bottom: 1px solid rgba(20, 184, 166, 0.28);
             padding-bottom: 0.75rem;
             margin-bottom: 0.85rem;
         }
-        .summary-stack .summary-card h2 .material-symbols-outlined {
+        .summary-stack .summary-card__head h2 {
+            grid-column: 1;
+            grid-row: 1;
+            color: #0d9488;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 0;
+            min-width: 0;
+            border: none;
+            padding: 0;
+        }
+        .summary-stack .summary-card__head h2 .material-symbols-outlined {
             color: #14b8a6;
             vertical-align: middle;
+        }
+        .summary-stack .summary-card__clear {
+            grid-column: 2;
+            grid-row: 1;
+            justify-self: end;
+            align-self: start;
+            white-space: nowrap;
+            flex-shrink: 0;
+            border-color: #94a3b8;
+            background: #f8fafc;
+            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+            z-index: 2;
+        }
+        .summary-stack .summary-card__clear:hover {
+            background: #f1f5f9;
+            border-color: #64748b;
         }
         .summary-stack .summary-line span:first-child {
             color: #334155;
@@ -2355,13 +1854,6 @@
         .budget-inline-map-frame-wrap {
             border: 1px solid var(--border);
         }
-        .linked-workspace {
-            margin-bottom: 1.25rem;
-        }
-        .linked-workspace .ctx-grid {
-            display: grid;
-            grid-template-columns: minmax(7rem, auto) 1fr;
-        }
         .tooltip-btn {
             cursor: help;
             display: inline-flex;
@@ -2395,9 +1887,9 @@
             color: #78350f;
             background: rgba(254, 243, 199, 0.9);
             border: 1px solid rgba(251, 191, 36, 0.45);
-            padding: 0.2rem 0.5rem;
+            padding: 0.18rem 0.45rem;
             border-radius: 6px;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.28rem;
         }
         .btn-apply,
         .btn-submit,
@@ -2413,6 +1905,24 @@
             outline: 2px solid #1d4ed8;
             outline-offset: 2px;
         }
+        @media (max-width: 1100px) {
+            .wrap.budget-page-split {
+                grid-template-columns: 1fr;
+                gap: 0.85rem;
+            }
+            .budget-page-split__map {
+                position: static;
+                max-height: none;
+                overflow-y: visible;
+            }
+            .section-heading--map-rail {
+                margin-top: 1rem;
+            }
+            .budget-plan-map-card--rail .budget-trip-map-shell {
+                min-height: min(62vh, 560px);
+                height: min(68vh, 640px);
+            }
+        }
         @media (max-width: 900px) {
             html.budget-page-root,
             body.budget-page-root {
@@ -2427,14 +1937,6 @@
                 max-height: none;
                 overflow: visible;
             }
-            .budget-app .sidebar {
-                width: 100%;
-                min-width: unset;
-                max-height: min(62vh, 32rem);
-                border-right: none;
-                border-bottom: 1px solid rgba(245, 158, 11, 0.2);
-                box-shadow: 0 4px 16px rgba(115, 92, 0, 0.06);
-            }
             .budget-main {
                 overflow: visible;
             }
@@ -2443,12 +1945,19 @@
             }
         }
         @media (max-width: 640px) {
+            .budget-app {
+                --budget-page-gutter: clamp(0.45rem, 2.5vw, 0.85rem);
+            }
             .site-header {
-                padding: 0.75rem 0.85rem;
+                padding-top: 0.5rem;
+                padding-bottom: 0.55rem;
+                padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
+                padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
             }
             .site-header__inner {
                 grid-template-columns: auto minmax(0, 1fr);
-                gap: 0.55rem 0.7rem;
+                column-gap: 0.45rem;
+                row-gap: 0.35rem;
                 align-items: center;
             }
             .site-header__meta {
@@ -2482,7 +1991,7 @@
                 flex-direction: row;
                 flex-wrap: wrap;
                 align-items: center;
-                gap: 0.45rem;
+                gap: 0.35rem;
             }
             .site-header__splitter {
                 font-size: 0.78rem;
@@ -2512,124 +2021,85 @@
                 font-size: 22px;
             }
             .wrap {
-                padding: 0.85rem 0.85rem 2rem;
+                padding-top: 0.55rem;
+                padding-bottom: 1.85rem;
+                padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
+                padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
             }
-            .dashboard-controls {
-                padding: 0.75rem;
+            .summary-stack .summary-card__actions-bottom {
+                flex-direction: column;
+                align-items: stretch;
+                justify-content: flex-start;
             }
-            .dashboard-controls__actions {
+            .summary-stack .summary-card__actions-bottom .btn-pdf-export {
                 width: 100%;
-            }
-            .dashboard-controls__actions .ctrl-btn {
-                flex: 1 1 100%;
                 justify-content: center;
+            }
+            .summary-stack .summary-card__recalc {
+                width: 100%;
+                justify-content: center;
+            }
+            .summary-stack .summary-card__head {
+                grid-template-columns: 1fr;
+            }
+            .summary-stack .summary-card__clear {
+                grid-column: 1;
+                grid-row: 2;
+                justify-self: stretch;
+                width: 100%;
+                justify-content: center;
+                white-space: normal;
             }
         }
     </style>
 </head>
 <body class="budget-page-root bg-background text-on-background antialiased">
 <div class="budget-app">
-    <aside class="sidebar" aria-label="Trip planning controls">
-        <div class="sidebar-top">
-            <h1><span class="header-icon material-symbols-outlined" aria-hidden="true">map</span> Plan your trip</h1>
-            <p>Trip planning workspace - Tirupati places dataset</p>
+    <div id="budgetPlannerSyncHost" hidden aria-hidden="true">
+        <div class="filter-row" id="sbCategoryChips">
+            <button type="button" class="chip active" data-cat="all">All</button>
+            <button type="button" class="chip" data-cat="food">Food</button>
+            <button type="button" class="chip" data-cat="adventure">Adventure</button>
+            <button type="button" class="chip" data-cat="wildlife">Wildlife</button>
+            <button type="button" class="chip" data-cat="temple">Temple</button>
+            <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
         </div>
-        <a class="btn-back" href="main_page.html">← Back to Tirupati Tourism</a>
-        <div class="sidebar-scroll">
-            <div class="panel">
-                <details class="sidebar-details" open>
-                    <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">tune</span> Map &amp; data filters</summary>
-                    <div class="sidebar-details-body">
-                        <div class="filter-row" id="sbCategoryChips">
-                            <button type="button" class="chip active" data-cat="all">All</button>
-                            <button type="button" class="chip" data-cat="food">Food</button>
-                            <button type="button" class="chip" data-cat="adventure">Adventure</button>
-                            <button type="button" class="chip" data-cat="wildlife">Wildlife</button>
-                            <button type="button" class="chip" data-cat="temple">Temple</button>
-                            <button type="button" class="chip" data-cat="sightseeing">Sightseeing</button>
-                        </div>
-                        <input type="text" class="search-input" id="sbPlaceSearch" placeholder="Search name or description..." autocomplete="off"/>
-                        <button type="button" class="btn-apply" id="sbApplyFilters"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">map</span> Apply filters &amp; show map</button>
-                    </div>
-                </details>
+        <input type="text" id="sbPlaceSearch" autocomplete="off" tabindex="-1"/>
+        <button type="button" id="sbApplyFilters" tabindex="-1">Apply filters</button>
+        <form id="sbTripForm">
+            <div class="toggle-switch" id="sbGeoToggle" role="button" tabindex="-1" aria-label="Toggle GPS"></div>
+            <div id="sbGpsStatus">GPS off - enter location below</div>
+            <div class="fg visible" id="sbStartLocationGroup">
+                <input type="text" id="sbStartLocation" required/>
             </div>
-
-            <div class="panel trip-form-scroll">
-                <details class="sidebar-details" open>
-                    <summary><span class="sec-icon material-symbols-outlined" aria-hidden="true">schedule</span> Trip details &amp; live summary</summary>
-                    <div class="sidebar-details-body">
-                        <form id="sbTripForm" class="form-compact">
-                            <div class="form-fields-block">
-                                <div class="fg">
-                                    <div class="toggle-row">
-                                        <span class="row-icon material-symbols-outlined" aria-hidden="true">my_location</span>
-                                        <span>Use GPS location</span>
-                                        <div class="toggle-switch" id="sbGeoToggle" role="button" tabindex="0" aria-label="Toggle GPS"></div>
-                                    </div>
-                                    <div class="gps-line" id="sbGpsStatus">GPS off - enter location below</div>
-                                </div>
-                                <div class="fg visible" id="sbStartLocationGroup">
-                                    <label for="sbStartLocation">Start location</label>
-                                    <input type="text" id="sbStartLocation" placeholder="e.g. Tirupati" required/>
-                                </div>
-                                <div class="fg hidden" id="sbGpsFailedGroup">
-                                    <div class="gps-line on">GPS on - location on submit</div>
-                                </div>
-                                <div class="row2">
-                                    <div class="fg">
-                                        <label for="sbTripStartTime">Outing start</label>
-                                        <input type="time" id="sbTripStartTime" required title="Only places open during this window appear on the map"/>
-                                    </div>
-                                    <div class="fg">
-                                        <label for="sbTripEndTime">Outing end</label>
-                                        <input type="time" id="sbTripEndTime" required title="Only places open during this window appear on the map"/>
-                                    </div>
-                                </div>
-                                <p class="time-filter-hint">Map uses CSV <strong>timings</strong> slots (breakfast / lunch / dinner). Visit order = nearest open stops, then trimmed to fit your outing length (~28 min/stop).</p>
-                                <div class="row2">
-                                    <div class="fg">
-                                        <label for="sbTripDate">Date</label>
-                                        <input type="date" id="sbTripDate" required/>
-                                    </div>
-                                    <div class="fg">
-                                        <label for="sbNumDays">Days</label>
-                                        <input type="number" id="sbNumDays" min="1" max="365" placeholder="5" required/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="trip-overview" id="sbTripOverview" aria-live="polite">
-                                <div class="trip-overview-title" id="sbOvLiveSummaryHeading">Live summary</div>
-                                <dl class="trip-overview-grid" aria-labelledby="sbOvLiveSummaryHeading">
-                                    <dt>Start</dt>
-                                    <dd id="sbOvLocation">-</dd>
-                                    <dt>Day plan</dt>
-                                    <dd id="sbOvSchedule">-</dd>
-                                    <dt>Trip length</dt>
-                                    <dd id="sbOvSpan">-</dd>
-                                    <dt>Places</dt>
-                                    <dd id="sbOvMap">-</dd>
-                                </dl>
-                                <div class="trip-overview-divider" aria-hidden="true"></div>
-                                <div class="trip-overview-subtitle" id="sbOvVisitOrderHeading">Visit order</div>
-                                <div class="trip-overview-list" id="sbOvPlaceList" role="region" aria-labelledby="sbOvVisitOrderHeading"></div>
-                            </div>
-                            <div class="btn-row">
-                                <button type="submit" class="btn-submit">Plan</button>
-                                <button type="reset" class="btn-reset">Clear</button>
-                            </div>
-                            <div class="success-message" id="sbSuccessMessage">Trip saved (see browser console for details)</div>
-                        </form>
-                    </div>
-                </details>
+            <div class="fg hidden" id="sbGpsFailedGroup">
+                <div class="gps-line on">GPS on - location on submit</div>
             </div>
-        </div>
-        <div class="sidebar-pdf-export">
-            <button type="button" class="btn-pdf-export" id="sbDownloadPdfBtn">
-                <span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>
-                Download trip PDF
-            </button>
-        </div>
-    </aside>
+            <input type="time" id="sbTripStartTime" required/>
+            <input type="time" id="sbTripEndTime" required/>
+            <input type="date" id="sbTripDate" required/>
+            <input type="number" id="sbNumDays" min="1" max="365" required/>
+            <div class="trip-overview" id="sbTripOverview" aria-live="polite">
+                <div class="trip-overview-title" id="sbOvLiveSummaryHeading">Live summary</div>
+                <dl class="trip-overview-grid" aria-labelledby="sbOvLiveSummaryHeading">
+                    <dt>Start</dt>
+                    <dd id="sbOvLocation">-</dd>
+                    <dt>Day plan</dt>
+                    <dd id="sbOvSchedule">-</dd>
+                    <dt>Trip length</dt>
+                    <dd id="sbOvSpan">-</dd>
+                    <dt>Places</dt>
+                    <dd id="sbOvMap">-</dd>
+                </dl>
+                <div class="trip-overview-divider" aria-hidden="true"></div>
+                <div class="trip-overview-subtitle" id="sbOvVisitOrderHeading">Visit order</div>
+                <div class="trip-overview-list" id="sbOvPlaceList" role="region" aria-labelledby="sbOvVisitOrderHeading"></div>
+            </div>
+            <button type="submit" class="btn-submit">Plan</button>
+            <button type="reset" class="btn-reset">Clear</button>
+            <div class="success-message" id="sbSuccessMessage">Trip saved (see browser console for details)</div>
+        </form>
+    </div>
 
     <div class="budget-main">
     <header class="site-header sticky top-0 z-50 shrink-0">
@@ -2650,14 +2120,8 @@
     </header>
 
     <div class="budget-main-scroll">
-    <main class="wrap">
-        <section class="dashboard-controls" aria-label="Dashboard controls">
-            <p class="dashboard-controls__title">Operational controls</p>
-            <div class="dashboard-controls__actions">
-                <button type="button" class="ctrl-btn ctrl-btn--primary" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
-                <button type="button" class="ctrl-btn" id="resetBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">ink_eraser</span>Clear inputs</button>
-            </div>
-        </section>
+    <div class="wrap budget-page-split">
+    <main class="budget-page-split__primary">
         <section class="kpi-strip" aria-label="Decision summary strip">
             <article class="kpi-chip">
                 <span class="kpi-chip__label">Estimated Total</span>
@@ -2671,34 +2135,6 @@
                 <span class="kpi-chip__label">Compliance Status</span>
                 <p class="kpi-chip__value" id="kpiStatus">Awaiting inputs</p>
             </article>
-        </section>
-        <h2 class="section-heading">Planner Context</h2>
-        <section class="card card--context linked-workspace" aria-labelledby="linkedCtxHeading">
-            <div class="card__head">
-                <div class="card__icon card__icon--teal">
-                    <span class="material-symbols-outlined">sync_alt</span>
-                </div>
-                <div>
-                    <h2 class="card__title" id="linkedCtxHeading">Linked trip planner context</h2>
-                    <p class="card__subtitle">Mirrors the left sidebar. Edit in either place - budget totals use <strong>Number of days</strong>; <strong>Starting location</strong> stays in sync for the trip map further down this page.</p>
-                </div>
-            </div>
-            <dl class="ctx-grid">
-                <dt>Category</dt>
-                <dd id="linkCtxCategory">-</dd>
-                <dt>Search</dt>
-                <dd id="linkCtxSearch">-</dd>
-                <dt>Trip date</dt>
-                <dd id="linkCtxDate">-</dd>
-                <dt>Outing window</dt>
-                <dd id="linkCtxOuting">-</dd>
-                <dt>Trip length</dt>
-                <dd id="linkCtxDays">-</dd>
-                <dt>Planner start</dt>
-                <dd id="linkCtxStart">-</dd>
-                <dt>Places preview</dt>
-                <dd id="linkCtxPlacesLine">-</dd>
-            </dl>
         </section>
         <div class="planner-split">
             <h2 class="section-heading">Budget Inputs</h2>
@@ -2736,7 +2172,7 @@
                     <div>
                         <label for="distance">Total distance (km)</label>
                         <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="Enter total distance"/>
-                        <p class="hint" id="distanceMapHint">Used for <strong>car / bike</strong> fuel cost. Matches the sidebar - same distance feeds the <strong>filtered trip map</strong> lower on this page.</p>
+                        <p class="hint" id="distanceMapHint">Used for <strong>car / bike</strong> fuel cost. Also used if you open the <strong>Emergency</strong> map (nearest hospitals).</p>
                     </div>
                     <div>
                         <label for="routeStartLocation">Starting location</label>
@@ -2745,7 +2181,7 @@
                     <div>
                         <label for="mainTripDate">Trip date</label>
                         <input type="date" id="mainTripDate" required/>
-                        <p class="hint">Synced with the sidebar; passed to the trip map when you apply filters.</p>
+                        <p class="hint">Stays in sync with <strong>Trip inputs</strong>; passed to the trip map when you apply filters.</p>
                     </div>
                     <div>
                         <label for="mainOutingStart">Outing start</label>
@@ -2776,7 +2212,7 @@
                         <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Food/day per person"/>
                     </div>
                     <div>
-                        <p class="hint inputs-hint-wide" style="grid-column: 1 / -1; margin: 0;">Number of days stays <strong>in sync</strong> with the left sidebar - edit either place; stay, food, and buffer totals follow automatically.</p>
+                        <p class="hint inputs-hint-wide" style="grid-column: 1 / -1; margin: 0;">Number of days stays <strong>in sync</strong> with the trip planner fields - edit either place; stay, food, and buffer totals follow automatically.</p>
                     </div>
                 </div>
             </section>
@@ -2860,10 +2296,13 @@
         <div class="summary-stack">
         <h2 class="section-heading">Budget Summary</h2>
         <section class="summary-card" aria-labelledby="summaryHeading">
-            <h2 id="summaryHeading">
-                <span class="material-symbols-outlined" style="vertical-align:middle">account_balance_wallet</span>
-                Final budget summary
-            </h2>
+            <div class="summary-card__head">
+                <h2 id="summaryHeading">
+                    <span class="material-symbols-outlined" style="vertical-align:middle">account_balance_wallet</span>
+                    Final budget summary
+                </h2>
+                <button type="button" class="ctrl-btn summary-card__clear" id="resetBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">ink_eraser</span>Clear inputs</button>
+            </div>
             <div class="summary-lines">
                 <div class="summary-line"><span>Travel cost</span><strong id="sumTravel">Rs. 0</strong></div>
                 <div class="summary-line"><span>Stay cost</span><strong id="sumStay">Rs. 0</strong></div>
@@ -2878,28 +2317,40 @@
             <div class="remaining-box neutral" id="remainingBox" role="status" aria-live="polite">
                 Enter your total budget (first field in Trip inputs) to see if you are within plan.
             </div>
+            <div class="summary-card__actions-bottom" aria-label="Export and recalculate">
+                <button type="button" class="btn-pdf-export summary-card__pdf" id="sbDownloadPdfBtn"><span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>Download trip PDF</button>
+                <button type="button" class="ctrl-btn ctrl-btn--primary summary-card__recalc" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
+            </div>
         </section>
         </div>
+    </main>
 
-        <h2 class="section-heading">Embedded Trip Map</h2>
-        <section class="card card--map budget-plan-map-card" id="budgetTripMapPanel" hidden aria-labelledby="budgetTripMapHeading">
+    <aside class="budget-page-split__map" aria-label="Emergency map">
+        <h2 class="section-heading section-heading--map-rail">Map</h2>
+        <div id="budgetMapRailPlaceholder" class="budget-map-rail-placeholder">
+            <span class="material-symbols-outlined budget-map-rail-placeholder__icon" aria-hidden="true">local_hospital</span>
+            <p class="budget-map-rail-placeholder__title">Emergency map only</p>
+            <p class="budget-map-rail-placeholder__text">Tap <strong>Emergency</strong> (bottom-right), then <strong>Show nearest 3 on map</strong>. The hospital route opens in this panel.</p>
+        </div>
+        <section class="card card--map budget-plan-map-card budget-plan-map-card--rail budget-trip-map-panel--emergency-only" id="budgetTripMapPanel" hidden aria-labelledby="budgetTripMapHeading">
             <div class="card__head">
                 <div class="card__icon card__icon--teal">
                     <span class="material-symbols-outlined">map</span>
                 </div>
                 <div>
                     <h2 class="card__title" id="budgetTripMapHeading">Filtered trip map</h2>
-                    <p class="card__subtitle" id="budgetTripMapSubtitle">Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters - no separate page.</p>
+                    <p class="card__subtitle" id="budgetTripMapSubtitle">Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Uses the map filters on this page - no separate page.</p>
                 </div>
             </div>
             <div class="budget-trip-map-embed budget-inline-map-frame-wrap budget-trip-map-shell">
                 <div id="budgetTripMapInner" role="application" aria-label="Interactive trip map"></div>
                 <div id="budgetTripMapOverlay" class="map-overlay">
-                    <p><strong>Map is hidden</strong> until you apply filters. Set <strong>outing start/end</strong>, category, and search, then tap <strong>Apply filters &amp; show map</strong>.</p>
+                    <p><strong>Map appears after Emergency → Show nearest 3 on map.</strong></p>
                 </div>
             </div>
         </section>
-    </main>
+    </aside>
+    </div>
 
     <div id="emergencyBackdrop" class="emergency-panel-backdrop" aria-hidden="true"></div>
     <div id="emergencyPanel" class="emergency-panel" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle" hidden aria-hidden="true">
@@ -2907,7 +2358,7 @@
             <h2 id="emergencyTitle">Emergency - Hospitals</h2>
             <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">x</button>
         </div>
-        <p class="emergency-panel__lead">Hospitals from the Tirupati CSV only. When you tap <strong>Show nearest 3 on map</strong>, we request your <strong>live GPS</strong> first; if that fails or you deny permission, we use sidebar <strong>Start location</strong> or main <strong>Starting location</strong>. Same trip map card below, OSRM route.</p>
+        <p class="emergency-panel__lead">Hospitals from the Tirupati CSV only. When you tap <strong>Show nearest 3 on map</strong>, we request your <strong>live GPS</strong> first; if that fails or you deny permission, we use trip <strong>Start location</strong> or main <strong>Starting location</strong>. Uses the trip map panel on the right, OSRM route.</p>
         <div id="emergencyListRoot" class="emergency-list"></div>
         <div class="emergency-panel__foot">
             <button type="button" class="btn-emergency-map" id="emergencyShowMapBtn">Show nearest 3 on map</button>
@@ -3363,6 +2814,28 @@
         window.__TIRUPATI_PACKAGE_SKIP_CAP = false;
     }
 
+    function mirrorHiddenChipsToVisibleBudget() {
+        const h = $('sbCategoryChips');
+        const v = $('budgetCategoryChips');
+        if (!h || !v) return;
+        h.querySelectorAll('.chip').forEach(function (hc) {
+            const cat = hc.getAttribute('data-cat') || '';
+            var vc = v.querySelector('.chip[data-cat="' + cat + '"]');
+            if (vc) vc.classList.toggle('active', hc.classList.contains('active'));
+        });
+    }
+
+    function mirrorVisibleChipsToHiddenBudget() {
+        const h = $('sbCategoryChips');
+        const v = $('budgetCategoryChips');
+        if (!h || !v) return;
+        v.querySelectorAll('.chip').forEach(function (vc) {
+            const cat = vc.getAttribute('data-cat') || '';
+            var hc = h.querySelector('.chip[data-cat="' + cat + '"]');
+            if (hc) hc.classList.toggle('active', vc.classList.contains('active'));
+        });
+    }
+
     function applyPackageLandingQuery() {
         const u = new URLSearchParams(window.location.search);
         if (u.get('fromPackage') !== '1') return;
@@ -3395,6 +2868,9 @@
         }
         const ps = $('sbPlaceSearch');
         if (ps) ps.value = '';
+        const bps = $('budgetPlaceSearch');
+        if (bps) bps.value = '';
+        mirrorHiddenChipsToVisibleBudget();
 
         const ts = $('sbTripStartTime');
         const te = $('sbTripEndTime');
@@ -3487,32 +2963,6 @@
         if (typeof window.__recalcBudget === 'function') {
             window.__recalcBudget();
         }
-    }
-
-    function updateLinkedWorkspaceCard() {
-        function setText(id, text) {
-            const n = document.getElementById(id);
-            if (n) n.textContent = text;
-        }
-        setText('linkCtxCategory', categoryLabel());
-        const q = $('sbPlaceSearch');
-        setText('linkCtxSearch', (q && q.value.trim()) || '-');
-        const dt = $('sbTripDate');
-        setText('linkCtxDate', (dt && dt.value) || '-');
-        const a = $('sbTripStartTime');
-        const b = $('sbTripEndTime');
-        setText(
-            'linkCtxOuting',
-            a && b && a.value && b.value ? a.value + ' – ' + b.value : '-'
-        );
-        const nd = $('sbNumDays');
-        setText('linkCtxDays', nd && nd.value ? nd.value + ' day(s)' : '-');
-        setText(
-            'linkCtxStart',
-            isGeoEnabled ? 'GPS (trip map)' : ($('sbStartLocation') && $('sbStartLocation').value.trim()) || '-'
-        );
-        const om = $('sbOvMap');
-        setText('linkCtxPlacesLine', om ? om.textContent : '-');
     }
 
     function pullMainIntoSidebarValuesOnly() {
@@ -3723,7 +3173,6 @@
             });
             placeListEl.appendChild(wrap);
         } finally {
-            updateLinkedWorkspaceCard();
             if (!workspaceSyncFromMain) {
                 syncSidebarToMainWorkspace();
             }
@@ -3779,6 +3228,7 @@
             chipsRoot.querySelectorAll('.chip').forEach(function (c) {
                 c.classList.toggle('active', c === btn);
             });
+            mirrorHiddenChipsToVisibleBudget();
             updateTripOverview();
         });
 
@@ -3798,6 +3248,43 @@
         const applyBtn = $('sbApplyFilters');
         if (applyBtn) {
             applyBtn.addEventListener('click', function () {
+                emitShowTripMapOnBudgetPage();
+            });
+        }
+
+        const budgetCatRoot = $('budgetCategoryChips');
+        if (budgetCatRoot) {
+            budgetCatRoot.addEventListener('click', function (e) {
+                const btn = e.target.closest('.chip');
+                if (!btn) return;
+                budgetCatRoot.querySelectorAll('.chip').forEach(function (c) {
+                    c.classList.toggle('active', c === btn);
+                });
+                mirrorVisibleChipsToHiddenBudget();
+                selectedCategory = btn.getAttribute('data-cat') || 'all';
+                if (selectedCategory !== 'all') {
+                    clearTirupatiPackageMode();
+                }
+                updateTripOverview();
+            });
+        }
+        const budgetSearch = $('budgetPlaceSearch');
+        const sbSearchEl = $('sbPlaceSearch');
+        if (budgetSearch && sbSearchEl) {
+            budgetSearch.addEventListener('input', function () {
+                sbSearchEl.value = budgetSearch.value;
+                if ((budgetSearch.value || '').trim()) {
+                    clearTirupatiPackageMode();
+                }
+                updateTripOverview();
+            });
+            sbSearchEl.addEventListener('input', function () {
+                budgetSearch.value = sbSearchEl.value;
+            });
+        }
+        const budgetApply = $('budgetApplyMapBtn');
+        if (budgetApply) {
+            budgetApply.addEventListener('click', function () {
                 emitShowTripMapOnBudgetPage();
             });
         }
@@ -3868,6 +3355,7 @@
                             c.classList.toggle('active', (c.getAttribute('data-cat') || '') === 'all');
                         });
                     }
+                    mirrorHiddenChipsToVisibleBudget();
                     isGeoEnabled = false;
                     const g = $('sbGeoToggle');
                     if (g) g.classList.remove('active');
@@ -3932,6 +3420,10 @@
         window.budgetTripPlacesReady = loadPlaces().then(function () {
             applyPackageLandingQuery();
             updateTripOverview();
+            const bpsSync = $('budgetPlaceSearch');
+            const spsSync = $('sbPlaceSearch');
+            if (bpsSync && spsSync) bpsSync.value = spsSync.value || '';
+            mirrorHiddenChipsToVisibleBudget();
             window.budgetTripRouteApi = {
                 getFilteredPlaces: getFilteredPlaces,
                 getOrderedStopsForBudgetMap: getOrderedStopsForBudgetMap
@@ -3958,7 +3450,7 @@
 /**
  * Trip planner map runtime for Budget Calculator: same route logic, OSRM Trip,
  * animated road polyline, gov-style popups, category pins (Material Symbols).
- * Expects Leaflet, #budgetTripMapInner, #budgetTripMapOverlay, sidebar sb* ids,
+ * Expects Leaflet, #budgetTripMapInner, #budgetTripMapOverlay, sb* ids (#budgetPlannerSyncHost),
  * and window.budgetTripRouteApi.getFilteredPlaces().
  */
 (function () {
@@ -3980,7 +3472,7 @@
     var budgetMapEmergencyMode = false;
     var BUDGET_MAP_HEADING_DEFAULT = 'Filtered trip map';
     var BUDGET_MAP_SUBTITLE_DEFAULT =
-        'Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Driven by the left sidebar filters - no separate page.';
+        'Same behaviour as the trip planner map: OSRM road route, trip reorder, animated path, and place/start popups. Uses the map filters on this page - no separate page.';
     var routeGeneration = 0;
     var routeAbortCtrl = null;
     var emergencyAbortCtrl = null;
@@ -5487,6 +4979,8 @@
         });
 
         budgetMapEmergencyMode = true;
+        var railPh = $('budgetMapRailPlaceholder');
+        if (railPh) railPh.hidden = true;
         var tripPanel = $('budgetTripMapPanel');
         var ov = $('budgetTripMapOverlay');
         if (ov) ov.classList.add('hidden');
@@ -5503,6 +4997,8 @@
         ensureMap();
         if (!map) {
             budgetMapEmergencyMode = false;
+            if (railPh) railPh.hidden = false;
+            if (tripPanel) tripPanel.hidden = true;
             if (hint) hint.textContent = 'Map could not load.';
             return;
         }
@@ -5595,8 +5091,7 @@
 
         closeBudgetEmergencyPanel();
         if (hint) {
-            hint.textContent =
-                'Trip map card shows CSV hospitals only. Use "Apply filters & show map" to restore the full filtered trip.';
+            hint.textContent = 'Nearest hospitals are shown in the map panel on the right.';
         }
         if (tripPanel) tripPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         window.setTimeout(function () {
@@ -5619,11 +5114,8 @@
     });
 
     function show() {
-        if (typeof L === 'undefined') return;
-        var api = window.budgetTripRouteApi;
-        if (!api || typeof api.getFilteredPlaces !== 'function') return;
-        geocodeCache = { q: '', lat: null, lng: null, label: '' };
-        applyFiltersAndShowMap();
+        /* Map rail is reserved for Emergency → Show nearest 3 on map only (no trip-planner Apply flow). */
+        return;
     }
 
     window.BudgetTripPlannerMap = {
@@ -5652,6 +5144,15 @@
         return el ? (el.textContent || '').trim() : '';
     }
 
+    function activeChipCategoryLabel() {
+        var root = byId('budgetCategoryChips') || byId('sbCategoryChips');
+        if (!root) return 'All';
+        var chip = root.querySelector('.chip.active');
+        if (!chip) return 'All';
+        var t = (chip.textContent || '').trim();
+        return t || 'All';
+    }
+
     function getVisitOrderRows() {
         var snap = window.__BUDGET_MAP_ROUTE_SNAPSHOT;
         if (snap && Array.isArray(snap.ordered) && snap.ordered.length) {
@@ -5677,7 +5178,7 @@
             ['Trip date', val('sbTripDate') || val('mainTripDate') || '-'],
             ['Outing window', (val('sbTripStartTime') || val('mainOutingStart') || '-') + ' to ' + (val('sbTripEndTime') || val('mainOutingEnd') || '-')],
             ['Days', val('sbNumDays') || val('days') || '-'],
-            ['Category', text('linkCtxCategory') || 'All'],
+            ['Category', activeChipCategoryLabel()],
             ['Search text', val('sbPlaceSearch') || '-'],
             ['Travel mode', val('travelMode') || '-'],
             ['Distance (km)', val('distance') || '-'],
@@ -5950,29 +5451,13 @@
     </script>
     <script>
 window.addEventListener('budget-show-trip-map', function () {
-    const panel = document.getElementById('budgetTripMapPanel');
-    if (!panel) return;
-    panel.hidden = false;
-    var attempts = 0;
-    function runShow() {
-        if (window.BudgetTripPlannerMap && typeof window.BudgetTripPlannerMap.show === 'function') {
-            window.BudgetTripPlannerMap.show();
-            window.requestAnimationFrame(function () {
-                if (window.BudgetTripPlannerMap.invalidate) window.BudgetTripPlannerMap.invalidate();
-                panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            });
-            return;
+    var panel = document.getElementById('budgetTripMapPanel');
+    if (!panel || panel.hidden) return;
+    window.requestAnimationFrame(function () {
+        if (window.BudgetTripPlannerMap && window.BudgetTripPlannerMap.invalidate) {
+            window.BudgetTripPlannerMap.invalidate();
         }
-        attempts += 1;
-        if (attempts < 60) {
-            window.setTimeout(runShow, 40);
-        }
-    }
-    if (window.budgetTripPlacesReady && typeof window.budgetTripPlacesReady.then === 'function') {
-        window.budgetTripPlacesReady.then(runShow).catch(runShow);
-    } else {
-        runShow();
-    }
+    });
 });
 (function () {
     const fmt = new Intl.NumberFormat('en-IN', { maximumFractionDigits: 0 });
