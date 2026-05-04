@@ -410,6 +410,13 @@
             color: #422006;
             border-color: rgba(120, 53, 15, 0.35);
         }
+        #mainLandingCatChips.cat-rail > button.cat-rail-card.is-active {
+            border-color: rgba(180, 83, 9, 0.7);
+            box-shadow:
+                0 14px 38px -14px rgba(115, 92, 0, 0.45),
+                0 0 0 2px rgba(217, 119, 6, 0.4);
+            transform: translateY(-2px);
+        }
         /* Clear separation from scrolling body: solid bar + shadow (not same as page bg) */
         header.site-header {
             position: sticky;
@@ -1741,15 +1748,6 @@
 <p class="max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
                     Filter by food, temples, adventure, wildlife, or sightseeing—see distances, timings context, and a trip summary before you go.
                 </p>
-<div class="flex flex-wrap items-center gap-3 pt-1">
-<a href="budget_calculator.html" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-lg transition hover:brightness-[1.05]">
-<span class="material-symbols-outlined" aria-hidden="true">map</span>
-                        Start planning
-                    </a>
-<a href="#categorySection" class="inline-flex min-h-12 items-center justify-center rounded-xl border border-amber-400/50 bg-transparent px-5 py-3 text-base font-semibold text-amber-100 transition hover:bg-white/10">
-                        Categories
-                    </a>
-</div>
 </div>
 <div class="hero-split__visual">
 <div class="hero-split__visual-inner">
@@ -1832,7 +1830,7 @@
 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">2</span>
 <div>
 <p class="font-semibold text-on-surface">Open the map</p>
-<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Under the themes, enter outing start/end, date, and start location (or GPS). Tap <strong>Show map &amp; covered places</strong> for a preview, or use a theme card for the full planner popup.</p>
+<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Under the themes, enter outing start/end, date, and start location (or GPS). Tap <strong>Show map</strong> for a preview, or use a theme card for the full planner popup.</p>
 </div>
 </div>
 <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
@@ -1845,18 +1843,13 @@
 </div>
 </section>
 
-<!-- Categories: search + horizontal rail -->
+<!-- Categories: horizontal rail -->
 <section id="categorySection" class="space-y-4" aria-labelledby="categoryHeading">
 <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
 <div>
 <h2 id="categoryHeading" class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">Choose a starting theme</h2>
-<p class="mt-1 max-w-2xl text-sm text-on-surface-variant sm:text-base">Scroll sideways on small screens. Cards respect your filter and quick chips.</p>
+<p class="mt-1 max-w-2xl text-sm text-on-surface-variant sm:text-base">Scroll sideways on small screens. Use quick chips to narrow themes.</p>
 </div>
-</div>
-<label class="sr-only" for="navSearch">Filter categories</label>
-<div class="relative max-w-xl">
-<span class="material-symbols-outlined pointer-events-none absolute left-3 top-1/2 z-[1] -translate-y-1/2 text-amber-800/70" aria-hidden="true">search</span>
-<input id="navSearch" class="w-full rounded-xl border border-amber-200/80 bg-white py-3 pl-11 pr-4 text-base text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" placeholder="Type to filter (e.g. temple, wildlife, trek, food…)" type="search" autocomplete="off" inputmode="search"/>
 </div>
 <div class="flex flex-wrap gap-2" id="filterChips" role="group" aria-label="Quick filters">
 <button type="button" class="filter-chip is-active" data-set-filter="">All</button>
@@ -1879,8 +1872,7 @@
 <div class="flex flex-1 flex-col gap-2 p-4">
 <h3 class="font-headline-md text-lg font-semibold text-on-surface">Food</h3>
 <p class="text-sm leading-relaxed text-on-surface-variant">Prasadam and local vegetarian favourites.</p>
-<div class="mt-auto flex items-end justify-between border-t border-amber-100 pt-3">
-<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
 <span class="text-2xl font-bold tabular-nums text-primary" id="countFoodCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
@@ -1895,8 +1887,7 @@
 <div class="flex flex-1 flex-col gap-2 p-4">
 <h3 class="font-headline-md text-lg font-semibold text-on-surface">Adventure</h3>
 <p class="text-sm leading-relaxed text-on-surface-variant">Hills, forest trails, and treks.</p>
-<div class="mt-auto flex items-end justify-between border-t border-emerald-100 pt-3">
-<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<div class="mt-auto flex items-end justify-end border-t border-emerald-100 pt-3">
 <span class="text-2xl font-bold tabular-nums text-tertiary" id="countAdventureCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
@@ -1911,8 +1902,7 @@
 <div class="flex flex-1 flex-col gap-2 p-4">
 <h3 class="font-headline-md text-lg font-semibold text-on-surface">Wildlife</h3>
 <p class="text-sm leading-relaxed text-on-surface-variant">Sanctuaries, deer parks, bird zones, and eco reserves.</p>
-<div class="mt-auto flex items-end justify-between border-t border-lime-100 pt-3">
-<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<div class="mt-auto flex items-end justify-end border-t border-lime-100 pt-3">
 <span class="text-2xl font-bold tabular-nums text-lime-700" id="countWildlifeCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
@@ -1927,8 +1917,7 @@
 <div class="flex flex-1 flex-col gap-2 p-4">
 <h3 class="font-headline-md text-lg font-semibold text-on-surface">Temples</h3>
 <p class="text-sm leading-relaxed text-on-surface-variant">Shrines and Venkateswara complexes.</p>
-<div class="mt-auto flex items-end justify-between border-t border-amber-100 pt-3">
-<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
 <span class="text-2xl font-bold tabular-nums text-primary-container" id="countTempleCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
@@ -1943,8 +1932,7 @@
 <div class="flex flex-1 flex-col gap-2 p-4">
 <h3 class="font-headline-md text-lg font-semibold text-on-surface">Sightseeing</h3>
 <p class="text-sm leading-relaxed text-on-surface-variant">Viewpoints, waterfalls, and heritage.</p>
-<div class="mt-auto flex items-end justify-between border-t border-blue-100 pt-3">
-<span class="text-xs font-bold uppercase tracking-wide text-on-surface-variant">In data</span>
+<div class="mt-auto flex items-end justify-end border-t border-blue-100 pt-3">
 <span class="text-2xl font-bold tabular-nums text-blue-700" id="countSightseeingCard">20</span>
 </div>
 <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
@@ -1953,7 +1941,7 @@
 </div>
 
 <div id="landingTripForm" class="mt-6 rounded-2xl border border-amber-200/70 bg-white p-5 shadow-sm sm:p-6">
-<h3 class="font-headline-md text-lg font-semibold text-on-surface sm:text-xl">Your outing details</h3>
+<h3 class="font-headline-md text-lg font-semibold text-on-surface sm:text-xl">Trip Details</h3>
 <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Enter when you are out, your start point, and a theme. Then preview which places from our dataset fall inside that window on the map.</p>
 <input type="hidden" id="mainLandingCatValue" value="all"/>
 <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -1963,13 +1951,97 @@
 <label class="sm:col-span-2 lg:col-span-3 flex flex-col gap-1.5 text-sm font-semibold text-on-surface" for="mainStartLocation" id="mainStartLocationLabel">Start location <input type="text" id="mainStartLocation" class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40 disabled:cursor-not-allowed disabled:border-amber-200/50 disabled:bg-slate-100 disabled:text-slate-500" placeholder="e.g. Tirupati, RTC bus stand" value="Tirupati" autocomplete="street-address"/></label>
 </div>
 <p class="mt-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Theme for this preview</p>
-<div class="mt-2 flex flex-wrap gap-2" id="mainLandingCatChips" role="group" aria-label="Preview theme">
-<button type="button" class="filter-chip is-active" data-ml-cat="all">All</button>
-<button type="button" class="filter-chip" data-ml-cat="food">Food</button>
-<button type="button" class="filter-chip" data-ml-cat="temple">Temples</button>
-<button type="button" class="filter-chip" data-ml-cat="adventure">Adventure</button>
-<button type="button" class="filter-chip" data-ml-cat="wildlife">Wildlife</button>
-<button type="button" class="filter-chip" data-ml-cat="sightseeing">Sightseeing</button>
+<div class="cat-rail mt-2 pb-1" id="mainLandingCatChips" role="group" aria-label="Preview theme">
+<button type="button" class="cat-rail-card group is-active" data-ml-cat="all">
+<div class="relative h-36 shrink-0 overflow-hidden bg-amber-100">
+<img alt="All themes: wildlife, adventure, temples, food, and sightseeing in one collage" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/all%20cat.png"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-amber-800 shadow-sm" aria-hidden="true">travel_explore</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">All themes</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Every category in your outing preview.</p>
+<div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-primary" id="countAllThemesLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Preview theme <span class="material-symbols-outlined text-lg" aria-hidden="true">map</span></span>
+</div>
+</button>
+<button type="button" data-ml-cat="food" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-amber-100">
+<img alt="Traditional vegetarian meal and prasadam" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/food%20image.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-amber-700 shadow-sm" aria-hidden="true">restaurant</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Food</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Prasadam and local vegetarian favourites.</p>
+<div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-primary" id="countFoodCardLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
+<button type="button" data-ml-cat="adventure" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-emerald-100">
+<img alt="Hills and forest trails for trekking" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/adventure%20image.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-emerald-700 shadow-sm" aria-hidden="true">landscape</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Adventure</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Hills, forest trails, and treks.</p>
+<div class="mt-auto flex items-end justify-end border-t border-emerald-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-tertiary" id="countAdventureCardLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
+<button type="button" data-ml-cat="wildlife" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-lime-100">
+<img alt="Wildlife habitats and sanctuary zones near Tirupati" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/wild%20life.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-lime-700 shadow-sm" aria-hidden="true">pets</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Wildlife</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Sanctuaries, deer parks, bird zones, and eco reserves.</p>
+<div class="mt-auto flex items-end justify-end border-t border-lime-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-lime-700" id="countWildlifeCardLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
+<button type="button" data-ml-cat="temple" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-amber-200/80">
+<img alt="Ornate temple gopuram and shrine architecture" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/temple%20image.jpg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-primary-container shadow-sm" aria-hidden="true">temple_hindu</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Temples</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Shrines and Venkateswara complexes.</p>
+<div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-primary-container" id="countTempleCardLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
+<button type="button" data-ml-cat="sightseeing" class="cat-rail-card group">
+<div class="relative h-36 shrink-0 overflow-hidden bg-blue-100">
+<img alt="Scenic viewpoints and heritage landscapes" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" decoding="async" loading="lazy" src="images/site%20seeng%20image.avif"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
+<span class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-blue-700 shadow-sm" aria-hidden="true">photo_camera</span>
+</div>
+<div class="flex flex-1 flex-col gap-2 p-4">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface">Sightseeing</h3>
+<p class="text-sm leading-relaxed text-on-surface-variant">Viewpoints, waterfalls, and heritage.</p>
+<div class="mt-auto flex items-end justify-end border-t border-blue-100 pt-3">
+<span class="text-2xl font-bold tabular-nums text-blue-700" id="countSightseeingCardLanding">—</span>
+</div>
+<span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set map filters <span class="material-symbols-outlined text-lg" aria-hidden="true">tune</span></span>
+</div>
+</button>
 </div>
 <div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
 <label class="flex max-w-2xl cursor-pointer items-start gap-3 rounded-xl border border-amber-200/90 bg-amber-50/60 px-4 py-3 shadow-sm transition hover:bg-amber-50">
@@ -1990,29 +2062,17 @@
 <div class="mt-5 flex flex-row flex-wrap items-center gap-3 sm:gap-4" role="group" aria-label="Show preview map">
 <button type="button" id="mainShowMapBtn" class="js-main-show-map inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-md transition hover:brightness-[1.05]">
 <span class="material-symbols-outlined" aria-hidden="true">map</span>
-                    Show map &amp; covered places
+                    Show map
                 </button>
 </div>
 <p id="mainTripFormHint" class="mt-3 hidden text-sm font-medium text-red-700" role="alert"></p>
 </div>
 
-<section id="mapSection" class="mt-6 hidden w-full space-y-4" aria-label="Trip preview map and places list">
+<section id="mapSection" class="mt-6 hidden w-full space-y-4" aria-label="Trip preview map">
 <input type="hidden" id="userStartLocation" value="Tirupati" />
-<div class="flex flex-row flex-wrap items-center gap-3 sm:gap-4" role="group" aria-label="Preview and planner">
-<button type="button" class="js-main-show-map inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-md transition hover:brightness-[1.05]">
-<span class="material-symbols-outlined" aria-hidden="true">map</span>
-                    Show map &amp; covered places
-                </button>
-<a href="budget_calculator.html" id="mainOpenPlannerLink" class="main-open-planner-link inline-flex min-h-12 shrink-0 items-center text-sm font-semibold text-secondary underline-offset-2 hover:underline">Open full map planner</a>
-</div>
+<a href="budget_calculator.html" id="mainOpenPlannerLink" class="main-open-planner-link sr-only">Open full map planner</a>
 <p id="pkgMapStatus" class="text-sm text-on-surface-variant" role="status"></p>
 <div id="pkgTripMap" class="w-full rounded-xl border border-slate-200 bg-slate-100 shadow-inner" style="min-height:min(50vh,420px);z-index:1" aria-label="Interactive map"></div>
-<div id="mainPlacesCoveredWrap" class="rounded-2xl border border-amber-200/80 bg-white p-4 shadow-sm sm:p-5">
-<h3 class="font-headline-md text-base font-semibold text-on-surface sm:text-lg">Places in your window</h3>
-<p class="mt-1 text-xs text-on-surface-variant">Sorted by distance from your start. Tap markers on the map for full details.</p>
-<p id="mainPlacesCoveredMeta" class="mt-2 text-sm text-on-surface-variant"></p>
-<ul id="mainPlacesCoveredList" class="mt-3 max-h-72 list-none space-y-0 overflow-y-auto rounded-lg border border-amber-100/90 text-sm sm:max-h-96" aria-label="Places matching your outing"></ul>
-</div>
 </section>
 </section>
 
@@ -2342,11 +2402,17 @@ Emergency
         const status = document.getElementById('categoryFilterStatus');
         const empty = document.getElementById('categoryEmpty');
         const chips = document.querySelectorAll('#filterChips [data-set-filter]');
-        if (!input || !grid) return;
+        if (!grid) return;
         const cards = grid.querySelectorAll('[data-category-card]');
+        let chipOnlyFilter = '';
+
+        function getFilterLower() {
+            if (input) return (input.value || '').trim().toLowerCase();
+            return (chipOnlyFilter || '').trim().toLowerCase();
+        }
 
         function syncChipsActive() {
-            const v = (input.value || '').trim().toLowerCase();
+            const v = getFilterLower();
             chips.forEach(function (chip) {
                 const f = (chip.getAttribute('data-set-filter') || '').toLowerCase();
                 const isAll = f === '' && v === '';
@@ -2356,7 +2422,7 @@ Emergency
         }
 
         function run() {
-            const raw = input.value.trim();
+            const raw = input ? input.value.trim() : chipOnlyFilter.trim();
             const q = raw.toLowerCase().replace(/\s+/g, ' ');
             let visible = 0;
             cards.forEach(function (a) {
@@ -2379,12 +2445,19 @@ Emergency
             syncChipsActive();
         }
 
-        input.addEventListener('input', run);
-        input.addEventListener('search', run);
+        if (input) {
+            input.addEventListener('input', run);
+            input.addEventListener('search', run);
+        }
 
         chips.forEach(function (chip) {
             chip.addEventListener('click', function () {
-                input.value = chip.getAttribute('data-set-filter') || '';
+                const f = chip.getAttribute('data-set-filter') || '';
+                if (input) {
+                    input.value = f;
+                } else {
+                    chipOnlyFilter = f;
+                }
                 run();
             });
         });
@@ -2597,6 +2670,13 @@ Emergency
             set('countWildlifeCard', wildlife);
             set('countTempleCard', temple);
             set('countSightseeingCard', sightseeing);
+            const sumLanding = food + adventure + wildlife + temple + sightseeing;
+            set('countAllThemesLanding', sumLanding);
+            set('countFoodCardLanding', food);
+            set('countAdventureCardLanding', adventure);
+            set('countWildlifeCardLanding', wildlife);
+            set('countTempleCardLanding', temple);
+            set('countSightseeingCardLanding', sightseeing);
         } catch (e) {
             console.warn('CSV load failed', e);
             set('countFood', '—');
@@ -2609,6 +2689,12 @@ Emergency
             set('countWildlifeCard', '—');
             set('countTempleCard', '—');
             set('countSightseeingCard', '—');
+            set('countAllThemesLanding', '—');
+            set('countFoodCardLanding', '—');
+            set('countAdventureCardLanding', '—');
+            set('countWildlifeCardLanding', '—');
+            set('countTempleCardLanding', '—');
+            set('countSightseeingCardLanding', '—');
         }
     }
 
@@ -3087,63 +3173,7 @@ Emergency
                 );
             }
 
-            function clearMainPlacesCoveredUi() {
-                var list = document.getElementById('mainPlacesCoveredList');
-                var meta = document.getElementById('mainPlacesCoveredMeta');
-                if (list) list.innerHTML = '';
-                if (meta) meta.textContent = '';
-            }
-
-            function renderMainPlacesCoveredList(filtered, dateLabel, startLbl, endLbl, catKey, startPtLabel) {
-                var list = document.getElementById('mainPlacesCoveredList');
-                var meta = document.getElementById('mainPlacesCoveredMeta');
-                if (meta) {
-                    meta.textContent =
-                        dateLabel +
-                        ' · ' +
-                        startLbl +
-                        '–' +
-                        endLbl +
-                        (catKey && catKey !== 'all' ? ' · ' + catKey : '') +
-                        ' · Start: ' +
-                        startPtLabel +
-                        ' · ' +
-                        filtered.length +
-                        ' place(s) match opening hours in your window.';
-                }
-                if (!list) return;
-                list.innerHTML = '';
-                filtered.forEach(function (p, idx) {
-                    var li = document.createElement('li');
-                    li.className = 'border-b border-amber-50 px-3 py-2.5 last:border-0';
-                    var km = '';
-                    if (
-                        window._mainLastStartLat != null &&
-                        !isNaN(window._mainLastStartLat) &&
-                        window._mainLastStartLng != null &&
-                        !isNaN(window._mainLastStartLng)
-                    ) {
-                        km =
-                            haversineKm(
-                                window._mainLastStartLat,
-                                window._mainLastStartLng,
-                                p.lat,
-                                p.lng
-                            ).toFixed(1) + ' km from start';
-                    }
-                    li.innerHTML =
-                        '<div class="font-semibold text-on-surface">' +
-                        escapeHtml(p.name) +
-                        '<span class="ml-2 text-xs font-normal text-on-surface-variant">(' +
-                        escapeHtml(p.category || '') +
-                        ')</span></div>' +
-                        '<div class="mt-0.5 text-xs text-on-surface-variant">' +
-                        escapeHtml((p.timings || '').slice(0, 120)) +
-                        (km ? ' · ' + km : '') +
-                        '</div>';
-                    list.appendChild(li);
-                });
-            }
+            function clearMainPlacesCoveredUi() {}
 
             function updateMainPlannerLink(startT, endT, dateV, locV, cat) {
                 var links = document.querySelectorAll('a.main-open-planner-link');
@@ -3386,14 +3416,6 @@ Emergency
                         });
                     });
 
-                    renderMainPlacesCoveredList(
-                        filtered,
-                        dateEl.value,
-                        startTEl.value,
-                        endTEl.value,
-                        cat,
-                        startLabel
-                    );
                     setMapStatus('');
                     if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
