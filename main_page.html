@@ -1399,6 +1399,305 @@
             min-width: 380px !important;
             max-width: 520px !important;
         }
+
+        /* --- Main preview map: match budget_calculator.html map UI --- */
+        #mapSection {
+            --gov-text: #0f172a;
+            --gov-text-muted: #64748b;
+        }
+
+        .leaflet-div-icon.place-pin-icon {
+            border: none;
+            background: transparent;
+        }
+
+        .place-pin {
+            position: relative;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .place-pin-order {
+            position: absolute;
+            right: -4px;
+            top: -4px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 4px;
+            border-radius: 999px;
+            background: #0f172a;
+            color: #fff;
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            line-height: 1;
+        }
+
+        .place-pin .msym {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 20px;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .leaflet-popup-content .place-popup-icon {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 26px;
+            line-height: 1;
+            font-variation-settings: 'FILL' 0, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .leaflet-popup.place-popup--gov .leaflet-popup-content-wrapper {
+            padding: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(15, 41, 64, 0.14), 0 2px 8px rgba(15, 41, 64, 0.06);
+            border: 1px solid rgba(15, 75, 110, 0.14);
+            background: #fff;
+        }
+
+        .leaflet-popup.place-popup--gov .leaflet-popup-content {
+            margin: 0;
+            width: 100% !important;
+            min-width: 0;
+        }
+
+        .leaflet-popup.place-popup--gov .leaflet-popup-tip {
+            box-shadow: 0 2px 8px rgba(15, 41, 64, 0.08);
+            border: 1px solid rgba(15, 75, 110, 0.12);
+            border-top: none;
+            border-left: none;
+        }
+
+        .leaflet-popup.place-popup--gov a.leaflet-popup-close-button {
+            top: 8px;
+            right: 8px;
+            width: 28px;
+            height: 28px;
+            padding: 0;
+            font-size: 18px;
+            line-height: 26px;
+            color: rgba(248, 250, 252, 0.92);
+            font-weight: 600;
+            border-radius: 8px;
+            background: rgba(15, 23, 42, 0.2);
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .leaflet-popup.place-popup--gov a.leaflet-popup-close-button:hover {
+            background: rgba(15, 23, 42, 0.38);
+            color: #fff;
+        }
+
+        .leaflet-div-icon.start-home-icon {
+            border: none;
+            background: transparent;
+        }
+
+        .start-home-pin {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+            border: 3px solid #0ea5e9;
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        .start-home-pin .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 22px;
+            color: #0369a1;
+            font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .start-home-pin--typed {
+            border-color: #a855f7;
+        }
+
+        .start-home-pin--typed .material-symbols-outlined {
+            color: #7c3aed;
+        }
+
+        .start-place-card {
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 300px;
+            max-width: min(400px, 94vw);
+            text-align: left;
+            color: var(--gov-text);
+        }
+
+        .start-place-card--gps {
+            --start-ink: #0c4a6e;
+            --start-soft: #e0f2fe;
+            --start-icon: #0369a1;
+        }
+
+        .start-place-card--typed {
+            --start-ink: #5b21b6;
+            --start-soft: #f5f3ff;
+            --start-icon: #7c3aed;
+        }
+
+        .start-place-card__ribbon {
+            display: flex;
+            align-items: center;
+            flex-wrap: nowrap;
+            gap: 10px;
+            padding: 8px 40px 8px 12px;
+            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            color: #f8fafc;
+        }
+
+        .start-place-card--typed .start-place-card__ribbon {
+            background: linear-gradient(104deg, #1e1b4b 0%, #4c1d95 38%, #5b21b6 100%);
+        }
+
+        .start-place-card__ribbon-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .start-place-card__badge {
+            flex-shrink: 0;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, 0.16);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 4px 10px;
+            border-radius: 999px;
+            line-height: 1.2;
+        }
+
+        .start-place-card__ribbon-title {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .start-place-card__hero {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 14px;
+            background: linear-gradient(180deg, #fdfcfa 0%, var(--start-soft) 55%, #f8fafc 100%);
+            border-bottom: 1px solid rgba(15, 23, 42, 0.07);
+        }
+
+        .start-place-card__icon-ring {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            border: 2px solid rgba(15, 75, 110, 0.12);
+            box-shadow: 0 4px 14px rgba(15, 41, 64, 0.08);
+        }
+
+        .start-place-card--typed .start-place-card__icon-ring {
+            border-color: rgba(91, 33, 182, 0.2);
+        }
+
+        .start-place-card__icon-ring .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined', sans-serif;
+            font-size: 28px;
+            line-height: 1;
+            color: var(--start-icon);
+            font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .start-place-card__hero-text {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .start-place-card__eyebrow {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gov-text-muted);
+            margin-bottom: 3px;
+        }
+
+        .start-place-card__subtitle {
+            font-size: 12px;
+            font-weight: 600;
+            line-height: 1.35;
+            color: var(--start-ink);
+        }
+
+        .start-place-card__body {
+            padding: 12px 14px 12px;
+            background: #fff;
+        }
+
+        .start-place-card__label {
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gov-text-muted);
+            margin-bottom: 6px;
+        }
+
+        .start-place-card__addr {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #0f172a;
+            font-weight: 500;
+            word-wrap: break-word;
+        }
+
+        .start-place-card__footer {
+            margin-top: 10px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #f8fafc;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            font-size: 11px;
+            line-height: 1.45;
+            color: #475569;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #mapSection .place-card {
+            --pp-accent: #0e7490;
+            --pp-accent-ink: #0c4a6e;
+            --pp-soft: #ecfeff;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 300px;
+            max-width: min(400px, 94vw);
+            font-family: inherit;
+            text-align: left;
+            color: var(--gov-text);
+        }
     </style>
 </head>
 <body class="font-body-md flex h-[100dvh] max-h-[100dvh] flex-col overflow-hidden bg-slate-100 text-on-surface antialiased">
@@ -1533,7 +1832,7 @@
 <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">2</span>
 <div>
 <p class="font-semibold text-on-surface">Open the map</p>
-<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Tap a theme card to set map filters in a popup, then go to the planner with those choices applied.</p>
+<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Under the themes, enter outing start/end, date, and start location (or GPS). Tap <strong>Show map &amp; covered places</strong> for a preview, or use a theme card for the full planner popup.</p>
 </div>
 </div>
 <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
@@ -1652,6 +1951,69 @@
 </div>
 </button>
 </div>
+
+<div id="landingTripForm" class="mt-6 rounded-2xl border border-amber-200/70 bg-white p-5 shadow-sm sm:p-6">
+<h3 class="font-headline-md text-lg font-semibold text-on-surface sm:text-xl">Your outing details</h3>
+<p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Enter when you are out, your start point, and a theme. Then preview which places from our dataset fall inside that window on the map.</p>
+<input type="hidden" id="mainLandingCatValue" value="all"/>
+<div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+<label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface" for="mainOutingStart">Outing start <input type="time" id="mainOutingStart" class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" value="09:00" required/></label>
+<label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface" for="mainOutingEnd">Outing end <input type="time" id="mainOutingEnd" class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" value="21:00" required/></label>
+<label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface" for="mainOutingDate">Date <input type="date" id="mainOutingDate" class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40" required/></label>
+<label class="sm:col-span-2 lg:col-span-3 flex flex-col gap-1.5 text-sm font-semibold text-on-surface" for="mainStartLocation" id="mainStartLocationLabel">Start location <input type="text" id="mainStartLocation" class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40 disabled:cursor-not-allowed disabled:border-amber-200/50 disabled:bg-slate-100 disabled:text-slate-500" placeholder="e.g. Tirupati, RTC bus stand" value="Tirupati" autocomplete="street-address"/></label>
+</div>
+<p class="mt-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Theme for this preview</p>
+<div class="mt-2 flex flex-wrap gap-2" id="mainLandingCatChips" role="group" aria-label="Preview theme">
+<button type="button" class="filter-chip is-active" data-ml-cat="all">All</button>
+<button type="button" class="filter-chip" data-ml-cat="food">Food</button>
+<button type="button" class="filter-chip" data-ml-cat="temple">Temples</button>
+<button type="button" class="filter-chip" data-ml-cat="adventure">Adventure</button>
+<button type="button" class="filter-chip" data-ml-cat="wildlife">Wildlife</button>
+<button type="button" class="filter-chip" data-ml-cat="sightseeing">Sightseeing</button>
+</div>
+<div class="mt-4 flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-4">
+<label class="flex max-w-2xl cursor-pointer items-start gap-3 rounded-xl border border-amber-200/90 bg-amber-50/60 px-4 py-3 shadow-sm transition hover:bg-amber-50">
+<input type="checkbox" id="mainGpsCheckbox" class="main-gps-checkbox mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-amber-400 accent-amber-800 focus:ring-2 focus:ring-amber-400/40" aria-describedby="mainGpsStatus"/>
+<span class="min-w-0 flex flex-col gap-1">
+<span class="flex items-center gap-2 text-sm font-bold text-on-surface">
+<span class="material-symbols-outlined text-xl text-amber-800" aria-hidden="true">my_location</span>
+                            Use GPS for start location
+                        </span>
+<span class="text-xs font-normal leading-snug text-on-surface-variant">Tick this to use your live GPS as the map start. The address field is disabled while GPS is on.</span>
+</span>
+</label>
+<div class="min-w-0 flex-1 space-y-1 sm:pt-1">
+<p id="mainGpsStatus" class="text-sm leading-snug text-on-surface-variant" role="status"></p>
+<button type="button" id="mainUseAddressBtn" class="hidden text-left text-sm font-semibold text-secondary underline-offset-2 hover:underline" aria-controls="mainStartLocation">Use typed address instead</button>
+</div>
+</div>
+<div class="mt-5 flex flex-row flex-wrap items-center gap-3 sm:gap-4" role="group" aria-label="Show preview map">
+<button type="button" id="mainShowMapBtn" class="js-main-show-map inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-md transition hover:brightness-[1.05]">
+<span class="material-symbols-outlined" aria-hidden="true">map</span>
+                    Show map &amp; covered places
+                </button>
+</div>
+<p id="mainTripFormHint" class="mt-3 hidden text-sm font-medium text-red-700" role="alert"></p>
+</div>
+
+<section id="mapSection" class="mt-6 hidden w-full space-y-4" aria-label="Trip preview map and places list">
+<input type="hidden" id="userStartLocation" value="Tirupati" />
+<div class="flex flex-row flex-wrap items-center gap-3 sm:gap-4" role="group" aria-label="Preview and planner">
+<button type="button" class="js-main-show-map inline-flex min-h-12 shrink-0 items-center justify-center gap-2 rounded-xl bg-primary-container px-6 py-3 text-base font-bold text-on-primary-container shadow-md transition hover:brightness-[1.05]">
+<span class="material-symbols-outlined" aria-hidden="true">map</span>
+                    Show map &amp; covered places
+                </button>
+<a href="budget_calculator.html" id="mainOpenPlannerLink" class="main-open-planner-link inline-flex min-h-12 shrink-0 items-center text-sm font-semibold text-secondary underline-offset-2 hover:underline">Open full map planner</a>
+</div>
+<p id="pkgMapStatus" class="text-sm text-on-surface-variant" role="status"></p>
+<div id="pkgTripMap" class="w-full rounded-xl border border-slate-200 bg-slate-100 shadow-inner" style="min-height:min(50vh,420px);z-index:1" aria-label="Interactive map"></div>
+<div id="mainPlacesCoveredWrap" class="rounded-2xl border border-amber-200/80 bg-white p-4 shadow-sm sm:p-5">
+<h3 class="font-headline-md text-base font-semibold text-on-surface sm:text-lg">Places in your window</h3>
+<p class="mt-1 text-xs text-on-surface-variant">Sorted by distance from your start. Tap markers on the map for full details.</p>
+<p id="mainPlacesCoveredMeta" class="mt-2 text-sm text-on-surface-variant"></p>
+<ul id="mainPlacesCoveredList" class="mt-3 max-h-72 list-none space-y-0 overflow-y-auto rounded-lg border border-amber-100/90 text-sm sm:max-h-96" aria-label="Places matching your outing"></ul>
+</div>
+</section>
 </section>
 
 <section id="testimonials" class="space-y-4 sm:space-y-5" aria-labelledby="testimonialsHeading">
@@ -1720,13 +2082,6 @@
 </figure>
 </div>
 <p class="text-center text-xs text-on-surface-variant/90 sm:text-left">Illustrative traveller stories for the product experience — not paid endorsements.</p>
-</section>
-
-
-<section id="mapSection" class="landing-max mt-8 hidden space-y-3" aria-label="Emergency hospital map">
-<input type="hidden" id="userStartLocation" value="Tirupati" />
-<p id="pkgMapStatus" class="text-sm text-on-surface-variant" role="status"></p>
-<div id="pkgTripMap" class="w-full rounded-xl border border-slate-200 bg-slate-100 shadow-inner" style="min-height:min(50vh,420px);z-index:1" aria-label="Interactive map"></div>
 </section>
 
 <!-- CTA band -->
@@ -2102,6 +2457,9 @@ Emergency
                 spendEl.value = savedSpend;
             }
             syncCatChipUi();
+            try {
+                document.dispatchEvent(new CustomEvent('main-landing-set-cat', { detail: { cat: selectedCat } }));
+            } catch (eCat) { /* ignore */ }
             dlg.showModal();
             window.requestAnimationFrame(function () {
                 goBtn.focus();
@@ -2260,6 +2618,12 @@ Emergency
     initPlannerPreflight();
     initMobileNav();
     loadCounts();
+    (function initLandingDateDefault() {
+        var el = document.getElementById('mainOutingDate');
+        if (el && !el.value) {
+            el.value = new Date().toISOString().split('T')[0];
+        }
+    })();
 })();
 </script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
@@ -2268,6 +2632,7 @@ Emergency
             var CSV_URL = 'tirupati_places_with_hospitals.csv';
             var OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving';
             var OSRM_TRIP_BASE = 'https://router.project-osrm.org/trip/v1/driving';
+            var DAY_END_MIN = 24 * 60 - 1;
 
             var places = [];
             var hospitalStubs = [];
@@ -2282,6 +2647,8 @@ Emergency
             var pkgHospitalLayer = null;
             var routeAbort = null;
             var emergencyAbort = null;
+            var mainPreviewAbort = null;
+            var mainGpsCoords = null;
             /** Fast fallback coords for emergency hospitals (used before network geocoding). */
             var EMERGENCY_HOSPITAL_LATLNG_FALLBACK = {
                 'SVIMS Hospital': { lat: 13.642478, lng: 79.405348 },
@@ -2371,6 +2738,684 @@ Emergency
                     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                     Math.cos(lat1 * toR) * Math.cos(lat2 * toR) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
                 return 2 * R * Math.asin(Math.min(1, Math.sqrt(a)));
+            }
+
+            function timeToMinMain(t) {
+                if (!t || typeof t !== 'string') return 0;
+                var m = t.trim().match(/^(\d{1,2}):(\d{2})$/);
+                if (!m) return 0;
+                var h = parseInt(m[1], 10);
+                var mi = parseInt(m[2], 10);
+                if (h > 23 || mi > 59) return 0;
+                return h * 60 + mi;
+            }
+
+            function parseTimingsSlotsMain(timingsStr) {
+                var out = [];
+                if (!timingsStr || typeof timingsStr !== 'string') return out;
+                var chunks = timingsStr.split('|');
+                for (var c = 0; c < chunks.length; c++) {
+                    var seg = chunks[c].trim();
+                    var m = seg.match(/^(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})$/);
+                    if (!m) continue;
+                    var h1 = parseInt(m[1], 10);
+                    var mi1 = parseInt(m[2], 10);
+                    var h2 = parseInt(m[3], 10);
+                    var mi2 = parseInt(m[4], 10);
+                    if (h1 > 23 || h2 > 23 || mi1 > 59 || mi2 > 59) continue;
+                    var ps = h1 * 60 + mi1;
+                    var pe = h2 * 60 + mi2;
+                    out.push({ ps: ps, pe: pe, overnight: pe < ps });
+                }
+                return out;
+            }
+
+            function intervalsOverlapMinutes(a1, a2, b1, b2) {
+                return a1 <= b2 && b1 <= a2;
+            }
+
+            function slotOverlapsUserOutingMain(slot, segs) {
+                if (!segs || !segs.length) return true;
+                var ps = slot.ps;
+                var pe = slot.pe;
+                var overnight = slot.overnight;
+                for (var s = 0; s < segs.length; s++) {
+                    var a = segs[s][0];
+                    var b = segs[s][1];
+                    if (overnight) {
+                        if (
+                            intervalsOverlapMinutes(a, b, ps, DAY_END_MIN) ||
+                            intervalsOverlapMinutes(a, b, 0, pe)
+                        ) {
+                            return true;
+                        }
+                    } else if (intervalsOverlapMinutes(a, b, ps, pe)) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            function minutesToHHMMLanding(totalM) {
+                var h = Math.floor(totalM / 60);
+                var m = totalM % 60;
+                return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0');
+            }
+
+            function deriveVisitDisplayFromTimingsLanding(timingsStr, categoryKey) {
+                var slots = parseTimingsSlotsMain(timingsStr);
+                if (slots.length === 1 && !slots[0].overnight) {
+                    return {
+                        visit_start: minutesToHHMMLanding(slots[0].ps),
+                        visit_end: minutesToHHMMLanding(slots[0].pe)
+                    };
+                }
+                var d = {
+                    temple: ['05:00', '22:00'],
+                    food: ['06:00', '23:00'],
+                    adventure: ['09:00', '21:00'],
+                    wildlife: ['06:00', '18:00'],
+                    sightseeing: ['09:00', '21:00'],
+                    hospital: ['00:00', '23:59'],
+                    other: ['09:00', '21:00']
+                };
+                var pair = d[categoryKey] || d.other;
+                return { visit_start: pair[0], visit_end: pair[1] };
+            }
+
+            function timeToMinutesVisit(t) {
+                if (!t || typeof t !== 'string') return 24 * 60;
+                var m = t.trim().match(/^(\d{1,2}):(\d{2})$/);
+                if (!m) return 24 * 60;
+                var h = parseInt(m[1], 10);
+                var mi = parseInt(m[2], 10);
+                if (h > 23 || mi > 59) return 24 * 60;
+                return h * 60 + mi;
+            }
+
+            function placeMinuteWindowLanding(p) {
+                var ps = timeToMinutesVisit(p.visit_start);
+                var pe = timeToMinutesVisit(p.visit_end);
+                if (ps >= 24 * 60 || pe >= 24 * 60) return null;
+                return { ps: ps, pe: pe, overnight: pe < ps };
+            }
+
+            function placeServiceSlotsLanding(p) {
+                var fromTimings = parseTimingsSlotsMain(p.timings || '');
+                if (fromTimings.length) return fromTimings;
+                var v = deriveVisitDisplayFromTimingsLanding(p.timings, p.categoryKey);
+                p.visit_start = v.visit_start;
+                p.visit_end = v.visit_end;
+                var w = placeMinuteWindowLanding(p);
+                return w ? [w] : [];
+            }
+
+            function placeOpenInOutingWindow(p, uStart, uEnd) {
+                var segs = [[uStart, uEnd]];
+                var slots = placeServiceSlotsLanding(p);
+                if (!slots.length) return true;
+                for (var i = 0; i < slots.length; i++) {
+                    if (slotOverlapsUserOutingMain(slots[i], segs)) return true;
+                }
+                return false;
+            }
+
+            function formatPlaceHoursMainPreview(p, ouS, ouE) {
+                var segs = [[ouS, ouE]];
+                var slots = placeServiceSlotsLanding(p);
+                if (segs && segs.length && slots.length) {
+                    for (var i = 0; i < slots.length; i++) {
+                        var sl = slots[i];
+                        if (!slotOverlapsUserOutingMain(sl, segs)) continue;
+                        if (!sl.overnight) {
+                            return (
+                                minutesToHHMMLanding(sl.ps) + ' – ' + minutesToHHMMLanding(sl.pe)
+                            );
+                        }
+                        return (
+                            minutesToHHMMLanding(sl.ps) +
+                            ' – ' +
+                            minutesToHHMMLanding(sl.pe) +
+                            ' (+overnight)'
+                        );
+                    }
+                }
+                return (p.visit_start || '') + ' – ' + (p.visit_end || '');
+            }
+
+            function normalizeHoursTokenLanding(s) {
+                return (s || '')
+                    .replace(/\s/g, '')
+                    .replace(/–|-/g, '-')
+                    .replace(/\|/g, '')
+                    .toLowerCase();
+            }
+
+            function placePopupShowDetailedSlotsMain(p, hoursLegendPlain) {
+                var slots = (p.timings || '').trim();
+                if (!slots) return false;
+                if (slots.indexOf('|') >= 0) return true;
+                var a = normalizeHoursTokenLanding(hoursLegendPlain);
+                var b = normalizeHoursTokenLanding(slots);
+                if (a && b && a === b) return false;
+                return true;
+            }
+
+            function categoryPinStyleLanding(categoryKey) {
+                var styles = {
+                    food: { bg: '#fff7ed', fg: '#c2410c', sym: 'restaurant' },
+                    adventure: { bg: '#ecfdf5', fg: '#047857', sym: 'landscape' },
+                    wildlife: { bg: '#f0fdf4', fg: '#15803d', sym: 'pets' },
+                    temple: { bg: '#fffbeb', fg: '#b45309', sym: 'temple_hindu' },
+                    sightseeing: { bg: '#eff6ff', fg: '#1d4ed8', sym: 'photo_camera' },
+                    hospital: { bg: '#fff8e6', fg: '#735c00', sym: 'local_hospital' },
+                    other: { bg: '#f1f5f9', fg: '#475569', sym: 'place' }
+                };
+                return styles[categoryKey] || styles.other;
+            }
+
+            function placeMarkerIconWithOrderLanding(categoryKey, orderNum) {
+                var o = categoryPinStyleLanding(categoryKey);
+                var html =
+                    '<div class="place-pin" style="background:' +
+                    o.bg +
+                    ';color:' +
+                    o.fg +
+                    ';">' +
+                    '<span class="material-symbols-outlined msym">' +
+                    o.sym +
+                    '</span>' +
+                    '<span class="place-pin-order">' +
+                    orderNum +
+                    '</span></div>';
+                return L.divIcon({
+                    className: 'place-pin-icon',
+                    html: html,
+                    iconSize: [36, 36],
+                    iconAnchor: [18, 18],
+                    popupAnchor: [0, -16]
+                });
+            }
+
+            function buildPlacePopupHtmlMain(p, orderNum, o, ouS, ouE) {
+                var hoursPlain = formatPlaceHoursMainPreview(p, ouS, ouE);
+                var hours = escapeHtml(hoursPlain);
+                var cat = escapeHtml(p.category);
+                var name = escapeHtml(p.name);
+                var descRaw = (p.description || '').trim();
+                var descHtml = '';
+                if (descRaw) {
+                    var sentences = descRaw.split('. ').filter(function (s) {
+                        return s.trim().length > 0;
+                    });
+                    var listItems = sentences
+                        .map(function (s) {
+                            return (
+                                '<li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#d97706; font-size:16px; margin-top:2px;">play_arrow</span><span>' +
+                                escapeHtml(s.trim()) +
+                                (s.endsWith('.') ? '' : '.') +
+                                '</span></li>'
+                            );
+                        })
+                        .join('');
+                    descHtml =
+                        '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;">' +
+                        listItems +
+                        '</ul>';
+                }
+                var slotsRaw = (p.timings || '').trim();
+                var slotsShort =
+                    slotsRaw.length > 200
+                        ? escapeHtml(slotsRaw.slice(0, 200)) + '...'
+                        : escapeHtml(slotsRaw);
+                var chipAccent =
+                    p.categoryKey === 'temple' ||
+                    p.categoryKey === 'food' ||
+                    p.categoryKey === 'hospital' ||
+                    p.categoryKey === 'wildlife'
+                        ? ' place-card__chip--accent'
+                        : '';
+                var accentInk =
+                    {
+                        food: '#9a3412',
+                        temple: '#78350f',
+                        adventure: '#065f46',
+                        wildlife: '#166534',
+                        sightseeing: '#1e40af',
+                        hospital: '#554300',
+                        other: '#334155'
+                    }[p.categoryKey] || '#334155';
+                var slotsBlock =
+                    slotsRaw && placePopupShowDetailedSlotsMain(p, hoursPlain)
+                        ? '<div class="place-card__section"><div class="place-card__label">Detailed timings</div><div class="place-card__slots">' +
+                          slotsShort +
+                          '</div></div>'
+                        : '';
+                var coordsBlock =
+                    '<div class="place-card__section"><div class="place-card__label">Coordinates</div><div class="place-card__slots" style="font-family: monospace; font-size:12px; background: #f1f5f9; border-color: #cbd5e1; display:flex; align-items:center; gap:6px; padding:8px 10px;"><span class="material-symbols-outlined" style="font-size:16px; color:#475569;">location_on</span> ' +
+                    p.lat +
+                    ', ' +
+                    p.lng +
+                    '</div></div>';
+                return (
+                    '<div class="place-card" style="--pp-accent:' +
+                    o.fg +
+                    ';--pp-soft:' +
+                    o.bg +
+                    ';--pp-accent-ink:' +
+                    accentInk +
+                    ';">' +
+                    '<div class="place-card__ribbon">' +
+                    '<div class="place-card__ribbon-left">' +
+                    '<span class="place-card__badge">Stop ' +
+                    orderNum +
+                    '</span>' +
+                    '<span class="place-card__status"><strong>Open</strong> - itinerary route</span>' +
+                    '</div></div>' +
+                    '<div class="place-card__hero">' +
+                    '<div class="place-card__icon-ring" aria-hidden="true">' +
+                    '<span class="material-symbols-outlined" style="color:' +
+                    o.fg +
+                    '">' +
+                    o.sym +
+                    '</span></div>' +
+                    '<div class="place-card__title-wrap"><h3 class="place-card__title">' +
+                    name +
+                    '</h3></div>' +
+                    '</div>' +
+                    '<div class="place-card__body">' +
+                    '<div class="place-card__meta">' +
+                    '<span class="place-card__chip' +
+                    chipAccent +
+                    '">' +
+                    cat +
+                    '</span>' +
+                    '<span class="place-card__chip">' +
+                    hours +
+                    '</span></div>' +
+                    slotsBlock +
+                    coordsBlock +
+                    descHtml +
+                    '</div></div>'
+                );
+            }
+
+            function buildBudgetStyleStartPopup(mode, addressPlain, metaLine) {
+                var mod = mode === 'typed' ? 'typed' : 'gps';
+                var badge = mode === 'typed' ? 'Address' : 'GPS';
+                var ribbonTitle =
+                    mode === 'typed'
+                        ? 'Starting point - typed location'
+                        : 'Starting point - live location';
+                var subtitle =
+                    mode === 'typed'
+                        ? 'Resolved from your search text'
+                        : 'Coordinates from your device';
+                var addrHtml = escapeHtml(addressPlain || '').replace(/,/g, ',<wbr>');
+                var footer = metaLine
+                    ? '<div class="start-place-card__footer">' + escapeHtml(metaLine) + '</div>'
+                    : '';
+                return (
+                    '<div class="start-place-card start-place-card--' +
+                    mod +
+                    '">' +
+                    '<div class="start-place-card__ribbon">' +
+                    '<div class="start-place-card__ribbon-left">' +
+                    '<span class="start-place-card__badge">' +
+                    badge +
+                    '</span>' +
+                    '<span class="start-place-card__ribbon-title">' +
+                    escapeHtml(ribbonTitle) +
+                    '</span>' +
+                    '</div></div>' +
+                    '<div class="start-place-card__hero">' +
+                    '<div class="start-place-card__icon-ring" aria-hidden="true">' +
+                    '<span class="material-symbols-outlined">home</span></div>' +
+                    '<div class="start-place-card__hero-text">' +
+                    '<div class="start-place-card__eyebrow">Trip origin</div>' +
+                    '<div class="start-place-card__subtitle">' +
+                    escapeHtml(subtitle) +
+                    '</div>' +
+                    '</div></div>' +
+                    '<div class="start-place-card__body">' +
+                    '<div class="start-place-card__label">Full address</div>' +
+                    '<div class="start-place-card__addr">' +
+                    addrHtml +
+                    '</div>' +
+                    footer +
+                    '</div></div>'
+                );
+            }
+
+            function clearMainPlacesCoveredUi() {
+                var list = document.getElementById('mainPlacesCoveredList');
+                var meta = document.getElementById('mainPlacesCoveredMeta');
+                if (list) list.innerHTML = '';
+                if (meta) meta.textContent = '';
+            }
+
+            function renderMainPlacesCoveredList(filtered, dateLabel, startLbl, endLbl, catKey, startPtLabel) {
+                var list = document.getElementById('mainPlacesCoveredList');
+                var meta = document.getElementById('mainPlacesCoveredMeta');
+                if (meta) {
+                    meta.textContent =
+                        dateLabel +
+                        ' · ' +
+                        startLbl +
+                        '–' +
+                        endLbl +
+                        (catKey && catKey !== 'all' ? ' · ' + catKey : '') +
+                        ' · Start: ' +
+                        startPtLabel +
+                        ' · ' +
+                        filtered.length +
+                        ' place(s) match opening hours in your window.';
+                }
+                if (!list) return;
+                list.innerHTML = '';
+                filtered.forEach(function (p, idx) {
+                    var li = document.createElement('li');
+                    li.className = 'border-b border-amber-50 px-3 py-2.5 last:border-0';
+                    var km = '';
+                    if (
+                        window._mainLastStartLat != null &&
+                        !isNaN(window._mainLastStartLat) &&
+                        window._mainLastStartLng != null &&
+                        !isNaN(window._mainLastStartLng)
+                    ) {
+                        km =
+                            haversineKm(
+                                window._mainLastStartLat,
+                                window._mainLastStartLng,
+                                p.lat,
+                                p.lng
+                            ).toFixed(1) + ' km from start';
+                    }
+                    li.innerHTML =
+                        '<div class="font-semibold text-on-surface">' +
+                        escapeHtml(p.name) +
+                        '<span class="ml-2 text-xs font-normal text-on-surface-variant">(' +
+                        escapeHtml(p.category || '') +
+                        ')</span></div>' +
+                        '<div class="mt-0.5 text-xs text-on-surface-variant">' +
+                        escapeHtml((p.timings || '').slice(0, 120)) +
+                        (km ? ' · ' + km : '') +
+                        '</div>';
+                    list.appendChild(li);
+                });
+            }
+
+            function updateMainPlannerLink(startT, endT, dateV, locV, cat) {
+                var links = document.querySelectorAll('a.main-open-planner-link');
+                if (!links.length) return;
+                var p = new URLSearchParams();
+                p.set('apply', '1');
+                if (startT) p.set('start', startT);
+                if (endT) p.set('end', endT);
+                if (dateV) p.set('date', dateV);
+                if (locV) p.set('loc', locV);
+                if (cat && cat !== 'all') p.set('category', cat);
+                var href = 'budget_calculator.html?' + p.toString();
+                links.forEach(function (a) {
+                    a.setAttribute('href', href);
+                });
+            }
+
+            function refreshLandingPlannerLink() {
+                var sEl = document.getElementById('mainOutingStart');
+                var eEl = document.getElementById('mainOutingEnd');
+                var dEl = document.getElementById('mainOutingDate');
+                var lEl = document.getElementById('mainStartLocation');
+                var cEl = document.getElementById('mainLandingCatValue');
+                if (!sEl || !eEl || !dEl) return;
+                updateMainPlannerLink(
+                    sEl.value,
+                    eEl.value,
+                    dEl.value,
+                    lEl && lEl.value ? lEl.value.trim() : 'Tirupati',
+                    cEl && cEl.value ? cEl.value : 'all'
+                );
+            }
+
+            function syncMainLandingCatChipsUi() {
+                var h = document.getElementById('mainLandingCatValue');
+                var cur = (h && h.value) || 'all';
+                document.querySelectorAll('#mainLandingCatChips [data-ml-cat]').forEach(function (btn) {
+                    btn.classList.toggle('is-active', (btn.getAttribute('data-ml-cat') || '') === cur);
+                });
+            }
+
+            function showMainLandingMap() {
+                var hintEl = document.getElementById('mainTripFormHint');
+                if (hintEl) {
+                    hintEl.classList.add('hidden');
+                    hintEl.textContent = '';
+                }
+                var startTEl = document.getElementById('mainOutingStart');
+                var endTEl = document.getElementById('mainOutingEnd');
+                var dateEl = document.getElementById('mainOutingDate');
+                var locEl = document.getElementById('mainStartLocation');
+                var catEl = document.getElementById('mainLandingCatValue');
+                if (!startTEl || !endTEl || !dateEl || !locEl || !catEl) return;
+
+                var uS = timeToMinMain(startTEl.value);
+                var uE = timeToMinMain(endTEl.value);
+                if (uE <= uS) {
+                    if (hintEl) {
+                        hintEl.textContent = 'Outing end must be after outing start (same day).';
+                        hintEl.classList.remove('hidden');
+                    }
+                    return;
+                }
+                if (!dateEl.value) {
+                    if (hintEl) {
+                        hintEl.textContent = 'Please choose a date.';
+                        hintEl.classList.remove('hidden');
+                    }
+                    return;
+                }
+
+                var cat = (catEl.value || 'all').toLowerCase();
+                var locTrim = locEl.value.trim() || 'Tirupati';
+                var usLoc = document.getElementById('userStartLocation');
+                if (usLoc) usLoc.value = locTrim;
+
+                updateMainPlannerLink(startTEl.value, endTEl.value, dateEl.value, locTrim, cat);
+
+                if (!places.length) {
+                    if (hintEl) {
+                        hintEl.textContent = 'Place data is still loading. Wait a few seconds and try again.';
+                        hintEl.classList.remove('hidden');
+                    }
+                    return;
+                }
+
+                var filtered = places.filter(function (p) {
+                    if (p.categoryKey === 'hospital') return false;
+                    if (cat !== 'all' && p.categoryKey !== cat) return false;
+                    return placeOpenInOutingWindow(p, uS, uE);
+                });
+
+                if (!filtered.length) {
+                    if (hintEl) {
+                        hintEl.textContent =
+                            'No places match this theme and time window. Try widening outing times, choose All themes, or adjust start time.';
+                        hintEl.classList.remove('hidden');
+                    }
+                    return;
+                }
+
+                if (mainPreviewAbort) mainPreviewAbort.abort();
+                mainPreviewAbort = new AbortController();
+                var signal = mainPreviewAbort.signal;
+
+                function drawPreviewFromStart(startLat, startLng, startLabel) {
+                    window._mainLastStartLat = startLat;
+                    window._mainLastStartLng = startLng;
+
+                    var ouS = timeToMinMain(startTEl.value);
+                    var ouE = timeToMinMain(endTEl.value);
+
+                    filtered.sort(function (a, b) {
+                        return (
+                            haversineKm(startLat, startLng, a.lat, a.lng) -
+                            haversineKm(startLat, startLng, b.lat, b.lng)
+                        );
+                    });
+
+                    var topForRoute = filtered.slice(0, 6);
+
+                    var mapSec = document.getElementById('mapSection');
+                    if (mapSec) mapSec.classList.remove('hidden');
+                    if (!ensurePkgMap()) {
+                        if (hintEl) {
+                            hintEl.textContent = 'Map could not be initialized.';
+                            hintEl.classList.remove('hidden');
+                        }
+                        return;
+                    }
+                    if (routeAbort) routeAbort.abort();
+                    if (pkgMarkersLayer) pkgMarkersLayer.clearLayers();
+                    if (pkgRouteLayer) pkgRouteLayer.clearLayers();
+                    if (pkgStartLayer) pkgStartLayer.clearLayers();
+                    if (pkgHospitalLayer) pkgHospitalLayer.clearLayers();
+
+                    var fromGps = !!window._mainPreviewUsesGps;
+                    var metaStart =
+                        fromGps &&
+                        mainGpsCoords &&
+                        mainGpsCoords.accuracy != null &&
+                        !isNaN(mainGpsCoords.accuracy)
+                            ? 'GPS ±' +
+                              Math.round(mainGpsCoords.accuracy) +
+                              ' m · ' +
+                              startLat.toFixed(5) +
+                              ', ' +
+                              startLng.toFixed(5)
+                            : startLat.toFixed(5) + ', ' + startLng.toFixed(5);
+
+                    var startIconHtml =
+                        '<div class="start-home-pin' +
+                        (fromGps ? '' : ' start-home-pin--typed') +
+                        '" role="img" aria-label="Trip start"><span class="material-symbols-outlined">home</span></div>';
+                    var startIcon = L.divIcon({
+                        className: 'start-home-icon',
+                        html: startIconHtml,
+                        iconSize: [40, 40],
+                        iconAnchor: [20, 20],
+                        popupAnchor: [0, -18]
+                    });
+                    L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
+                        .bindPopup(
+                            buildBudgetStyleStartPopup(
+                                fromGps ? 'gps' : 'typed',
+                                startLabel,
+                                metaStart
+                            ),
+                            {
+                                className: 'place-popup--gov place-popup--start',
+                                minWidth: 300,
+                                maxWidth: 420
+                            }
+                        )
+                        .addTo(pkgStartLayer);
+
+                    topForRoute.forEach(function (p, idx) {
+                        var v = deriveVisitDisplayFromTimingsLanding(p.timings, p.categoryKey);
+                        p.visit_start = v.visit_start;
+                        p.visit_end = v.visit_end;
+                        var o = categoryPinStyleLanding(p.categoryKey);
+                        L.marker([p.lat, p.lng], {
+                            icon: placeMarkerIconWithOrderLanding(p.categoryKey, idx + 1),
+                            zIndexOffset: 400 + idx
+                        })
+                            .bindPopup(buildPlacePopupHtmlMain(p, idx + 1, o, ouS, ouE), {
+                                className: 'place-popup--gov',
+                                minWidth: 300,
+                                maxWidth: 420
+                            })
+                            .addTo(pkgMarkersLayer);
+                    });
+
+                    var seqPts = [[startLat, startLng]].concat(
+                        topForRoute.map(function (p) {
+                            return [p.lat, p.lng];
+                        })
+                    );
+                    fetchOsrmTripOrder(seqPts, signal).then(function (orderIdx) {
+                        if (signal.aborted) return;
+                        var orderedPts =
+                            orderIdx && orderIdx.length === seqPts.length
+                                ? orderIdx.map(function (ix) {
+                                      return seqPts[ix];
+                                  })
+                                : seqPts;
+                        fetchOsrmRoute(orderedPts, signal).then(function (coords) {
+                            if (signal.aborted) return;
+                            if (coords && coords.length >= 2) {
+                                var routeLine = L.polyline(coords, {
+                                    color: '#0f766e',
+                                    weight: 4,
+                                    opacity: 0.9,
+                                    interactive: false
+                                }).addTo(pkgRouteLayer);
+                                try {
+                                    var elPath =
+                                        routeLine.getElement && routeLine.getElement();
+                                    if (elPath) {
+                                        elPath.style.filter =
+                                            'drop-shadow(0 0 3px rgba(0,0,0,.25))';
+                                    }
+                                } catch (e0) { /* ignore */ }
+                            } else if (orderedPts.length >= 2) {
+                                L.polyline(orderedPts, {
+                                    color: '#0f766e',
+                                    weight: 3,
+                                    dashArray: '6 5',
+                                    opacity: 0.85,
+                                    interactive: false
+                                }).addTo(pkgRouteLayer);
+                            }
+                            var b = orderedPts.slice();
+                            if (b.length && pkgMap) {
+                                pkgMap.fitBounds(b, { padding: [42, 42], maxZoom: 13, animate: true });
+                            }
+                            window.setTimeout(function () {
+                                if (pkgMap) pkgMap.invalidateSize();
+                            }, 200);
+                        });
+                    });
+
+                    renderMainPlacesCoveredList(
+                        filtered,
+                        dateEl.value,
+                        startTEl.value,
+                        endTEl.value,
+                        cat,
+                        startLabel
+                    );
+                    setMapStatus('');
+                    if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+
+                if (mainGpsCoords) {
+                    window._mainPreviewUsesGps = true;
+                    drawPreviewFromStart(mainGpsCoords.lat, mainGpsCoords.lng, 'Live GPS');
+                    return;
+                }
+
+                window._mainPreviewUsesGps = false;
+                resolveStartGeoWithFallback(locTrim, signal).then(function (geo) {
+                    if (signal.aborted) return;
+                    if (!geo || isNaN(geo.lat)) {
+                        if (hintEl) {
+                            hintEl.textContent = 'Could not find that start location. Try a broader address (e.g. Tirupati).';
+                            hintEl.classList.remove('hidden');
+                        }
+                        return;
+                    }
+                    drawPreviewFromStart(geo.lat, geo.lng, geo.label || locTrim);
+                });
             }
 
             function fetchOsrmTripOrder(waypointsLatLng, signal) {
@@ -2714,6 +3759,7 @@ Emergency
                                 fail('Map failed to load.');
                                 return;
                             }
+                            clearMainPlacesCoveredUi();
                             // Emergency mode must replace package-selected markers/routes completely.
                             if (routeAbort) routeAbort.abort();
                             if (pkgMarkersLayer) pkgMarkersLayer.clearLayers();
@@ -2841,13 +3887,14 @@ Emergency
             var emergencyShowMapBtn = document.getElementById('emergencyShowMapBtn');
             if (emergencyShowMapBtn) emergencyShowMapBtn.addEventListener('click', showEmergencyNearestHospitals);
 
-            async function loadEmergencyCsv() {
+            async function loadMainCsv() {
                 try {
                     var res = await fetch(CSV_URL);
                     if (!res.ok) throw new Error('csv');
                     var text = await res.text();
                     var ls = text.trim().split(/\r?\n/);
                     hospitalStubs = [];
+                    places = [];
                     for (var i = 1; i < ls.length; i++) {
                         var raw = ls[i];
                         if (/^name of the place/i.test(raw) || /^name,/i.test(raw)) continue;
@@ -2855,11 +3902,172 @@ Emergency
                         if (!row) continue;
                         if (row.needsGeocode) {
                             hospitalStubs.push({ name: row.name, category: row.category, timings: row.timings });
+                        } else if (!isNaN(row.lat) && !isNaN(row.lng) && row.categoryKey !== 'hospital') {
+                            places.push(row);
                         }
                     }
-                } catch (e) { console.warn('Emergency CSV', e); }
+                } catch (e) {
+                    console.warn('Main CSV', e);
+                }
             }
-            loadEmergencyCsv();
+            loadMainCsv();
+
+            document.addEventListener('main-landing-set-cat', function (ev) {
+                var d = ev && ev.detail;
+                if (!d || !d.cat) return;
+                var h = document.getElementById('mainLandingCatValue');
+                if (h) h.value = d.cat;
+                syncMainLandingCatChipsUi();
+                refreshLandingPlannerLink();
+            });
+
+            var mlc = document.getElementById('mainLandingCatChips');
+            if (mlc) {
+                mlc.addEventListener('click', function (ev) {
+                    var btn = ev.target.closest('[data-ml-cat]');
+                    if (!btn) return;
+                    var v = btn.getAttribute('data-ml-cat') || 'all';
+                    var h = document.getElementById('mainLandingCatValue');
+                    if (h) h.value = v;
+                    syncMainLandingCatChipsUi();
+                    refreshLandingPlannerLink();
+                });
+            }
+
+            var cgLand = document.getElementById('categoryGrid');
+            if (cgLand) {
+                cgLand.addEventListener('click', function (e) {
+                    var card = e.target.closest('[data-category-card]');
+                    if (!card) return;
+                    var raw = (card.getAttribute('data-category-card') || '').toLowerCase();
+                    var allowed = { food: 1, adventure: 1, wildlife: 1, temple: 1, sightseeing: 1 };
+                    var v = allowed[raw] ? raw : 'all';
+                    var h = document.getElementById('mainLandingCatValue');
+                    if (h) h.value = v;
+                    syncMainLandingCatChipsUi();
+                    refreshLandingPlannerLink();
+                });
+            }
+
+            function setManualStartLockedByGps(locked) {
+                var el = document.getElementById('mainStartLocation');
+                var useAddr = document.getElementById('mainUseAddressBtn');
+                if (el) {
+                    el.disabled = !!locked;
+                    if (locked) {
+                        el.setAttribute(
+                            'title',
+                            'Using live GPS for start. Untick GPS or use “Use typed address instead” to type.'
+                        );
+                    } else {
+                        el.removeAttribute('title');
+                    }
+                }
+                if (useAddr) useAddr.classList.toggle('hidden', !locked);
+            }
+
+            function clearGpsAndEnableManualStart() {
+                mainGpsCoords = null;
+                var cbGps = document.getElementById('mainGpsCheckbox');
+                if (cbGps) cbGps.checked = false;
+                setManualStartLockedByGps(false);
+                var st = document.getElementById('mainGpsStatus');
+                if (st) st.textContent = '';
+                var inp = document.getElementById('mainStartLocation');
+                if (inp) {
+                    window.setTimeout(function () {
+                        inp.focus();
+                    }, 0);
+                }
+            }
+
+            var slMain = document.getElementById('mainStartLocation');
+            if (slMain) {
+                slMain.addEventListener('input', function () {
+                    mainGpsCoords = null;
+                    var cbG = document.getElementById('mainGpsCheckbox');
+                    if (cbG) cbG.checked = false;
+                    setManualStartLockedByGps(false);
+                    var st = document.getElementById('mainGpsStatus');
+                    if (st) st.textContent = '';
+                    var us = document.getElementById('userStartLocation');
+                    if (us) us.value = slMain.value.trim() || 'Tirupati';
+                });
+            }
+
+            var useAddressBtn = document.getElementById('mainUseAddressBtn');
+            if (useAddressBtn) {
+                useAddressBtn.addEventListener('click', function () {
+                    clearGpsAndEnableManualStart();
+                });
+            }
+
+            var gpsCb = document.getElementById('mainGpsCheckbox');
+            if (gpsCb) {
+                gpsCb.addEventListener('change', function () {
+                    var st = document.getElementById('mainGpsStatus');
+                    if (!gpsCb.checked) {
+                        mainGpsCoords = null;
+                        setManualStartLockedByGps(false);
+                        if (st) st.textContent = '';
+                        return;
+                    }
+                    if (!navigator.geolocation) {
+                        gpsCb.checked = false;
+                        if (st) st.textContent = 'Geolocation is not available in this browser.';
+                        setManualStartLockedByGps(false);
+                        return;
+                    }
+                    if (st) st.textContent = 'Requesting location…';
+                    navigator.geolocation.getCurrentPosition(
+                        function (pos) {
+                            if (!gpsCb.checked) return;
+                            mainGpsCoords = {
+                                lat: pos.coords.latitude,
+                                lng: pos.coords.longitude,
+                                accuracy: pos.coords.accuracy
+                            };
+                            setManualStartLockedByGps(true);
+                            if (st) {
+                                st.textContent =
+                                    'Start will use this GPS fix (±' +
+                                    Math.round(pos.coords.accuracy || 0) +
+                                    ' m). Manual address is off.';
+                            }
+                        },
+                        function () {
+                            mainGpsCoords = null;
+                            gpsCb.checked = false;
+                            setManualStartLockedByGps(false);
+                            if (st) st.textContent = 'Location denied or unavailable. Enter an address above.';
+                        },
+                        { enableHighAccuracy: true, timeout: 22000, maximumAge: 0 }
+                    );
+                });
+            }
+
+            document.querySelectorAll('.js-main-show-map').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    showMainLandingMap();
+                });
+            });
+
+            syncMainLandingCatChipsUi();
+            var de = document.getElementById('mainOutingDate');
+            if (de && !de.value) {
+                de.value = new Date().toISOString().split('T')[0];
+            }
+            var loc0 = document.getElementById('mainStartLocation');
+            var us0 = document.getElementById('userStartLocation');
+            if (loc0 && us0 && loc0.value) us0.value = loc0.value.trim() || 'Tirupati';
+
+            ['mainOutingStart', 'mainOutingEnd', 'mainOutingDate', 'mainStartLocation'].forEach(function (fid) {
+                var fel = document.getElementById(fid);
+                if (fel) {
+                    fel.addEventListener('change', refreshLandingPlannerLink);
+                }
+            });
+            refreshLandingPlannerLink();
 
 })();
 
