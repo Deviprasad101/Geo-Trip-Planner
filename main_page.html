@@ -932,13 +932,13 @@
             margin: 0 0 0.75rem;
             padding: 0.7rem 1rem 0.7rem 1rem;
             border-radius: 0.75rem;
-            border: 1px solid rgba(220, 38, 38, 0.4);
-            background: linear-gradient(135deg, #fef2f2 0%, #fffbeb 55%, #fff 100%);
-            color: #991b1b;
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            background: linear-gradient(135deg, #fffefb 0%, #fff8e6 55%, #ffffff 100%);
+            color: #554300;
             font-weight: 700;
             font-size: 0.9375rem;
             line-height: 1.45;
-            box-shadow: 0 4px 14px rgba(185, 28, 28, 0.12);
+            box-shadow: 0 4px 14px rgba(115, 92, 0, 0.12);
         }
 
         /* Emergency hospitals FAB + panel */
@@ -957,8 +957,8 @@
             font-weight: 800;
             font-size: 0.8125rem;
             color: #fff;
-            background: linear-gradient(135deg, #dc2626, #991b1b);
-            box-shadow: 0 6px 22px rgba(153, 27, 27, 0.45);
+            background: linear-gradient(135deg, #d4af37, #735c00);
+            box-shadow: 0 6px 22px rgba(115, 92, 0, 0.38);
             font-family: inherit;
         }
 
@@ -1013,15 +1013,15 @@
             justify-content: space-between;
             gap: 0.75rem;
             padding: 1rem 1rem 0.5rem;
-            background: linear-gradient(180deg, #fef2f2 0%, #fff 100%);
-            border-bottom: 1px solid #fecaca;
+            background: linear-gradient(180deg, #fff8e6 0%, #ffffff 100%);
+            border-bottom: 1px solid #e5cf8a;
         }
 
         .emergency-panel__head h2 {
             margin: 0;
             font-size: 1.1rem;
             font-weight: 800;
-            color: #991b1b;
+            color: #554300;
         }
 
         .emergency-panel__close {
@@ -1088,7 +1088,7 @@
             font-size: 0.8125rem;
             cursor: pointer;
             color: #fff;
-            background: linear-gradient(135deg, #b91c1c, #7f1d1d);
+            background: linear-gradient(135deg, #d4af37, #735c00);
         }
 
         .emergency-panel__foot .btn-emergency-map:disabled {
@@ -2431,20 +2431,20 @@ Emergency
                 );
             }
             function buildHospitalPopupHtml(h, rankNumber) {
-                var o = { bg: '#fff0f2', fg: '#e11d48', sym: 'emergency' };
-                var accentInk = '#be123c'; 
+                var o = { bg: '#fff8e6', fg: '#735c00', sym: 'emergency' };
+                var accentInk = '#554300'; 
                 var timings = escapeHtml(h && h.timings ? h.timings : '24 Hours');
                 var name = escapeHtml(h && h.name ? h.name : 'Hospital');
 
                 var coordsBlock = (h && h.lat && h.lng) ? '<div class="place-card__section"><div class="place-card__label">Coordinates</div><div class="place-card__slots" style="font-family: monospace; font-size:12px; background: #f1f5f9; border-color: #cbd5e1; display:flex; align-items:center; gap:6px; padding:8px 10px;"><span class="material-symbols-outlined" style="font-size:16px; color:#475569;">location_on</span> ' + h.lat + ', ' + h.lng + '</div></div>' : '';
 
-                var descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;"><li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#e11d48; font-size:16px; margin-top:2px;">play_arrow</span><span>Hospital from Tirupati CSV (emergency list only).</span></li></ul>';
+                var descHtml = '<ul class="place-card__desc-list" style="margin: 10px 0 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.55; color: #334155; font-weight: 500;"><li style="margin-bottom:4px; display:flex; align-items:flex-start; gap:6px;"><span class="material-symbols-outlined" style="color:#735c00; font-size:16px; margin-top:2px;">play_arrow</span><span>Hospital from Tirupati CSV (emergency list only).</span></li></ul>';
 
                 return (
                     '<div class="place-card" style="--pp-accent:' + o.fg + ';--pp-soft:' + o.bg + ';--pp-accent-ink:' + accentInk + ';">' +
                     '<div class="place-card__ribbon">' +
                     '<div class="place-card__ribbon-left">' +
-                    '<span class="place-card__badge" style="background-color: #e11d48; color: #fff;">Nearest ' + rankNumber + '</span>' +
+                    '<span class="place-card__badge" style="background-color: #d4af37; color: #554300;">Nearest ' + rankNumber + '</span>' +
                     '<span class="place-card__status"><strong>Emergency route</strong></span>' +
                     '</div></div>' +
                     '<div class="place-card__hero">' +
@@ -2739,7 +2739,7 @@ Emergency
                                 var ic = L.divIcon({
                                     className: 'pkg-hosp-icon',
                                     html:
-                                        '<div style="min-width:30px;height:30px;border-radius:50%;background:#dc2626;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">' +
+                                        '<div style="min-width:30px;height:30px;border-radius:50%;background:#735c00;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.25);">' +
                                         n +
                                         '</div>',
                                     iconSize: [30, 30],
@@ -2769,10 +2769,10 @@ Emergency
                                 fetchOsrmRoute(orderedPts, signal).then(function (coords) {
                                     if (signal.aborted) return;
                                     if (coords && coords.length >= 2) {
-                                        L.polyline(coords, { color: '#b91c1c', weight: 5, opacity: 0.9 }).addTo(pkgHospitalLayer);
+                                        L.polyline(coords, { color: '#735c00', weight: 5, opacity: 0.9 }).addTo(pkgHospitalLayer);
                                     } else {
                                         L.polyline(orderedPts, {
-                                            color: '#f87171',
+                                            color: '#ca8a04',
                                             weight: 3,
                                             dashArray: '6 5',
                                             opacity: 0.85

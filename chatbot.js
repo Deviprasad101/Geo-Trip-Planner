@@ -9,10 +9,10 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #ea580c, #b45309);
-            color: white;
+            background: linear-gradient(135deg, #d4af37, #735c00);
+            color: #ffffff;
             border: none;
-            box-shadow: 0 4px 15px rgba(180, 83, 9, 0.4);
+            box-shadow: 0 4px 15px rgba(115, 92, 0, 0.35);
             cursor: pointer;
             z-index: 9999;
             display: flex;
@@ -22,7 +22,7 @@
         }
         .gt-chatbot-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 20px rgba(180, 83, 9, 0.5);
+            box-shadow: 0 6px 20px rgba(115, 92, 0, 0.45);
         }
         .gt-chatbot-btn .material-symbols-outlined {
             font-size: 30px;
@@ -33,10 +33,10 @@
             right: 24px;
             width: 420px;
             max-height: 750px;
-            background: #fff;
+            background: #ffffff;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            border: 1px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(212, 175, 55, 0.45);
             display: flex;
             flex-direction: column;
             z-index: 9999;
@@ -45,7 +45,7 @@
             transform: translateY(20px);
             transition: all 0.3s ease;
             overflow: hidden;
-            font-family: 'Outfit', sans-serif;
+            font-family: "Public Sans", system-ui, sans-serif;
         }
         .gt-chatbot-window.is-open {
             opacity: 1;
@@ -53,8 +53,8 @@
             transform: translateY(0);
         }
         .gt-chatbot-header {
-            background: linear-gradient(135deg, #ea580c, #b45309);
-            color: white;
+            background: linear-gradient(135deg, #d4af37, #735c00);
+            color: #ffffff;
             padding: 20px;
             font-weight: 700;
             font-size: 1.3rem;
@@ -65,7 +65,7 @@
         .gt-chatbot-header button {
             background: transparent;
             border: none;
-            color: white;
+            color: #ffffff;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -78,7 +78,7 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            background: #fafaf9;
+            background: #f9f9fc;
             height: 500px;
         }
         .gt-chat-msg {
@@ -89,28 +89,28 @@
             line-height: 1.45;
         }
         .gt-chat-msg.bot {
-            background: #fff;
-            color: #44403c;
+            background: #ffffff;
+            color: #1a1c1e;
             align-self: flex-start;
             border-bottom-left-radius: 4px;
-            border: 1px solid #e7e5e4;
+            border: 1px solid #e2e2e5;
         }
         .gt-chat-msg.user {
-            background: #fef3c7;
-            color: #92400e;
+            background: linear-gradient(135deg, #fffefb, #fff4d6);
+            color: #554300;
             align-self: flex-end;
             border-bottom-right-radius: 4px;
-            border: 1px solid #fde68a;
+            border: 1px solid #e5cf8a;
         }
         .gt-chat-msg.bot a {
-            color: #d97706;
+            color: #735c00;
             text-decoration: underline;
             font-weight: 600;
         }
         .gt-chatbot-options {
             padding: 16px;
-            background: #fff;
-            border-top: 1px solid #e7e5e4;
+            background: #ffffff;
+            border-top: 1px solid #e2e2e5;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -118,9 +118,9 @@
             overflow-y: auto;
         }
         .gt-chatbot-option-btn {
-            background: #fff;
-            border: 1px solid #d97706;
-            color: #b45309;
+            background: #ffffff;
+            border: 1px solid #d4af37;
+            color: #554300;
             padding: 10px 14px;
             border-radius: 20px;
             font-size: 0.95rem;
@@ -131,12 +131,12 @@
             font-family: inherit;
         }
         .gt-chatbot-option-btn:hover {
-            background: #fffbeb;
+            background: #fffefb;
         }
         .gt-chatbot-cat-title {
             font-size: 0.85rem;
             font-weight: 700;
-            color: #b45309;
+            color: #735c00;
             margin-top: 10px;
             margin-bottom: 4px;
             text-transform: uppercase;
@@ -148,12 +148,12 @@
             gap: 8px;
             margin-bottom: 12px;
             padding-bottom: 12px;
-            border-bottom: 1px dashed #fcd34d;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.55);
         }
         .gt-chatbot-quick-btn {
-            background: linear-gradient(135deg, #fffbeb, #fef3c7);
-            border: 1px solid #f59e0b;
-            color: #92400e;
+            background: linear-gradient(135deg, #ffffff, #fff8e6);
+            border: 1px solid #d4af37;
+            color: #554300;
             padding: 8px;
             border-radius: 8px;
             font-size: 0.85rem;
@@ -164,31 +164,31 @@
             font-family: inherit;
         }
         .gt-chatbot-quick-btn:hover {
-            background: #fde68a;
+            background: #ffe088;
             transform: translateY(-1px);
         }
         .gt-chatbot-input-area {
             display: flex;
             padding: 12px;
-            background: #fff;
-            border-top: 1px solid #e7e5e4;
+            background: #ffffff;
+            border-top: 1px solid #e2e2e5;
             gap: 8px;
         }
         .gt-chatbot-input-area input {
             flex: 1;
             padding: 10px 14px;
-            border: 1px solid #d6d3d1;
+            border: 1px solid #d0c5af;
             border-radius: 20px;
             outline: none;
             font-family: inherit;
             font-size: 0.95rem;
         }
         .gt-chatbot-input-area input:focus {
-            border-color: #d97706;
+            border-color: #735c00;
         }
         .gt-chatbot-input-area button {
-            background: linear-gradient(135deg, #ea580c, #b45309);
-            color: white;
+            background: linear-gradient(135deg, #d4af37, #735c00);
+            color: #ffffff;
             border: none;
             border-radius: 50%;
             width: 40px;
