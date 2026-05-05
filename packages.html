@@ -117,10 +117,10 @@
 
         @media (min-width: 900px) {
             .pricing-grid {
-                grid-template-columns: repeat(3, minmax(0, 18.75rem));
+                grid-template-columns: repeat(4, minmax(0, 18.75rem));
                 justify-content: center;
                 align-items: stretch;
-                max-width: 71rem;
+                max-width: 95rem;
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -140,6 +140,10 @@
 
         .pricing-grid .pricing-card:nth-child(3) {
             animation-delay: 0.19s;
+        }
+
+        .pricing-grid .pricing-card:nth-child(4) {
+            animation-delay: 0.26s;
         }
 
         /* Pricing cards — white side tiers + featured middle (teal / gold, matches site) */
@@ -165,7 +169,8 @@
             box-shadow: 0 0 0 2px #0f766e, 0 20px 48px rgba(15, 23, 42, 0.12);
         }
 
-        .pricing-card--premium {
+        .pricing-card--premium,
+        .pricing-card--superpremium {
             background: linear-gradient(
                 165deg,
                 var(--pkg-feature-top) 0%,
@@ -178,20 +183,23 @@
             align-self: stretch;
         }
 
-        .pricing-card--premium:hover {
+        .pricing-card--premium:hover,
+        .pricing-card--superpremium:hover {
             box-shadow:
                 0 28px 64px var(--pkg-feature-shadow-strong),
                 0 0 0 1px rgba(255, 255, 255, 0.22);
         }
 
-        .pricing-card--premium.is-selected {
+        .pricing-card--premium.is-selected,
+        .pricing-card--superpremium.is-selected {
             box-shadow:
                 0 0 0 2px var(--pkg-gold),
                 0 24px 56px var(--pkg-feature-shadow-strong);
         }
 
         /* Decorative accent bar (gold — matches kicker / brand accents) */
-        .pricing-card--premium::before {
+        .pricing-card--premium::before,
+        .pricing-card--superpremium::before {
             content: "";
             position: absolute;
             top: -1px;
@@ -215,7 +223,8 @@
             background: #ffffff;
         }
 
-        .pricing-card--premium .pricing-card__top-wrap {
+        .pricing-card--premium .pricing-card__top-wrap,
+        .pricing-card--superpremium .pricing-card__top-wrap {
             background: transparent;
         }
 
@@ -229,7 +238,8 @@
             color: #1a2233;
         }
 
-        .pricing-card--premium .pricing-card__header {
+        .pricing-card--premium .pricing-card__header,
+        .pricing-card--superpremium .pricing-card__header {
             color: #ffffff;
             padding-top: 1.48rem;
         }
@@ -255,7 +265,8 @@
             opacity: 1;
         }
 
-        .pricing-card--premium .pricing-card__header p {
+        .pricing-card--premium .pricing-card__header p,
+        .pricing-card--superpremium .pricing-card__header p {
             color: rgba(255, 255, 255, 0.88);
         }
 
@@ -302,7 +313,8 @@
             color: #64748b;
         }
 
-        .pricing-card--premium .pricing-card__badge span {
+        .pricing-card--premium .pricing-card__badge span,
+        .pricing-card--superpremium .pricing-card__badge span {
             color: rgba(255, 255, 255, 0.82);
         }
 
@@ -318,7 +330,8 @@
             margin-top: 0;
         }
 
-        .pricing-card--premium .pricing-card__body {
+        .pricing-card--premium .pricing-card__body,
+        .pricing-card--superpremium .pricing-card__body {
             padding-bottom: 1.38rem;
         }
 
@@ -334,7 +347,8 @@
             border: 1px solid #e8ecf1;
         }
 
-        .pricing-card--premium .pricing-card__pick-hint {
+        .pricing-card--premium .pricing-card__pick-hint,
+        .pricing-card--superpremium .pricing-card__pick-hint {
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.22);
             color: rgba(255, 255, 255, 0.95);
@@ -349,39 +363,34 @@
 
         .pricing-card__features li {
             position: relative;
-            padding-left: 1.78rem;
-            margin-bottom: 0.45rem;
-            font-size: 0.84375rem;
+            padding-left: 0;
+            margin-bottom: 0.5rem;
+            font-size: 0.98rem;
             color: #334155;
             line-height: 1.35;
             text-align: left;
             width: 100%;
-            max-width: 16.25rem;
+            max-width: 18.5rem;
             margin-left: auto;
             margin-right: auto;
         }
 
-        .pricing-card--premium .pricing-card__features li {
+        .pricing-card--premium .pricing-card__features li,
+        .pricing-card--superpremium .pricing-card__features li {
             color: rgba(255, 255, 255, 0.94);
         }
 
         .pricing-card__features li::before {
-            content: "✓";
+            content: "";
             position: absolute;
             left: 0;
             top: 0.08rem;
-            width: 1.15rem;
-            height: 1.15rem;
-            border-radius: 50%;
-            background: #22c55e;
-            color: #ffffff;
-            font-size: 0.54rem;
-            font-weight: 900;
-            line-height: 1.15rem;
-            text-align: center;
+            width: 0;
+            height: 0;
         }
 
-        .pricing-card--premium .pricing-card__features li::before {
+        .pricing-card--premium .pricing-card__features li::before,
+        .pricing-card--superpremium .pricing-card__features li::before {
             background: rgba(255, 255, 255, 0.95);
             color: var(--pkg-feature-deep);
         }
@@ -414,13 +423,15 @@
             box-shadow: 0 6px 18px rgba(26, 34, 51, 0.32);
         }
 
-        .pricing-card--premium .pricing-card__cta {
+        .pricing-card--premium .pricing-card__cta,
+        .pricing-card--superpremium .pricing-card__cta {
             background: #ffffff;
             color: var(--pkg-feature-deep);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        .pricing-card--premium .pricing-card__cta:hover {
+        .pricing-card--premium .pricing-card__cta:hover,
+        .pricing-card--superpremium .pricing-card__cta:hover {
             filter: brightness(1.02);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
@@ -439,6 +450,144 @@
 
         .pricing-card--premium {
             --dot: #ffffff;
+        }
+
+        /* Per-card light themes */
+        .pricing-card--basic {
+            background: linear-gradient(165deg, #fffaf3 0%, #fff3e0 100%);
+            box-shadow: 0 10px 30px rgba(251, 146, 60, 0.14), 0 0 0 1px rgba(251, 191, 36, 0.2);
+        }
+
+        .pricing-card--standard {
+            background: linear-gradient(165deg, #f8fbff 0%, #eaf3ff 100%);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.14), 0 0 0 1px rgba(125, 211, 252, 0.28);
+        }
+
+        .pricing-card--premium {
+            background: linear-gradient(165deg, #f3fffb 0%, #e6fffb 100%);
+            box-shadow: 0 10px 30px rgba(20, 184, 166, 0.16), 0 0 0 1px rgba(94, 234, 212, 0.28);
+        }
+
+        .pricing-card--superpremium {
+            background: linear-gradient(165deg, #faf8ff 0%, #f1edff 100%);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.16), 0 0 0 1px rgba(196, 181, 253, 0.28);
+        }
+
+        .pricing-card--premium .pricing-card__header,
+        .pricing-card--superpremium .pricing-card__header,
+        .pricing-card--premium .pricing-card__header p,
+        .pricing-card--superpremium .pricing-card__header p,
+        .pricing-card--premium .pricing-card__pick-hint,
+        .pricing-card--superpremium .pricing-card__pick-hint,
+        .pricing-card--premium .pricing-card__features li,
+        .pricing-card--superpremium .pricing-card__features li {
+            color: #1f2937;
+        }
+
+        .pricing-card--premium .pricing-card__pick-hint,
+        .pricing-card--superpremium .pricing-card__pick-hint {
+            background: #ffffff;
+            border-color: #dbe7ef;
+        }
+
+        .pricing-card--premium .pricing-card__cta,
+        .pricing-card--superpremium .pricing-card__cta {
+            background: #1a2233;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(26, 34, 51, 0.25);
+        }
+
+        .pricing-card--premium .pricing-card__cta:hover,
+        .pricing-card--superpremium .pricing-card__cta:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 6px 18px rgba(26, 34, 51, 0.32);
+        }
+
+        .pricing-card--premium::before {
+            background: linear-gradient(90deg, #14b8a6, #0ea5e9);
+        }
+
+        .pricing-card--superpremium::before {
+            background: linear-gradient(90deg, #8b5cf6, #ec4899);
+        }
+
+        .pricing-card--premium {
+            --dot: #0f766e;
+        }
+
+        .pricing-card--superpremium {
+            --dot: #7c3aed;
+        }
+
+        /* Keep one common UI for all cards; only color theme differs */
+        .pricing-card::before {
+            content: none !important;
+        }
+
+        .pricing-card .pricing-card__top-wrap {
+            background: transparent;
+        }
+
+        .pricing-card .pricing-card__header {
+            color: #1a2233;
+            padding-top: 1.28rem;
+        }
+
+        .pricing-card .pricing-card__header p {
+            color: #64748b;
+        }
+
+        .pricing-card .pricing-card__body {
+            padding: 0 1.55rem 1.22rem;
+        }
+
+        .pricing-card .pricing-card__pick-hint {
+            background: #f8fafc;
+            border-color: #e8ecf1;
+            color: #475569;
+        }
+
+        .pricing-card .pricing-card__features li {
+            color: #334155;
+        }
+
+        .pricing-card .pricing-card__cta {
+            background: #1a2233;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(26, 34, 51, 0.25);
+        }
+
+        .pricing-card .pricing-card__cta:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 6px 18px rgba(26, 34, 51, 0.32);
+        }
+
+        .pricing-card__offer-line {
+            margin: 0 0 0.55rem;
+            padding: 0.52rem 0.72rem;
+            border-radius: 0.65rem;
+            border: 1px dashed #f59e0b;
+            background: #fffbeb;
+            color: #92400e;
+            font-size: 0.84rem;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .pricing-card__friendly {
+            margin: 0 0 0.6rem;
+            font-size: 0.83rem;
+            line-height: 1.45;
+            color: #475569;
+            text-align: left;
+        }
+
+        .pricing-card__friendly p {
+            margin: 0;
+        }
+
+        .pricing-card__friendly p + p {
+            margin-top: 0.2rem;
         }
 
 
@@ -1265,14 +1414,6 @@
             letter-spacing: -0.02em;
         }
 
-        .route-start-card__sub {
-            margin: 0.4rem 0 0;
-            font-size: 0.9rem;
-            color: #64748b;
-            line-height: 1.55;
-            max-width: 36rem;
-        }
-
         .route-start-card__fields {
             margin-top: 1.2rem;
             display: flex;
@@ -1348,6 +1489,14 @@
             outline: none;
             border-color: #14b8a6;
             box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.22);
+        }
+
+        .route-field input[type="text"]:disabled {
+            opacity: 0.72;
+            cursor: not-allowed;
+            background: #f1f5f9;
+            border-color: #e2e8f0;
+            box-shadow: none;
         }
 
         .route-gps-tile {
@@ -2256,31 +2405,11 @@
                 </div>
                 <div class="route-start-card__body">
                     <h2 id="routeStartHeading">Route start</h2>
-                    <p class="route-start-card__sub">We geocode your address for the first map point, or use your device
-                        GPS when enabled.</p>
                     <div class="route-start-card__fields">
                         <div class="route-field">
                             <label for="userStartLocation">Start address</label>
                             <input type="text" id="userStartLocation" autocomplete="street-address"
                                 placeholder="e.g. Tirupati Railway Station" value="Tirupati" />
-                        </div>
-                        <div class="route-field">
-                            <label for="pkgTripDays">Number of days</label>
-                            <input type="number" id="pkgTripDays" min="1" step="1" inputmode="numeric"
-                                placeholder="e.g. 2" />
-                            <label class="people-budget-toggle">
-                                <input type="checkbox" id="enableDaysBudgetCards" />
-                                Show day pricing packages
-                            </label>
-                        </div>
-                        <div class="route-field">
-                            <label for="pkgTripPeople">Number of people</label>
-                            <input type="number" id="pkgTripPeople" min="1" step="1" inputmode="numeric"
-                                placeholder="e.g. 4" />
-                            <label class="people-budget-toggle">
-                                <input type="checkbox" id="enablePeopleBudgetCards" />
-                                Show people pricing packages
-                            </label>
                         </div>
                         <label class="route-gps-tile">
                             <input type="checkbox" id="useLiveGps" />
@@ -2415,7 +2544,7 @@
             <div class="packages-section__head">
                 <div>
                     <p class="packages-section__kicker"><span class="num">02</span> Package tiers</p>
-                    <h2 id="sec-tiers" class="packages-section__title">Choose your band</h2>
+                    <h2 id="sec-tiers" class="packages-section__title">Choose your package</h2>
                 </div>
             </div>
         <section class="pricing-grid" id="packageCards" aria-label="Package tiers"></section>
@@ -2679,34 +2808,67 @@
                     });
             }
 
-            /* Order: Basic | Premium (center) | Standard */
+            /* Order: Basic | Standard | Premium | Super Premium */
             var TIERS = [
                 {
                     id: 'basic',
                     shortTitle: 'Basic',
                     title: 'Basic Package',
-                    displayRange: '1k to 5k',
+                    displayRange: '₹1,000 – ₹5,000',
                     pickLimit: 5,
-                    tagline: 'Lean budget band — pick five essential stops.',
+                    offerLine: 'Project launch offer: Save up to 10% on weekday bookings.',
+                    friendlyLine1: 'Great choice for a quick, low-stress local trip.',
+                    friendlyLine2: 'Pick your places and we map the easiest route for you.',
+                    tagline: '💰 Budget: ₹1,000 – ₹5,000',
+                    peopleLine: '👥 People: 1 – 2',
+                    durationLine: '📅 Duration: 1 Day',
+                    placesLine: '📍 Places: Select exactly 5 stops',
                     themeClass: 'pricing-card--basic'
-                },
-                {
-                    id: 'premium',
-                    shortTitle: 'Premium',
-                    title: 'Premium Package',
-                    displayRange: '10k to 15k',
-                    pickLimit: 15,
-                    tagline: 'Maximum flexibility — fifteen stops for full coverage.',
-                    themeClass: 'pricing-card--premium'
                 },
                 {
                     id: 'standard',
                     shortTitle: 'Standard',
                     title: 'Standard Package',
-                    displayRange: '5k to 10k',
+                    displayRange: '₹5,000 – ₹10,000',
                     pickLimit: 10,
-                    tagline: 'Balanced spend — up to ten curated stops.',
+                    offerLine: 'Project launch offer: Flat 12% off for early confirmations.',
+                    friendlyLine1: 'Balanced plan for couples, friends, and small families.',
+                    friendlyLine2: 'More places, clear budget, and smooth trip flow.',
+                    tagline: '💰 Budget: ₹5,000 – ₹10,000',
+                    peopleLine: '👥 People: 2 – 4',
+                    durationLine: '📅 Duration: 1 – 2 Days',
+                    placesLine: '📍 Places: Select exactly 10 stops',
                     themeClass: 'pricing-card--standard'
+                },
+                {
+                    id: 'premium',
+                    shortTitle: 'Premium',
+                    title: 'Premium Package',
+                    displayRange: '₹15,000+',
+                    pickLimit: 20,
+                    offerLine: 'Project launch offer: 15% off + priority support.',
+                    friendlyLine1: 'Perfect when you want comfort, coverage, and flexibility.',
+                    friendlyLine2: 'Plan bigger days without worrying about route complexity.',
+                    tagline: '💰 Budget: ₹15,000+',
+                    peopleLine: '👥 People: 6+',
+                    durationLine: '📅 Duration: 3 – 5 Days',
+                    placesLine: '📍 Places: Select 20+ stops',
+                    themeClass: 'pricing-card--premium'
+                },
+                {
+                    id: 'superpremium',
+                    shortTitle: 'Super Premium',
+                    title: 'Super Premium Package',
+                    displayRange: '₹25,000+',
+                    pickLimit: 30,
+                    offerLine: 'Project launch offer: 22% off + free VIP assistance for confirmed group plans.',
+                    friendlyLine1: 'Best for grand trips with maximum place coverage.',
+                    friendlyLine2: 'More control, more stops, and premium trip planning feel.',
+                    tagline: '💰 Budget: ₹25,000+',
+                    peopleLine: '👥 People: 8+',
+                    durationLine: '📅 Duration: 5 – 7 Days',
+                    placesLine: '📍 Places: Select 30+ stops',
+                    themeClass: 'pricing-card--superpremium'
                 }
             ];
 
@@ -2873,27 +3035,20 @@
                         '<h3>' +
                         escapeHtml(tier.shortTitle) +
                         '</h3>' +
-                        '<p>' +
-                        escapeHtml(tier.tagline) +
-                        '</p>' +
-                        '<div class="pricing-card__badge" aria-hidden="true">' +
-                        '<strong>' +
-                        escapeHtml(tier.displayRange) +
-                        '</strong>' +
-                        '<span>Budget band</span>' +
-                        '</div>' +
                         '</div>' +
                         waveSvg() +
                         '</div>' +
                         '<div class="pricing-card__body">' +
-                        '<p class="pricing-card__pick-hint">Select exactly <strong>' +
-                        lim +
-                        '</strong> places from the full list</p>' +
+                        '<p class="pricing-card__offer-line">' + escapeHtml(tier.offerLine || 'Project offer available for this plan.') + '</p>' +
+                        '<div class="pricing-card__friendly">' +
+                        '<p>' + escapeHtml(tier.friendlyLine1 || '') + '</p>' +
+                        '<p>' + escapeHtml(tier.friendlyLine2 || '') + '</p>' +
+                        '</div>' +
                         '<ul class="pricing-card__features">' +
-                        '<li>Every row from the Tirupati places dataset</li>' +
-                        '<li>Search &amp; filter while you choose</li>' +
-                        '<li>Map + OSRM route on this page</li>' +
-                        '<li>GPS or typed start location</li>' +
+                        '<li>' + escapeHtml(tier.tagline) + '</li>' +
+                        '<li>' + escapeHtml(tier.peopleLine || '') + '</li>' +
+                        '<li>' + escapeHtml(tier.durationLine || '') + '</li>' +
+                        '<li>' + escapeHtml(tier.placesLine || ('📍 Places: Select exactly ' + lim + ' stops')) + '</li>' +
                         '</ul>' +
                         '<button type="button" class="pricing-card__cta" data-cta-package="' +
                         escapeHtml(tier.id) +
@@ -3300,6 +3455,15 @@
                     });
             }
 
+            function syncStartAddressFieldForGps() {
+                var locInput = document.getElementById('userStartLocation');
+                var gpsEl = document.getElementById('useLiveGps');
+                if (!locInput || !gpsEl) return;
+                var on = gpsEl.checked;
+                locInput.disabled = on;
+                locInput.setAttribute('aria-disabled', on ? 'true' : 'false');
+            }
+
             function showTripMapInline() {
                 if (!lastSelectedStops.length) return;
                 var locInput = document.getElementById('userStartLocation');
@@ -3476,6 +3640,7 @@
                         // Set the GPS checkbox so the button click knows to use it
                         var gpsEl = document.getElementById('useLiveGps');
                         if (gpsEl) gpsEl.checked = true;
+                        syncStartAddressFieldForGps();
                     }, function(error) {
                         if (hint) {
                             hint.textContent = 'Location access denied. Please enter address manually.';
@@ -3869,6 +4034,13 @@
                     }
                 }
             }
+
+            (function initStartAddressGpsToggle() {
+                var gpsEl = document.getElementById('useLiveGps');
+                if (!gpsEl) return;
+                gpsEl.addEventListener('change', syncStartAddressFieldForGps);
+                syncStartAddressFieldForGps();
+            })();
 
             load();
         })();

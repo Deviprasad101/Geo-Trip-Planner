@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html class="light budget-page-root" lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -2251,6 +2251,78 @@
             align-items: center;
         }
 
+        #budgetSplitterInlineRoot .add-user-form {
+            margin-top: 0.9rem;
+            padding: 0.9rem;
+            border-radius: 0.95rem;
+            border: 1px solid rgba(251, 191, 36, 0.38);
+            background: #fffefb;
+        }
+
+        #budgetSplitterInlineRoot .add-user-form-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 640px) {
+            #budgetSplitterInlineRoot .add-user-form-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        #budgetSplitterInlineRoot .add-user-form-actions {
+            margin-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.55rem;
+        }
+
+        #budgetSplitterInlineRoot .add-user-draft-list {
+            margin-top: 0.75rem;
+            display: grid;
+            gap: 0.4rem;
+        }
+
+        #budgetSplitterInlineRoot .add-user-draft-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 0.65rem;
+            border-radius: 0.65rem;
+            background: #fffbeb;
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            font-size: 0.92rem;
+            color: #78350f;
+        }
+
+        #budgetSplitterInlineRoot .add-user-draft-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            flex-shrink: 0;
+        }
+
+        #budgetSplitterInlineRoot .add-user-draft-edit {
+            border: 1px solid rgba(214, 211, 209, 0.95);
+            background: #ffffff;
+            color: #78350f;
+            border-radius: 999px;
+            padding: 0.22rem 0.55rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        #budgetSplitterInlineRoot .add-user-draft-edit .material-symbols-outlined {
+            font-size: 0.95rem;
+        }
+
         #budgetSplitterInlineRoot .btn-primary {
             display: inline-flex;
             align-items: center;
@@ -3107,44 +3179,47 @@
                 <div class="shell">
                     <div class="hero">
                         <h1>Budget Splitter</h1>
-                        <p>Divide your total trip budget into stay, food, transport, and activities — tuned for
-                            <strong>Basic</strong>, <strong>Balanced</strong>, or <strong>Premium</strong> trips. Pulls numbers from
-                            the map planner when you open this from there.</p>
+                        <p>Divide your total trip budget into stay, food, transport, and activities. Add users and save
+                            custom spending entries in one place.</p>
                     </div>
 
                     <section class="panel" aria-labelledby="inputsTitle">
                         <h2 class="panel__title" id="inputsTitle"><span class="material-symbols-outlined"
                                 aria-hidden="true">tune</span> Your trip</h2>
                         <div class="grid-inputs">
-                            <div class="field">
-                                <label for="totalBudget">Total budget (₹)</label>
-                                <input type="number" id="totalBudget" min="0" step="100" inputmode="decimal"
-                                    placeholder="e.g. 25000" autocomplete="off" />
-                            </div>
-                            <div class="field">
-                                <label for="numPeople">People</label>
-                                <input type="number" id="numPeople" min="1" step="1" inputmode="numeric" placeholder="e.g. 4"
-                                    autocomplete="off" />
-                            </div>
-                            <div class="field">
-                                <label for="numDays">Days</label>
-                                <input type="number" id="numDays" min="1" step="1" inputmode="numeric" placeholder="e.g. 3"
-                                    autocomplete="off" />
-                            </div>
+                            <input type="hidden" id="totalBudget" />
                         </div>
-                        <div class="tiers" role="group" aria-label="Trip style">
-                            <button type="button" class="tier-btn is-active" data-tier="balanced" aria-pressed="true">
-                                Balanced
-                                <small>40 / 25 / 20 / 15</small>
-                            </button>
-                            <button type="button" class="tier-btn" data-tier="basic" aria-pressed="false">
-                                Basic
-                                <small>More transport</small>
-                            </button>
-                            <button type="button" class="tier-btn" data-tier="premium" aria-pressed="false">
-                                Premium
-                                <small>Stay + experiences</small>
-                            </button>
+                        <div class="add-user-form" id="addUserFormBox">
+                            <div class="add-user-form-grid">
+                                <div class="field">
+                                    <label for="addUserName">Name</label>
+                                    <input type="text" id="addUserName" placeholder="e.g. Ramu" autocomplete="off" />
+                                </div>
+                                <div class="field">
+                                    <label for="addUserSpendFor">Spend for</label>
+                                    <input type="text" id="addUserSpendFor" placeholder="e.g. Hotel booking" autocomplete="off" />
+                                </div>
+                                <div class="field">
+                                    <label for="addUserAmount">Amount (₹)</label>
+                                    <input type="number" id="addUserAmount" min="0" step="1" inputmode="decimal" placeholder="e.g. 3500" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="add-user-form-actions">
+                                <button type="button" class="btn-primary" id="addUserSaveBtn">Add user</button>
+                                <button type="button" class="btn-ghost" id="addUserCancelBtn">Cancel</button>
+                                <button type="button" class="btn-primary" id="addUsersDoneBtn">Done</button>
+                            </div>
+                            <div class="add-user-draft-list" id="addUserDraftList"></div>
+                        </div>
+                        <p id="errBox" class="err" role="alert"></p>
+                        <div class="user-split-section" id="userSplitSection" hidden>
+                            <p class="user-split-heading"><span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                                Per traveller</p>
+                            <p class="user-split-lead" id="userEntriesLead">Saved user entries</p>
+                            <div class="user-split-grid" id="userEntriesWrap" aria-label="Saved user entries"></div>
+                            <p class="user-split-lead" id="userSplitLead" hidden>Calculated equal split</p>
+                            <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person" hidden></div>
+                            <p class="user-split-note" id="userSplitNote" hidden></p>
                         </div>
                         <div class="actions">
                             <button type="button" class="btn-primary" id="calcBtn">
@@ -3153,39 +3228,6 @@
                             </button>
                             <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
                         </div>
-                        <p id="errBox" class="err" role="alert"></p>
-                        <p id="sourceNote" class="source-note" hidden></p>
-                    </section>
-
-                    <section class="panel" id="resultPanel" hidden aria-labelledby="resultTitle">
-                        <h2 class="panel__title" id="resultTitle"><span class="material-symbols-outlined"
-                                aria-hidden="true">pie_chart</span> Your split</h2>
-                        <div class="summary-grid">
-                            <div class="stat">
-                                <span class="stat__label">Per person</span>
-                                <p class="stat__value" id="outPerPerson">—</p>
-                                <p class="stat__hint">Total ÷ people</p>
-                            </div>
-                            <div class="stat">
-                                <span class="stat__label">Per day (trip)</span>
-                                <p class="stat__value" id="outPerDay">—</p>
-                                <p class="stat__hint">Total ÷ days</p>
-                            </div>
-                            <div class="stat" style="grid-column: 1 / -1;">
-                                <span class="stat__label">Food (per person / day)</span>
-                                <p class="stat__value" id="outFoodPerPersonDay">—</p>
-                                <p class="stat__hint">From the food slice of your split — useful for daily meal planning.</p>
-                            </div>
-                        </div>
-                        <div class="user-split-section" id="userSplitSection" hidden>
-                            <p class="user-split-heading"><span class="material-symbols-outlined" aria-hidden="true">groups</span>
-                                Per traveller</p>
-                            <p class="user-split-lead">Trip budget shared equally — each person's slice of Stay, Food, Transport,
-                                and Activities.</p>
-                            <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person"></div>
-                            <p class="user-split-note" id="userSplitNote" hidden></p>
-                        </div>
-                        <div class="cats" id="catList"></div>
                     </section>
                 </div>
             </div>
@@ -6659,7 +6701,8 @@ window.addEventListener('budget-show-trip-map', function () {
             }
 
             function validate(total, people, days) {
-                if (people <= 0 || days <= 0) return 'Enter at least 1 person and 1 day.';
+                if (people <= 0) return 'Enter at least 1 person.';
+                if (days <= 0) return 'Days must be at least 1.';
                 if (!isFinite(total) || total < 0) return 'Enter a valid total budget (0 or more).';
                 return null;
             }
@@ -6668,10 +6711,18 @@ window.addEventListener('budget-show-trip-map', function () {
             var peopleEl = document.getElementById('numPeople');
             var daysEl = document.getElementById('numDays');
             var errBox = document.getElementById('errBox');
-            var resultPanel = document.getElementById('resultPanel');
-            var catList = document.getElementById('catList');
-            var sourceNote = document.getElementById('sourceNote');
+            var addUserFormBox = document.getElementById('addUserFormBox');
+            var addUserNameEl = document.getElementById('addUserName');
+            var addUserSpendForEl = document.getElementById('addUserSpendFor');
+            var addUserAmountEl = document.getElementById('addUserAmount');
+            var addUserSaveBtn = document.getElementById('addUserSaveBtn');
+            var addUserCancelBtn = document.getElementById('addUserCancelBtn');
+            var addUsersDoneBtn = document.getElementById('addUsersDoneBtn');
+            var addUserDraftList = document.getElementById('addUserDraftList');
             var currentTier = 'balanced';
+            var customUsers = [];
+            var pendingUsers = [];
+            var lastResult = null;
 
             function setErr(msg) {
                 if (!errBox) return;
@@ -6682,6 +6733,12 @@ window.addEventListener('budget-show-trip-map', function () {
                     errBox.textContent = '';
                     errBox.classList.remove('is-visible');
                 }
+            }
+
+            function esc(s) {
+                var d = document.createElement('div');
+                d.textContent = s == null ? '' : String(s);
+                return d.innerHTML;
             }
 
             function readUrlParams() {
@@ -6721,6 +6778,7 @@ window.addEventListener('budget-show-trip-map', function () {
                 var budget = (url.budget != null && String(url.budget).trim() !== '') ? String(url.budget).trim() : '';
                 var people = (url.people != null && String(url.people).trim() !== '') ? String(url.people).trim() : '';
                 var days = (url.days != null && String(url.days).trim() !== '') ? String(url.days).trim() : '';
+                var mainBudgetEl = document.getElementById('userBudget');
 
                 if (!budget && st && st.totalBudget) budget = String(st.totalBudget);
                 if (!people && st && st.people) people = String(st.people);
@@ -6729,6 +6787,9 @@ window.addEventListener('budget-show-trip-map', function () {
                 if (!budget) {
                     var ls = readTripSpendLocal();
                     if (ls && String(ls).trim() !== '') budget = String(ls).trim();
+                }
+                if (!budget && mainBudgetEl && String(mainBudgetEl.value || '').trim() !== '') {
+                    budget = String(mainBudgetEl.value).trim();
                 }
 
                 if (totalEl && budget) totalEl.value = budget;
@@ -6745,67 +6806,101 @@ window.addEventListener('budget-show-trip-map', function () {
                     });
                 }
 
-                if (sourceNote) {
-                    if (st && st.source === 'budget_calculator') {
-                        sourceNote.hidden = false;
-                        sourceNote.innerHTML = 'Loaded values from <strong>Budget &amp; map planner</strong> (saved when you opened Budget Splitter). You can edit them here anytime.';
-                    } else if (budget || people || days) {
-                        sourceNote.hidden = false;
-                        sourceNote.textContent = 'Some fields were filled from your last planner session or URL. Adjust and tap Calculate.';
-                    } else {
-                        sourceNote.hidden = true;
-                    }
-                }
             }
 
             function render(result) {
-                if (!resultPanel || !catList) return;
-                resultPanel.hidden = false;
-                document.getElementById('outPerPerson').textContent = fmtMoney(result.perPerson);
-                document.getElementById('outPerDay').textContent = fmtMoney(result.perDay);
-                var fpp = result.foodPerPersonDay;
-                document.getElementById('outFoodPerPersonDay').textContent =
-                    fpp != null && isFinite(fpp) ? fmtMoney(fpp) : '—';
-
+                lastResult = result;
                 renderUserCards(result);
-
-                var rows = [
-                    { key: 'stay', materialIcon: 'hotel', name: 'Stay', cls: 'bar--stay', amt: result.stay, pct: result.percents.stay },
-                    { key: 'food', materialIcon: 'restaurant', name: 'Food', cls: 'bar--food', amt: result.food, pct: result.percents.food },
-                    { key: 'transport', materialIcon: 'directions_car', name: 'Transport', cls: 'bar--transport', amt: result.transport, pct: result.percents.transport },
-                    { key: 'activities', materialIcon: 'local_activity', name: 'Activities', cls: 'bar--activities', amt: result.activities, pct: result.percents.activities }
-                ];
-
-                catList.innerHTML = rows.map(function (r) {
-                    return (
-                        '<div class="cat">' +
-                        '<span class="cat__icon material-symbols-outlined" aria-hidden="true">' + r.materialIcon + '</span>' +
-                        '<div><div class="cat__name">' + r.name + '</div><div class="cat__pct">' + Math.round(r.pct * 100) + '% of trip</div></div>' +
-                        '<div class="cat__amt">' + fmtMoney(r.amt) + '</div>' +
-                        '<div class="bar ' + r.cls + '" data-pct="' + String(Math.round(r.pct * 1000) / 10) + '"><i style="width:0%"></i></div>' +
-                        '</div>'
-                    );
-                }).join('');
-
-                window.requestAnimationFrame(function () {
-                    catList.querySelectorAll('.bar > i').forEach(function (barInner, i) {
-                        var row = rows[i];
-                        if (!row) return;
-                        barInner.style.width = String(Math.min(100, Math.round(row.pct * 1000) / 10)) + '%';
-                    });
-                });
             }
 
             function renderUserCards(result) {
                 var section = document.getElementById('userSplitSection');
-                var wrap = document.getElementById('userSplitWrap');
+                var entriesLead = document.getElementById('userEntriesLead');
+                var entriesWrap = document.getElementById('userEntriesWrap');
+                var splitLead = document.getElementById('userSplitLead');
+                var splitWrap = document.getElementById('userSplitWrap');
                 var note = document.getElementById('userSplitNote');
-                if (!section || !wrap) return;
+                if (!section || !entriesWrap || !splitWrap) return;
+
+                function renderSavedEntriesOnly() {
+                    entriesWrap.innerHTML = customUsers.map(function (u, idx) {
+                        return (
+                            '<article class="user-card">' +
+                            '<div class="user-card__title">' + esc(u.name || ('User ' + (idx + 1))) + '</div>' +
+                            '<div class="user-card__total">' +
+                            fmtMoney(u.amount) +
+                            '<span>Saved entry</span></div>' +
+                            '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Spend for</span><span class="user-card__amt">' + esc(u.spendFor || '-') + '</span></div>' +
+                            '</article>'
+                        );
+                    }).join('');
+                    entriesWrap.hidden = false;
+                    splitWrap.hidden = true;
+                    if (entriesLead) entriesLead.hidden = false;
+                    if (splitLead) splitLead.hidden = true;
+                }
+
+                if (customUsers.length > 0) {
+                    var hasCalculated = !!(result && isFinite(result.totalBudget) && result.totalBudget >= 0);
+                    if (!hasCalculated) {
+                        renderSavedEntriesOnly();
+                        section.hidden = false;
+                        if (note) {
+                            note.hidden = false;
+                            note.textContent = 'Saved user entries: ' + customUsers.length + '. Click Calculate split to see equal split details.';
+                        }
+                        return;
+                    }
+
+                    var nCustom = customUsers.length;
+                    var safeTotal = result.totalBudget;
+                    entriesWrap.hidden = false;
+                    splitWrap.hidden = false;
+                    if (entriesLead) entriesLead.hidden = false;
+                    if (splitLead) splitLead.hidden = false;
+                    entriesWrap.innerHTML = customUsers.map(function (u, idx) {
+                        return (
+                            '<article class="user-card">' +
+                            '<div class="user-card__title">' + esc(u.name || ('User ' + (idx + 1))) + '</div>' +
+                            '<div class="user-card__total">' +
+                            fmtMoney(u.amount) +
+                            '<span>Saved entry</span></div>' +
+                            '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Spend for</span><span class="user-card__amt">' + esc(u.spendFor || '-') + '</span></div>' +
+                            '</article>'
+                        );
+                    }).join('');
+
+                    var equalShare = nCustom > 0 ? safeTotal / nCustom : 0;
+                    splitWrap.innerHTML = customUsers.map(function (u, idx) {
+                        var amt = parseFloat(u && u.amount);
+                        var paid = isFinite(parseFloat(u.amount)) ? parseFloat(u.amount) : 0;
+                        var delta = paid - equalShare;
+                        var deltaLabel = delta >= 0 ? 'Extra paid' : 'Needs to pay';
+                        return (
+                            '<article class="user-card">' +
+                            '<div class="user-card__title">' + esc(u.name || ('User ' + (idx + 1))) + '</div>' +
+                            '<div class="user-card__total">' +
+                            fmtMoney(equalShare) +
+                            '<span>Equal split share</span></div>' +
+                            '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">payments</span>Paid</span><span class="user-card__amt">' + fmtMoney(paid) + '</span></div>' +
+                            '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">receipt_long</span>Spend for</span><span class="user-card__amt">' + esc(u.spendFor || '-') + '</span></div>' +
+                            '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">balance</span>' + deltaLabel + '</span><span class="user-card__amt">' + fmtMoney(Math.abs(delta)) + '</span></div>' +
+                            '</article>'
+                        );
+                    }).join('');
+                    section.hidden = false;
+                    if (note) {
+                        note.hidden = false;
+                        note.textContent = 'Total from user entries: ' + fmtMoney(safeTotal) + ' — split equally across ' + nCustom + ' users.';
+                    }
+                    return;
+                }
 
                 var n = Math.floor(result.people);
                 if (!isFinite(n) || n < 1) {
                     section.hidden = true;
-                    wrap.innerHTML = '';
+                    entriesWrap.innerHTML = '';
+                    splitWrap.innerHTML = '';
                     if (note) note.hidden = true;
                     return;
                 }
@@ -6833,7 +6928,11 @@ window.addEventListener('budget-show-trip-map', function () {
                         '</article>'
                     );
                 }
-                wrap.innerHTML = html.join('');
+                entriesWrap.hidden = true;
+                if (entriesLead) entriesLead.hidden = true;
+                splitWrap.hidden = false;
+                if (splitLead) splitLead.hidden = false;
+                splitWrap.innerHTML = html.join('');
                 section.hidden = false;
 
                 if (note) {
@@ -6850,62 +6949,154 @@ window.addEventListener('budget-show-trip-map', function () {
 
             function runCalc() {
                 setErr('');
-                var total = parseFloat((totalEl && totalEl.value) ? totalEl.value : '0');
-                var people = parseInt((peopleEl && peopleEl.value) ? peopleEl.value : '0', 10);
-                var days = parseInt((daysEl && daysEl.value) ? daysEl.value : '0', 10);
+                var totalRaw = (totalEl && totalEl.value) ? totalEl.value : '';
+                var allUsers = customUsers.concat(pendingUsers);
+                if (allUsers.length > 0) {
+                    var computedTotal = allUsers.reduce(function (sum, u) {
+                        var amt = parseFloat(u && u.amount);
+                        return sum + (isFinite(amt) && amt >= 0 ? amt : 0);
+                    }, 0);
+                    totalRaw = String(computedTotal);
+                    if (totalEl) totalEl.value = totalRaw;
+                }
+                if (!String(totalRaw).trim()) {
+                    var mainBudgetEl = document.getElementById('userBudget');
+                    if (mainBudgetEl && String(mainBudgetEl.value || '').trim()) {
+                        totalRaw = String(mainBudgetEl.value).trim();
+                        if (totalEl) totalEl.value = totalRaw;
+                    }
+                }
+                var total = parseFloat(totalRaw || '0');
+                var people = parseInt((peopleEl && peopleEl.value) ? peopleEl.value : '', 10);
+                if (!isFinite(people) || people < 1) {
+                    people = allUsers.length > 0 ? allUsers.length : 1;
+                }
+                var days = parseInt((daysEl && daysEl.value) ? daysEl.value : '1', 10);
                 var v = validate(total, people, days);
                 if (v) {
                     setErr(v);
-                    if (resultPanel) resultPanel.hidden = true;
                     return;
                 }
                 var res = splitBudget(total, people, days, currentTier);
                 render(res);
             }
 
-            document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    currentTier = btn.getAttribute('data-tier') || 'balanced';
-                    document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (b) {
-                        var on = b === btn;
-                        b.classList.toggle('is-active', on);
-                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
-                    });
-                    if (resultPanel && !resultPanel.hidden) runCalc();
-                });
-            });
+            function resetAddUserForm() {
+                if (addUserNameEl) addUserNameEl.value = '';
+                if (addUserSpendForEl) addUserSpendForEl.value = '';
+                if (addUserAmountEl) addUserAmountEl.value = '';
+            }
+
+            function renderPendingUsers() {
+                if (!addUserDraftList) return;
+                if (!pendingUsers.length) {
+                    addUserDraftList.innerHTML = '';
+                    return;
+                }
+                addUserDraftList.innerHTML = pendingUsers.map(function (u, idx) {
+                    return (
+                        '<div class="add-user-draft-item">' +
+                        '<span>' + (idx + 1) + '. ' + esc(u.name) + ' - ' + esc(u.spendFor) + '</span>' +
+                        '<span class="add-user-draft-actions">' +
+                        '<strong>' + fmtMoney(u.amount) + '</strong>' +
+                        '<button type="button" class="add-user-draft-edit" data-edit-pending="' + idx + '">' +
+                        '<span class="material-symbols-outlined" aria-hidden="true">edit</span> Edit' +
+                        '</button>' +
+                        '</span>' +
+                        '</div>'
+                    );
+                }).join('');
+            }
+
+            function editPendingUser(idx) {
+                if (!isFinite(idx) || idx < 0 || idx >= pendingUsers.length) return;
+                var item = pendingUsers.splice(idx, 1)[0];
+                if (!item) return;
+                if (addUserNameEl) addUserNameEl.value = item.name || '';
+                if (addUserSpendForEl) addUserSpendForEl.value = item.spendFor || '';
+                if (addUserAmountEl) addUserAmountEl.value = isFinite(item.amount) ? String(item.amount) : '';
+                renderPendingUsers();
+                if (addUserNameEl) addUserNameEl.focus();
+            }
+
+            function saveCustomUser() {
+                var name = addUserNameEl ? addUserNameEl.value.trim() : '';
+                var spendFor = addUserSpendForEl ? addUserSpendForEl.value.trim() : '';
+                var amountRaw = addUserAmountEl ? addUserAmountEl.value : '';
+                var amount = parseFloat(amountRaw);
+
+                if (!name || !spendFor || !isFinite(amount) || amount < 0) {
+                    setErr('Enter valid Name, Spend for, and Amount to add user.');
+                    return;
+                }
+                setErr('');
+                pendingUsers.push({ name: name, spendFor: spendFor, amount: amount });
+                resetAddUserForm();
+                renderPendingUsers();
+                if (addUserNameEl) addUserNameEl.focus();
+            }
+
+            function commitPendingUsers() {
+                if (!pendingUsers.length) {
+                    setErr('First add at least one user entry, then click Done.');
+                    return;
+                }
+                setErr('');
+                customUsers = customUsers.concat(pendingUsers);
+                pendingUsers = [];
+                renderPendingUsers();
+
+                if (peopleEl) {
+                    var currentPeople = parseInt((peopleEl.value || '0'), 10);
+                    if (!isFinite(currentPeople) || currentPeople < customUsers.length) {
+                        peopleEl.value = String(customUsers.length);
+                    }
+                }
+
+                if (lastResult) {
+                    renderUserCards(lastResult);
+                } else {
+                    renderUserCards({});
+                }
+            }
 
             var calcBtn = document.getElementById('calcBtn');
             if (calcBtn) calcBtn.addEventListener('click', runCalc);
-            var resetBtn = document.getElementById('resetBtn');
-            if (resetBtn) resetBtn.addEventListener('click', function () {
+            if (addUserDraftList) {
+                addUserDraftList.addEventListener('click', function (e) {
+                    var btn = e.target.closest('[data-edit-pending]');
+                    if (!btn) return;
+                    var idx = parseInt(btn.getAttribute('data-edit-pending'), 10);
+                    editPendingUser(idx);
+                });
+            }
+            if (addUserCancelBtn) addUserCancelBtn.addEventListener('click', function () {
+                resetAddUserForm();
+                setErr('');
+            });
+            if (addUserSaveBtn) addUserSaveBtn.addEventListener('click', saveCustomUser);
+            if (addUsersDoneBtn) addUsersDoneBtn.addEventListener('click', commitPendingUsers);
+            function clearSplitterState() {
                 if (totalEl) totalEl.value = '';
                 if (peopleEl) peopleEl.value = '';
                 if (daysEl) daysEl.value = '';
                 currentTier = 'balanced';
-                document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (b) {
-                    var on = b.getAttribute('data-tier') === 'balanced';
-                    b.classList.toggle('is-active', on);
-                    b.setAttribute('aria-pressed', on ? 'true' : 'false');
-                });
+                customUsers = [];
+                pendingUsers = [];
+                lastResult = null;
+                renderPendingUsers();
+                resetAddUserForm();
                 setErr('');
-                if (resultPanel) resultPanel.hidden = true;
-                if (sourceNote) sourceNote.hidden = true;
-            });
+                var userSplitSection = document.getElementById('userSplitSection');
+                if (userSplitSection) userSplitSection.hidden = true;
+            }
+
+            var resetBtn = document.getElementById('resetBtn');
+            if (resetBtn) resetBtn.addEventListener('click', clearSplitterState);
 
             window.geoTripBudgetSplitterOnModalOpen = function () {
-                prefill();
-                if (totalEl && peopleEl && daysEl &&
-                    totalEl.value && peopleEl.value && daysEl.value) {
-                    runCalc();
-                }
+                clearSplitterState();
             };
-
-            prefill();
-            if (totalEl && peopleEl && daysEl &&
-                totalEl.value && peopleEl.value && daysEl.value) {
-                runCalc();
-            }
         })();
     </script>
     <script>
