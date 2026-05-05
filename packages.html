@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tirupati trip packages - GeoTrip Planner</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'pkg-float': 'pkg-float 14s ease-in-out infinite',
+                        'pkg-shimmer': 'pkg-shimmer 2.2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        'pkg-float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-6px)' },
+                        },
+                        'pkg-shimmer': {
+                            '0%': { backgroundPosition: '200% 50%' },
+                            '100%': { backgroundPosition: '-200% 50%' },
+                        },
+                    },
+                },
+            },
+        };
+    </script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
         integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <link
@@ -15,6 +37,56 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <style>
+        :root {
+            --pkg-ink: #0c1222;
+            --pkg-muted: #5c6578;
+            --pkg-line: rgba(148, 163, 184, 0.35);
+            --pkg-teal: #0d9488;
+            --pkg-amber: #d97706;
+            --pkg-gold: #d4af37;
+            --pkg-feature-top: #14b8a6;
+            --pkg-feature-mid: #0d9488;
+            --pkg-feature-deep: #0f766e;
+            --pkg-feature-shadow: rgba(13, 148, 136, 0.38);
+            --pkg-feature-shadow-strong: rgba(13, 148, 136, 0.46);
+            --pkg-surface: #f6f7fb;
+            --pkg-card: #ffffff;
+        }
+
+        /* Middle “featured” card — distinct theme per grid (inherits into cards) */
+        #peopleBudgetCards {
+            --budget-mid-top: #fbbf24;
+            --budget-mid-mid: #ea580c;
+            --budget-mid-deep: #9a3412;
+            --budget-mid-sh: rgba(234, 88, 12, 0.38);
+            --budget-mid-sh-strong: rgba(234, 88, 12, 0.48);
+            --budget-mid-bar: linear-gradient(90deg, #fef9c3, #f97316);
+            --budget-mid-ring: #fb923c;
+            --budget-mid-cta-text: #9a3412;
+        }
+
+        #daysBudgetCards {
+            --budget-mid-top: #1e3a8a;
+            --budget-mid-mid: #134e4a;
+            --budget-mid-deep: #0f766e;
+            --budget-mid-sh: rgba(30, 64, 175, 0.36);
+            --budget-mid-sh-strong: rgba(15, 118, 110, 0.44);
+            --budget-mid-bar: linear-gradient(90deg, #7dd3fc, #0ea5e9);
+            --budget-mid-ring: var(--pkg-gold);
+            --budget-mid-cta-text: #0f766e;
+        }
+
+        @keyframes pkg-rise {
+            from {
+                opacity: 0;
+                transform: translateY(18px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         body {
             font-family: "Public Sans", system-ui, sans-serif;
         }
@@ -34,160 +106,244 @@
             position: sticky;
             top: 0;
             z-index: 40;
-            background: #ffffff;
-            border-bottom: 1px solid rgba(148, 163, 184, 0.65);
-            box-shadow:
-                0 4px 18px rgba(15, 23, 42, 0.08),
-                0 1px 3px rgba(15, 23, 42, 0.05);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(250, 251, 253, 0.88) 100%);
+            border-bottom: 1px solid var(--pkg-line);
+            box-shadow: 0 6px 30px rgba(15, 23, 42, 0.07);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
         .pricing-grid {
             display: grid;
-            gap: 1.75rem;
+            gap: clamp(1.15rem, 2.2vw, 1.65rem);
             grid-template-columns: 1fr;
+            justify-items: center;
+            width: 100%;
         }
 
         @media (min-width: 900px) {
             .pricing-grid {
-                grid-template-columns: repeat(3, 1fr);
+                grid-template-columns: repeat(3, minmax(0, 18.75rem));
+                justify-content: center;
                 align-items: stretch;
+                max-width: 71rem;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
+        .pricing-grid .pricing-card {
+            animation: pkg-rise 0.6s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+        }
+
+        .pricing-grid .pricing-card:nth-child(1) {
+            animation-delay: 0.05s;
+        }
+
+        .pricing-grid .pricing-card:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .pricing-grid .pricing-card:nth-child(3) {
+            animation-delay: 0.19s;
+        }
+
+        /* Pricing cards — white side tiers + featured middle (teal / gold, matches site) */
         .pricing-card {
             position: relative;
             display: flex;
             flex-direction: column;
-            border-radius: 1.5rem;
-            background: #fff;
-            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
-            overflow: hidden;
-            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            width: 100%;
+            max-width: 26.5rem;
+            border-radius: 1.35rem;
+            background: #ffffff;
+            box-shadow: 0 8px 32px rgba(15, 23, 42, 0.07), 0 0 0 1px rgba(226, 232, 240, 0.95);
+            overflow: visible;
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
         }
 
         .pricing-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.12);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(203, 213, 225, 0.9);
         }
 
         .pricing-card.is-selected {
-            box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.12), 0 20px 48px rgba(15, 23, 42, 0.14);
+            box-shadow: 0 0 0 2px #0f766e, 0 20px 48px rgba(15, 23, 42, 0.12);
+        }
+
+        .pricing-card--premium {
+            background: linear-gradient(
+                165deg,
+                var(--pkg-feature-top) 0%,
+                var(--pkg-feature-mid) 52%,
+                var(--pkg-feature-deep) 100%
+            );
+            box-shadow:
+                0 22px 56px var(--pkg-feature-shadow),
+                0 0 0 1px rgba(255, 255, 255, 0.14);
+            align-self: stretch;
+        }
+
+        .pricing-card--premium:hover {
+            box-shadow:
+                0 28px 64px var(--pkg-feature-shadow-strong),
+                0 0 0 1px rgba(255, 255, 255, 0.22);
+        }
+
+        .pricing-card--premium.is-selected {
+            box-shadow:
+                0 0 0 2px var(--pkg-gold),
+                0 24px 56px var(--pkg-feature-shadow-strong);
+        }
+
+        /* Decorative accent bar (gold — matches kicker / brand accents) */
+        .pricing-card--premium::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5.5rem;
+            height: 0.28rem;
+            border-radius: 0 0 0.35rem 0.35rem;
+            background: linear-gradient(90deg, #fbbf24, var(--pkg-gold));
+            z-index: 2;
         }
 
         .pricing-card__top-wrap {
-            border-radius: 1.5rem 1.5rem 0 0;
-            overflow: hidden;
+            border-radius: 1.35rem 1.35rem 0 0;
+            overflow: visible;
+            background: #ffffff;
         }
 
-        .pricing-card--basic .pricing-card__top-wrap {
-            background: linear-gradient(145deg, #2dd4bf 0%, #0d9488 55%, #0f766e 100%);
-        }
-
+        .pricing-card--basic .pricing-card__top-wrap,
         .pricing-card--standard .pricing-card__top-wrap {
-            background: linear-gradient(145deg, #fb923c 0%, #ea580c 50%, #c2410c 100%);
+            background: #ffffff;
         }
 
         .pricing-card--premium .pricing-card__top-wrap {
-            background: linear-gradient(145deg, #fb7185 0%, #f43f5e 48%, #e11d48 100%);
+            background: transparent;
         }
 
-        /* Header: title + tagline centered; badge in normal flow below "" no overlap */
         .pricing-card__header {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1.5rem 1.25rem 0.75rem;
-            color: #fff;
+            padding: 1.28rem 1.55rem 0.72rem;
             text-align: center;
             background: transparent;
+            color: #1a2233;
+        }
+
+        .pricing-card--premium .pricing-card__header {
+            color: #ffffff;
+            padding-top: 1.48rem;
         }
 
         .pricing-card__header h3 {
             margin: 0;
             font-family: "Public Sans", system-ui, sans-serif;
-            font-size: 1.35rem;
+            font-size: 1.1875rem;
             font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            text-transform: none;
             max-width: 100%;
-            padding: 0 0.25rem;
+            color: inherit;
         }
 
         .pricing-card__header p {
-            margin: 0.5rem 0 0;
-            font-size: 0.8125rem;
+            margin: 0.32rem 0 0;
+            font-size: 0.84375rem;
             font-weight: 500;
-            opacity: 0.92;
-            line-height: 1.45;
-            max-width: 17rem;
+            line-height: 1.38;
+            max-width: 19rem;
+            color: #64748b;
+            opacity: 1;
+        }
+
+        .pricing-card--premium .pricing-card__header p {
+            color: rgba(255, 255, 255, 0.88);
         }
 
         .pricing-card__badge {
             position: relative;
-            margin-top: 1rem;
-            margin-bottom: 0.25rem;
-            width: 6.5rem;
-            height: 6.5rem;
-            border-radius: 50%;
-            background: #fff;
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
+            margin-top: 0.78rem;
+            margin-bottom: 0;
+            width: 100%;
+            max-width: 14rem;
+            min-height: unset;
+            height: auto;
+            border-radius: 0.75rem;
+            background: transparent;
+            box-shadow: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             flex-shrink: 0;
-            padding: 0.4rem;
+            padding: 0;
+            gap: 0.2rem;
         }
 
         .pricing-card__badge strong {
-            font-size: clamp(0.7rem, 2.2vw, 0.88rem);
+            font-size: clamp(1.68rem, 3.45vw, 2.15rem);
             font-weight: 800;
-            line-height: 1.2;
-            padding: 0 0.2rem;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: #1a2233;
+        }
+
+        .pricing-card--premium .pricing-card__badge strong {
+            color: #ffffff;
         }
 
         .pricing-card__badge span {
-            font-size: 0.62rem;
+            font-size: 0.78125rem;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            opacity: 0.82;
-            margin-top: 0.2rem;
+            text-transform: none;
+            letter-spacing: 0.02em;
+            opacity: 1;
+            margin-top: 0;
+            color: #64748b;
+        }
+
+        .pricing-card--premium .pricing-card__badge span {
+            color: rgba(255, 255, 255, 0.82);
         }
 
         .pricing-card__wave {
-            display: block;
-            width: 100%;
-            height: 2.25rem;
-            margin-top: -1px;
-            flex-shrink: 0;
-        }
-
-        .pricing-card__wave svg {
-            display: block;
-            width: 100%;
-            height: 100%;
+            display: none;
         }
 
         .pricing-card__body {
             flex: 1;
             display: flex;
             flex-direction: column;
-            padding: 0.35rem 1.35rem 1.5rem;
-            margin-top: -0.5rem;
+            padding: 0 1.55rem 1.22rem;
+            margin-top: 0;
+        }
+
+        .pricing-card--premium .pricing-card__body {
+            padding-bottom: 1.38rem;
         }
 
         .pricing-card__pick-hint {
             text-align: center;
-            font-size: 0.8125rem;
-            font-weight: 700;
+            font-size: 0.84375rem;
+            font-weight: 600;
             color: #475569;
-            margin: 0 0 0.85rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.75rem;
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 1px solid #e2e8f0;
+            margin: 0 0 0.58rem;
+            padding: 0.5rem 0.72rem;
+            border-radius: 0.6rem;
+            background: #f8fafc;
+            border: 1px solid #e8ecf1;
+        }
+
+        .pricing-card--premium .pricing-card__pick-hint {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.22);
+            color: rgba(255, 255, 255, 0.95);
         }
 
         .pricing-card__features {
@@ -199,41 +355,80 @@
 
         .pricing-card__features li {
             position: relative;
-            padding-left: 1.35rem;
-            margin-bottom: 0.6rem;
-            font-size: 0.875rem;
+            padding-left: 1.78rem;
+            margin-bottom: 0.45rem;
+            font-size: 0.84375rem;
             color: #334155;
-            line-height: 1.45;
+            line-height: 1.35;
+            text-align: left;
+            width: 100%;
+            max-width: 16.25rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .pricing-card--premium .pricing-card__features li {
+            color: rgba(255, 255, 255, 0.94);
         }
 
         .pricing-card__features li::before {
-            content: "";
+            content: "✓";
             position: absolute;
             left: 0;
-            top: 0.45rem;
-            width: 0.45rem;
-            height: 0.45rem;
+            top: 0.08rem;
+            width: 1.15rem;
+            height: 1.15rem;
             border-radius: 50%;
-            background: var(--dot);
+            background: #22c55e;
+            color: #ffffff;
+            font-size: 0.54rem;
+            font-weight: 900;
+            line-height: 1.15rem;
+            text-align: center;
+        }
+
+        .pricing-card--premium .pricing-card__features li::before {
+            background: rgba(255, 255, 255, 0.95);
+            color: var(--pkg-feature-deep);
         }
 
         .pricing-card__cta {
-            margin-top: 1.15rem;
+            margin-top: auto;
+            padding-top: 0.72rem;
             width: 100%;
             border: none;
             border-radius: 999px;
-            padding: 0.9rem 1rem;
-            font-size: 0.8125rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: #fff;
+            padding: 0.8rem 1.12rem;
+            font-size: 0.84375rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: none;
             cursor: pointer;
-            transition: filter 0.15s ease, transform 0.1s ease;
+            transition: transform 0.12s ease, filter 0.15s ease, box-shadow 0.15s ease;
         }
 
-        .pricing-card__cta:hover {
-            filter: brightness(1.06);
+        .pricing-card--basic .pricing-card__cta,
+        .pricing-card--standard .pricing-card__cta {
+            background: #1a2233;
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(26, 34, 51, 0.25);
+        }
+
+        .pricing-card--basic .pricing-card__cta:hover,
+        .pricing-card--standard .pricing-card__cta:hover {
+            filter: brightness(1.08);
+            box-shadow: 0 6px 18px rgba(26, 34, 51, 0.32);
+        }
+
+        .pricing-card--premium .pricing-card__cta {
+            background: #ffffff;
+            color: var(--pkg-feature-deep);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card--premium .pricing-card__cta:hover {
+            filter: brightness(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         .pricing-card__cta:active {
@@ -241,47 +436,25 @@
         }
 
         .pricing-card--basic {
-            --dot: #0d9488;
-        }
-
-        .pricing-card--basic .pricing-card__badge strong {
-            color: #0f766e;
-        }
-
-        .pricing-card--basic .pricing-card__cta {
-            background: linear-gradient(145deg, #14b8a6, #0d9488);
+            --dot: #22c55e;
         }
 
         .pricing-card--standard {
-            --dot: #ea580c;
-        }
-
-        .pricing-card--standard .pricing-card__badge strong {
-            color: #c2410c;
-        }
-
-        .pricing-card--standard .pricing-card__cta {
-            background: linear-gradient(145deg, #fb923c, #ea580c);
+            --dot: #22c55e;
         }
 
         .pricing-card--premium {
-            --dot: #f43f5e;
+            --dot: #ffffff;
         }
 
-        .pricing-card--premium .pricing-card__badge strong {
-            color: #e11d48;
-        }
 
-        .pricing-card--premium .pricing-card__cta {
-            background: linear-gradient(145deg, #fb7185, #f43f5e);
-        }
-
-        /* Selection summary strip */
+        /* Selection summary strip (minimal chrome — no section banner above) */
         .selection-strip {
             border-radius: 1.25rem;
-            border: 1px solid #e2e8f0;
-            background: linear-gradient(165deg, #ffffff 0%, #f8fafc 100%);
-            box-shadow: 0 12px 40px rgba(15, 23, 42, 0.06);
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            border-left: 4px solid #0f766e;
+            background: #ffffff;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
         }
 
         .selection-chip {
@@ -315,14 +488,16 @@
             width: min(52rem, calc(100vw - 2rem));
             max-height: min(90vh, 46rem);
             border: none;
-            border-radius: 1.25rem;
+            border-radius: 1.35rem;
             padding: 0;
-            box-shadow: 0 25px 80px rgba(15, 23, 42, 0.25);
+            box-shadow:
+                0 28px 90px rgba(15, 23, 42, 0.35),
+                0 0 0 1px rgba(255, 255, 255, 0.06);
         }
 
         #placePickerDialog::backdrop {
-            background: rgba(15, 23, 42, 0.52);
-            backdrop-filter: blur(6px);
+            background: rgba(15, 23, 42, 0.55);
+            backdrop-filter: blur(10px);
         }
 
         .picker-shell {
@@ -333,8 +508,8 @@
 
         .picker-head {
             padding: 1.25rem 1.35rem 1rem;
-            border-bottom: 1px solid #e2e8f0;
-            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(125deg, #0f172a 0%, #134e4a 46%, #312e81 100%);
             color: #f8fafc;
         }
 
@@ -578,13 +753,54 @@
             }
         }
 
-        /* Page hero + route start "" premium palette (teal - amber - slate) */
+        .packages-map-section {
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: #ffffff;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow: 0 16px 44px rgba(15, 23, 42, 0.08);
+        }
+
+        .packages-map-section__inner {
+            padding: clamp(1rem, 2vw, 1.25rem);
+        }
+
+        .packages-map-section__title {
+            margin: 0;
+            font-family: "Noto Serif", Georgia, serif;
+            font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--pkg-ink);
+        }
+
+        .packages-map-section__status {
+            margin: 0.35rem 0 0;
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: var(--pkg-muted);
+        }
+
+        #pkgTripMap.packages-map-frame {
+            margin-top: 1rem;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            box-shadow:
+                inset 0 2px 16px rgba(0, 0, 0, 0.18),
+                0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        /* Page shell: mesh + soft grid (professional) */
         .packages-page-bg {
             min-height: 100vh;
-            background:
-                radial-gradient(1200px 500px at 10% -10%, rgba(45, 212, 191, 0.18), transparent 55%),
-                radial-gradient(900px 400px at 95% 0%, rgba(251, 191, 36, 0.14), transparent 50%),
-                linear-gradient(180deg, #f1f5f9 0%, #f8fafc 40%, #eef2f7 100%);
+            background-color: var(--pkg-surface);
+            background-image:
+                linear-gradient(rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+                radial-gradient(900px 480px at 8% 0%, rgba(13, 148, 136, 0.2), transparent 55%),
+                radial-gradient(800px 420px at 92% 8%, rgba(212, 175, 55, 0.2), transparent 50%),
+                radial-gradient(600px 400px at 50% 100%, rgba(99, 102, 241, 0.08), transparent 45%),
+                linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%);
+            background-size: 32px 32px, 32px 32px, auto, auto, auto, auto;
         }
 
         /* Full-viewport shell: header + main fill width (no narrow centered column) */
@@ -744,67 +960,92 @@
             flex: 1 0 auto;
             display: flex;
             flex-direction: column;
-            padding-top: clamp(1.25rem, 2.5vw, 2rem);
-            padding-bottom: clamp(2rem, 4vw, 3rem);
+            padding-top: clamp(1rem, 2vw, 1.75rem);
+            padding-bottom: clamp(2.5rem, 5vw, 4rem);
         }
 
-        .packages-hero {
-            border-radius: 1.5rem;
-            padding: 1.65rem 1.5rem 2rem;
-            background: linear-gradient(125deg, rgba(236, 253, 245, 0.95) 0%, #ffffff 42%, rgba(255, 251, 235, 0.92) 100%);
-            border: 1px solid rgba(13, 148, 136, 0.22);
-            box-shadow:
-                0 1px 2px rgba(15, 23, 42, 0.04),
-                0 18px 50px -12px rgba(15, 118, 110, 0.12);
+        .packages-content {
+            width: 100%;
+            max-width: min(120rem, 100%);
+            margin-left: auto;
+            margin-right: auto;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1.75rem, 3vw, 2.75rem);
         }
 
-        .packages-hero__eyebrow {
+        .packages-section {
+            position: relative;
+        }
+
+        .packages-section__head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 0.75rem 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .packages-section__head--solo {
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+
+        .packages-section__kicker {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.5rem;
             font-size: 0.6875rem;
             font-weight: 800;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            color: #0f766e;
-            background: rgba(255, 255, 255, 0.92);
-            padding: 0.4rem 1rem;
-            border-radius: 999px;
-            border: 1px solid rgba(20, 184, 166, 0.35);
-            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            color: var(--pkg-teal);
         }
 
-        .packages-hero__title {
-            margin: 1rem 0 0;
+        .packages-section__kicker span.num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.65rem;
+            height: 1.65rem;
+            border-radius: 0.45rem;
+            background: linear-gradient(135deg, #0f766e, #0d9488);
+            color: #ecfeff;
+            font-size: 0.75rem;
+            font-weight: 900;
+        }
+
+        .packages-section__title {
+            margin: 0.35rem 0 0;
             font-family: "Noto Serif", Georgia, serif;
-            font-size: clamp(1.85rem, 4.2vw, 2.85rem);
+            font-size: clamp(1.35rem, 2.4vw, 1.85rem);
             font-weight: 700;
-            letter-spacing: -0.035em;
-            line-height: 1.12;
-            color: #0f172a;
+            letter-spacing: -0.03em;
+            color: var(--pkg-ink);
         }
 
-        .packages-hero__lead {
-            margin: 0.9rem 0 0;
-            max-width: 40rem;
-            font-size: 1.0625rem;
-            line-height: 1.65;
-            color: #475569;
+        .packages-section__desc {
+            margin: 0;
+            max-width: 36rem;
+            font-size: 0.9375rem;
+            line-height: 1.55;
+            color: var(--pkg-muted);
         }
 
         .route-start-card {
             position: relative;
             border-radius: 1.5rem;
             overflow: hidden;
-            background: #fff;
+            background: var(--pkg-card);
             box-shadow:
-                0 0 0 1px rgba(148, 163, 184, 0.18),
-                0 16px 48px -8px rgba(15, 23, 42, 0.1);
+                0 0 0 1px rgba(148, 163, 184, 0.2),
+                0 22px 56px -12px rgba(15, 23, 42, 0.14);
         }
 
         .route-start-card__accent {
-            height: 5px;
-            background: linear-gradient(90deg, #14b8a6 0%, #0d9488 35%, #f59e0b 70%, #38bdf8 100%);
+            height: 6px;
+            background: linear-gradient(90deg, #0f766e 0%, #14b8a6 28%, #d4af37 62%, #38bdf8 100%);
         }
 
         .route-start-card__inner {
@@ -868,6 +1109,23 @@
                 align-items: flex-end;
                 gap: 1.25rem;
             }
+        }
+
+        /* Full-width row under inputs — was inside .route-start-card__fields flex row, which broke desktop layout */
+        .route-start-card__budget-grids {
+            grid-column: 1 / -1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(1rem, 2.2vw, 1.65rem);
+            padding-top: 0.35rem;
+            box-sizing: border-box;
+        }
+
+        .route-start-card__budget-grids .people-budget-cards {
+            margin-top: 0;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .route-field {
@@ -986,17 +1244,24 @@
             cursor: pointer;
         }
 
+        /* People / day pricing cards — match tier grid; middle theme is set per #peopleBudgetCards / #daysBudgetCards */
         .people-budget-cards {
             margin-top: 1rem;
             display: grid;
-            gap: 0.7rem;
+            gap: clamp(1.15rem, 2.2vw, 1.65rem);
             grid-template-columns: 1fr;
+            justify-items: center;
             align-items: stretch;
+            width: 100%;
         }
 
-        @media (min-width: 840px) {
+        @media (min-width: 900px) {
             .people-budget-cards {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 18.75rem));
+                justify-content: center;
+                max-width: 71rem;
+                margin-left: auto;
+                margin-right: auto;
             }
         }
 
@@ -1005,32 +1270,37 @@
         }
 
         .people-budget-card {
-            border: 1px solid #cbd5e1;
-            border-radius: 1.5rem;
-            background: #fff;
-            overflow: hidden;
-            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.1);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.16s ease;
-            min-height: 31rem;
+            position: relative;
+            width: 100%;
+            max-width: 26.5rem;
+            border-radius: 1.35rem;
+            background: #ffffff;
+            overflow: visible;
+            border: none;
+            box-shadow:
+                0 8px 32px rgba(15, 23, 42, 0.07),
+                0 0 0 1px rgba(226, 232, 240, 0.95);
+            transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.22s ease;
+            min-height: 0;
             display: flex;
             flex-direction: column;
         }
 
         .people-budget-card:hover {
             transform: translateY(-4px);
-            box-shadow: 0 20px 48px rgba(15, 23, 42, 0.14);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(203, 213, 225, 0.9);
         }
 
         .people-budget-card.is-active {
-            border-color: #0f766e;
-            box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.2), 0 20px 48px rgba(15, 23, 42, 0.16);
+            box-shadow: 0 0 0 2px #0f766e, 0 20px 48px rgba(15, 23, 42, 0.12);
         }
 
         .people-budget-card__head {
             position: relative;
-            padding: 1.5rem 1.25rem 0.75rem;
-            color: #fff;
+            padding: 1.28rem 1.55rem 0.72rem;
             text-align: center;
+            background: #ffffff;
+            color: #1a2233;
         }
 
         .people-budget-card__head::after {
@@ -1039,102 +1309,98 @@
             left: 0;
             right: 0;
             bottom: -1px;
-            height: 26px;
-            background: radial-gradient(100% 120% at 50% 0%, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0) 58%, #ffffff 59%, #ffffff 100%);
-        }
-
-        .people-budget-card--teal .people-budget-card__head {
-            background: linear-gradient(145deg, #22d3ee 0%, #2563eb 52%, #1d4ed8 100%);
-        }
-
-        .people-budget-card--orange .people-budget-card__head {
-            background: linear-gradient(145deg, #34d399 0%, #10b981 52%, #059669 100%);
-        }
-
-        .people-budget-card--pink .people-budget-card__head {
-            background: linear-gradient(145deg, #a78bfa 0%, #8b5cf6 46%, #7c3aed 100%);
+            height: 18px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+            pointer-events: none;
         }
 
         .people-budget-card__title {
             margin: 0;
-            font-size: 1.35rem;
-            text-transform: uppercase;
-            letter-spacing: 0.09em;
+            font-family: "Public Sans", system-ui, sans-serif;
+            font-size: 1.1875rem;
             font-weight: 800;
-            opacity: 0.95;
+            letter-spacing: -0.02em;
+            text-transform: none;
         }
 
         .people-budget-card__topline {
-            margin: 0.5rem 0 0;
-            font-size: 0.8125rem;
+            margin: 0.32rem 0 0;
+            font-size: 0.84375rem;
             font-weight: 500;
-            opacity: 0.9;
-            line-height: 1.45;
+            line-height: 1.38;
+            color: #64748b;
         }
 
         .people-budget-card__badge {
             position: relative;
-            margin: 1rem auto 0.25rem;
-            width: 6.5rem;
-            height: 6.5rem;
-            border-radius: 50%;
-            background: #fff;
-            border: 1px solid #e2e8f0;
+            margin: 0.78rem auto 0;
+            width: 100%;
+            max-width: 14rem;
+            min-height: unset;
+            height: auto;
+            border-radius: 0.75rem;
+            background: transparent;
+            border: none;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 0.35rem;
-            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.18);
+            padding: 0;
+            gap: 0.2rem;
+            box-shadow: none;
         }
 
         .people-budget-card__badge strong {
-            font-size: 0.92rem;
-            line-height: 1.15;
-            font-weight: 900;
-            color: #0f172a;
+            font-size: clamp(1.68rem, 3.45vw, 2.15rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #1a2233;
         }
 
         .people-budget-card__badge span {
-            margin-top: 0.22rem;
-            font-size: 0.62rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 700;
+            margin-top: 0;
+            font-size: 0.78125rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            text-transform: none;
             color: #64748b;
         }
 
         .people-budget-card__body {
-            padding: 0.35rem 1.35rem 1.5rem;
-            margin-top: -0.5rem;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            flex: 1;
+            padding: 0 1.55rem 1.22rem;
+            margin-top: 0;
+            background: #ffffff;
         }
 
         .people-budget-card__range {
-            margin: 0 0 0.85rem;
-            padding: 0.5rem 0.75rem;
-            border-radius: 0.75rem;
-            font-size: 0.8125rem;
-            font-weight: 700;
+            margin: 0 0 0.58rem;
+            padding: 0.5rem 0.72rem;
+            border-radius: 0.6rem;
+            font-size: 0.84375rem;
+            font-weight: 600;
             color: #475569;
             text-align: center;
-            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            border: 1px solid #e8ecf1;
         }
 
         .people-budget-card__price {
             margin: 0;
-            font-size: 1.2rem;
-            font-weight: 900;
-            letter-spacing: -0.01em;
+            text-align: center;
+            font-size: clamp(1.68rem, 3.45vw, 2.15rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: #1a2233;
         }
 
         .people-budget-card__hint {
-            margin: 0.4rem 0 0;
-            font-size: 0.8rem;
+            margin: 0.45rem 0 0;
+            font-size: 0.84375rem;
             color: #64748b;
             font-weight: 600;
             line-height: 1.45;
@@ -1143,7 +1409,8 @@
         }
 
         .people-budget-card__actions {
-            margin-top: 1.15rem;
+            margin-top: auto;
+            padding-top: 0.72rem;
             display: grid;
             gap: 0.52rem;
         }
@@ -1151,18 +1418,21 @@
         .people-budget-card__btn {
             border: none;
             border-radius: 999px;
-            padding: 0.85rem 1rem;
-            font-size: 0.8125rem;
-            font-weight: 800;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            padding: 0.8rem 1.12rem;
+            font-size: 0.84375rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: none;
             cursor: pointer;
-            color: #fff;
-            transition: filter 0.15s ease, transform 0.1s ease;
+            color: #ffffff;
+            background: #1a2233;
+            box-shadow: 0 4px 14px rgba(26, 34, 51, 0.25);
+            transition: filter 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
         }
 
         .people-budget-card__btn:hover {
-            filter: brightness(1.06);
+            filter: brightness(1.08);
+            box-shadow: 0 6px 18px rgba(26, 34, 51, 0.32);
         }
 
         .people-budget-card__btn:active {
@@ -1170,71 +1440,116 @@
         }
 
         .people-budget-card__btn--select {
-            background: #0f766e;
-        }
-
-        .people-budget-card--teal .people-budget-card__price {
-            color: #1d4ed8;
-        }
-
-        .people-budget-card--teal .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #38bdf8, #2563eb);
-        }
-
-        .people-budget-card--orange .people-budget-card__price {
-            color: #047857;
-        }
-
-        .people-budget-card--orange .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #34d399, #059669);
-        }
-
-        .people-budget-card--pink .people-budget-card__price {
-            color: #7c3aed;
-        }
-
-        .people-budget-card--pink .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #a78bfa, #7c3aed);
-        }
-
-        .people-budget-card--day1 .people-budget-card__head {
-            background: linear-gradient(145deg, #22c55e 0%, #16a34a 52%, #15803d 100%);
-        }
-
-        .people-budget-card--day1 .people-budget-card__price {
-            color: #15803d;
-        }
-
-        .people-budget-card--day1 .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #22c55e, #15803d);
-        }
-
-        .people-budget-card--day2 .people-budget-card__head {
-            background: linear-gradient(145deg, #06b6d4 0%, #0891b2 52%, #0e7490 100%);
-        }
-
-        .people-budget-card--day2 .people-budget-card__price {
-            color: #0e7490;
-        }
-
-        .people-budget-card--day2 .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #06b6d4, #0e7490);
-        }
-
-        .people-budget-card--day3 .people-budget-card__head {
-            background: linear-gradient(145deg, #f59e0b 0%, #d97706 52%, #b45309 100%);
-        }
-
-        .people-budget-card--day3 .people-budget-card__price {
-            color: #b45309;
-        }
-
-        .people-budget-card--day3 .people-budget-card__btn--select {
-            background: linear-gradient(145deg, #f59e0b, #b45309);
+            background: #1a2233;
         }
 
         .people-budget-card__actions .people-budget-card__btn {
             width: 100%;
+        }
+
+        /* Middle card: featured strip — colours come from parent #peopleBudgetCards vs #daysBudgetCards */
+        #peopleBudgetCards > .people-budget-card:nth-child(2),
+        #daysBudgetCards > .people-budget-card:nth-child(2) {
+            background: linear-gradient(
+                165deg,
+                var(--budget-mid-top) 0%,
+                var(--budget-mid-mid) 52%,
+                var(--budget-mid-deep) 100%
+            );
+            box-shadow:
+                0 22px 56px var(--budget-mid-sh),
+                0 0 0 1px rgba(255, 255, 255, 0.14);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2):hover,
+        #daysBudgetCards > .people-budget-card:nth-child(2):hover {
+            box-shadow:
+                0 28px 64px var(--budget-mid-sh-strong),
+                0 0 0 1px rgba(255, 255, 255, 0.22);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2).is-active,
+        #daysBudgetCards > .people-budget-card:nth-child(2).is-active {
+            box-shadow:
+                0 0 0 2px var(--budget-mid-ring),
+                0 24px 56px var(--budget-mid-sh-strong);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2)::before,
+        #daysBudgetCards > .people-budget-card:nth-child(2)::before {
+            content: "";
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5.5rem;
+            height: 0.28rem;
+            border-radius: 0 0 0.35rem 0.35rem;
+            background: var(--budget-mid-bar);
+            z-index: 2;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head {
+            padding-top: 1.48rem;
+            background: transparent;
+            color: #ffffff;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head::after,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head::after {
+            display: none;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__topline,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__topline {
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge strong,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge strong {
+            color: #ffffff;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge span,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge span {
+            color: rgba(255, 255, 255, 0.82);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__body,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__body {
+            padding-bottom: 1.38rem;
+            background: transparent;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__range,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__range {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.22);
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__price,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__price {
+            color: #ffffff;
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__hint,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__hint {
+            color: rgba(255, 255, 255, 0.88);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn--select,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn--select {
+            background: #ffffff;
+            color: var(--budget-mid-cta-text);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn:hover,
+        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn:hover {
+            filter: brightness(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
 
         /* Emergency hospitals FAB + panel */
@@ -1698,8 +2013,8 @@
     </style>
 </head>
 
-<body class="packages-page-bg packages-page-shell text-slate-900">
-    <header class="sticky top-0 z-40 w-full border-b border-slate-200/90 bg-white/90 backdrop-blur-md shadow-sm">
+<body class="packages-page-bg packages-page-shell text-slate-900 antialiased">
+    <header class="sticky top-0 z-40 w-full">
         <div class="packages-header-inner py-3">
             <div class="packages-header__start">
                 <a href="main_page.html" class="packages-header__home shrink-0">
@@ -1718,17 +2033,16 @@
     </header>
 
     <main class="packages-main">
-        <header class="packages-hero">
-            <span class="packages-hero__eyebrow">GeoTrip - Tirupati</span>
-            <h1 class="packages-hero__title">Trip packages</h1>
-            <p class="packages-hero__lead">
-                Choose a tier, pick the required number of places from the full directory, then view them on the map
-                with a
-                driving route from your location.
-            </p>
-        </header>
+        <div class="packages-content">
 
-        <section class="route-start-card mt-8" aria-labelledby="routeStartHeading">
+        <div class="packages-section">
+            <div class="packages-section__head packages-section__head--solo">
+                <div>
+                    <p class="packages-section__kicker"><span class="num">01</span> Trip setup</p>
+                    <h2 id="sec-trip-setup" class="packages-section__title">Route &amp; group</h2>
+                </div>
+            </div>
+        <section class="route-start-card" aria-labelledby="routeStartHeading">
             <div class="route-start-card__accent" aria-hidden="true"></div>
             <div class="route-start-card__inner">
                 <div class="route-start-card__icon" aria-hidden="true">
@@ -1770,8 +2084,10 @@
                             </span>
                         </label>
                     </div>
+                </div>
+                <div class="route-start-card__budget-grids" aria-live="polite">
                     <div id="peopleBudgetCards" class="people-budget-cards" hidden>
-                        <article class="people-budget-card people-budget-card--teal" data-min="1" data-max="4"
+                        <article class="people-budget-card" data-min="1" data-max="4"
                             data-fill="4" data-tier="basic">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">People Basic</p>
@@ -1789,7 +2105,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="people-budget-card people-budget-card--orange" data-min="5" data-max="8"
+                        <article class="people-budget-card" data-min="5" data-max="8"
                             data-fill="8" data-tier="standard">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">People Standard</p>
@@ -1807,7 +2123,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="people-budget-card people-budget-card--pink" data-min="8" data-max="10"
+                        <article class="people-budget-card" data-min="8" data-max="10"
                             data-fill="10" data-tier="premium">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">People Premium</p>
@@ -1827,7 +2143,7 @@
                         </article>
                     </div>
                     <div id="daysBudgetCards" class="people-budget-cards" hidden>
-                        <article class="people-budget-card people-budget-card--day1" data-day="1" data-fill-day="1"
+                        <article class="people-budget-card" data-day="1" data-fill-day="1"
                             data-tier="basic">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">Day Basic</p>
@@ -1845,7 +2161,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="people-budget-card people-budget-card--day2" data-day="2" data-fill-day="2"
+                        <article class="people-budget-card" data-day="2" data-fill-day="2"
                             data-tier="standard">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">Day Standard</p>
@@ -1864,7 +2180,7 @@
                                 </div>
                             </div>
                         </article>
-                        <article class="people-budget-card people-budget-card--day3" data-day="3" data-fill-day="3"
+                        <article class="people-budget-card" data-day="3" data-fill-day="3"
                             data-tier="premium">
                             <div class="people-budget-card__head">
                                 <p class="people-budget-card__title">Day Premium</p>
@@ -1887,10 +2203,19 @@
                 </div>
             </div>
         </section>
+        </div>
 
-        <section class="pricing-grid mt-10" id="packageCards" aria-label="Package tiers"></section>
+        <div class="packages-section">
+            <div class="packages-section__head">
+                <div>
+                    <p class="packages-section__kicker"><span class="num">02</span> Package tiers</p>
+                    <h2 id="sec-tiers" class="packages-section__title">Choose your band</h2>
+                </div>
+            </div>
+        <section class="pricing-grid" id="packageCards" aria-label="Package tiers"></section>
+        </div>
 
-        <section id="selectionStrip" class="selection-strip mt-10 hidden p-5 sm:p-6">
+        <section id="selectionStrip" class="selection-strip hidden p-5 sm:p-6">
             <div class="flex flex-wrap items-start justify-between gap-4">
                 <div>
                     <h2 class="text-xl font-bold text-slate-900" id="selectionTitle">Your itinerary</h2>
@@ -1909,16 +2234,19 @@
         </section>
 
         <section id="mapSection"
-            class="mt-8 hidden rounded-2xl border border-slate-200/90 bg-white p-4 shadow-lg sm:p-5"
+            class="hidden packages-map-section"
             aria-labelledby="mapSectionTitle">
-            <h2 id="mapSectionTitle" class="text-xl font-bold text-slate-900">Trip map</h2>
-            <p id="pkgMapStatus" class="mt-2 text-sm text-slate-600" role="status"></p>
-            <div id="pkgTripMap" class="mt-4 w-full border border-slate-200 shadow-inner" aria-label="Interactive map">
+            <div class="packages-map-section__inner">
+            <h2 id="mapSectionTitle" class="packages-map-section__title">Trip map</h2>
+            <p id="pkgMapStatus" class="packages-map-section__status" role="status"></p>
+            <div id="pkgTripMap" class="packages-map-frame" aria-label="Interactive map">
+            </div>
             </div>
         </section>
 
-        <p id="loadError" class="mt-6 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+        <p id="loadError" class="mt-2 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
         </p>
+        </div>
     </main>
 
     <div id="emergencyBackdrop" class="emergency-panel-backdrop" aria-hidden="true"></div>
@@ -2145,6 +2473,7 @@
                     });
             }
 
+            /* Order: Basic | Premium (center) | Standard */
             var TIERS = [
                 {
                     id: 'basic',
@@ -2152,17 +2481,8 @@
                     title: 'Basic Package',
                     displayRange: '1k to 5k',
                     pickLimit: 5,
-                    tagline: 'Compact budget band  pick five must-see stops.',
+                    tagline: 'Lean budget band — pick five essential stops.',
                     themeClass: 'pricing-card--basic'
-                },
-                {
-                    id: 'standard',
-                    shortTitle: 'Standard',
-                    title: 'Standard Package',
-                    displayRange: '5k to 10k',
-                    pickLimit: 10,
-                    tagline: 'Mid-range band  build a richer day with ten stops.',
-                    themeClass: 'pricing-card--standard'
                 },
                 {
                     id: 'premium',
@@ -2170,8 +2490,17 @@
                     title: 'Premium Package',
                     displayRange: '10k to 15k',
                     pickLimit: 15,
-                    tagline: 'Premium band " fifteen stops for maximum coverage.',
+                    tagline: 'Maximum flexibility — fifteen stops for full coverage.',
                     themeClass: 'pricing-card--premium'
+                },
+                {
+                    id: 'standard',
+                    shortTitle: 'Standard',
+                    title: 'Standard Package',
+                    displayRange: '5k to 10k',
+                    pickLimit: 10,
+                    tagline: 'Balanced spend — up to ten curated stops.',
+                    themeClass: 'pricing-card--standard'
                 }
             ];
 
