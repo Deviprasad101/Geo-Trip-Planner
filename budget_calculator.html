@@ -3217,8 +3217,6 @@
                                 Per traveller</p>
                             <p class="user-split-lead" id="userEntriesLead">Saved user entries</p>
                             <div class="user-split-grid" id="userEntriesWrap" aria-label="Saved user entries"></div>
-                            <p class="user-split-lead" id="userSplitLead" hidden>Calculated equal split</p>
-                            <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person" hidden></div>
                             <p class="user-split-note" id="userSplitNote" hidden></p>
                         </div>
                         <div class="actions">
@@ -3228,6 +3226,8 @@
                             </button>
                             <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
                         </div>
+                        <p class="user-split-lead" id="userSplitLead" hidden>Calculated equal split</p>
+                        <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person" hidden></div>
                     </section>
                 </div>
             </div>
@@ -6723,6 +6723,7 @@ window.addEventListener('budget-show-trip-map', function () {
             var customUsers = [];
             var pendingUsers = [];
             var lastResult = null;
+            var splitComputed = false;
 
             function setErr(msg) {
                 if (!errBox) return;
@@ -6841,7 +6842,7 @@ window.addEventListener('budget-show-trip-map', function () {
                 }
 
                 if (customUsers.length > 0) {
-                    var hasCalculated = !!(result && isFinite(result.totalBudget) && result.totalBudget >= 0);
+                    var hasCalculated = !!(splitComputed && result && isFinite(result.totalBudget) && result.totalBudget >= 0);
                     if (!hasCalculated) {
                         renderSavedEntriesOnly();
                         section.hidden = false;
@@ -6977,6 +6978,7 @@ window.addEventListener('budget-show-trip-map', function () {
                     setErr(v);
                     return;
                 }
+                splitComputed = true;
                 var res = splitBudget(total, people, days, currentTier);
                 render(res);
             }
@@ -7045,6 +7047,7 @@ window.addEventListener('budget-show-trip-map', function () {
                 customUsers = customUsers.concat(pendingUsers);
                 pendingUsers = [];
                 renderPendingUsers();
+                splitComputed = false;
 
                 if (peopleEl) {
                     var currentPeople = parseInt((peopleEl.value || '0'), 10);
@@ -7084,6 +7087,7 @@ window.addEventListener('budget-show-trip-map', function () {
                 customUsers = [];
                 pendingUsers = [];
                 lastResult = null;
+                splitComputed = false;
                 renderPendingUsers();
                 resetAddUserForm();
                 setErr('');
