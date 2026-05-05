@@ -250,7 +250,7 @@
             font-weight: 800;
             font-size: 0.8125rem;
             color: #ffffff;
-            background: linear-gradient(135deg, #1d4ed8, #0f766e);
+            background: linear-gradient(135deg, #4338ca, #6366f1);
             box-shadow: 0 8px 20px rgba(30, 64, 175, 0.22);
         }
         .btn-pdf-export .material-symbols-outlined {
@@ -331,7 +331,7 @@
             flex-wrap: nowrap;
             gap: 10px;
             padding: 8px 40px 8px 12px;
-            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            background: linear-gradient(104deg, #1e1b4b 0%, #312e81 42%, #4f46e5 100%);
             color: #f8fafc;
         }
 
@@ -588,7 +588,7 @@
             flex-wrap: nowrap;
             gap: 10px;
             padding: 8px 40px 8px 12px;
-            background: linear-gradient(104deg, #0f2940 0%, #134e4a 42%, #0f766e 100%);
+            background: linear-gradient(104deg, #1e1b4b 0%, #312e81 42%, #4f46e5 100%);
             color: #f8fafc;
         }
 
@@ -753,8 +753,8 @@
             --primary-light: #b45309;
             --secondary: #8f4e00;
             --accent: #d4af37;
-            --teal: #006d40;
-            --teal-mid: #0f766e;
+            --teal: #6366f1;
+            --teal-mid: #4338ca;
             --bg: #f4f6f9;
             --card: #ffffff;
             --text: #1a1c1e;
@@ -1100,7 +1100,7 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background: linear-gradient(145deg, var(--teal), #5cc78a);
+            background: linear-gradient(145deg, var(--teal), #818cf8);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1150,9 +1150,9 @@
             height: min(52vh, 440px);
         }
         .budget-map-rail-placeholder {
-            border: 1px dashed rgba(13, 148, 136, 0.45);
+            border: 1px dashed rgba(99, 102, 241, 0.45);
             border-radius: 12px;
-            background: linear-gradient(165deg, #f8fafc 0%, #ecfeff 100%);
+            background: linear-gradient(165deg, #f8fafc 0%, #f5f3ff 100%);
             padding: 1rem 1rem 1.15rem;
             margin-bottom: 0.35rem;
             min-height: min(52vh, 420px);
@@ -1168,14 +1168,14 @@
         }
         .budget-map-rail-placeholder__icon {
             font-size: 2.25rem;
-            color: #0f766e;
+            color: #4f46e5;
             opacity: 0.85;
         }
         .budget-map-rail-placeholder__title {
             margin: 0;
             font-size: 0.95rem;
             font-weight: 800;
-            color: #134e4a;
+            color: #3730a3;
         }
         .budget-map-rail-placeholder__text {
             margin: 0;
@@ -1194,17 +1194,8 @@
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: #334155;
-            border-left: 4px solid rgba(143, 78, 0, 0.75);
+            border-left: 4px solid #4f46e5;
             padding-left: 0.6rem;
-        }
-        .summary-stack .summary-card__actions-bottom {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            padding-top: 0.35rem;
         }
         .summary-stack .summary-card__actions-bottom .btn-pdf-export {
             width: auto;
@@ -1232,8 +1223,8 @@
         }
         .ctrl-btn:hover { background: #f8fafc; }
         .ctrl-btn--primary {
-            background: linear-gradient(135deg, #0f766e, #0ea5a1);
-            border-color: #0f766e;
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            border-color: #4338ca;
             color: #fff;
         }
         .ctrl-btn--primary:hover { filter: brightness(1.05); }
@@ -1312,34 +1303,36 @@
             display: none;
         }
         .card--inputs:hover {
-            border-color: #fcd34d;
+            border-color: rgba(56, 189, 248, 0.45);
             box-shadow:
-                0 10px 36px rgba(67, 20, 7, 0.16),
-                0 2px 0 rgba(255, 255, 255, 0.5) inset;
+                0 14px 40px rgba(14, 165, 233, 0.14),
+                0 2px 0 rgba(255, 255, 255, 0.85) inset;
         }
         .card--inputs {
-            background: #ebe4db;
-            border: 1px solid #e7e5e4;
-            border-top: 3px solid #fcd34d;
-            box-shadow: 0 10px 36px rgba(28, 25, 23, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(100, 116, 139, 0.28);
+            border-top: 4px solid #38bdf8;
+            box-shadow:
+                0 12px 44px rgba(15, 23, 42, 0.08),
+                0 0 0 1px rgba(203, 213, 225, 0.85);
         }
         .card--inputs > .card__head {
             gap: 1rem;
-            margin: -1px -1px 1.15rem -1px;
+            margin: -1px -1px 0 -1px;
             padding: 1.05rem 1.25rem 1.12rem;
             border-radius: 0;
-            border-bottom: 1px solid rgba(217, 119, 6, 0.22);
-            background: linear-gradient(115deg, #fffbeb 0%, #ffedd5 42%, #fde68a 100%);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(125, 211, 252, 0.55);
+            background: linear-gradient(180deg, #ffffff 0%, #eff6ff 48%, #dbeafe 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
         .card--inputs > .card__head .card__icon--primary {
-            background: rgba(255, 255, 255, 0.9) !important;
-            color: #78350f !important;
-            border: 1px solid rgba(217, 119, 6, 0.35);
-            box-shadow: 0 1px 4px rgba(120, 53, 15, 0.1);
+            background: linear-gradient(145deg, #7dd3fc 0%, #38bdf8 48%, #0ea5e9 100%) !important;
+            color: #ffffff !important;
+            border: 1px solid rgba(14, 165, 233, 0.45);
+            box-shadow: 0 8px 22px rgba(14, 165, 233, 0.28);
         }
         .card--inputs > .card__head .card__icon--primary .material-symbols-outlined {
-            color: #b45309 !important;
+            color: #ffffff !important;
         }
         .card--inputs > .card__head .card__icon {
             width: 48px;
@@ -1350,7 +1343,7 @@
             font-size: 28px;
         }
         .card--inputs > .card__head .card__title {
-            color: #431407 !important;
+            color: #0c1222 !important;
             font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -1360,64 +1353,65 @@
         .card--inputs > .card__head .card__subtitle {
             font-size: clamp(0.82rem, 0.8rem + 0.2vw, 0.9rem);
             font-weight: 500;
-            color: #57534e !important;
+            color: #5c6578 !important;
             line-height: 1.55;
             margin-top: 0.3rem;
             max-width: 40rem;
             text-shadow: none;
             opacity: 1;
         }
+        /* Light sky-blue entry zone */
         .card--inputs .form-grid {
             gap: 0.85rem 1rem;
             padding: 1.02rem 1.15rem 1.05rem;
-            margin-top: 0.15rem;
+            margin-top: 0;
             border-radius: 0 0 14px 14px;
-            background: #d6d3d1;
-            border: 1px solid #d6d3d1;
-            border-top: 1px solid #d4d4d8;
-            box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.06);
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 42%, #bae6fd 100%);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            border-top: 1px solid rgba(125, 211, 252, 0.45);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
         }
         .card--inputs .form-grid > div {
             padding: 0.75rem 0.9rem;
             border-radius: 10px;
             background: #ffffff;
-            border: 1px solid rgba(251, 191, 36, 0.5);
-            box-shadow: 0 2px 10px rgba(28, 25, 23, 0.08);
+            border: 1px solid rgba(125, 211, 252, 0.65);
+            box-shadow: 0 2px 12px rgba(14, 165, 233, 0.07);
         }
         .card--inputs .inputs-field--budget {
-            padding: 0.85rem 1rem;
-            border-radius: 12px;
-            background: linear-gradient(180deg, #fed7aa 0%, #fdba74 100%);
-            border: 1px solid rgba(251, 191, 36, 0.65);
-            box-shadow: 0 3px 12px rgba(120, 53, 15, 0.2);
+            padding: 0.75rem 0.9rem;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(125, 211, 252, 0.65);
+            box-shadow: 0 2px 12px rgba(14, 165, 233, 0.07);
         }
         .card--inputs .inputs-field--budget label {
-            color: #1c1917 !important;
-            font-size: 0.8rem;
+            color: #334155 !important;
+            font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.06em;
         }
         .card--inputs .inputs-field--budget .hint {
-            color: #222222 !important;
+            color: #334155 !important;
             font-weight: 600;
-            background: #ffffff !important;
-            border: 1px solid #a3a3a3 !important;
-            border-left: 4px solid #d97706 !important;
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-left: 4px solid #0ea5e9 !important;
         }
         .card--inputs .inputs-field--budget input {
             font-weight: 600;
             color: #111827;
-            border: 2px solid #d97706 !important;
+            border: 2px solid #94a3b8 !important;
             background: #ffffff !important;
         }
         .card--inputs .inputs-field--budget .tooltip-btn {
             background: #ffffff;
-            border: 2px solid #d97706;
-            color: #78350f;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+            border: 2px solid #94a3b8;
+            color: #475569;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
         }
         .card--inputs label {
-            color: #222222;
+            color: #334155;
             font-size: 0.78rem;
             font-weight: 800;
             letter-spacing: 0.06em;
@@ -1427,39 +1421,39 @@
             margin-top: 0.08rem;
             font-weight: 600;
             color: #111827;
-            border: 2px solid #d97706 !important;
+            border: 2px solid #94a3b8 !important;
             background: #ffffff !important;
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset, 0 1px 4px rgba(28, 25, 23, 0.06);
+            box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset, 0 1px 5px rgba(56, 189, 248, 0.08);
         }
         .card--inputs input::placeholder {
-            color: #57534e;
+            color: #64748b;
             font-weight: 500;
         }
         .card--inputs input:hover,
         .card--inputs select:hover {
-            border-color: #b45309 !important;
+            border-color: #64748b !important;
         }
         .card--inputs input:focus,
         .card--inputs select:focus {
             outline: none;
-            border-color: #92400e !important;
-            box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.45), 0 1px 4px rgba(28, 25, 23, 0.08);
+            border-color: #0ea5e9 !important;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35), 0 1px 5px rgba(14, 165, 233, 0.12);
         }
         .card--inputs .hint {
             font-size: 0.8125rem;
-            color: #222222 !important;
+            color: #1e293b !important;
             font-weight: 600;
             line-height: 1.5;
             margin-top: 0.5rem;
             padding: 0.55rem 0.7rem 0.55rem 0.75rem;
             border-radius: 0 10px 10px 0;
-            background: #fafafa !important;
-            border: 1px solid #d4d4d4 !important;
-            border-left: 4px solid #d97706 !important;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+            background: #f0f9ff !important;
+            border: 1px solid rgba(125, 211, 252, 0.65) !important;
+            border-left: 4px solid #0ea5e9 !important;
+            box-shadow: 0 1px 3px rgba(14, 165, 233, 0.1);
         }
         .card--inputs .hint strong {
-            color: #92400e;
+            color: #0369a1;
             font-weight: 800;
         }
         .card--inputs .hint code {
@@ -1467,9 +1461,9 @@
             font-weight: 700;
             padding: 0.15rem 0.4rem;
             border-radius: 6px;
-            background: #fff7ed;
-            border: 1px solid #d97706;
-            color: #431407;
+            background: #e0f2fe;
+            border: 1px solid rgba(56, 189, 248, 0.55);
+            color: #075985;
         }
         .card--travel {
             background: linear-gradient(145deg, #ffffff 0%, #fff4f1 100%);
@@ -1493,7 +1487,7 @@
         }
         .card--map {
             background: linear-gradient(145deg, #ffffff 0%, #eefcf9 100%);
-            border-color: #d1fae5;
+            border-color: #e9e5ff;
         }
         .card__head {
             display: flex;
@@ -1641,6 +1635,7 @@
         }
         .planner-split > .section-heading {
             margin-bottom: 0.55rem;
+            border-left-color: #0ea5e9;
         }
         .planner-split .card--inputs {
             border-radius: 14px;
@@ -1649,18 +1644,11 @@
         .summary-card {
             position: relative;
             z-index: 0;
-            margin-top: 1.5rem;
-            background: linear-gradient(145deg, #fffef8 0%, #fff7e8 52%, #fffef8 100%);
-            border: 1px solid #e2e8f0;
-            border-radius: var(--radius);
-            padding: 1.5rem 1.75rem;
-            box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
         }
         .summary-card h2 {
-            margin: 0 0 1rem;
+            margin: 0;
             font-size: 1.15rem;
             font-family: "Noto Serif", serif;
-            color: #78350f;
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -1762,60 +1750,70 @@
             color: #7c2d12;
         }
 
+        /* Budget Summary stack only — teal / mint (Final budget summary card); rest of page stays indigo */
         .summary-stack {
             margin-top: 1.35rem;
             border-radius: 14px;
-            border: 1px solid #e2e8f0;
-            border-top: 3px solid #99f6e4;
-            background: #e2e8f0;
-            box-shadow: 0 10px 32px rgba(15, 118, 110, 0.1);
+            border: 1px solid rgba(100, 116, 139, 0.28);
+            border-top: 4px solid #0d9488;
+            background: #ffffff;
+            box-shadow:
+                0 12px 44px rgba(15, 23, 42, 0.08),
+                0 0 0 1px rgba(203, 213, 225, 0.85);
             overflow: hidden;
+        }
+        .summary-stack:hover {
+            border-color: rgba(13, 148, 136, 0.52);
+            box-shadow:
+                0 14px 40px rgba(15, 118, 110, 0.18),
+                0 2px 0 rgba(255, 255, 255, 0.85) inset;
         }
         .summary-stack > .section-heading {
             margin: 0;
-            padding: 0.85rem 1.1rem 0.9rem;
-            border-left: none;
-            padding-left: 1.1rem;
-            border-bottom: 1px solid rgba(20, 184, 166, 0.25);
-            background: linear-gradient(115deg, #ecfeff 0%, #cffafe 50%, #a5f3fc 100%);
-            color: #0f766e !important;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 0.09em;
+            padding: 0.72rem 1.15rem 0.78rem;
+            border-left: 4px solid #0d9488;
+            padding-left: 0.65rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.95);
+            background: #ffffff;
+            color: #334155 !important;
+            font-size: 0.88rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            text-shadow: none;
         }
         .summary-stack .summary-card {
-            margin: 0.85rem 0.95rem 1rem;
-            margin-top: 0.85rem;
-            background: #ffffff;
-            border: 1px solid #a5f3fc;
-            border-radius: 12px;
-            box-shadow: 0 2px 12px rgba(15, 118, 110, 0.12);
-            padding: 1.25rem 1.35rem;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            box-shadow: none;
         }
         .summary-stack .summary-card__head {
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto;
             align-items: start;
             gap: 0.5rem 0.75rem;
-            border-bottom: 1px solid rgba(20, 184, 166, 0.28);
-            padding-bottom: 0.75rem;
-            margin-bottom: 0.85rem;
+            margin: 0;
+            padding: 1.05rem 1.25rem 1.12rem;
+            border-bottom: 1px solid rgba(13, 148, 136, 0.2);
+            background: linear-gradient(180deg, #ffffff 0%, #ecfdf5 48%, #d1fae5 100%);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
         .summary-stack .summary-card__head h2 {
             grid-column: 1;
             grid-row: 1;
-            color: #0d9488;
-            font-size: 1.05rem;
+            color: #0c1222 !important;
+            font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
             font-weight: 700;
             margin: 0;
             min-width: 0;
             border: none;
             padding: 0;
+            font-family: "Noto Serif", serif;
         }
         .summary-stack .summary-card__head h2 .material-symbols-outlined {
-            color: #14b8a6;
+            color: #0f766e !important;
             vertical-align: middle;
         }
         .summary-stack .summary-card__clear {
@@ -1826,13 +1824,30 @@
             white-space: nowrap;
             flex-shrink: 0;
             border-color: #94a3b8;
-            background: #f8fafc;
-            box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+            background: #ffffff;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
             z-index: 2;
         }
         .summary-stack .summary-card__clear:hover {
-            background: #f1f5f9;
+            background: #f8fafc;
             border-color: #64748b;
+        }
+        .summary-stack .summary-card__body {
+            padding: 1.02rem 1.15rem 1.05rem;
+            margin: 0;
+            background: linear-gradient(180deg, #e6fffa 0%, #ccfbf1 40%, #99f6e4 100%);
+            border-top: 1px solid rgba(13, 148, 136, 0.14);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+        }
+        .summary-stack .summary-lines {
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(13, 148, 136, 0.22);
+            box-shadow: 0 2px 12px rgba(13, 148, 136, 0.08);
         }
         .summary-stack .summary-line span:first-child {
             color: #334155;
@@ -1843,20 +1858,42 @@
             font-weight: 800;
         }
         .summary-stack .total-line {
-            border-top-color: rgba(20, 184, 166, 0.28);
+            margin-top: 0.85rem;
+            padding: 0.85rem 0.9rem;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid rgba(13, 148, 136, 0.22);
+            box-shadow: 0 2px 12px rgba(13, 148, 136, 0.08);
+            border-top: none;
         }
         .summary-stack .total-line .label {
             color: #115e59;
             font-weight: 700;
+            font-family: "Noto Serif", serif;
         }
         .summary-stack .total-line .value {
-            color: #0d9488;
+            color: #0f766e;
+            font-family: "Noto Serif", serif;
+        }
+        .summary-stack .remaining-box {
+            margin-top: 0.85rem;
         }
         .summary-stack .remaining-box.neutral {
-            background: #f8fafc;
+            background: #ffffff;
             color: #334155;
-            border: 1px solid #e2e8f0;
+            border: 1px solid rgba(13, 148, 136, 0.22);
+            box-shadow: 0 2px 12px rgba(13, 148, 136, 0.06);
             font-weight: 600;
+        }
+        .summary-stack .summary-card__actions-bottom {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px solid rgba(13, 148, 136, 0.18);
         }
 
         .budget-modal[hidden] { display: none; }
@@ -1922,7 +1959,7 @@
             border: none;
             border-radius: 10px;
             padding: 0.58rem 0.85rem;
-            background: #0f766e;
+            background: #4f46e5;
             color: #fff;
             font-weight: 700;
             cursor: pointer;
@@ -1976,7 +2013,7 @@
             border-color: rgba(100, 116, 139, 0.55);
         }
         .budget-modal__splitter-close:focus-visible {
-            outline: 2px solid #0d9488;
+            outline: 2px solid #6366f1;
             outline-offset: 2px;
         }
         .budget-modal__splitter-close .material-symbols-outlined {
@@ -1996,8 +2033,8 @@
         #budgetSplitterInlineRoot {
             --accent: #d97706;
             --accent-soft: #fef3c7;
-            --link: #0d9488;
-            --link-hover: #0f766e;
+            --link: #4f46e5;
+            --link-hover: #4338ca;
             --card: #ffffff;
             --card-border: rgba(251, 191, 36, 0.35);
             --text: #422006;
@@ -2487,15 +2524,17 @@
             display: none;
         }
         .budget-plan-map-card.card--map {
-            background: #ebe4db;
-            border: 1px solid #e7e5e4;
-            border-top: 3px solid #7dd3fc;
-            box-shadow: 0 10px 36px rgba(28, 25, 23, 0.1);
+            background: #ffffff;
+            border: 1px solid rgba(100, 116, 139, 0.28);
+            border-top: 4px solid #4f46e5;
+            box-shadow:
+                0 12px 44px rgba(15, 23, 42, 0.08),
+                0 0 0 1px rgba(203, 213, 225, 0.85);
         }
         .budget-plan-map-card.card--map:hover {
-            border-color: #5eead4;
+            border-color: #a5b4fc;
             box-shadow:
-                0 10px 36px rgba(15, 118, 110, 0.12),
+                0 10px 36px rgba(79, 70, 229, 0.12),
                 0 2px 0 rgba(255, 255, 255, 0.45) inset;
         }
         .budget-plan-map-card.card--map > .card__head {
@@ -2503,20 +2542,20 @@
             margin: -1px -1px 1rem -1px;
             padding: 1rem 1.1rem 1.1rem;
             border-radius: 0;
-            border-bottom: 1px solid rgba(13, 148, 136, 0.2);
-            background: linear-gradient(115deg, #f0fdfa 0%, #ccfbf1 48%, #d1fae5 100%);
+            border-bottom: 1px solid rgba(99, 102, 241, 0.22);
+            background: linear-gradient(115deg, #ffffff 0%, #eef2ff 48%, #e0e7ff 100%);
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
         }
         .budget-plan-map-card.card--map > .card__head .card__icon--teal {
             background: rgba(255, 255, 255, 0.9) !important;
-            border: 1px solid rgba(13, 148, 136, 0.35);
-            box-shadow: 0 1px 4px rgba(15, 118, 110, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.35);
+            box-shadow: 0 1px 4px rgba(79, 70, 229, 0.12);
         }
         .budget-plan-map-card.card--map > .card__head .card__icon--teal .material-symbols-outlined {
-            color: #0f766e !important;
+            color: #4f46e5 !important;
         }
         .budget-plan-map-card.card--map > .card__head .card__title {
-            color: #134e4a !important;
+            color: #312e81 !important;
             font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -2533,14 +2572,14 @@
             text-shadow: none;
         }
         .budget-plan-map-card.card--map > .card__head .card__subtitle strong {
-            color: #0f766e;
+            color: #4f46e5;
             font-weight: 700;
         }
         .budget-plan-map-card .budget-inline-map-frame-wrap {
-            border: 1px solid #cffafe;
+            border: 1px solid #e9e5ff;
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 2px 10px rgba(15, 118, 110, 0.06);
+            box-shadow: 0 2px 10px rgba(79, 70, 229, 0.06);
         }
         .budget-inline-map-frame-wrap {
             border: 1px solid var(--border);
@@ -2930,6 +2969,7 @@
                 </h2>
                 <button type="button" class="ctrl-btn summary-card__clear" id="resetBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">ink_eraser</span>Clear inputs</button>
             </div>
+            <div class="summary-card__body">
             <div class="summary-lines">
                 <div class="summary-line"><span>Travel cost</span><strong id="sumTravel">Rs. 0</strong></div>
                 <div class="summary-line"><span>Stay cost</span><strong id="sumStay">Rs. 0</strong></div>
@@ -2948,6 +2988,7 @@
                 <button type="button" class="btn-pdf-export summary-card__pdf" id="sbDownloadPdfBtn"><span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>Download trip PDF</button>
                 <button type="button" class="ctrl-btn summary-card__splitter" id="openBudgetSplitterBtn"><span class="material-symbols-outlined" aria-hidden="true">pie_chart</span>Budget Splitter</button>
                 <button type="button" class="ctrl-btn ctrl-btn--primary summary-card__recalc" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
+            </div>
             </div>
         </section>
         </div>
@@ -4430,7 +4471,7 @@
     function categoryPinStyle(categoryKey) {
         var styles = {
             food: { bg: '#fff7ed', fg: '#c2410c', sym: 'restaurant' },
-            adventure: { bg: '#ecfdf5', fg: '#047857', sym: 'landscape' },
+            adventure: { bg: '#ede9fe', fg: '#5b21b6', sym: 'landscape' },
             wildlife: { bg: '#f0fdf4', fg: '#15803d', sym: 'pets' },
             temple: { bg: '#fffbeb', fg: '#b45309', sym: 'temple_hindu' },
             sightseeing: { bg: '#eff6ff', fg: '#1d4ed8', sym: 'photo_camera' },
@@ -5059,7 +5100,7 @@
         if (latlngs && latlngs.length >= 2) {
             animatePolylineAlong(
                 latlngs,
-                { color: '#0f766e', weight: 4, opacity: 0.9 },
+                { color: '#4f46e5', weight: 4, opacity: 0.9 },
                 stableGen
             );
         }
@@ -5958,7 +5999,7 @@
                 accentA: [219, 234, 254],
                 accentB: [209, 250, 229],
                 title: [30, 64, 175],
-                titleSub: [13, 148, 136],
+                titleSub: [79, 70, 229],
                 white: [255, 255, 255]
             };
 
