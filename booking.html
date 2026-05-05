@@ -1,9 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Official Booking Desk · GeoTrip Planner</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'headline-md': ['Noto Serif', 'Georgia', 'serif'],
+                        'headline-lg': ['Noto Serif', 'Georgia', 'serif'],
+                        'body-md': ['Public Sans', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        };
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
@@ -37,85 +52,263 @@
             font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
             vertical-align: middle;
         }
-        .topbar {
+
+        /* Site header — same chrome as main_page.html */
+        header.site-header {
             position: sticky;
             top: 0;
-            z-index: 40;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: space-between;
-            gap: 0.65rem;
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.4);
+            z-index: 50;
             background: #ffffff;
-            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.35);
             box-shadow:
-                0 4px 20px rgba(15, 23, 42, 0.08),
-                0 1px 3px rgba(15, 23, 42, 0.05);
+                0 1px 0 rgba(255, 255, 255, 0.85) inset,
+                0 6px 18px rgba(15, 23, 42, 0.08),
+                0 2px 6px rgba(15, 23, 42, 0.05);
         }
-        .topbar::after {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: -1px;
-            height: 2px;
-            background: linear-gradient(90deg, rgba(245, 158, 11, 0.5), rgba(59, 130, 246, 0.45), rgba(16, 185, 129, 0.45));
-        }
-        .topbar__left {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
+        .site-header__start {
             min-width: 0;
         }
-        .topbar__seal {
-            width: 2.15rem;
-            height: 2.15rem;
-            border-radius: 999px;
+        .site-header__nav {
+            flex-wrap: nowrap;
+            row-gap: 0;
+        }
+        .site-header__brand {
+            display: flex;
+            min-width: 0;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .site-header__end {
+            display: inline-flex;
+            flex-wrap: nowrap;
+            gap: 0.65rem;
+            align-items: center;
+            justify-self: end;
+            flex-shrink: 0;
+            min-width: 0;
+        }
+        @media (min-width: 640px) {
+            .site-header__end {
+                gap: 0.75rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__end {
+                gap: 0.875rem;
+            }
+        }
+        .site-header__nav--primary {
+            justify-content: center;
+        }
+        .site-header__logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(145deg, #fff7ed, #fef3c7);
-            border: 1px solid #fcd34d;
-            color: var(--gov-amber);
-            flex-shrink: 0;
+            height: 3.7rem;
+            max-height: 4.7rem;
+            max-width: min(calc(100vw - 7rem), 27rem);
+            width: auto;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+            min-width: 8.5rem;
         }
-        .topbar__title {
+        @media (min-width: 480px) {
+            .site-header__logo-wrap {
+                height: 4rem;
+                max-width: min(calc(100vw - 14rem), 29rem);
+            }
+        }
+        @media (min-width: 640px) {
+            .site-header__logo-wrap {
+                height: 4.6rem;
+                max-width: min(calc(100vw - 20rem), 32rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__logo-wrap {
+                height: 5.1rem;
+                max-width: min(39vw, 28rem);
+            }
+        }
+        .site-header__brand-logo {
+            display: block;
+            box-sizing: border-box;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: left center;
+        }
+        @media (max-width: 1023px) {
+            .site-header__layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 0.6rem 0.85rem;
+                overflow: visible;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .site-header__start {
+                grid-column: 1;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.45rem;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__brand-name {
+                display: block;
+                max-width: 100%;
+                line-height: 1.15;
+            }
+            .site-header__end {
+                grid-column: 2;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__logo-wrap {
+                height: 2.1rem;
+                min-width: 0;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__brand-logo {
+                object-position: center;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+                align-items: center;
+                gap: 0.75rem 1rem;
+            }
+            .site-header__start {
+                grid-column: 1;
+                justify-self: start;
+                width: auto;
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__nav--primary {
+                grid-column: 2;
+                justify-self: center;
+                width: max-content;
+                max-width: min(56vw, 52rem);
+                flex-wrap: wrap;
+                justify-content: center;
+                row-gap: 0.35rem;
+            }
+            .site-header__end {
+                grid-column: 3;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .site-header__nav {
+                gap: 0.55rem;
+            }
+        }
+        .site-header__brand-titles {
+            display: flex;
+            min-width: 0;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            .site-header__brand-titles {
+                gap: 0.45rem;
+            }
+        }
+        .site-header__link {
+            font-size: 1.1875rem;
+            font-weight: 600;
+            color: #78350f;
+            text-decoration: none;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: background 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+        .site-header__link:hover {
+            background: rgba(254, 243, 199, 0.85);
+            color: #451a03;
+        }
+        .site-header__link:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .site-header__link[aria-current="page"] {
+            background: rgba(254, 243, 199, 0.65);
+            color: #451a03;
+        }
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: #b45309;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .icon-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        .icon-btn:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .mobile-nav-backdrop {
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .mobile-nav-backdrop.is-open {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        .mobile-nav-panel {
+            transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-nav-panel.is-open {
+            transform: translateX(0) !important;
+        }
+        .drawer-nav {
             display: flex;
             flex-direction: column;
-            min-width: 0;
-        }
-        .topbar__title strong {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--gov-navy);
-            white-space: nowrap;
-        }
-        .topbar__title span {
-            font-size: 0.72rem;
-            color: var(--gov-muted);
-            white-space: nowrap;
-        }
-        .topbar__actions {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.45rem;
-        }
-        .topbar__actions a {
-            display: inline-flex;
-            align-items: center;
             gap: 0.35rem;
-            text-decoration: none;
-            color: #1e293b;
-            font-size: 0.8125rem;
-            font-weight: 700;
-            border: 1px solid #cfd8e8;
-            border-radius: 999px;
-            padding: 0.45rem 0.8rem;
-            background: linear-gradient(180deg, #ffffff, #f8fafc);
         }
-        .topbar__actions a:hover { background: linear-gradient(180deg, #fff7ed, #fffbeb); }
+        .drawer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #78350f;
+            background: rgba(255, 251, 235, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+        .drawer-nav a:hover {
+            background: #fef3c7;
+        }
 
         .shell {
             max-width: 1060px;
@@ -887,21 +1080,49 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
 </head>
 <body>
-    <header class="topbar">
-        <div class="topbar__left">
-            <span class="topbar__seal" aria-hidden="true">
-                <span class="material-symbols-outlined">verified</span>
-            </span>
-            <div class="topbar__title">
-                <strong>GeoTrip Booking Desk</strong>
-                <span>Tourism transit access portal</span>
+    <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
+        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+            <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
+                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
+                    <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
+                </button>
+                <a href="main_page.html" class="site-header__brand min-w-0 shrink">
+                    <span class="site-header__brand-titles font-headline-lg">
+                        <span class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Booking</span>
+                    </span>
+                </a>
+            </div>
+            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex" aria-label="Primary">
+                <a class="site-header__link" href="packages.html">Packages</a>
+                <a class="site-header__link" href="budget_calculator.html">Budget calculator &amp; splitter</a>
+                <a class="site-header__link" href="booking.html" aria-current="page">Booking</a>
+            </nav>
+            <div class="site-header__end">
+                <span class="site-header__logo-wrap">
+                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="520" height="104" decoding="async" loading="eager"/>
+                </span>
             </div>
         </div>
-        <div class="topbar__actions">
-            <a href="main_page.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Home</a>
-            <a href="budget_calculator.html"><span class="material-symbols-outlined" aria-hidden="true">map</span> Planner</a>
-        </div>
     </header>
+
+    <div id="mobileNavBackdrop" class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
+    <aside id="mobileNavPanel" class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden" aria-hidden="true" aria-label="Menu">
+        <div class="flex items-center justify-between border-b border-amber-100 px-3 py-3">
+            <span class="font-headline-md text-lg font-semibold text-amber-900">Menu</span>
+            <button type="button" id="mobileNavClose" class="icon-btn" aria-label="Close menu">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
+            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
+            <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
+            <a href="booking.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+        </nav>
+        <div class="border-t border-amber-100 p-3">
+            <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
+        </div>
+    </aside>
 
     <main class="shell">
         <section class="hero">
@@ -1660,6 +1881,57 @@
 
 })();
 
+    </script>
+    <script>
+        (function () {
+            function initMobileNav() {
+                var openBtn = document.getElementById('mobileNavOpen');
+                var panel = document.getElementById('mobileNavPanel');
+                var backdrop = document.getElementById('mobileNavBackdrop');
+                var closeBtn = document.getElementById('mobileNavClose');
+                if (!openBtn || !panel || !backdrop) return;
+
+                function setOpen(open) {
+                    panel.classList.toggle('is-open', open);
+                    backdrop.classList.toggle('is-open', open);
+                    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) {
+                        document.documentElement.classList.add('overflow-hidden');
+                        if (closeBtn) {
+                            window.requestAnimationFrame(function () {
+                                closeBtn.focus();
+                            });
+                        }
+                    } else {
+                        document.documentElement.classList.remove('overflow-hidden');
+                    }
+                }
+
+                openBtn.addEventListener('click', function () {
+                    setOpen(true);
+                });
+                backdrop.addEventListener('click', function () {
+                    setOpen(false);
+                });
+                if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+
+                document.addEventListener('keydown', function (ev) {
+                    if (ev.key === 'Escape' && panel.classList.contains('is-open')) {
+                        setOpen(false);
+                        openBtn.focus();
+                    }
+                });
+
+                panel.querySelectorAll('a[href]').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        setOpen(false);
+                    });
+                });
+            }
+            initMobileNav();
+        })();
     </script>
     <script src="chatbot.js" defer></script>
 </body>

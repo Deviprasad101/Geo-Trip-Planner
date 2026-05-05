@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="light budget-page-root" lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -1024,6 +1024,64 @@
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+        .site-header__link[aria-current="page"] {
+            background: rgba(254, 243, 199, 0.65);
+            color: #451a03;
+        }
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: #b45309;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .icon-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        .icon-btn:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .mobile-nav-backdrop {
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .mobile-nav-backdrop.is-open {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        .mobile-nav-panel {
+            transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-nav-panel.is-open {
+            transform: translateX(0) !important;
+        }
+        .drawer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .drawer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #78350f;
+            background: rgba(255, 251, 235, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+        .drawer-nav a:hover {
+            background: #fef3c7;
+        }
         /* Home — main page (same pattern as packages.html HOME) */
         a.site-header__home,
         a.site-header__home:hover {
@@ -1071,30 +1129,8 @@
                 font-size: 1.45rem;
             }
         }
-        /* Budget page: show nav on small screens (main hides it); allow title + subtitle to wrap */
         body.budget-page-root .site-header__brand-titles {
             white-space: normal;
-        }
-        body.budget-page-root .site-header__nav--primary {
-            display: flex !important;
-            grid-column: 1 / -1 !important;
-            grid-row: 2 !important;
-            justify-self: center !important;
-            width: 100% !important;
-            max-width: none !important;
-            justify-content: center;
-            flex-wrap: wrap;
-            row-gap: 0.35rem;
-            padding-top: 0.15rem;
-        }
-        @media (min-width: 1024px) {
-            body.budget-page-root .site-header__nav--primary {
-                grid-column: 2 !important;
-                grid-row: auto !important;
-                width: max-content !important;
-                max-width: min(56vw, 52rem) !important;
-                padding-top: 0;
-            }
         }
         .avatar {
             width: 50px;
@@ -2779,6 +2815,9 @@
     <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
         <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
             <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
+                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
+                    <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
+                </button>
                 <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
                     <span class="material-symbols-outlined" aria-hidden="true">home</span>
                     <span class="site-header__home-text">HOME</span>
@@ -2789,8 +2828,9 @@
                     </span>
                 </a>
             </div>
-            <nav class="site-header__nav site-header__nav--primary flex min-w-0 flex-wrap items-center justify-center gap-1 sm:gap-2" aria-label="Primary">
+            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex" aria-label="Primary">
                 <a class="site-header__link" href="packages.html">Packages</a>
+                <a class="site-header__link" href="budget_calculator.html" aria-current="page">Budget calculator &amp; splitter</a>
                 <a class="site-header__link" href="booking.html">Booking</a>
             </nav>
             <div class="site-header__end">
@@ -2800,6 +2840,25 @@
             </div>
         </div>
     </header>
+
+    <div id="mobileNavBackdrop" class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
+    <aside id="mobileNavPanel" class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden" aria-hidden="true" aria-label="Menu">
+        <div class="flex items-center justify-between border-b border-amber-100 px-3 py-3">
+            <span class="font-headline-md text-lg font-semibold text-amber-900">Menu</span>
+            <button type="button" id="mobileNavClose" class="icon-btn" aria-label="Close menu">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
+            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
+            <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
+            <a href="booking.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+        </nav>
+        <div class="border-t border-amber-100 p-3">
+            <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
+        </div>
+    </aside>
 
     <div class="budget-main-scroll">
     <div class="wrap budget-page-split">
@@ -6847,6 +6906,57 @@ window.addEventListener('budget-show-trip-map', function () {
                 totalEl.value && peopleEl.value && daysEl.value) {
                 runCalc();
             }
+        })();
+    </script>
+    <script>
+        (function () {
+            function initMobileNav() {
+                var openBtn = document.getElementById('mobileNavOpen');
+                var panel = document.getElementById('mobileNavPanel');
+                var backdrop = document.getElementById('mobileNavBackdrop');
+                var closeBtn = document.getElementById('mobileNavClose');
+                if (!openBtn || !panel || !backdrop) return;
+
+                function setOpen(open) {
+                    panel.classList.toggle('is-open', open);
+                    backdrop.classList.toggle('is-open', open);
+                    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) {
+                        document.documentElement.classList.add('overflow-hidden');
+                        if (closeBtn) {
+                            window.requestAnimationFrame(function () {
+                                closeBtn.focus();
+                            });
+                        }
+                    } else {
+                        document.documentElement.classList.remove('overflow-hidden');
+                    }
+                }
+
+                openBtn.addEventListener('click', function () {
+                    setOpen(true);
+                });
+                backdrop.addEventListener('click', function () {
+                    setOpen(false);
+                });
+                if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+
+                document.addEventListener('keydown', function (ev) {
+                    if (ev.key === 'Escape' && panel.classList.contains('is-open')) {
+                        setOpen(false);
+                        openBtn.focus();
+                    }
+                });
+
+                panel.querySelectorAll('a[href]').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        setOpen(false);
+                    });
+                });
+            }
+            initMobileNav();
         })();
     </script>
     <script src="chatbot.js" defer></script>

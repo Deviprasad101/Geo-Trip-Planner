@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tirupati trip packages - GeoTrip Planner</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     animation: {
@@ -23,6 +24,11 @@
                             '0%': { backgroundPosition: '200% 50%' },
                             '100%': { backgroundPosition: '-200% 50%' },
                         },
+                    },
+                    fontFamily: {
+                        'headline-md': ['Noto Serif', 'Georgia', 'serif'],
+                        'headline-lg': ['Noto Serif', 'Georgia', 'serif'],
+                        'body-md': ['Public Sans', 'system-ui', 'sans-serif'],
                     },
                 },
             },
@@ -99,18 +105,6 @@
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
-        }
-
-        .packages-page-shell > header {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(250, 251, 253, 0.88) 100%);
-            border-bottom: 1px solid var(--pkg-line);
-            box-shadow: 0 6px 30px rgba(15, 23, 42, 0.07);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
 
         .pricing-grid {
@@ -810,86 +804,55 @@
             flex-direction: column;
         }
 
-        .packages-header-inner,
-        .packages-main {
-            width: 100%;
-            max-width: none;
-            margin-left: 0;
-            margin-right: 0;
-            padding-left: clamp(1rem, 3.5vw, 2.75rem);
-            padding-right: clamp(1rem, 3.5vw, 2.75rem);
-            box-sizing: border-box;
+        /* Site header — same chrome as main_page.html */
+        header.site-header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: #ffffff;
+            border-bottom: 1px solid rgba(217, 119, 6, 0.35);
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.85) inset,
+                0 6px 18px rgba(15, 23, 42, 0.08),
+                0 2px 6px rgba(15, 23, 42, 0.05);
         }
-
-        .packages-header-inner {
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto;
-            align-items: center;
-            gap: 0.75rem 1rem;
-        }
-
-        .packages-header__start {
-            justify-self: start;
+        .site-header__start {
             min-width: 0;
         }
-
-        .packages-header__home {
-            display: inline-flex;
+        .site-header__nav {
+            flex-wrap: nowrap;
+            row-gap: 0;
+        }
+        .site-header__brand {
+            display: flex;
+            min-width: 0;
             align-items: center;
-            gap: 0.45rem;
-            padding: 0.5rem 1rem 0.5rem 0.85rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(148, 163, 184, 0.55);
-            background: #fff;
-            color: #92400e;
-            font-weight: 800;
-            font-size: 0.8125rem;
-            letter-spacing: 0.06em;
             text-decoration: none;
-            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
-            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+            color: inherit;
         }
-
-        .packages-header__home:hover {
-            border-color: rgba(217, 119, 6, 0.55);
-            background: #fffbeb;
-            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
-        }
-
-        .packages-header__home:focus-visible {
-            outline: 2px solid #d97706;
-            outline-offset: 2px;
-        }
-
-        .packages-header__home .material-symbols-outlined {
-            font-size: 1.35rem;
-        }
-
-        .packages-header__home-text {
-            font-family: "Public Sans", system-ui, sans-serif;
-        }
-
-        @media (min-width: 640px) {
-            .packages-header__home {
-                gap: 0.5rem;
-                padding: 0.55rem 1.15rem 0.55rem 0.95rem;
-                font-size: 0.875rem;
-            }
-
-            .packages-header__home .material-symbols-outlined {
-                font-size: 1.45rem;
-            }
-        }
-
-        .packages-header__end {
-            justify-self: end;
-            min-width: 0;
+        .site-header__end {
             display: inline-flex;
+            flex-wrap: nowrap;
+            gap: 0.65rem;
             align-items: center;
+            justify-self: end;
+            flex-shrink: 0;
+            min-width: 0;
         }
-
-        /* Match main_page.html .site-header__logo-wrap sizing */
-        .packages-header__logo-wrap {
+        @media (min-width: 640px) {
+            .site-header__end {
+                gap: 0.75rem;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__end {
+                gap: 0.875rem;
+            }
+        }
+        .site-header__nav--primary {
+            justify-content: center;
+        }
+        .site-header__logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -900,68 +863,282 @@
             border-radius: 0.25rem;
             box-sizing: border-box;
             min-width: 8.5rem;
-            padding: 0;
-            border: none;
-            background: transparent;
-            box-shadow: none;
         }
-
-        .packages-header__logo {
+        @media (min-width: 480px) {
+            .site-header__logo-wrap {
+                height: 4rem;
+                max-width: min(calc(100vw - 14rem), 29rem);
+            }
+        }
+        @media (min-width: 640px) {
+            .site-header__logo-wrap {
+                height: 4.6rem;
+                max-width: min(calc(100vw - 20rem), 32rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__logo-wrap {
+                height: 5.1rem;
+                max-width: min(39vw, 28rem);
+            }
+        }
+        .site-header__brand-logo {
             display: block;
             box-sizing: border-box;
             height: 100%;
             max-width: 100%;
             max-height: 100%;
             object-fit: contain;
-            object-position: right center;
+            object-position: left center;
         }
-
-        @media (min-width: 480px) {
-            .packages-header__logo-wrap {
-                height: 4rem;
-                max-width: min(calc(100vw - 14rem), 29rem);
-            }
-        }
-
-        @media (min-width: 640px) {
-            .packages-header__logo-wrap {
-                height: 4.6rem;
-                max-width: min(calc(100vw - 20rem), 32rem);
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .packages-header__logo-wrap {
-                height: 5.1rem;
-                max-width: min(39vw, 28rem);
-            }
-        }
-
-        @media (max-width: 767px) {
-            .packages-header-inner {
+        @media (max-width: 1023px) {
+            .site-header__layout {
+                display: grid !important;
                 grid-template-columns: minmax(0, 1fr) auto;
-                gap: 0.5rem 0.65rem;
+                align-items: center;
+                gap: 0.6rem 0.85rem;
+                overflow: visible;
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-
-            .packages-header__home {
+            .site-header__start {
+                grid-column: 1;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.45rem;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__brand-name {
+                display: block;
+                max-width: 100%;
+                line-height: 1.15;
+            }
+            .site-header__end {
+                grid-column: 2;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__logo-wrap {
+                height: 2.1rem;
+                min-width: 0;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__brand-logo {
+                object-position: center;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+                align-items: center;
+                gap: 0.75rem 1rem;
+            }
+            .site-header__start {
+                grid-column: 1;
+                justify-self: start;
+                width: auto;
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__nav--primary {
+                grid-column: 2;
+                justify-self: center;
+                width: max-content;
+                max-width: min(56vw, 52rem);
+                flex-wrap: wrap;
+                justify-content: center;
+                row-gap: 0.35rem;
+            }
+            .site-header__end {
+                grid-column: 3;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .site-header__nav {
+                gap: 0.55rem;
+            }
+        }
+        .site-header__brand-titles {
+            display: flex;
+            min-width: 0;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            gap: 0.35rem;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            .site-header__brand-titles {
+                gap: 0.45rem;
+            }
+        }
+        .site-header__link {
+            font-size: 1.1875rem;
+            font-weight: 600;
+            color: #78350f;
+            text-decoration: none;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: background 0.15s ease, color 0.15s ease;
+            white-space: nowrap;
+        }
+        .site-header__link:hover {
+            background: rgba(254, 243, 199, 0.85);
+            color: #451a03;
+        }
+        .site-header__link:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .site-header__link[aria-current="page"] {
+            background: rgba(254, 243, 199, 0.65);
+            color: #451a03;
+        }
+        a.site-header__home,
+        a.site-header__home:hover {
+            color: #92400e;
+        }
+        .site-header__home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1rem 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: #fff;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+            flex-shrink: 0;
+        }
+        .site-header__home:hover {
+            border-color: rgba(217, 119, 6, 0.55);
+            background: #fffbeb;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
+            color: #78350f;
+        }
+        .site-header__home:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .site-header__home .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+        .site-header__home-text {
+            font-family: "Public Sans", system-ui, sans-serif;
+        }
+        @media (min-width: 640px) {
+            .site-header__home {
+                gap: 0.5rem;
+                padding: 0.55rem 1.15rem 0.55rem 0.95rem;
+                font-size: 0.875rem;
+            }
+            .site-header__home .material-symbols-outlined {
+                font-size: 1.45rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .site-header__home {
                 padding: 0.45rem 0.85rem 0.45rem 0.7rem;
                 font-size: 0.75rem;
                 gap: 0.35rem;
             }
-
-            .packages-header__logo-wrap {
-                min-width: 0;
-                height: 3.7rem;
-                max-width: min(calc(100vw - 10rem), 27rem);
+            .site-header__home .material-symbols-outlined {
+                font-size: 1.25rem;
             }
+        }
+        /* Nudge “Packages” slightly right — only this link shifts */
+        .site-header__brand--packages-heading {
+            margin-left: clamp(2.5rem, 9.5vw, 6rem);
+        }
+        @media (min-width: 1024px) {
+            .site-header__brand--packages-heading {
+                margin-left: clamp(6.75rem, 19vw, 13rem);
+            }
+        }
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.75rem;
+            height: 2.75rem;
+            border: none;
+            border-radius: 9999px;
+            background: transparent;
+            color: #b45309;
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+        .icon-btn:hover {
+            background: rgba(251, 191, 36, 0.2);
+        }
+        .icon-btn:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .mobile-nav-backdrop {
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+        .mobile-nav-backdrop.is-open {
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+        }
+        .mobile-nav-panel {
+            transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        .mobile-nav-panel.is-open {
+            transform: translateX(0) !important;
+        }
+        .drawer-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .drawer-nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 1rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: #78350f;
+            background: rgba(255, 251, 235, 0.9);
+            border: 1px solid rgba(251, 191, 36, 0.4);
+        }
+        .drawer-nav a:hover {
+            background: #fef3c7;
         }
 
         .packages-main {
             flex: 1 0 auto;
             display: flex;
             flex-direction: column;
+            width: 100%;
+            max-width: none;
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: clamp(1rem, 3.5vw, 2.75rem);
+            padding-right: clamp(1rem, 3.5vw, 2.75rem);
             padding-top: clamp(1rem, 2vw, 1.75rem);
             padding-bottom: clamp(2.5rem, 5vw, 4rem);
+            box-sizing: border-box;
         }
 
         .packages-content {
@@ -2014,23 +2191,52 @@
 </head>
 
 <body class="packages-page-bg packages-page-shell text-slate-900 antialiased">
-    <header class="sticky top-0 z-40 w-full">
-        <div class="packages-header-inner py-3">
-            <div class="packages-header__start">
-                <a href="main_page.html" class="packages-header__home shrink-0">
+    <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
+        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+            <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
+                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
+                    <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
+                </button>
+                <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
                     <span class="material-symbols-outlined" aria-hidden="true">home</span>
-                    <span class="packages-header__home-text">HOME</span>
+                    <span class="site-header__home-text">HOME</span>
+                </a>
+                <a href="main_page.html" class="site-header__brand site-header__brand--packages-heading min-w-0 shrink">
+                    <span class="site-header__brand-titles font-headline-lg">
+                        <span class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Packages</span>
+                    </span>
                 </a>
             </div>
-            <div class="packages-header__end">
-                <span class="packages-header__logo-wrap">
-                    <img src="images/geointellab_logo.jpeg"
-                        alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="packages-header__logo"
-                        width="520" height="104" decoding="async" loading="eager" />
+            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex" aria-label="Primary">
+                <a class="site-header__link" href="budget_calculator.html">Budget calculator &amp; splitter</a>
+                <a class="site-header__link" href="booking.html">Booking</a>
+            </nav>
+            <div class="site-header__end">
+                <span class="site-header__logo-wrap">
+                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="520" height="104" decoding="async" loading="eager" />
                 </span>
             </div>
         </div>
     </header>
+
+    <div id="mobileNavBackdrop" class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
+    <aside id="mobileNavPanel" class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden" aria-hidden="true" aria-label="Menu">
+        <div class="flex items-center justify-between border-b border-amber-100 px-3 py-3">
+            <span class="font-headline-md text-lg font-semibold text-amber-900">Menu</span>
+            <button type="button" id="mobileNavClose" class="icon-btn" aria-label="Close menu">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+        </div>
+        <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
+            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
+            <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
+            <a href="booking.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+        </nav>
+        <div class="border-t border-amber-100 p-3">
+            <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
+        </div>
+    </aside>
 
     <main class="packages-main">
         <div class="packages-content">
@@ -3665,6 +3871,57 @@
             }
 
             load();
+        })();
+    </script>
+    <script>
+        (function () {
+            function initMobileNav() {
+                var openBtn = document.getElementById('mobileNavOpen');
+                var panel = document.getElementById('mobileNavPanel');
+                var backdrop = document.getElementById('mobileNavBackdrop');
+                var closeBtn = document.getElementById('mobileNavClose');
+                if (!openBtn || !panel || !backdrop) return;
+
+                function setOpen(open) {
+                    panel.classList.toggle('is-open', open);
+                    backdrop.classList.toggle('is-open', open);
+                    panel.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    backdrop.setAttribute('aria-hidden', open ? 'false' : 'true');
+                    openBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    if (open) {
+                        document.documentElement.classList.add('overflow-hidden');
+                        if (closeBtn) {
+                            window.requestAnimationFrame(function () {
+                                closeBtn.focus();
+                            });
+                        }
+                    } else {
+                        document.documentElement.classList.remove('overflow-hidden');
+                    }
+                }
+
+                openBtn.addEventListener('click', function () {
+                    setOpen(true);
+                });
+                backdrop.addEventListener('click', function () {
+                    setOpen(false);
+                });
+                if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+
+                document.addEventListener('keydown', function (ev) {
+                    if (ev.key === 'Escape' && panel.classList.contains('is-open')) {
+                        setOpen(false);
+                        openBtn.focus();
+                    }
+                });
+
+                panel.querySelectorAll('a[href]').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        setOpen(false);
+                    });
+                });
+            }
+            initMobileNav();
         })();
     </script>
     <script src="chatbot.js" defer></script>
