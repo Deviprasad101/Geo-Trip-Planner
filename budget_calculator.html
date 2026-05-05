@@ -7093,6 +7093,13 @@ window.addEventListener('budget-show-trip-map', function () {
                 setErr('');
                 var userSplitSection = document.getElementById('userSplitSection');
                 if (userSplitSection) userSplitSection.hidden = true;
+                var userSplitLead = document.getElementById('userSplitLead');
+                var userSplitWrap = document.getElementById('userSplitWrap');
+                if (userSplitLead) userSplitLead.hidden = true;
+                if (userSplitWrap) {
+                    userSplitWrap.hidden = true;
+                    userSplitWrap.innerHTML = '';
+                }
             }
 
             var resetBtn = document.getElementById('resetBtn');
