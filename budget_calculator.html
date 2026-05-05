@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-    <title>Tirupati GeoTrip - Budget Calculator</title>
+    <title>Budget calculator &amp; splitter · GeoTrip</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;600;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,600&amp;family=Outfit:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
         tailwind.config = {
@@ -826,119 +827,274 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
         }
-        .site-header {
+        /* Site header — aligned with main_page.html (logo scale + centered nav + grid) */
+        header.site-header {
             position: sticky;
             top: 0;
             z-index: 50;
             background: #ffffff;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            color: var(--text);
-            padding-top: 0.55rem;
-            padding-bottom: 0.6rem;
-            padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
-            padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
-            border-bottom: 1px solid rgba(180, 83, 9, 0.28);
-            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.35);
+            box-shadow:
+                0 1px 0 rgba(255, 255, 255, 0.85) inset,
+                0 6px 18px rgba(15, 23, 42, 0.08),
+                0 2px 6px rgba(15, 23, 42, 0.05);
         }
-        .site-header__inner {
-            max-width: var(--budget-page-max);
-            width: 100%;
-            margin: 0;
-            display: grid;
-            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-            align-items: center;
-            column-gap: 0.6rem;
-            row-gap: 0.35rem;
-        }
-        .site-header__meta {
+        .site-header__start {
             min-width: 0;
         }
-        .site-header__logo {
-            height: clamp(56px, 8.5vh, 88px);
-            width: auto;
-            max-width: min(52vw, 420px);
-            object-fit: contain;
-            object-position: center;
-            border-radius: 8px;
-            background: #fff;
-            padding: 4px 8px;
-            border: 1px solid rgba(15, 23, 42, 0.08);
-            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
-            justify-self: center;
+        .site-header__nav {
+            flex-wrap: nowrap;
+            row-gap: 0;
         }
-        .site-header__titles h1 {
-            margin: 0;
-            font-family: "Noto Serif", serif;
-            font-size: clamp(1.15rem, 2.5vw, 1.45rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: #78350f;
-        }
-        .site-header__titles p {
-            margin: 0.08rem 0 0;
-            font-size: 0.8125rem;
-            color: var(--muted);
-            font-weight: 500;
-        }
-        .site-header__actions {
+        .site-header__brand {
             display: flex;
+            min-width: 0;
             align-items: center;
-            gap: 0.45rem;
-            justify-self: end;
-        }
-        .site-header__back {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.65rem 1.25rem;
-            border-radius: 9999px;
-            background: var(--secondary);
-            color: #fff;
             text-decoration: none;
-            font-size: 0.9375rem;
-            font-weight: 600;
-            letter-spacing: 0.01em;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            box-shadow: 0 2px 8px rgba(143, 78, 0, 0.2);
-            transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            color: inherit;
         }
-        .site-header__back .material-symbols-outlined {
-            font-size: 24px;
-            line-height: 1;
+        .site-header__end {
+            display: inline-flex;
+            flex-wrap: nowrap;
+            gap: 0.65rem;
+            align-items: center;
+            justify-self: end;
+            flex-shrink: 0;
+            min-width: 0;
         }
-        .site-header__back:hover {
-            filter: brightness(1.06);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(143, 78, 0, 0.22);
+        @media (min-width: 640px) {
+            .site-header__end {
+                gap: 0.75rem;
+            }
         }
-        .site-header__splitter {
+        @media (min-width: 1024px) {
+            .site-header__end {
+                gap: 0.875rem;
+            }
+        }
+        .site-header__nav--primary {
+            justify-content: center;
+        }
+        .site-header__logo-wrap {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
-            padding: 0.55rem 1rem;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #fffbeb, #fef3c7);
+            height: 3.7rem;
+            max-height: 4.7rem;
+            max-width: min(calc(100vw - 7rem), 27rem);
+            width: auto;
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+            min-width: 8.5rem;
+        }
+        @media (min-width: 480px) {
+            .site-header__logo-wrap {
+                height: 4rem;
+                max-width: min(calc(100vw - 14rem), 29rem);
+            }
+        }
+        @media (min-width: 640px) {
+            .site-header__logo-wrap {
+                height: 4.6rem;
+                max-width: min(calc(100vw - 20rem), 32rem);
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__logo-wrap {
+                height: 5.1rem;
+                max-width: min(39vw, 28rem);
+            }
+        }
+        .site-header__brand-logo {
+            display: block;
+            box-sizing: border-box;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            object-position: left center;
+        }
+        @media (max-width: 1023px) {
+            .site-header__layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto;
+                align-items: center;
+                gap: 0.6rem 0.85rem;
+                overflow: visible;
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .site-header__start {
+                grid-column: 1;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                gap: 0.45rem;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__brand-name {
+                display: block;
+                max-width: 100%;
+                line-height: 1.15;
+            }
+            .site-header__end {
+                grid-column: 2;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__logo-wrap {
+                height: 2.1rem;
+                min-width: 0;
+                max-width: min(42vw, 11rem);
+            }
+            .site-header__brand-logo {
+                object-position: center;
+            }
+        }
+        @media (min-width: 1024px) {
+            .site-header__layout {
+                display: grid !important;
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+                align-items: center;
+                gap: 0.75rem 1rem;
+            }
+            .site-header__start {
+                grid-column: 1;
+                justify-self: start;
+                width: auto;
+                margin-left: 0;
+                min-width: 0;
+            }
+            .site-header__nav--primary {
+                grid-column: 2;
+                justify-self: center;
+                width: max-content;
+                max-width: min(56vw, 52rem);
+                flex-wrap: wrap;
+                justify-content: center;
+                row-gap: 0.35rem;
+            }
+            .site-header__end {
+                grid-column: 3;
+                justify-self: end;
+                display: inline-flex;
+                align-items: center;
+                min-width: 0;
+            }
+            .site-header__brand {
+                margin-left: 0;
+                padding-left: 0;
+            }
+            .site-header__nav {
+                gap: 0.55rem;
+            }
+        }
+        .site-header__brand-titles {
+            display: flex;
+            min-width: 0;
+            flex-wrap: nowrap;
+            align-items: baseline;
+            gap: 0.35rem;
+        }
+        @media (min-width: 640px) {
+            .site-header__brand-titles {
+                gap: 0.45rem;
+            }
+        }
+        .site-header__link {
+            font-size: 1.1875rem;
+            font-weight: 600;
             color: #78350f;
             text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 700;
-            letter-spacing: 0.01em;
-            border: 1px solid rgba(245, 158, 11, 0.45);
-            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.18);
-            transition: filter 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+            padding: 0.35rem 0.5rem;
+            border-radius: 0.5rem;
+            transition: background 0.15s ease, color 0.15s ease;
             white-space: nowrap;
         }
-        .site-header__splitter:hover {
-            filter: brightness(1.04);
-            transform: translateY(-1px);
-            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.22);
+        .site-header__link:hover {
+            background: rgba(254, 243, 199, 0.85);
+            color: #451a03;
         }
-        .site-header__splitter .material-symbols-outlined {
-            font-size: 20px;
-            line-height: 1;
+        .site-header__link:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        /* Home — main page (same pattern as packages.html HOME) */
+        a.site-header__home,
+        a.site-header__home:hover {
+            color: #92400e;
+        }
+        .site-header__home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1rem 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: #fff;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+            flex-shrink: 0;
+        }
+        .site-header__home:hover {
+            border-color: rgba(217, 119, 6, 0.55);
+            background: #fffbeb;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
+            color: #78350f;
+        }
+        .site-header__home:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .site-header__home .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+        .site-header__home-text {
+            font-family: "Public Sans", system-ui, sans-serif;
+        }
+        @media (min-width: 640px) {
+            .site-header__home {
+                gap: 0.5rem;
+                padding: 0.55rem 1.15rem 0.55rem 0.95rem;
+                font-size: 0.875rem;
+            }
+            .site-header__home .material-symbols-outlined {
+                font-size: 1.45rem;
+            }
+        }
+        /* Budget page: show nav on small screens (main hides it); allow title + subtitle to wrap */
+        body.budget-page-root .site-header__brand-titles {
+            white-space: normal;
+        }
+        body.budget-page-root .site-header__nav--primary {
+            display: flex !important;
+            grid-column: 1 / -1 !important;
+            grid-row: 2 !important;
+            justify-self: center !important;
+            width: 100% !important;
+            max-width: none !important;
+            justify-content: center;
+            flex-wrap: wrap;
+            row-gap: 0.35rem;
+            padding-top: 0.15rem;
+        }
+        @media (min-width: 1024px) {
+            body.budget-page-root .site-header__nav--primary {
+                grid-column: 2 !important;
+                grid-row: auto !important;
+                width: max-content !important;
+                max-width: min(56vw, 52rem) !important;
+                padding-top: 0;
+            }
         }
         .avatar {
             width: 50px;
@@ -1212,8 +1368,8 @@
             opacity: 1;
         }
         .card--inputs .form-grid {
-            gap: 0.95rem 1.05rem;
-            padding: 1.08rem 1.2rem 1.25rem;
+            gap: 0.85rem 1rem;
+            padding: 1.02rem 1.15rem 1.05rem;
             margin-top: 0.15rem;
             border-radius: 0 0 14px 14px;
             background: #d6d3d1;
@@ -1314,16 +1470,6 @@
             background: #fff7ed;
             border: 1px solid #d97706;
             color: #431407;
-        }
-        .card--inputs .inputs-hint-wide {
-            text-align: center;
-            border-left: none !important;
-            border-radius: 10px !important;
-            background: #ffffff !important;
-            border: 1px solid rgba(251, 191, 36, 0.55) !important;
-            color: #222222 !important;
-            font-weight: 700;
-            padding: 0.65rem 0.85rem !important;
         }
         .card--travel {
             background: linear-gradient(145deg, #ffffff 0%, #fff4f1 100%);
@@ -1785,6 +1931,551 @@
             gap: 0.4rem;
         }
         .budget-modal__close:hover { filter: brightness(1.05); }
+
+        .budget-modal--splitter {
+            z-index: 10000;
+            align-items: stretch;
+            justify-content: center;
+            padding: 0.75rem;
+        }
+        .budget-modal--splitter .budget-modal__splitter-shell {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            min-height: 0;
+            width: min(52rem, 100%);
+            max-height: min(92vh, 900px);
+            margin: auto;
+            background: #fff;
+            border: 1px solid rgba(212, 175, 55, 0.55);
+            border-radius: 14px;
+            box-shadow: 0 24px 60px rgba(15, 23, 42, 0.32);
+            overflow: hidden;
+        }
+        .budget-modal__splitter-close {
+            position: absolute;
+            top: 0.45rem;
+            right: 0.45rem;
+            z-index: 5;
+            border: 1px solid rgba(148, 163, 184, 0.65);
+            background: rgba(255, 255, 255, 0.96);
+            color: #475569;
+            width: 2.35rem;
+            height: 2.35rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 2px 10px rgba(15, 23, 42, 0.12);
+        }
+        .budget-modal__splitter-close:hover {
+            background: #f8fafc;
+            color: #0f172a;
+            border-color: rgba(100, 116, 139, 0.55);
+        }
+        .budget-modal__splitter-close:focus-visible {
+            outline: 2px solid #0d9488;
+            outline-offset: 2px;
+        }
+        .budget-modal__splitter-close .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+        .budget-modal__splitter-body {
+            flex: 1 1 auto;
+            width: 100%;
+            min-height: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            border: 0;
+            background: #faf8f5;
+        }
+        #budgetSplitterInlineRoot, #budgetSplitterInlineRoot * { box-sizing: border-box; }
+
+        #budgetSplitterInlineRoot {
+            --accent: #d97706;
+            --accent-soft: #fef3c7;
+            --link: #0d9488;
+            --link-hover: #0f766e;
+            --card: #ffffff;
+            --card-border: rgba(251, 191, 36, 0.35);
+            --text: #422006;
+            --muted: #78716c;
+            --shadow: 0 20px 50px rgba(180, 83, 9, 0.08), 0 4px 16px rgba(15, 23, 42, 0.04);
+            --input-bg: #fffefb;
+            --track: #e7e5e4;
+            font-family: "Outfit", system-ui, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(1000px 520px at 12% 0%, rgba(254, 243, 199, 0.9), transparent 52%),
+                radial-gradient(880px 480px at 92% 8%, rgba(255, 228, 230, 0.75), transparent 48%),
+                radial-gradient(700px 420px at 50% 100%, rgba(204, 251, 241, 0.55), transparent 42%),
+                linear-gradient(180deg, #fffdfb 0%, #faf8f5 38%, #f5f5f4 100%);
+        }
+
+        #budgetSplitterInlineRoot .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+
+        #budgetSplitterInlineRoot a {
+            color: var(--link);
+            text-underline-offset: 3px;
+        }
+
+        #budgetSplitterInlineRoot a:hover {
+            color: var(--link-hover);
+        }
+
+        #budgetSplitterInlineRoot .shell {
+            max-width: 52rem;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 3rem;
+        }
+
+        #budgetSplitterInlineRoot .hero {
+            text-align: center;
+            padding: 1.5rem 0.5rem 2rem;
+        }
+
+        #budgetSplitterInlineRoot .hero h1 {
+            font-family: "Fraunces", serif;
+            font-size: clamp(1.85rem, 5vw, 2.65rem);
+            font-weight: 700;
+            line-height: 1.12;
+            margin: 1rem 0 0.5rem;
+            background: linear-gradient(120deg, #92400e 0%, #c2410c 38%, #be185d 88%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        #budgetSplitterInlineRoot .hero p {
+            margin: 0 auto;
+            max-width: 36rem;
+            font-size: 1.15rem;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        #budgetSplitterInlineRoot .panel {
+            border-radius: 1.35rem;
+            padding: 1.35rem 1.25rem;
+            background: var(--card);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        #budgetSplitterInlineRoot .panel+.panel {
+            margin-top: 1.25rem;
+        }
+
+        #budgetSplitterInlineRoot .panel__title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: "Fraunces", serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 1rem;
+        }
+
+        #budgetSplitterInlineRoot .grid-inputs {
+            display: grid;
+            gap: 1rem;
+        }
+
+        @media (min-width: 560px) {
+            #budgetSplitterInlineRoot .grid-inputs {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        #budgetSplitterInlineRoot .field label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.35rem;
+        }
+
+        #budgetSplitterInlineRoot .field input,
+        #budgetSplitterInlineRoot .field select {
+            width: 100%;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(214, 211, 209, 0.95);
+            background: var(--input-bg);
+            color: var(--text);
+            font-size: 1.1rem;
+            font-family: inherit;
+        }
+
+        #budgetSplitterInlineRoot .field input:focus,
+        #budgetSplitterInlineRoot .field select:focus {
+            outline: none;
+            border-color: rgba(245, 158, 11, 0.65);
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.25);
+        }
+
+        #budgetSplitterInlineRoot .tiers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1.15rem;
+        }
+
+        #budgetSplitterInlineRoot .tier-btn {
+            flex: 1 1 auto;
+            min-width: 6.5rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.85rem;
+            border: 1px solid rgba(214, 211, 209, 0.9);
+            background: #fafaf9;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease, transform 0.12s ease;
+        }
+
+        #budgetSplitterInlineRoot .tier-btn:hover {
+            transform: translateY(-1px);
+            background: #fffbeb;
+            border-color: rgba(251, 191, 36, 0.45);
+        }
+
+        #budgetSplitterInlineRoot .tier-btn.is-active {
+            border-color: rgba(217, 119, 6, 0.55);
+            background: linear-gradient(145deg, #fffbeb, #ffedd5);
+            box-shadow: 0 4px 14px rgba(245, 158, 11, 0.12);
+        }
+
+        #budgetSplitterInlineRoot .tier-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        #budgetSplitterInlineRoot .tier-btn small {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--muted);
+            margin-top: 0.2rem;
+        }
+
+        #budgetSplitterInlineRoot .actions {
+            margin-top: 1.25rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+            align-items: center;
+        }
+
+        #budgetSplitterInlineRoot .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 0.75rem 1.35rem;
+            border: none;
+            border-radius: 999px;
+            font-family: inherit;
+            font-size: 1.15rem;
+            font-weight: 700;
+            cursor: pointer;
+            color: #fffbeb;
+            background: linear-gradient(120deg, #ea580c, #d97706, #ca8a04);
+            box-shadow: 0 8px 24px rgba(217, 119, 6, 0.28);
+            transition: filter 0.15s ease, transform 0.12s ease;
+        }
+
+        #budgetSplitterInlineRoot .btn-primary:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+        }
+
+        #budgetSplitterInlineRoot .btn-primary:focus-visible {
+            outline: 2px solid #f59e0b;
+            outline-offset: 3px;
+        }
+
+        #budgetSplitterInlineRoot .btn-ghost {
+            padding: 0.65rem 1rem;
+            border-radius: 999px;
+            border: 1px solid rgba(214, 211, 209, 0.95);
+            background: #fafaf9;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1.05rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        #budgetSplitterInlineRoot .btn-ghost:hover {
+            background: #f5f5f4;
+            border-color: #d6d3d1;
+        }
+
+        #budgetSplitterInlineRoot .err {
+            margin-top: 0.75rem;
+            padding: 0.65rem 0.85rem;
+            border-radius: 0.75rem;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            font-size: 1.05rem;
+            display: none;
+        }
+
+        #budgetSplitterInlineRoot .err.is-visible {
+            display: block;
+        }
+
+        #budgetSplitterInlineRoot .summary-grid {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        @media (min-width: 480px) {
+            #budgetSplitterInlineRoot .summary-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        #budgetSplitterInlineRoot .stat {
+            padding: 1rem 1.1rem;
+            border-radius: 1rem;
+            background: linear-gradient(160deg, #fffefb 0%, #faf8f5 100%);
+            border: 1px solid rgba(251, 191, 36, 0.22);
+        }
+
+        #budgetSplitterInlineRoot .stat__label {
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        #budgetSplitterInlineRoot .stat__value {
+            margin: 0.35rem 0 0;
+            font-family: "Fraunces", serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #92400e;
+        }
+
+        #budgetSplitterInlineRoot .stat__hint {
+            margin: 0.35rem 0 0;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        #budgetSplitterInlineRoot .cats {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        #budgetSplitterInlineRoot .cat {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 0.65rem 0.85rem;
+            align-items: center;
+            padding: 0.75rem 0.85rem;
+            border-radius: 1rem;
+            background: #fffefb;
+            border: 1px solid rgba(254, 243, 199, 0.85);
+        }
+
+        #budgetSplitterInlineRoot .cat__icon {
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        #budgetSplitterInlineRoot .cat__name {
+            font-weight: 700;
+            font-size: 1.15rem;
+        }
+
+        #budgetSplitterInlineRoot .cat__pct {
+            font-size: 0.9rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        #budgetSplitterInlineRoot .cat__amt {
+            font-weight: 700;
+            color: #78350f;
+            font-size: 1.1rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #budgetSplitterInlineRoot .bar {
+            grid-column: 1 / -1;
+            height: 0.45rem;
+            border-radius: 999px;
+            background: var(--track);
+            overflow: hidden;
+        }
+
+        #budgetSplitterInlineRoot .bar>i {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            width: 0%;
+            transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        #budgetSplitterInlineRoot .bar--stay>i {
+            background: linear-gradient(90deg, #c4b5fd, #ddd6fe);
+        }
+
+        #budgetSplitterInlineRoot .bar--food>i {
+            background: linear-gradient(90deg, #fda4af, #fecdd3);
+        }
+
+        #budgetSplitterInlineRoot .bar--transport>i {
+            background: linear-gradient(90deg, #7dd3fc, #bae6fd);
+        }
+
+        #budgetSplitterInlineRoot .bar--activities>i {
+            background: linear-gradient(90deg, #6ee7b7, #a7f3d0);
+        }
+
+        #budgetSplitterInlineRoot .source-note {
+            margin-top: 0.85rem;
+            font-size: 0.95rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        #budgetSplitterInlineRoot .source-note strong {
+            color: #b45309;
+        }
+
+        #budgetSplitterInlineRoot .user-split-section {
+            margin-top: 1.35rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid rgba(251, 191, 36, 0.35);
+        }
+
+        #budgetSplitterInlineRoot .user-split-section>.user-split-heading {
+            font-family: "Fraunces", serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #78350f;
+            margin: 0 0 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        #budgetSplitterInlineRoot .user-split-lead {
+            margin: 0 0 1rem;
+            font-size: 1.05rem;
+            color: var(--muted);
+            line-height: 1.45;
+        }
+
+        #budgetSplitterInlineRoot .user-split-grid {
+            display: grid;
+            gap: 0.85rem;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+        }
+
+        #budgetSplitterInlineRoot .user-card {
+            border: 1px solid rgba(251, 191, 36, 0.4);
+            border-radius: 1rem;
+            padding: 1rem 0.95rem;
+            background: linear-gradient(165deg, #fffefb 0%, #fafaf9 100%);
+            box-shadow: 0 4px 14px rgba(180, 83, 9, 0.06);
+        }
+
+        #budgetSplitterInlineRoot .user-card__title {
+            font-weight: 800;
+            font-size: 1.15rem;
+            color: #92400e;
+            margin: 0 0 0.5rem;
+            letter-spacing: 0.02em;
+        }
+
+        #budgetSplitterInlineRoot .user-card__total {
+            font-family: "Fraunces", serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #78350f;
+            margin: 0 0 0.65rem;
+            padding-bottom: 0.65rem;
+            border-bottom: 1px solid rgba(231, 229, 228, 0.9);
+        }
+
+        #budgetSplitterInlineRoot .user-card__total span {
+            display: block;
+            font-family: "Outfit", sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 0.2rem;
+        }
+
+        #budgetSplitterInlineRoot .user-card__row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            padding: 0.28rem 0;
+            border-bottom: 1px dashed rgba(231, 229, 228, 0.95);
+        }
+
+        #budgetSplitterInlineRoot .user-card__row:last-child {
+            border-bottom: none;
+        }
+
+        #budgetSplitterInlineRoot .user-card__label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        #budgetSplitterInlineRoot .user-card__label .material-symbols-outlined {
+            font-size: 1.1rem;
+            opacity: 0.88;
+        }
+
+        #budgetSplitterInlineRoot .user-card__amt {
+            font-weight: 700;
+            color: #57534e;
+            font-variant-numeric: tabular-nums;
+        }
+
+        #budgetSplitterInlineRoot .user-split-note {
+            margin-top: 0.85rem;
+            font-size: 0.9rem;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+    
+        .summary-stack .summary-card__splitter .material-symbols-outlined {
+            font-size: 1.1rem;
+            margin-right: 0.2rem;
+        }
+
         .budget-plan-map-card {
             margin-top: 1.5rem;
             position: relative;
@@ -1878,23 +2569,10 @@
             transform: scale(1.06);
             box-shadow: 0 2px 6px rgba(180, 83, 9, 0.2);
         }
-        .module-badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 800;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            color: #78350f;
-            background: rgba(254, 243, 199, 0.9);
-            border: 1px solid rgba(251, 191, 36, 0.45);
-            padding: 0.18rem 0.45rem;
-            border-radius: 6px;
-            margin-bottom: 0.28rem;
-        }
         .btn-apply,
         .btn-submit,
         .btn-reset,
-        .site-header__back,
+        .site-header__link,
         .budget-modal__close {
             min-height: 2.75rem;
         }
@@ -1948,71 +2626,28 @@
             .budget-app {
                 --budget-page-gutter: clamp(0.45rem, 2.5vw, 0.85rem);
             }
-            .site-header {
-                padding-top: 0.5rem;
-                padding-bottom: 0.55rem;
-                padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px));
-                padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px));
+            .site-header__layout {
+                padding-left: max(var(--budget-page-gutter), env(safe-area-inset-left, 0px)) !important;
+                padding-right: max(var(--budget-page-gutter), env(safe-area-inset-right, 0px)) !important;
             }
-            .site-header__inner {
-                grid-template-columns: auto minmax(0, 1fr);
-                column-gap: 0.45rem;
-                row-gap: 0.35rem;
-                align-items: center;
-            }
-            .site-header__meta {
-                grid-column: 1 / -1;
-                grid-row: 2;
-                min-width: 0;
-            }
-            .site-header__titles h1 {
-                font-size: 1rem;
-                line-height: 1.2;
-            }
-            .site-header__titles p {
-                font-size: 0.74rem;
-                line-height: 1.35;
-            }
-            .site-header__logo {
-                grid-column: 1 / 2;
-                grid-row: 1;
-                justify-self: start;
-                height: 3.2rem;
-                max-width: min(58vw, 13rem);
-                padding: 5px 9px;
-                border-radius: 7px;
-            }
-            .site-header__actions {
-                grid-column: 2 / 3;
-                grid-row: 1;
-                width: auto;
-                max-width: 100%;
-                justify-content: flex-end;
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
+            .site-header__home {
+                padding: 0.45rem 0.85rem 0.45rem 0.7rem;
+                font-size: 0.75rem;
                 gap: 0.35rem;
             }
-            .site-header__splitter {
-                font-size: 0.78rem;
-                padding: 0.45rem 0.72rem;
-                white-space: normal;
-                text-align: center;
-                max-width: 9.5rem;
-                line-height: 1.15;
+            .site-header__home .material-symbols-outlined {
+                font-size: 1.25rem;
             }
-            .site-header__splitter .material-symbols-outlined {
-                font-size: 18px;
+            .site-header__brand-name {
+                font-size: 1.05rem !important;
+                line-height: 1.25;
+            }
+            .site-header__link {
+                font-size: 0.95rem;
+                padding: 0.28rem 0.4rem;
             }
             .amount { font-size: 1.15rem; }
             .grid-breakdown .amount { font-size: 0.98rem; }
-            .site-header__back {
-                font-size: 0.875rem;
-                padding: 0.5rem 0.9rem;
-            }
-            .site-header__back .material-symbols-outlined {
-                font-size: 22px;
-            }
             .avatar {
                 width: 40px;
                 height: 40px;
@@ -2102,19 +2737,27 @@
     </div>
 
     <div class="budget-main">
-    <header class="site-header sticky top-0 z-50 shrink-0">
-        <div class="site-header__inner">
-            <div class="site-header__meta">
-                <div class="site-header__titles">
-                    <span class="module-badge">GeoTrip - Smart Budget Trip Planner</span>
-                    <h1>Budget Calculator</h1>
-                    <p>Plan and estimate your travel expenses efficiently</p>
-                </div>
+    <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
+        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+            <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
+                <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
+                    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+                    <span class="site-header__home-text">HOME</span>
+                </a>
+                <a href="main_page.html" class="site-header__brand min-w-0 shrink">
+                    <span class="site-header__brand-titles font-headline-lg flex min-w-0 items-baseline">
+                        <span class="site-header__brand-name min-w-0 shrink truncate text-xl font-bold tracking-tight text-amber-800 sm:text-2xl lg:text-3xl">Budget calculator &amp; splitter</span>
+                    </span>
+                </a>
             </div>
-            <img class="site-header__logo" src="images/geointellab_logo.jpeg" alt="Institution logo" width="520" height="104" decoding="async"/>
-            <div class="site-header__actions">
-                <a class="site-header__splitter" href="budget_splitter.html" id="budgetSplitterHeaderBtn"><span class="material-symbols-outlined" aria-hidden="true">pie_chart</span> Budget Splitter</a>
-                <a class="site-header__back" href="main_page.html"><span class="material-symbols-outlined" aria-hidden="true">arrow_back</span> Main site</a>
+            <nav class="site-header__nav site-header__nav--primary flex min-w-0 flex-wrap items-center justify-center gap-1 sm:gap-2" aria-label="Primary">
+                <a class="site-header__link" href="packages.html">Packages</a>
+                <a class="site-header__link" href="booking.html">Booking</a>
+            </nav>
+            <div class="site-header__end">
+                <span class="site-header__logo-wrap">
+                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="520" height="104" decoding="async" loading="eager"/>
+                </span>
             </div>
         </div>
     </header>
@@ -2149,10 +2792,15 @@
                     </div>
                 </div>
                 <div class="form-grid">
+                    <div hidden aria-hidden="true">
+                        <input type="text" id="routeStartLocation" autocomplete="off" tabindex="-1"/>
+                        <input type="date" id="mainTripDate" tabindex="-1"/>
+                        <input type="time" id="mainOutingStart" tabindex="-1"/>
+                        <input type="time" id="mainOutingEnd" tabindex="-1"/>
+                    </div>
                     <div class="inputs-field--budget">
                         <label for="userBudget">Your total budget (Rs. ) <span class="tooltip-btn" title="Optional - shows remaining vs estimated total">?</span></label>
                         <input type="number" id="userBudget" min="0" step="100" inputmode="decimal" placeholder="Enter your budget"/>
-                        <p class="hint">Tip: leave <strong>0</strong> to hide the "remaining budget" line until you're ready.</p>
                     </div>
                     <div>
                         <label for="travelMode">Travel mode</label>
@@ -2172,24 +2820,6 @@
                     <div>
                         <label for="distance">Total distance (km)</label>
                         <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="Enter total distance"/>
-                        <p class="hint" id="distanceMapHint">Used for <strong>car / bike</strong> fuel cost. Also used if you open the <strong>Emergency</strong> map (nearest hospitals).</p>
-                    </div>
-                    <div>
-                        <label for="routeStartLocation">Starting location</label>
-                        <input type="text" id="routeStartLocation" autocomplete="street-address" placeholder="e.g. Tirupati Railway Station"/>
-                    </div>
-                    <div>
-                        <label for="mainTripDate">Trip date</label>
-                        <input type="date" id="mainTripDate" required/>
-                        <p class="hint">Stays in sync with <strong>Trip inputs</strong>; passed to the trip map when you apply filters.</p>
-                    </div>
-                    <div>
-                        <label for="mainOutingStart">Outing start</label>
-                        <input type="time" id="mainOutingStart" required/>
-                    </div>
-                    <div>
-                        <label for="mainOutingEnd">Outing end</label>
-                        <input type="time" id="mainOutingEnd" required/>
                     </div>
                     <div>
                         <label for="people">Number of people</label>
@@ -2210,9 +2840,6 @@
                     <div>
                         <label for="foodPerDay">Food cost per person per day (Rs. )</label>
                         <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Food/day per person"/>
-                    </div>
-                    <div>
-                        <p class="hint inputs-hint-wide" style="grid-column: 1 / -1; margin: 0;">Number of days stays <strong>in sync</strong> with the trip planner fields - edit either place; stay, food, and buffer totals follow automatically.</p>
                     </div>
                 </div>
             </section>
@@ -2317,8 +2944,9 @@
             <div class="remaining-box neutral" id="remainingBox" role="status" aria-live="polite">
                 Enter your total budget (first field in Trip inputs) to see if you are within plan.
             </div>
-            <div class="summary-card__actions-bottom" aria-label="Export and recalculate">
+            <div class="summary-card__actions-bottom" aria-label="Export, budget splitter, and recalculate">
                 <button type="button" class="btn-pdf-export summary-card__pdf" id="sbDownloadPdfBtn"><span class="material-symbols-outlined" aria-hidden="true">picture_as_pdf</span>Download trip PDF</button>
+                <button type="button" class="ctrl-btn summary-card__splitter" id="openBudgetSplitterBtn"><span class="material-symbols-outlined" aria-hidden="true">pie_chart</span>Budget Splitter</button>
                 <button type="button" class="ctrl-btn ctrl-btn--primary summary-card__recalc" id="recalcBudgetBtn"><span class="material-symbols-outlined" aria-hidden="true" style="font-size:18px">calculate</span>Recalculate</button>
             </div>
         </section>
@@ -2369,6 +2997,100 @@
         <span class="material-symbols-outlined" aria-hidden="true">local_hospital</span>
         Emergency
     </button>
+
+    <div class="budget-modal budget-modal--splitter" id="budgetSplitterModal" hidden aria-hidden="true">
+        <div class="budget-modal__splitter-shell" role="dialog" aria-modal="true" aria-label="Budget Splitter" tabindex="-1">
+            <button type="button" class="budget-modal__splitter-close" id="budgetSplitterCloseBtn" aria-label="Close Budget Splitter">
+                <span class="material-symbols-outlined" aria-hidden="true">close</span>
+            </button>
+            <div id="budgetSplitterInlineRoot" class="budget-modal__splitter-body">
+                <div class="shell">
+                    <div class="hero">
+                        <h1>Budget Splitter</h1>
+                        <p>Divide your total trip budget into stay, food, transport, and activities — tuned for
+                            <strong>Basic</strong>, <strong>Balanced</strong>, or <strong>Premium</strong> trips. Pulls numbers from
+                            the map planner when you open this from there.</p>
+                    </div>
+
+                    <section class="panel" aria-labelledby="inputsTitle">
+                        <h2 class="panel__title" id="inputsTitle"><span class="material-symbols-outlined"
+                                aria-hidden="true">tune</span> Your trip</h2>
+                        <div class="grid-inputs">
+                            <div class="field">
+                                <label for="totalBudget">Total budget (₹)</label>
+                                <input type="number" id="totalBudget" min="0" step="100" inputmode="decimal"
+                                    placeholder="e.g. 25000" autocomplete="off" />
+                            </div>
+                            <div class="field">
+                                <label for="numPeople">People</label>
+                                <input type="number" id="numPeople" min="1" step="1" inputmode="numeric" placeholder="e.g. 4"
+                                    autocomplete="off" />
+                            </div>
+                            <div class="field">
+                                <label for="numDays">Days</label>
+                                <input type="number" id="numDays" min="1" step="1" inputmode="numeric" placeholder="e.g. 3"
+                                    autocomplete="off" />
+                            </div>
+                        </div>
+                        <div class="tiers" role="group" aria-label="Trip style">
+                            <button type="button" class="tier-btn is-active" data-tier="balanced" aria-pressed="true">
+                                Balanced
+                                <small>40 / 25 / 20 / 15</small>
+                            </button>
+                            <button type="button" class="tier-btn" data-tier="basic" aria-pressed="false">
+                                Basic
+                                <small>More transport</small>
+                            </button>
+                            <button type="button" class="tier-btn" data-tier="premium" aria-pressed="false">
+                                Premium
+                                <small>Stay + experiences</small>
+                            </button>
+                        </div>
+                        <div class="actions">
+                            <button type="button" class="btn-primary" id="calcBtn">
+                                <span class="material-symbols-outlined" aria-hidden="true">calculate</span>
+                                Calculate split
+                            </button>
+                            <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
+                        </div>
+                        <p id="errBox" class="err" role="alert"></p>
+                        <p id="sourceNote" class="source-note" hidden></p>
+                    </section>
+
+                    <section class="panel" id="resultPanel" hidden aria-labelledby="resultTitle">
+                        <h2 class="panel__title" id="resultTitle"><span class="material-symbols-outlined"
+                                aria-hidden="true">pie_chart</span> Your split</h2>
+                        <div class="summary-grid">
+                            <div class="stat">
+                                <span class="stat__label">Per person</span>
+                                <p class="stat__value" id="outPerPerson">—</p>
+                                <p class="stat__hint">Total ÷ people</p>
+                            </div>
+                            <div class="stat">
+                                <span class="stat__label">Per day (trip)</span>
+                                <p class="stat__value" id="outPerDay">—</p>
+                                <p class="stat__hint">Total ÷ days</p>
+                            </div>
+                            <div class="stat" style="grid-column: 1 / -1;">
+                                <span class="stat__label">Food (per person / day)</span>
+                                <p class="stat__value" id="outFoodPerPersonDay">—</p>
+                                <p class="stat__hint">From the food slice of your split — useful for daily meal planning.</p>
+                            </div>
+                        </div>
+                        <div class="user-split-section" id="userSplitSection" hidden>
+                            <p class="user-split-heading"><span class="material-symbols-outlined" aria-hidden="true">groups</span>
+                                Per traveller</p>
+                            <p class="user-split-lead">Trip budget shared equally — each person's slice of Stay, Food, Transport,
+                                and Activities.</p>
+                            <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person"></div>
+                            <p class="user-split-note" id="userSplitNote" hidden></p>
+                        </div>
+                        <div class="cats" id="catList"></div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="budget-modal" id="overBudgetModal" hidden>
         <div class="budget-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="overBudgetTitle" aria-describedby="overBudgetDesc" tabindex="-1">
@@ -3410,13 +4132,6 @@
             el.addEventListener('input', syncBudgetSplitterContext);
             el.addEventListener('change', syncBudgetSplitterContext);
         });
-        const splitterBtn = $('budgetSplitterHeaderBtn');
-        if (splitterBtn) {
-            splitterBtn.addEventListener('click', function () {
-                syncBudgetSplitterContext();
-            });
-        }
-
         window.budgetTripPlacesReady = loadPlaces().then(function () {
             applyPackageLandingQuery();
             updateTripOverview();
@@ -5740,6 +6455,358 @@ window.addEventListener('budget-show-trip-map', function () {
 
     calc();
 })();
+    </script>
+    <script>
+(function () {
+    var SPLITTER_STORAGE = 'geotrip_budget_splitter_context';
+    var modal = document.getElementById('budgetSplitterModal');
+    var openBtn = document.getElementById('openBudgetSplitterBtn');
+    var closeBtn = document.getElementById('budgetSplitterCloseBtn');
+
+    function valTrim(id) {
+        var el = document.getElementById(id);
+        if (!el || el.value == null) return '';
+        return String(el.value).trim();
+    }
+
+    function openBudgetSplitter() {
+        if (!modal) return;
+        var budget = valTrim('userBudget');
+        var people = valTrim('people');
+        var days = valTrim('days');
+        try {
+            var ctx = { source: 'budget_calculator' };
+            if (budget !== '' && isFinite(Number(budget))) ctx.totalBudget = Number(budget);
+            if (people !== '' && isFinite(Number(people))) ctx.people = Math.max(1, parseInt(people, 10) || 1);
+            if (days !== '' && isFinite(Number(days))) ctx.days = Math.max(1, parseInt(days, 10) || 1);
+            sessionStorage.setItem(SPLITTER_STORAGE, JSON.stringify(ctx));
+        } catch (e) { /* ignore */ }
+        modal.hidden = false;
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        if (typeof window.geoTripBudgetSplitterOnModalOpen === 'function') {
+            window.geoTripBudgetSplitterOnModalOpen();
+        }
+        window.requestAnimationFrame(function () {
+            if (closeBtn) closeBtn.focus();
+        });
+    }
+
+    function closeBudgetSplitter() {
+        if (!modal) return;
+        modal.hidden = true;
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (openBtn) openBtn.focus();
+    }
+
+    if (openBtn) openBtn.addEventListener('click', openBudgetSplitter);
+    if (closeBtn) closeBtn.addEventListener('click', closeBudgetSplitter);
+    if (modal) {
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) closeBudgetSplitter();
+        });
+    }
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape' || !modal || modal.hidden) return;
+        closeBudgetSplitter();
+    });
+})();
+    </script>
+    <script>
+        (function () {
+            var SPLITTER_INLINE = true;
+            var STORAGE_KEY = 'geotrip_budget_splitter_context';
+            var TRIP_SPEND_KEY = 'tirupati_trip_total_spend';
+
+            var TIERS = {
+                balanced: { stay: 0.40, food: 0.25, transport: 0.20, activities: 0.15, label: 'Balanced' },
+                basic: { stay: 0.32, food: 0.26, transport: 0.30, activities: 0.12, label: 'Basic' },
+                premium: { stay: 0.45, food: 0.22, transport: 0.15, activities: 0.18, label: 'Premium' }
+            };
+
+            function fmtMoney(n) {
+                if (!isFinite(n) || n < 0) return '—';
+                try {
+                    return '₹' + Math.round(n).toLocaleString('en-IN');
+                } catch (e) {
+                    return '₹' + String(Math.round(n));
+                }
+            }
+
+            function splitBudget(totalBudget, people, days, tierKey) {
+                var t = TIERS[tierKey] || TIERS.balanced;
+                var stay = totalBudget * t.stay;
+                var food = totalBudget * t.food;
+                var transport = totalBudget * t.transport;
+                var activities = totalBudget * t.activities;
+                var foodPerPersonDay = people > 0 && days > 0 ? food / (people * days) : null;
+                return {
+                    totalBudget: totalBudget,
+                    people: people,
+                    days: days,
+                    tier: t.label,
+                    tierKey: tierKey,
+                    percents: { stay: t.stay, food: t.food, transport: t.transport, activities: t.activities },
+                    perPerson: totalBudget / people,
+                    perDay: totalBudget / days,
+                    stay: stay,
+                    food: food,
+                    transport: transport,
+                    activities: activities,
+                    foodPerPersonDay: foodPerPersonDay
+                };
+            }
+
+            function validate(total, people, days) {
+                if (people <= 0 || days <= 0) return 'Enter at least 1 person and 1 day.';
+                if (!isFinite(total) || total < 0) return 'Enter a valid total budget (0 or more).';
+                return null;
+            }
+
+            var totalEl = document.getElementById('totalBudget');
+            var peopleEl = document.getElementById('numPeople');
+            var daysEl = document.getElementById('numDays');
+            var errBox = document.getElementById('errBox');
+            var resultPanel = document.getElementById('resultPanel');
+            var catList = document.getElementById('catList');
+            var sourceNote = document.getElementById('sourceNote');
+            var currentTier = 'balanced';
+
+            function setErr(msg) {
+                if (!errBox) return;
+                if (msg) {
+                    errBox.textContent = msg;
+                    errBox.classList.add('is-visible');
+                } else {
+                    errBox.textContent = '';
+                    errBox.classList.remove('is-visible');
+                }
+            }
+
+            function readUrlParams() {
+                if (SPLITTER_INLINE) {
+                    return { budget: null, people: null, days: null, tier: null };
+                }
+                var p = new URLSearchParams(window.location.search);
+                return {
+                    budget: p.get('budget'),
+                    people: p.get('people'),
+                    days: p.get('days'),
+                    tier: p.get('tier')
+                };
+            }
+
+            function readStored() {
+                try {
+                    var raw = sessionStorage.getItem(STORAGE_KEY);
+                    if (!raw) return null;
+                    return JSON.parse(raw);
+                } catch (e) {
+                    return null;
+                }
+            }
+
+            function readTripSpendLocal() {
+                try {
+                    return window.localStorage.getItem(TRIP_SPEND_KEY) || '';
+                } catch (e) {
+                    return '';
+                }
+            }
+
+            function prefill() {
+                var url = readUrlParams();
+                var st = readStored();
+                var budget = (url.budget != null && String(url.budget).trim() !== '') ? String(url.budget).trim() : '';
+                var people = (url.people != null && String(url.people).trim() !== '') ? String(url.people).trim() : '';
+                var days = (url.days != null && String(url.days).trim() !== '') ? String(url.days).trim() : '';
+
+                if (!budget && st && st.totalBudget) budget = String(st.totalBudget);
+                if (!people && st && st.people) people = String(st.people);
+                if (!days && st && st.days) days = String(st.days);
+
+                if (!budget) {
+                    var ls = readTripSpendLocal();
+                    if (ls && String(ls).trim() !== '') budget = String(ls).trim();
+                }
+
+                if (totalEl && budget) totalEl.value = budget;
+                if (peopleEl && people) peopleEl.value = people;
+                if (daysEl && days) daysEl.value = days;
+
+                if (url.tier && TIERS[url.tier]) {
+                    currentTier = url.tier;
+                    document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (b) {
+                        var k = b.getAttribute('data-tier');
+                        var on = k === currentTier;
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                }
+
+                if (sourceNote) {
+                    if (st && st.source === 'budget_calculator') {
+                        sourceNote.hidden = false;
+                        sourceNote.innerHTML = 'Loaded values from <strong>Budget &amp; map planner</strong> (saved when you opened Budget Splitter). You can edit them here anytime.';
+                    } else if (budget || people || days) {
+                        sourceNote.hidden = false;
+                        sourceNote.textContent = 'Some fields were filled from your last planner session or URL. Adjust and tap Calculate.';
+                    } else {
+                        sourceNote.hidden = true;
+                    }
+                }
+            }
+
+            function render(result) {
+                if (!resultPanel || !catList) return;
+                resultPanel.hidden = false;
+                document.getElementById('outPerPerson').textContent = fmtMoney(result.perPerson);
+                document.getElementById('outPerDay').textContent = fmtMoney(result.perDay);
+                var fpp = result.foodPerPersonDay;
+                document.getElementById('outFoodPerPersonDay').textContent =
+                    fpp != null && isFinite(fpp) ? fmtMoney(fpp) : '—';
+
+                renderUserCards(result);
+
+                var rows = [
+                    { key: 'stay', materialIcon: 'hotel', name: 'Stay', cls: 'bar--stay', amt: result.stay, pct: result.percents.stay },
+                    { key: 'food', materialIcon: 'restaurant', name: 'Food', cls: 'bar--food', amt: result.food, pct: result.percents.food },
+                    { key: 'transport', materialIcon: 'directions_car', name: 'Transport', cls: 'bar--transport', amt: result.transport, pct: result.percents.transport },
+                    { key: 'activities', materialIcon: 'local_activity', name: 'Activities', cls: 'bar--activities', amt: result.activities, pct: result.percents.activities }
+                ];
+
+                catList.innerHTML = rows.map(function (r) {
+                    return (
+                        '<div class="cat">' +
+                        '<span class="cat__icon material-symbols-outlined" aria-hidden="true">' + r.materialIcon + '</span>' +
+                        '<div><div class="cat__name">' + r.name + '</div><div class="cat__pct">' + Math.round(r.pct * 100) + '% of trip</div></div>' +
+                        '<div class="cat__amt">' + fmtMoney(r.amt) + '</div>' +
+                        '<div class="bar ' + r.cls + '" data-pct="' + String(Math.round(r.pct * 1000) / 10) + '"><i style="width:0%"></i></div>' +
+                        '</div>'
+                    );
+                }).join('');
+
+                window.requestAnimationFrame(function () {
+                    catList.querySelectorAll('.bar > i').forEach(function (barInner, i) {
+                        var row = rows[i];
+                        if (!row) return;
+                        barInner.style.width = String(Math.min(100, Math.round(row.pct * 1000) / 10)) + '%';
+                    });
+                });
+            }
+
+            function renderUserCards(result) {
+                var section = document.getElementById('userSplitSection');
+                var wrap = document.getElementById('userSplitWrap');
+                var note = document.getElementById('userSplitNote');
+                if (!section || !wrap) return;
+
+                var n = Math.floor(result.people);
+                if (!isFinite(n) || n < 1) {
+                    section.hidden = true;
+                    wrap.innerHTML = '';
+                    if (note) note.hidden = true;
+                    return;
+                }
+
+                var maxCards = 24;
+                var showCount = Math.min(n, maxCards);
+                var shareStay = result.stay / n;
+                var shareFood = result.food / n;
+                var shareTransport = result.transport / n;
+                var shareActivities = result.activities / n;
+                var shareTotal = result.totalBudget / n;
+
+                var html = [];
+                for (var i = 1; i <= showCount; i++) {
+                    html.push(
+                        '<article class="user-card">' +
+                        '<div class="user-card__title">User ' + i + '</div>' +
+                        '<div class="user-card__total">' +
+                        fmtMoney(shareTotal) +
+                        '<span>Total share (equal)</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">hotel</span>Stay</span><span class="user-card__amt">' + fmtMoney(shareStay) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">restaurant</span>Food</span><span class="user-card__amt">' + fmtMoney(shareFood) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>Transport</span><span class="user-card__amt">' + fmtMoney(shareTransport) + '</span></div>' +
+                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">local_activity</span>Activities</span><span class="user-card__amt">' + fmtMoney(shareActivities) + '</span></div>' +
+                        '</article>'
+                    );
+                }
+                wrap.innerHTML = html.join('');
+                section.hidden = false;
+
+                if (note) {
+                    if (n > maxCards) {
+                        note.hidden = false;
+                        note.textContent =
+                            'Showing first ' + maxCards + ' travellers. Total group size: ' + n + ' — each share is still total ÷ ' + n + '.';
+                    } else {
+                        note.hidden = true;
+                        note.textContent = '';
+                    }
+                }
+            }
+
+            function runCalc() {
+                setErr('');
+                var total = parseFloat((totalEl && totalEl.value) ? totalEl.value : '0');
+                var people = parseInt((peopleEl && peopleEl.value) ? peopleEl.value : '0', 10);
+                var days = parseInt((daysEl && daysEl.value) ? daysEl.value : '0', 10);
+                var v = validate(total, people, days);
+                if (v) {
+                    setErr(v);
+                    if (resultPanel) resultPanel.hidden = true;
+                    return;
+                }
+                var res = splitBudget(total, people, days, currentTier);
+                render(res);
+            }
+
+            document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    currentTier = btn.getAttribute('data-tier') || 'balanced';
+                    document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (b) {
+                        var on = b === btn;
+                        b.classList.toggle('is-active', on);
+                        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                    });
+                    if (resultPanel && !resultPanel.hidden) runCalc();
+                });
+            });
+
+            var calcBtn = document.getElementById('calcBtn');
+            if (calcBtn) calcBtn.addEventListener('click', runCalc);
+            var resetBtn = document.getElementById('resetBtn');
+            if (resetBtn) resetBtn.addEventListener('click', function () {
+                if (totalEl) totalEl.value = '';
+                if (peopleEl) peopleEl.value = '';
+                if (daysEl) daysEl.value = '';
+                currentTier = 'balanced';
+                document.querySelectorAll('#budgetSplitterInlineRoot .tier-btn').forEach(function (b) {
+                    var on = b.getAttribute('data-tier') === 'balanced';
+                    b.classList.toggle('is-active', on);
+                    b.setAttribute('aria-pressed', on ? 'true' : 'false');
+                });
+                setErr('');
+                if (resultPanel) resultPanel.hidden = true;
+                if (sourceNote) sourceNote.hidden = true;
+            });
+
+            window.geoTripBudgetSplitterOnModalOpen = function () {
+                prefill();
+                if (totalEl && peopleEl && daysEl &&
+                    totalEl.value && peopleEl.value && daysEl.value) {
+                    runCalc();
+                }
+            };
+
+            prefill();
+            if (totalEl && peopleEl && daysEl &&
+                totalEl.value && peopleEl.value && daysEl.value) {
+                runCalc();
+            }
+        })();
     </script>
     <script src="chatbot.js" defer></script>
 </body>

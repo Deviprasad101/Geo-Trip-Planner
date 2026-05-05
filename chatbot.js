@@ -231,7 +231,7 @@
         {
             category: "Budget Splitter",
             items: [
-                { q: "How to split expenses?", a: "Use the <a href='budget_splitter.html'>Smart Budget Splitter</a>. Enter your total budget, and it splits into Stay, Food, Transport, and Activities." },
+                { q: "How to split expenses?", a: "Open the <a href='budget_calculator.html'>Budget &amp; map planner</a>, scroll to <strong>Budget Summary</strong>, and tap <strong>Budget Splitter</strong> — or use <strong>Calculate split</strong> there after entering totals." },
                 { q: "Add members to trip", a: "In the Budget Splitter, adjust the 'People' input field. The system automatically recalculates the per-person share." },
                 { q: "Calculate total budget", a: "The total budget is entered by you or pulled automatically from your Map Planner session into the Budget Splitter." },
                 { q: "Who owes how much?", a: "The Budget Splitter currently assumes equal sharing. It shows the exact equal split amount under the 'Per traveller' section." }
@@ -258,7 +258,7 @@
             category: "Navigation / App Help",
             items: [
                 { q: "Go to planner page", a: "Click here: <a href='budget_calculator.html'>Map & Budget Planner</a>" },
-                { q: "Open budget splitter", a: "Click here: <a href='budget_splitter.html'>Smart Budget Splitter</a>" },
+                { q: "Open budget splitter", a: "Go to <a href='budget_calculator.html'>Budget &amp; map planner</a>, then open <strong>Budget Splitter</strong> from the Budget Summary card." },
                 { q: "Open booking page", a: "Click here: <a href='booking.html'>Official Booking</a>" },
                 { q: "How to use this feature?", a: "Select any query from this menu, and I will guide you with details or direct links!" }
             ]
@@ -276,7 +276,7 @@
     let htmlOptions = `
         <div class="gt-chatbot-quick-actions">
             <button class="gt-chatbot-quick-btn" onclick="window.location.href='budget_calculator.html'">📍 Plan My Trip</button>
-            <button class="gt-chatbot-quick-btn" onclick="window.location.href='budget_splitter.html'">💰 Split Budget</button>
+            <button class="gt-chatbot-quick-btn" onclick="window.location.href='budget_calculator.html'">💰 Split Budget</button>
             <button class="gt-chatbot-quick-btn" onclick="window.location.href='booking.html'">🚆 Book Tickets</button>
             <button class="gt-chatbot-quick-btn" onclick="alert('Checklist coming soon! Remember IDs & Traditional wear.')">✅ Travel Checklist</button>
         </div>
