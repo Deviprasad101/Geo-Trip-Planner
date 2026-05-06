@@ -1949,8 +1949,6 @@
                                 </button>
                             </div>
                         </div>
-                        <p class="absolute bottom-[3.25rem] left-0 right-0 z-[3] text-center text-[10px] font-semibold uppercase tracking-wider text-white/95 drop-shadow-md sm:bottom-[3.5rem]"
-                            id="heroSlideCaption">Tirumala temple</p>
                     </div>
                 </div>
             </section>
@@ -2657,7 +2655,6 @@
 
                 function initHeroSlideshow() {
                     const stack = document.getElementById('heroPhotoStack');
-                    const caption = document.getElementById('heroSlideCaption');
                     const dotsRoot = document.getElementById('heroDots');
                     const prevBtn = document.getElementById('heroPrev');
                     const nextBtn = document.getElementById('heroNext');
@@ -2676,9 +2673,6 @@
                             f.classList.toggle('is-active', j === i);
                             f.setAttribute('aria-hidden', j === i ? 'false' : 'true');
                         });
-                        if (caption && frames[i] && frames[i].dataset.label) {
-                            caption.textContent = frames[i].dataset.label;
-                        }
                         dotsRoot.querySelectorAll('.hero-slideshow__dot').forEach(function (d, j) {
                             d.setAttribute('aria-current', j === i ? 'true' : 'false');
                         });
