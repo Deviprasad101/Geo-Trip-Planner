@@ -98,8 +98,16 @@
                 gap: 0.875rem;
             }
         }
+        /* Nav: hide on small screens; show from tablet up (Tailwind `hidden`+`md:flex` often breaks display). */
         .site-header__nav--primary {
             justify-content: center;
+            display: none;
+        }
+        @media (min-width: 768px) {
+            .site-header__nav--primary {
+                display: flex !important;
+                align-items: center;
+            }
         }
         .site-header__logo-wrap {
             display: inline-flex;
@@ -182,6 +190,28 @@
                 object-position: center;
             }
         }
+        /* Tablet: show all nav links in a full-width row under logo row (768px–1023px) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .site-header__start {
+                grid-column: 1;
+                grid-row: 1;
+            }
+            .site-header__end {
+                grid-column: 2;
+                grid-row: 1;
+            }
+            .site-header__nav--primary {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                justify-self: center;
+                width: 100%;
+                max-width: none;
+                flex-wrap: wrap;
+                justify-content: center;
+                row-gap: 0.35rem;
+                padding-top: 0.15rem;
+            }
+        }
         @media (min-width: 1024px) {
             .site-header__layout {
                 display: grid !important;
@@ -234,6 +264,9 @@
             }
         }
         .site-header__link {
+            display: inline-flex;
+            align-items: center;
+            min-height: 2.75rem;
             font-size: 1.1875rem;
             font-weight: 600;
             color: #78350f;
@@ -242,6 +275,7 @@
             border-radius: 0.5rem;
             transition: background 0.15s ease, color 0.15s ease;
             white-space: nowrap;
+            box-sizing: border-box;
         }
         .site-header__link:hover {
             background: rgba(254, 243, 199, 0.85);
@@ -254,6 +288,53 @@
         .site-header__link[aria-current="page"] {
             background: rgba(254, 243, 199, 0.65);
             color: #451a03;
+        }
+        /* Home — same pattern as budget_calculator.html / packages.html */
+        a.site-header__home,
+        a.site-header__home:hover {
+            color: #92400e;
+        }
+        .site-header__home {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.5rem 1rem 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(148, 163, 184, 0.55);
+            background: #fff;
+            font-weight: 800;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+            transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
+            flex-shrink: 0;
+        }
+        .site-header__home:hover {
+            border-color: rgba(217, 119, 6, 0.55);
+            background: #fffbeb;
+            box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
+            color: #78350f;
+        }
+        .site-header__home:focus-visible {
+            outline: 2px solid #d97706;
+            outline-offset: 2px;
+        }
+        .site-header__home .material-symbols-outlined {
+            font-size: 1.35rem;
+        }
+        .site-header__home-text {
+            font-family: "Public Sans", system-ui, sans-serif;
+        }
+        @media (min-width: 640px) {
+            .site-header__home {
+                gap: 0.5rem;
+                padding: 0.55rem 1.15rem 0.55rem 0.95rem;
+                font-size: 0.875rem;
+            }
+            .site-header__home .material-symbols-outlined {
+                font-size: 1.45rem;
+            }
         }
         .icon-btn {
             display: inline-flex;
@@ -1081,18 +1162,23 @@
 </head>
 <body>
     <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
-        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-x-hidden overflow-y-visible px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
             <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
                 <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
                     <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
                 </button>
+                <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
+                    <span class="material-symbols-outlined" aria-hidden="true">home</span>
+                    <span class="site-header__home-text">HOME</span>
+                </a>
                 <a href="main_page.html" class="site-header__brand min-w-0 shrink">
                     <span class="site-header__brand-titles font-headline-lg">
                         <span class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Booking</span>
                     </span>
                 </a>
             </div>
-            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex" aria-label="Primary">
+            <nav class="site-header__nav site-header__nav--primary min-w-0 items-center justify-center gap-1 sm:gap-2" aria-label="Primary site pages">
+                <a class="site-header__link" href="main_page.html">GeoTrip map</a>
                 <a class="site-header__link" href="packages.html">Packages</a>
                 <a class="site-header__link" href="budget_calculator.html">Budget calculator &amp; splitter</a>
                 <a class="site-header__link" href="booking.html" aria-current="page">Booking</a>
@@ -1117,7 +1203,7 @@
             <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
             <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
             <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
-            <a href="booking.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+            <a href="booking.html" aria-current="page"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
         </nav>
         <div class="border-t border-amber-100 p-3">
             <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
