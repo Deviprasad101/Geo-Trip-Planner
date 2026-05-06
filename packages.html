@@ -562,31 +562,51 @@
         }
 
         .pricing-card__offer-line {
-            margin: 0 0 0.55rem;
-            padding: 0.52rem 0.72rem;
-            border-radius: 0.65rem;
+            margin: 0 0 0.7rem;
+            padding: 0.55rem 0.8rem;
+            border-radius: 0.75rem;
             border: 1px dashed #f59e0b;
             background: #fffbeb;
             color: #92400e;
             font-size: 0.84rem;
             font-weight: 700;
             text-align: center;
+            min-height: 3.4rem; /* Standardized height to keep cards uniform */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.35;
         }
 
         .pricing-card__friendly {
-            margin: 0 0 0.6rem;
+            margin: 0 0 0.8rem;
             font-size: 0.83rem;
             line-height: 1.45;
             color: #475569;
             text-align: left;
         }
 
-        .pricing-card__friendly p {
+        .pricing-card__friendly-list {
             margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
         }
 
-        .pricing-card__friendly p+p {
-            margin-top: 0.2rem;
+        .pricing-card__friendly-list li {
+            position: relative;
+            padding-left: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .pricing-card__friendly-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0.15rem;
+            color: #d97706;
+            font-weight: bold;
         }
 
 
@@ -2884,7 +2904,7 @@
                     title: 'Basic Package',
                     displayRange: '₹1,000 – ₹5,000',
                     pickLimit: 5,
-                    offerLine: 'Project launch offer: Save up to 10% on weekday bookings.',
+                    offerLine: 'Offer: Save up to 10% on weekday bookings.',
                     friendlyLine1: 'Great choice for a quick, low-stress local trip.',
                     friendlyLine2: 'Pick your places and we map the easiest route for you.',
                     tagline: '💰 Budget: ₹1,000 – ₹5,000',
@@ -2899,7 +2919,7 @@
                     title: 'Standard Package',
                     displayRange: '₹5,000 – ₹10,000',
                     pickLimit: 10,
-                    offerLine: 'Project launch offer: Flat 12% off for early confirmations.',
+                    offerLine: 'Offer: Flat 12% off for early confirmations.',
                     friendlyLine1: 'Balanced plan for couples, friends, and small families.',
                     friendlyLine2: 'More places, clear budget, and smooth trip flow.',
                     tagline: '💰 Budget: ₹5,000 – ₹10,000',
@@ -2914,7 +2934,7 @@
                     title: 'Premium Package',
                     displayRange: '₹15,000+',
                     pickLimit: 20,
-                    offerLine: 'Project launch offer: 15% off + priority support.',
+                    offerLine: 'Offer: 15% off + priority support.',
                     friendlyLine1: 'Perfect when you want comfort, coverage, and flexibility.',
                     friendlyLine2: 'Plan bigger days without worrying about route complexity.',
                     tagline: '💰 Budget: ₹15,000+',
@@ -2929,7 +2949,7 @@
                     title: 'Super Premium Package',
                     displayRange: '₹25,000+',
                     pickLimit: 30,
-                    offerLine: 'Project launch offer: 22% off + free VIP assistance for confirmed group plans.',
+                    offerLine: 'Offer: 22% off + Priority VIP support.',
                     friendlyLine1: 'Best for grand trips with maximum place coverage.',
                     friendlyLine2: 'More control, more stops, and premium trip planning feel.',
                     tagline: '💰 Budget: ₹25,000+',
@@ -3109,8 +3129,10 @@
                         '<div class="pricing-card__body">' +
                         '<p class="pricing-card__offer-line">' + escapeHtml(tier.offerLine || 'Project offer available for this plan.') + '</p>' +
                         '<div class="pricing-card__friendly">' +
-                        '<p>' + escapeHtml(tier.friendlyLine1 || '') + '</p>' +
-                        '<p>' + escapeHtml(tier.friendlyLine2 || '') + '</p>' +
+                        '<ul class="pricing-card__friendly-list">' +
+                        '<li>' + escapeHtml(tier.friendlyLine1 || '') + '</li>' +
+                        '<li>' + escapeHtml(tier.friendlyLine2 || '') + '</li>' +
+                        '</ul>' +
                         '</div>' +
                         '<ul class="pricing-card__features">' +
                         '<li>' + escapeHtml(tier.tagline) + '</li>' +
