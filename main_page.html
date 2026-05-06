@@ -593,13 +593,13 @@
 
         @media (max-width: 1023px) {
             .site-header__layout {
-                display: grid !important;
-                grid-template-columns: minmax(0, 1fr) auto;
+                display: flex !important;
+                flex-direction: column;
                 align-items: center;
-                gap: 0.6rem 0.85rem;
-                overflow: visible;
-                padding-left: 1rem;
-                padding-right: 1rem;
+                justify-content: center;
+                gap: 0.75rem;
+                padding: 1rem;
+                min-height: auto;
             }
 
             .site-header__start {
@@ -622,21 +622,42 @@
             }
 
             .site-header__nav--primary {
-                display: none !important;
+                display: flex !important;
+                order: 3; /* Nav links at bottom */
+                width: 100%;
+                justify-content: center;
+                gap: 0.35rem;
+                margin-top: 0.25rem;
+                border-top: 1px solid rgba(251, 191, 36, 0.15);
+                padding-top: 0.65rem;
+            }
+
+            .site-header__nav--primary .site-header__link {
+                font-size: 0.875rem;
+                padding: 0.35rem 0.5rem;
             }
 
             .site-header__end {
-                grid-column: 2;
-                justify-self: end;
-                display: inline-flex;
-                align-items: center;
-                max-width: min(42vw, 11rem);
+                order: 1; /* Logo at top */
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                max-width: none;
             }
 
             .site-header__logo-wrap {
-                height: 2.1rem;
+                height: 4.8rem; /* Much larger logo as requested */
                 min-width: 0;
-                max-width: min(42vw, 11rem);
+                max-width: 90vw;
+            }
+
+            .site-header__start {
+                order: 2; /* Brand name in middle */
+                width: 100%;
+                justify-content: center;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
             }
 
             .site-header__brand-logo {
@@ -1866,7 +1887,7 @@
                 <a href="main_page.html" class="site-header__brand min-w-0 shrink">
                     <span class="site-header__brand-titles font-headline-lg">
                         <span
-                            class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">GeoTrip
+                            class="site-header__brand-name min-w-0 shrink truncate text-xl font-bold tracking-tight text-amber-800 sm:text-2xl lg:text-4xl">GeoTrip
                             Planner</span>
                     </span>
                 </a>
