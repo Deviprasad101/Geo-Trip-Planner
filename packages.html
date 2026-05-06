@@ -87,6 +87,7 @@
                 opacity: 0;
                 transform: translateY(18px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -171,12 +172,10 @@
 
         .pricing-card--premium,
         .pricing-card--superpremium {
-            background: linear-gradient(
-                165deg,
-                var(--pkg-feature-top) 0%,
-                var(--pkg-feature-mid) 52%,
-                var(--pkg-feature-deep) 100%
-            );
+            background: linear-gradient(165deg,
+                    var(--pkg-feature-top) 0%,
+                    var(--pkg-feature-mid) 52%,
+                    var(--pkg-feature-deep) 100%);
             box-shadow:
                 0 22px 56px var(--pkg-feature-shadow),
                 0 0 0 1px rgba(255, 255, 255, 0.14);
@@ -586,7 +585,7 @@
             margin: 0;
         }
 
-        .pricing-card__friendly p + p {
+        .pricing-card__friendly p+p {
             margin-top: 0.2rem;
         }
 
@@ -965,13 +964,16 @@
                 0 6px 18px rgba(15, 23, 42, 0.08),
                 0 2px 6px rgba(15, 23, 42, 0.05);
         }
+
         .site-header__start {
             min-width: 0;
         }
+
         .site-header__nav {
             flex-wrap: nowrap;
             row-gap: 0;
         }
+
         .site-header__brand {
             display: flex;
             min-width: 0;
@@ -979,6 +981,7 @@
             text-decoration: none;
             color: inherit;
         }
+
         .site-header__end {
             display: inline-flex;
             flex-wrap: nowrap;
@@ -988,19 +991,23 @@
             flex-shrink: 0;
             min-width: 0;
         }
+
         @media (min-width: 640px) {
             .site-header__end {
                 gap: 0.75rem;
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__end {
                 gap: 0.875rem;
             }
         }
+
         .site-header__nav--primary {
             justify-content: center;
         }
+
         .site-header__logo-wrap {
             display: inline-flex;
             align-items: center;
@@ -1013,24 +1020,28 @@
             box-sizing: border-box;
             min-width: 8.5rem;
         }
+
         @media (min-width: 480px) {
             .site-header__logo-wrap {
                 height: 4rem;
                 max-width: min(calc(100vw - 14rem), 29rem);
             }
         }
+
         @media (min-width: 640px) {
             .site-header__logo-wrap {
                 height: 4.6rem;
                 max-width: min(calc(100vw - 20rem), 32rem);
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__logo-wrap {
                 height: 5.1rem;
                 max-width: min(39vw, 28rem);
             }
         }
+
         .site-header__brand-logo {
             display: block;
             box-sizing: border-box;
@@ -1040,6 +1051,7 @@
             object-fit: contain;
             object-position: left center;
         }
+
         @media (max-width: 1023px) {
             .site-header__layout {
                 display: grid !important;
@@ -1050,6 +1062,7 @@
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
+
             .site-header__start {
                 grid-column: 1;
                 min-width: 0;
@@ -1057,15 +1070,18 @@
                 align-items: center;
                 gap: 0.45rem;
             }
+
             .site-header__brand {
                 margin-left: 0;
                 min-width: 0;
             }
+
             .site-header__brand-name {
                 display: block;
                 max-width: 100%;
                 line-height: 1.15;
             }
+
             .site-header__end {
                 grid-column: 2;
                 justify-self: end;
@@ -1073,15 +1089,18 @@
                 align-items: center;
                 max-width: min(42vw, 11rem);
             }
+
             .site-header__logo-wrap {
                 height: 2.1rem;
                 min-width: 0;
                 max-width: min(42vw, 11rem);
             }
+
             .site-header__brand-logo {
                 object-position: center;
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__layout {
                 display: grid !important;
@@ -1089,6 +1108,7 @@
                 align-items: center;
                 gap: 0.75rem 1rem;
             }
+
             .site-header__start {
                 grid-column: 1;
                 justify-self: start;
@@ -1096,6 +1116,7 @@
                 margin-left: 0;
                 min-width: 0;
             }
+
             .site-header__nav--primary {
                 grid-column: 2;
                 justify-self: center;
@@ -1105,6 +1126,7 @@
                 justify-content: center;
                 row-gap: 0.35rem;
             }
+
             .site-header__end {
                 grid-column: 3;
                 justify-self: end;
@@ -1112,14 +1134,17 @@
                 align-items: center;
                 min-width: 0;
             }
+
             .site-header__brand {
                 margin-left: 0;
                 padding-left: 0;
             }
+
             .site-header__nav {
                 gap: 0.55rem;
             }
         }
+
         .site-header__brand-titles {
             display: flex;
             min-width: 0;
@@ -1128,11 +1153,13 @@
             gap: 0.35rem;
             white-space: nowrap;
         }
+
         @media (min-width: 640px) {
             .site-header__brand-titles {
                 gap: 0.45rem;
             }
         }
+
         .site-header__link {
             font-size: 1.1875rem;
             font-weight: 600;
@@ -1143,22 +1170,27 @@
             transition: background 0.15s ease, color 0.15s ease;
             white-space: nowrap;
         }
+
         .site-header__link:hover {
             background: rgba(254, 243, 199, 0.85);
             color: #451a03;
         }
+
         .site-header__link:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .site-header__link[aria-current="page"] {
             background: rgba(254, 243, 199, 0.65);
             color: #451a03;
         }
+
         a.site-header__home,
         a.site-header__home:hover {
             color: #92400e;
         }
+
         .site-header__home {
             display: inline-flex;
             align-items: center;
@@ -1175,51 +1207,62 @@
             transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
             flex-shrink: 0;
         }
+
         .site-header__home:hover {
             border-color: rgba(217, 119, 6, 0.55);
             background: #fffbeb;
             box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
             color: #78350f;
         }
+
         .site-header__home:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .site-header__home .material-symbols-outlined {
             font-size: 1.35rem;
         }
+
         .site-header__home-text {
             font-family: "Public Sans", system-ui, sans-serif;
         }
+
         @media (min-width: 640px) {
             .site-header__home {
                 gap: 0.5rem;
                 padding: 0.55rem 1.15rem 0.55rem 0.95rem;
                 font-size: 0.875rem;
             }
+
             .site-header__home .material-symbols-outlined {
                 font-size: 1.45rem;
             }
         }
+
         @media (max-width: 640px) {
             .site-header__home {
                 padding: 0.45rem 0.85rem 0.45rem 0.7rem;
                 font-size: 0.75rem;
                 gap: 0.35rem;
             }
+
             .site-header__home .material-symbols-outlined {
                 font-size: 1.25rem;
             }
         }
+
         /* Nudge “Packages” slightly right — only this link shifts */
         .site-header__brand--packages-heading {
             margin-left: clamp(2.5rem, 9.5vw, 6rem);
         }
+
         @media (min-width: 1024px) {
             .site-header__brand--packages-heading {
                 margin-left: clamp(6.75rem, 19vw, 13rem);
             }
         }
+
         .icon-btn {
             display: inline-flex;
             align-items: center;
@@ -1233,32 +1276,40 @@
             cursor: pointer;
             transition: background 0.15s ease;
         }
+
         .icon-btn:hover {
             background: rgba(251, 191, 36, 0.2);
         }
+
         .icon-btn:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .mobile-nav-backdrop {
             transition: opacity 0.2s ease, visibility 0.2s ease;
         }
+
         .mobile-nav-backdrop.is-open {
             opacity: 1 !important;
             visibility: visible !important;
             pointer-events: auto !important;
         }
+
         .mobile-nav-panel {
             transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
         }
+
         .mobile-nav-panel.is-open {
             transform: translateX(0) !important;
         }
+
         .drawer-nav {
             display: flex;
             flex-direction: column;
             gap: 0.35rem;
         }
+
         .drawer-nav a {
             display: flex;
             align-items: center;
@@ -1271,6 +1322,7 @@
             background: rgba(255, 251, 235, 0.9);
             border: 1px solid rgba(251, 191, 36, 0.4);
         }
+
         .drawer-nav a:hover {
             background: #fef3c7;
         }
@@ -1774,35 +1826,33 @@
         }
 
         /* Middle card: featured strip — colours come from parent #peopleBudgetCards vs #daysBudgetCards */
-        #peopleBudgetCards > .people-budget-card:nth-child(2),
-        #daysBudgetCards > .people-budget-card:nth-child(2) {
-            background: linear-gradient(
-                165deg,
-                var(--budget-mid-top) 0%,
-                var(--budget-mid-mid) 52%,
-                var(--budget-mid-deep) 100%
-            );
+        #peopleBudgetCards>.people-budget-card:nth-child(2),
+        #daysBudgetCards>.people-budget-card:nth-child(2) {
+            background: linear-gradient(165deg,
+                    var(--budget-mid-top) 0%,
+                    var(--budget-mid-mid) 52%,
+                    var(--budget-mid-deep) 100%);
             box-shadow:
                 0 22px 56px var(--budget-mid-sh),
                 0 0 0 1px rgba(255, 255, 255, 0.14);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2):hover,
-        #daysBudgetCards > .people-budget-card:nth-child(2):hover {
+        #peopleBudgetCards>.people-budget-card:nth-child(2):hover,
+        #daysBudgetCards>.people-budget-card:nth-child(2):hover {
             box-shadow:
                 0 28px 64px var(--budget-mid-sh-strong),
                 0 0 0 1px rgba(255, 255, 255, 0.22);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2).is-active,
-        #daysBudgetCards > .people-budget-card:nth-child(2).is-active {
+        #peopleBudgetCards>.people-budget-card:nth-child(2).is-active,
+        #daysBudgetCards>.people-budget-card:nth-child(2).is-active {
             box-shadow:
                 0 0 0 2px var(--budget-mid-ring),
                 0 24px 56px var(--budget-mid-sh-strong);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2)::before,
-        #daysBudgetCards > .people-budget-card:nth-child(2)::before {
+        #peopleBudgetCards>.people-budget-card:nth-child(2)::before,
+        #daysBudgetCards>.people-budget-card:nth-child(2)::before {
             content: "";
             position: absolute;
             top: -1px;
@@ -1815,65 +1865,65 @@
             z-index: 2;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__head,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__head {
             padding-top: 1.48rem;
             background: transparent;
             color: #ffffff;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head::after,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__head::after {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__head::after,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__head::after {
             display: none;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__topline,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__topline {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__topline,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__topline {
             color: rgba(255, 255, 255, 0.88);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge strong,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge strong {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__badge strong,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__badge strong {
             color: #ffffff;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge span,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__badge span {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__badge span,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__badge span {
             color: rgba(255, 255, 255, 0.82);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__body,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__body {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__body,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__body {
             padding-bottom: 1.38rem;
             background: transparent;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__range,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__range {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__range,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__range {
             background: rgba(255, 255, 255, 0.12);
             border-color: rgba(255, 255, 255, 0.22);
             color: rgba(255, 255, 255, 0.95);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__price,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__price {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__price,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__price {
             color: #ffffff;
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__hint,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__hint {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__hint,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__hint {
             color: rgba(255, 255, 255, 0.88);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn--select,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn--select {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__btn--select,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__btn--select {
             background: #ffffff;
             color: var(--budget-mid-cta-text);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
         }
 
-        #peopleBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn:hover,
-        #daysBudgetCards > .people-budget-card:nth-child(2) .people-budget-card__btn:hover {
+        #peopleBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__btn:hover,
+        #daysBudgetCards>.people-budget-card:nth-child(2) .people-budget-card__btn:hover {
             filter: brightness(1.02);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
         }
@@ -2341,9 +2391,11 @@
 
 <body class="packages-page-bg packages-page-shell text-slate-900 antialiased">
     <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
-        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+        <div
+            class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-hidden px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
             <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
-                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
+                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false"
+                    aria-controls="mobileNavPanel" aria-label="Open menu">
                     <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
                 </button>
                 <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
@@ -2352,24 +2404,32 @@
                 </a>
                 <a href="main_page.html" class="site-header__brand site-header__brand--packages-heading min-w-0 shrink">
                     <span class="site-header__brand-titles font-headline-lg">
-                        <span class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Packages</span>
+                        <span
+                            class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Packages</span>
                     </span>
                 </a>
             </div>
-            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex" aria-label="Primary">
+            <nav class="site-header__nav site-header__nav--primary hidden min-w-0 items-center justify-center gap-1 sm:gap-2 lg:flex"
+                aria-label="Primary">
                 <a class="site-header__link" href="budget_calculator.html">Budget calculator &amp; splitter</a>
                 <a class="site-header__link" href="booking.html">Booking</a>
             </nav>
             <div class="site-header__end">
                 <span class="site-header__logo-wrap">
-                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="520" height="104" decoding="async" loading="eager" />
+                    <img src="images/geointellab_logo.jpeg"
+                        alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo"
+                        width="520" height="104" decoding="async" loading="eager" />
                 </span>
             </div>
         </div>
     </header>
 
-    <div id="mobileNavBackdrop" class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
-    <aside id="mobileNavPanel" class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden" aria-hidden="true" aria-label="Menu">
+    <div id="mobileNavBackdrop"
+        class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden"
+        aria-hidden="true"></div>
+    <aside id="mobileNavPanel"
+        class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden"
+        aria-hidden="true" aria-label="Menu">
         <div class="flex items-center justify-between border-b border-amber-100 px-3 py-3">
             <span class="font-headline-md text-lg font-semibold text-amber-900">Menu</span>
             <button type="button" id="mobileNavClose" class="icon-btn" aria-label="Close menu">
@@ -2377,210 +2437,218 @@
             </button>
         </div>
         <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
-            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
-            <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
-            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
-            <a href="booking.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span>
+                GeoTrip map</a>
+            <a href="packages.html"><span class="material-symbols-outlined text-xl"
+                    aria-hidden="true">inventory_2</span> Trip packages</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl"
+                    aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
+            <a href="booking.html"><span class="material-symbols-outlined text-xl"
+                    aria-hidden="true">confirmation_number</span> Booking</a>
         </nav>
         <div class="border-t border-amber-100 p-3">
-            <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
+            <a href="budget_calculator.html"
+                class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start
+                planning</a>
         </div>
     </aside>
 
     <main class="packages-main">
         <div class="packages-content">
 
-        <div class="packages-section">
-            <div class="packages-section__head packages-section__head--solo">
-                <div>
-                    <p class="packages-section__kicker"><span class="num">01</span> Trip setup</p>
-                    <h2 id="sec-trip-setup" class="packages-section__title">Route &amp; group</h2>
+            <div class="packages-section">
+                <div class="packages-section__head packages-section__head--solo">
+                    <div>
+                        <p class="packages-section__kicker"><span class="num">01</span> Trip setup</p>
+                        <h2 id="sec-trip-setup" class="packages-section__title">Route &amp; group</h2>
+                    </div>
                 </div>
-            </div>
-        <section class="route-start-card" aria-labelledby="routeStartHeading">
-            <div class="route-start-card__accent" aria-hidden="true"></div>
-            <div class="route-start-card__inner">
-                <div class="route-start-card__icon" aria-hidden="true">
-                    <span class="material-symbols-outlined">route</span>
-                </div>
-                <div class="route-start-card__body">
-                    <h2 id="routeStartHeading">Route start</h2>
-                    <div class="route-start-card__fields">
-                        <div class="route-field">
-                            <label for="userStartLocation">Start address</label>
-                            <input type="text" id="userStartLocation" autocomplete="street-address"
-                                placeholder="e.g. Tirupati Railway Station" value="Tirupati" />
+                <section class="route-start-card" aria-labelledby="routeStartHeading">
+                    <div class="route-start-card__accent" aria-hidden="true"></div>
+                    <div class="route-start-card__inner">
+                        <div class="route-start-card__icon" aria-hidden="true">
+                            <span class="material-symbols-outlined">route</span>
                         </div>
-                        <label class="route-gps-tile">
-                            <input type="checkbox" id="useLiveGps" />
-                            <span>
-                                <span class="route-gps-text">Use live GPS</span>
-                                <span class="route-gps-hint">Best when you are already in Tirupati</span>
-                            </span>
-                        </label>
+                        <div class="route-start-card__body">
+                            <h2 id="routeStartHeading">Route start</h2>
+                            <div class="route-start-card__fields">
+                                <div class="route-field">
+                                    <label for="userStartLocation">Start address</label>
+                                    <input type="text" id="userStartLocation" autocomplete="street-address"
+                                        placeholder="e.g. Tirupati Railway Station" value="Tirupati" />
+                                </div>
+                                <label class="route-gps-tile">
+                                    <input type="checkbox" id="useLiveGps" />
+                                    <span>
+                                        <span class="route-gps-text">Use live GPS</span>
+                                        <span class="route-gps-hint">Best when you are already in Tirupati</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="route-start-card__budget-grids" aria-live="polite">
+                            <div id="peopleBudgetCards" class="people-budget-cards" hidden>
+                                <article class="people-budget-card" data-min="1" data-max="4" data-fill="4"
+                                    data-tier="basic">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">People Basic</p>
+                                        <p class="people-budget-card__topline">Small group slab</p>
+                                        <div class="people-budget-card__badge"><strong>1 to
+                                                4</strong><span>people</span></div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">1 to 4 people</p>
+                                        <p class="people-budget-card__price">Rs. 4000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-people-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="people-budget-card" data-min="5" data-max="8" data-fill="8"
+                                    data-tier="standard">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">People Standard</p>
+                                        <p class="people-budget-card__topline">Medium group slab</p>
+                                        <div class="people-budget-card__badge"><strong>5 to
+                                                8</strong><span>people</span></div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">5 to 8 people</p>
+                                        <p class="people-budget-card__price">Rs. 7000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-people-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="people-budget-card" data-min="8" data-max="10" data-fill="10"
+                                    data-tier="premium">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">People Premium</p>
+                                        <p class="people-budget-card__topline">Large group slab</p>
+                                        <div class="people-budget-card__badge"><strong>8 to
+                                                10</strong><span>people</span></div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">8 to 10 people</p>
+                                        <p class="people-budget-card__price">Rs. 9000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-people-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                            <div id="daysBudgetCards" class="people-budget-cards" hidden>
+                                <article class="people-budget-card" data-day="1" data-fill-day="1" data-tier="basic">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">Day Basic</p>
+                                        <p class="people-budget-card__topline">Single day package</p>
+                                        <div class="people-budget-card__badge"><strong>1
+                                                Day</strong><span>duration</span></div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">1 day trip package</p>
+                                        <p class="people-budget-card__price">Rs. 3000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-day-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="people-budget-card" data-day="2" data-fill-day="2" data-tier="standard">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">Day Standard</p>
+                                        <p class="people-budget-card__topline">Two day package</p>
+                                        <div class="people-budget-card__badge"><strong>2
+                                                Days</strong><span>duration</span>
+                                        </div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">2 days trip package</p>
+                                        <p class="people-budget-card__price">Rs. 5000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-day-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                                <article class="people-budget-card" data-day="3" data-fill-day="3" data-tier="premium">
+                                    <div class="people-budget-card__head">
+                                        <p class="people-budget-card__title">Day Premium</p>
+                                        <p class="people-budget-card__topline">Three day package</p>
+                                        <div class="people-budget-card__badge"><strong>3
+                                                Days</strong><span>duration</span>
+                                        </div>
+                                    </div>
+                                    <div class="people-budget-card__body">
+                                        <p class="people-budget-card__range">3 days trip package</p>
+                                        <p class="people-budget-card__price">Rs. 8000</p>
+                                        <p class="people-budget-card__hint">Same flow as package cards</p>
+                                        <div class="people-budget-card__actions">
+                                            <button type="button"
+                                                class="people-budget-card__btn people-budget-card__btn--select"
+                                                data-day-choose>Choose places</button>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div class="packages-section">
+                <div class="packages-section__head">
+                    <div>
+                        <p class="packages-section__kicker"><span class="num">02</span> Package tiers</p>
+                        <h2 id="sec-tiers" class="packages-section__title">Choose your package</h2>
                     </div>
                 </div>
-                <div class="route-start-card__budget-grids" aria-live="polite">
-                    <div id="peopleBudgetCards" class="people-budget-cards" hidden>
-                        <article class="people-budget-card" data-min="1" data-max="4"
-                            data-fill="4" data-tier="basic">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">People Basic</p>
-                                <p class="people-budget-card__topline">Small group slab</p>
-                                <div class="people-budget-card__badge"><strong>1 to 4</strong><span>people</span></div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">1 to 4 people</p>
-                                <p class="people-budget-card__price">Rs. 4000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-people-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="people-budget-card" data-min="5" data-max="8"
-                            data-fill="8" data-tier="standard">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">People Standard</p>
-                                <p class="people-budget-card__topline">Medium group slab</p>
-                                <div class="people-budget-card__badge"><strong>5 to 8</strong><span>people</span></div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">5 to 8 people</p>
-                                <p class="people-budget-card__price">Rs. 7000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-people-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="people-budget-card" data-min="8" data-max="10"
-                            data-fill="10" data-tier="premium">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">People Premium</p>
-                                <p class="people-budget-card__topline">Large group slab</p>
-                                <div class="people-budget-card__badge"><strong>8 to 10</strong><span>people</span></div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">8 to 10 people</p>
-                                <p class="people-budget-card__price">Rs. 9000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-people-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
+                <section class="pricing-grid" id="packageCards" aria-label="Package tiers"></section>
+            </div>
+
+            <section id="selectionStrip" class="selection-strip hidden p-5 sm:p-6">
+                <div class="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900" id="selectionTitle">Your itinerary</h2>
+                        <p class="mt-1 text-sm text-slate-600" id="selectionSubtitle"></p>
                     </div>
-                    <div id="daysBudgetCards" class="people-budget-cards" hidden>
-                        <article class="people-budget-card" data-day="1" data-fill-day="1"
-                            data-tier="basic">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">Day Basic</p>
-                                <p class="people-budget-card__topline">Single day package</p>
-                                <div class="people-budget-card__badge"><strong>1 Day</strong><span>duration</span></div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">1 day trip package</p>
-                                <p class="people-budget-card__price">Rs. 3000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-day-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="people-budget-card" data-day="2" data-fill-day="2"
-                            data-tier="standard">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">Day Standard</p>
-                                <p class="people-budget-card__topline">Two day package</p>
-                                <div class="people-budget-card__badge"><strong>2 Days</strong><span>duration</span>
-                                </div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">2 days trip package</p>
-                                <p class="people-budget-card__price">Rs. 5000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-day-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
-                        <article class="people-budget-card" data-day="3" data-fill-day="3"
-                            data-tier="premium">
-                            <div class="people-budget-card__head">
-                                <p class="people-budget-card__title">Day Premium</p>
-                                <p class="people-budget-card__topline">Three day package</p>
-                                <div class="people-budget-card__badge"><strong>3 Days</strong><span>duration</span>
-                                </div>
-                            </div>
-                            <div class="people-budget-card__body">
-                                <p class="people-budget-card__range">3 days trip package</p>
-                                <p class="people-budget-card__price">Rs. 8000</p>
-                                <p class="people-budget-card__hint">Same flow as package cards</p>
-                                <div class="people-budget-card__actions">
-                                    <button type="button"
-                                        class="people-budget-card__btn people-budget-card__btn--select"
-                                        data-day-choose>Choose places</button>
-                                </div>
-                            </div>
-                        </article>
+                    <div class="flex flex-wrap gap-2">
+                        <button type="button" id="editSelectionBtn" class="btn-ghost">Edit places</button>
+                        <button type="button" id="showMapFromStripBtn"
+                            class="btn-primary-dark inline-flex items-center gap-2">
+                            <span class="material-symbols-outlined text-xl" aria-hidden="true">map</span>
+                            Update map
+                        </button>
                     </div>
                 </div>
-            </div>
-        </section>
-        </div>
+                <div id="selectionChips" class="mt-4 flex flex-wrap gap-2"></div>
+            </section>
 
-        <div class="packages-section">
-            <div class="packages-section__head">
-                <div>
-                    <p class="packages-section__kicker"><span class="num">02</span> Package tiers</p>
-                    <h2 id="sec-tiers" class="packages-section__title">Choose your package</h2>
+            <section id="mapSection" class="hidden packages-map-section" aria-labelledby="mapSectionTitle">
+                <div class="packages-map-section__inner">
+                    <h2 id="mapSectionTitle" class="packages-map-section__title">Trip map</h2>
+                    <p id="pkgMapStatus" class="packages-map-section__status" role="status"></p>
+                    <div id="pkgTripMap" class="packages-map-frame" aria-label="Interactive map">
+                    </div>
                 </div>
-            </div>
-        <section class="pricing-grid" id="packageCards" aria-label="Package tiers"></section>
-        </div>
+            </section>
 
-        <section id="selectionStrip" class="selection-strip hidden p-5 sm:p-6">
-            <div class="flex flex-wrap items-start justify-between gap-4">
-                <div>
-                    <h2 class="text-xl font-bold text-slate-900" id="selectionTitle">Your itinerary</h2>
-                    <p class="mt-1 text-sm text-slate-600" id="selectionSubtitle"></p>
-                </div>
-                <div class="flex flex-wrap gap-2">
-                    <button type="button" id="editSelectionBtn" class="btn-ghost">Edit places</button>
-                    <button type="button" id="showMapFromStripBtn"
-                        class="btn-primary-dark inline-flex items-center gap-2">
-                        <span class="material-symbols-outlined text-xl" aria-hidden="true">map</span>
-                        Update map
-                    </button>
-                </div>
-            </div>
-            <div id="selectionChips" class="mt-4 flex flex-wrap gap-2"></div>
-        </section>
-
-        <section id="mapSection"
-            class="hidden packages-map-section"
-            aria-labelledby="mapSectionTitle">
-            <div class="packages-map-section__inner">
-            <h2 id="mapSectionTitle" class="packages-map-section__title">Trip map</h2>
-            <p id="pkgMapStatus" class="packages-map-section__status" role="status"></p>
-            <div id="pkgTripMap" class="packages-map-frame" aria-label="Interactive map">
-            </div>
-            </div>
-        </section>
-
-        <p id="loadError" class="mt-2 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
-        </p>
+            <p id="loadError"
+                class="mt-2 hidden rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800">
+            </p>
         </div>
     </main>
 
@@ -2980,7 +3048,7 @@
 
             function buildHospitalPopupHtml(h, rankNumber) {
                 var o = { bg: '#fff8e6', fg: '#735c00', sym: 'emergency' };
-                var accentInk = '#554300'; 
+                var accentInk = '#554300';
                 var timings = escapeHtml(h && h.timings ? h.timings : '24 Hours');
                 var name = escapeHtml(h && h.name ? h.name : 'Hospital');
 
@@ -3622,7 +3690,7 @@
                     bd.setAttribute('aria-hidden', 'false');
                 }
                 renderEmergencyHospitalList();
-                
+
                 var hint = document.getElementById('emergencyMapHint');
                 if (hint) {
                     hint.textContent = 'Accessing live location...';
@@ -3631,17 +3699,17 @@
                 }
 
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function(position) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
                         if (hint) {
                             hint.textContent = 'Accessed the live location. Click below to show on map.';
                             hint.style.color = '#059669'; // Greenish success
                         }
-                        
+
                         // Set the GPS checkbox so the button click knows to use it
                         var gpsEl = document.getElementById('useLiveGps');
                         if (gpsEl) gpsEl.checked = true;
                         syncStartAddressFieldForGps();
-                    }, function(error) {
+                    }, function (error) {
                         if (hint) {
                             hint.textContent = 'Location access denied. Please enter address manually.';
                             hint.style.color = '#475569';

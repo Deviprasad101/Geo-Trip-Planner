@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html class="light" lang="en">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Official Booking Desk · GeoTrip Planner</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -19,10 +20,13 @@
             },
         };
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <style>
         :root {
             --gov-navy: #172554;
@@ -35,7 +39,11 @@
             --gov-muted: #64748b;
             --gov-shadow: 0 14px 42px rgba(23, 37, 84, 0.12);
         }
-        * { box-sizing: border-box; }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
             min-height: 100dvh;
@@ -48,6 +56,7 @@
                 linear-gradient(180deg, #fcfdff 0%, #f5f8ff 46%, #eef3ff 100%);
             background-attachment: fixed;
         }
+
         .material-symbols-outlined {
             font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
             vertical-align: middle;
@@ -65,13 +74,16 @@
                 0 6px 18px rgba(15, 23, 42, 0.08),
                 0 2px 6px rgba(15, 23, 42, 0.05);
         }
+
         .site-header__start {
             min-width: 0;
         }
+
         .site-header__nav {
             flex-wrap: nowrap;
             row-gap: 0;
         }
+
         .site-header__brand {
             display: flex;
             min-width: 0;
@@ -79,6 +91,7 @@
             text-decoration: none;
             color: inherit;
         }
+
         .site-header__end {
             display: inline-flex;
             flex-wrap: nowrap;
@@ -88,27 +101,32 @@
             flex-shrink: 0;
             min-width: 0;
         }
+
         @media (min-width: 640px) {
             .site-header__end {
                 gap: 0.75rem;
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__end {
                 gap: 0.875rem;
             }
         }
+
         /* Nav: hide on small screens; show from tablet up (Tailwind `hidden`+`md:flex` often breaks display). */
         .site-header__nav--primary {
             justify-content: center;
             display: none;
         }
+
         @media (min-width: 768px) {
             .site-header__nav--primary {
                 display: flex !important;
                 align-items: center;
             }
         }
+
         .site-header__logo-wrap {
             display: inline-flex;
             align-items: center;
@@ -121,24 +139,28 @@
             box-sizing: border-box;
             min-width: 8.5rem;
         }
+
         @media (min-width: 480px) {
             .site-header__logo-wrap {
                 height: 4rem;
                 max-width: min(calc(100vw - 14rem), 29rem);
             }
         }
+
         @media (min-width: 640px) {
             .site-header__logo-wrap {
                 height: 4.6rem;
                 max-width: min(calc(100vw - 20rem), 32rem);
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__logo-wrap {
                 height: 5.1rem;
                 max-width: min(39vw, 28rem);
             }
         }
+
         .site-header__brand-logo {
             display: block;
             box-sizing: border-box;
@@ -148,6 +170,7 @@
             object-fit: contain;
             object-position: left center;
         }
+
         @media (max-width: 1023px) {
             .site-header__layout {
                 display: grid !important;
@@ -158,6 +181,7 @@
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
+
             .site-header__start {
                 grid-column: 1;
                 min-width: 0;
@@ -165,15 +189,18 @@
                 align-items: center;
                 gap: 0.45rem;
             }
+
             .site-header__brand {
                 margin-left: 0;
                 min-width: 0;
             }
+
             .site-header__brand-name {
                 display: block;
                 max-width: 100%;
                 line-height: 1.15;
             }
+
             .site-header__end {
                 grid-column: 2;
                 justify-self: end;
@@ -181,25 +208,30 @@
                 align-items: center;
                 max-width: min(42vw, 11rem);
             }
+
             .site-header__logo-wrap {
                 height: 2.1rem;
                 min-width: 0;
                 max-width: min(42vw, 11rem);
             }
+
             .site-header__brand-logo {
                 object-position: center;
             }
         }
+
         /* Tablet: show all nav links in a full-width row under logo row (768px–1023px) */
         @media (min-width: 768px) and (max-width: 1023px) {
             .site-header__start {
                 grid-column: 1;
                 grid-row: 1;
             }
+
             .site-header__end {
                 grid-column: 2;
                 grid-row: 1;
             }
+
             .site-header__nav--primary {
                 grid-column: 1 / -1;
                 grid-row: 2;
@@ -212,6 +244,7 @@
                 padding-top: 0.15rem;
             }
         }
+
         @media (min-width: 1024px) {
             .site-header__layout {
                 display: grid !important;
@@ -219,6 +252,7 @@
                 align-items: center;
                 gap: 0.75rem 1rem;
             }
+
             .site-header__start {
                 grid-column: 1;
                 justify-self: start;
@@ -226,6 +260,7 @@
                 margin-left: 0;
                 min-width: 0;
             }
+
             .site-header__nav--primary {
                 grid-column: 2;
                 justify-self: center;
@@ -235,6 +270,7 @@
                 justify-content: center;
                 row-gap: 0.35rem;
             }
+
             .site-header__end {
                 grid-column: 3;
                 justify-self: end;
@@ -242,14 +278,17 @@
                 align-items: center;
                 min-width: 0;
             }
+
             .site-header__brand {
                 margin-left: 0;
                 padding-left: 0;
             }
+
             .site-header__nav {
                 gap: 0.55rem;
             }
         }
+
         .site-header__brand-titles {
             display: flex;
             min-width: 0;
@@ -258,11 +297,13 @@
             gap: 0.35rem;
             white-space: nowrap;
         }
+
         @media (min-width: 640px) {
             .site-header__brand-titles {
                 gap: 0.45rem;
             }
         }
+
         .site-header__link {
             display: inline-flex;
             align-items: center;
@@ -277,23 +318,28 @@
             white-space: nowrap;
             box-sizing: border-box;
         }
+
         .site-header__link:hover {
             background: rgba(254, 243, 199, 0.85);
             color: #451a03;
         }
+
         .site-header__link:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .site-header__link[aria-current="page"] {
             background: rgba(254, 243, 199, 0.65);
             color: #451a03;
         }
+
         /* Home — same pattern as budget_calculator.html / packages.html */
         a.site-header__home,
         a.site-header__home:hover {
             color: #92400e;
         }
+
         .site-header__home {
             display: inline-flex;
             align-items: center;
@@ -310,32 +356,39 @@
             transition: border-color 0.15s ease, background 0.15s ease, box-shadow 0.15s ease, color 0.15s ease;
             flex-shrink: 0;
         }
+
         .site-header__home:hover {
             border-color: rgba(217, 119, 6, 0.55);
             background: #fffbeb;
             box-shadow: 0 2px 8px rgba(180, 83, 9, 0.12);
             color: #78350f;
         }
+
         .site-header__home:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .site-header__home .material-symbols-outlined {
             font-size: 1.35rem;
         }
+
         .site-header__home-text {
             font-family: "Public Sans", system-ui, sans-serif;
         }
+
         @media (min-width: 640px) {
             .site-header__home {
                 gap: 0.5rem;
                 padding: 0.55rem 1.15rem 0.55rem 0.95rem;
                 font-size: 0.875rem;
             }
+
             .site-header__home .material-symbols-outlined {
                 font-size: 1.45rem;
             }
         }
+
         .icon-btn {
             display: inline-flex;
             align-items: center;
@@ -349,32 +402,40 @@
             cursor: pointer;
             transition: background 0.15s ease;
         }
+
         .icon-btn:hover {
             background: rgba(251, 191, 36, 0.2);
         }
+
         .icon-btn:focus-visible {
             outline: 2px solid #d97706;
             outline-offset: 2px;
         }
+
         .mobile-nav-backdrop {
             transition: opacity 0.2s ease, visibility 0.2s ease;
         }
+
         .mobile-nav-backdrop.is-open {
             opacity: 1 !important;
             visibility: visible !important;
             pointer-events: auto !important;
         }
+
         .mobile-nav-panel {
             transition: transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
         }
+
         .mobile-nav-panel.is-open {
             transform: translateX(0) !important;
         }
+
         .drawer-nav {
             display: flex;
             flex-direction: column;
             gap: 0.35rem;
         }
+
         .drawer-nav a {
             display: flex;
             align-items: center;
@@ -387,6 +448,7 @@
             background: rgba(255, 251, 235, 0.9);
             border: 1px solid rgba(251, 191, 36, 0.4);
         }
+
         .drawer-nav a:hover {
             background: #fef3c7;
         }
@@ -396,6 +458,7 @@
             margin: 0 auto;
             padding: 1.15rem 1rem 2.2rem;
         }
+
         .hero {
             text-align: center;
             margin-bottom: 2rem;
@@ -407,14 +470,16 @@
             position: relative;
             overflow: hidden;
         }
+
         .hero::before {
             content: "";
             position: absolute;
             inset: 0;
             pointer-events: none;
-            background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0));
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
             z-index: 1;
         }
+
         .hero::after {
             content: "";
             position: absolute;
@@ -426,10 +491,12 @@
             pointer-events: none;
             filter: blur(20px);
         }
-        .hero > * {
+
+        .hero>* {
             position: relative;
             z-index: 2;
         }
+
         .hero__eyebrow {
             display: inline-flex;
             align-items: center;
@@ -446,6 +513,7 @@
             margin-bottom: 1.1rem;
             box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
         }
+
         .hero h1 {
             margin: 0;
             font-family: "Noto Serif", Georgia, serif;
@@ -459,6 +527,7 @@
             text-wrap: balance;
             letter-spacing: -0.03em;
         }
+
         .hero p {
             margin: 1rem auto 0;
             max-width: 42rem;
@@ -477,6 +546,7 @@
             position: relative;
             backdrop-filter: blur(8px);
         }
+
         .booking-card::before {
             content: "";
             position: absolute;
@@ -486,6 +556,7 @@
             height: 4px;
             background: linear-gradient(90deg, #f59e0b, #3b82f6, #10b981);
         }
+
         .tabs {
             display: flex;
             align-items: center;
@@ -495,6 +566,7 @@
             overflow-x: auto;
             background: linear-gradient(180deg, #f8fbff, #f5f8ff);
         }
+
         .tab-btn {
             display: inline-flex;
             align-items: center;
@@ -512,11 +584,13 @@
             border-top-right-radius: 0.5rem;
             transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
         }
+
         .tab-btn.is-active {
             color: #0f172a;
             border-bottom-color: #1d4ed8;
             background: linear-gradient(180deg, #ffffff, #eef4ff);
         }
+
         .tab-btn .material-symbols-outlined {
             font-size: 1.05rem;
             padding: 0.18rem;
@@ -525,25 +599,51 @@
             border: 1px solid rgba(203, 213, 225, 0.8);
         }
 
-        .tab-panel { display: none; padding: 1rem; }
-        .tab-panel.is-active { display: block; }
+        .tab-panel {
+            display: none;
+            padding: 1rem;
+        }
+
+        .tab-panel.is-active {
+            display: block;
+        }
+
         .tab-panel.is-active {
             animation: panelFade 220ms ease;
         }
+
         @keyframes panelFade {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(4px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .grid-2 {
             display: grid;
             gap: 0.95rem;
             grid-template-columns: 1fr;
         }
+
         @media (min-width: 780px) {
-            .tab-panel { padding: 1.1rem 1.15rem 1.2rem; }
-            .grid-2 { grid-template-columns: 1fr 1fr; }
+            .tab-panel {
+                padding: 1.1rem 1.15rem 1.2rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr 1fr;
+            }
         }
-        .field { min-width: 0; }
+
+        .field {
+            min-width: 0;
+        }
+
         .field label {
             display: block;
             font-family: "Noto Serif", Georgia, serif;
@@ -553,6 +653,7 @@
             margin-bottom: 0.45rem;
             letter-spacing: 0.01em;
         }
+
         .input-wrap {
             display: flex;
             align-items: center;
@@ -565,15 +666,18 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
             transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
         }
+
         .input-wrap:focus-within {
             border-color: #60a5fa;
             box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.18);
             transform: translateY(-1px);
         }
+
         .input-wrap .material-symbols-outlined {
             color: #7c8598;
             font-size: 1.25rem;
         }
+
         .input-wrap input,
         .input-wrap select {
             width: 100%;
@@ -586,7 +690,10 @@
             min-width: 0;
             font-family: "Public Sans", system-ui, sans-serif;
         }
-        .single-row { margin-top: 0.95rem; }
+
+        .single-row {
+            margin-top: 0.95rem;
+        }
 
         .soft-box {
             margin-top: 0.95rem;
@@ -598,6 +705,7 @@
             position: relative;
             overflow: hidden;
         }
+
         .soft-box::after {
             content: "";
             position: absolute;
@@ -609,17 +717,20 @@
             background: radial-gradient(circle at 35% 35%, rgba(191, 219, 254, 0.35), rgba(191, 219, 254, 0));
             pointer-events: none;
         }
+
         .soft-box h3 {
             margin: 0 0 0.55rem;
             font-family: "Noto Serif", Georgia, serif;
             font-size: 1.16rem;
             color: #0f172a;
         }
+
         .chip-row {
             display: flex;
             flex-wrap: wrap;
             gap: 0.48rem;
         }
+
         .chip {
             display: inline-flex;
             align-items: center;
@@ -633,10 +744,12 @@
             box-shadow: 0 1px 2px rgba(30, 64, 175, 0.07);
             transition: transform 0.15s ease, box-shadow 0.15s ease;
         }
+
         .chip:hover {
             transform: translateY(-1px);
             box-shadow: 0 3px 10px rgba(59, 130, 246, 0.16);
         }
+
         .list {
             margin: 0;
             padding-left: 1.08rem;
@@ -662,12 +775,17 @@
             box-shadow: 0 10px 24px rgba(30, 64, 175, 0.25);
             transition: transform 0.16s ease, filter 0.16s ease, box-shadow 0.16s ease;
         }
+
         .cta:hover {
             filter: brightness(1.08);
             transform: translateY(-1px);
             box-shadow: 0 14px 28px rgba(30, 64, 175, 0.28);
         }
-        .cta:active { transform: translateY(0); }
+
+        .cta:active {
+            transform: translateY(0);
+        }
+
         .toast {
             margin-top: 0.72rem;
             padding: 0.62rem 0.75rem;
@@ -679,13 +797,18 @@
             background: #f0fdf4;
             display: none;
         }
-        .toast.is-visible { display: block; }
+
+        .toast.is-visible {
+            display: block;
+        }
 
         .hidden {
             display: none !important;
         }
 
-        .leaflet-container { font-family: inherit; }
+        .leaflet-container {
+            font-family: inherit;
+        }
 
         /* Emergency hospitals FAB + panel (matches main_page.html) */
         .emergency-fab {
@@ -1149,6 +1272,7 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
+
             .tab-panel.is-active,
             .cta,
             .input-wrap,
@@ -1158,13 +1282,17 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 </head>
+
 <body>
     <header class="site-header sticky top-0 z-50 shrink-0 border-b border-amber-200/60 bg-white/95 backdrop-blur-md">
-        <div class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-x-hidden overflow-y-visible px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
+        <div
+            class="site-header__layout flex min-h-[4.3rem] min-w-0 flex-wrap items-center justify-between gap-x-3 gap-y-2 overflow-x-hidden overflow-y-visible px-5 py-2.5 sm:min-h-[4.8rem] sm:gap-x-4 sm:px-7 sm:py-3">
             <div class="site-header__start flex min-w-0 items-center gap-2 sm:gap-3 lg:gap-4">
-                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false" aria-controls="mobileNavPanel" aria-label="Open menu">
+                <button type="button" id="mobileNavOpen" class="icon-btn shrink-0 lg:hidden" aria-expanded="false"
+                    aria-controls="mobileNavPanel" aria-label="Open menu">
                     <span class="material-symbols-outlined text-2xl" aria-hidden="true">menu</span>
                 </button>
                 <a href="main_page.html" class="site-header__home shrink-0" aria-label="Home — GeoTrip main page">
@@ -1173,26 +1301,32 @@
                 </a>
                 <a href="main_page.html" class="site-header__brand min-w-0 shrink">
                     <span class="site-header__brand-titles font-headline-lg">
-                        <span class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Booking</span>
+                        <span
+                            class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Booking</span>
                     </span>
                 </a>
             </div>
-            <nav class="site-header__nav site-header__nav--primary min-w-0 items-center justify-center gap-1 sm:gap-2" aria-label="Primary site pages">
-                <a class="site-header__link" href="main_page.html">GeoTrip map</a>
+            <nav class="site-header__nav site-header__nav--primary min-w-0 items-center justify-center gap-1 sm:gap-2"
+                aria-label="Primary site pages">
                 <a class="site-header__link" href="packages.html">Packages</a>
                 <a class="site-header__link" href="budget_calculator.html">Budget calculator &amp; splitter</a>
-                <a class="site-header__link" href="booking.html" aria-current="page">Booking</a>
             </nav>
             <div class="site-header__end">
                 <span class="site-header__logo-wrap">
-                    <img src="images/geointellab_logo.jpeg" alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo" width="520" height="104" decoding="async" loading="eager"/>
+                    <img src="images/geointellab_logo.jpeg"
+                        alt="Geo-Intel Lab, IIT Tirupati Navavishkār I-Hub Foundation" class="site-header__brand-logo"
+                        width="520" height="104" decoding="async" loading="eager" />
                 </span>
             </div>
         </div>
     </header>
 
-    <div id="mobileNavBackdrop" class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
-    <aside id="mobileNavPanel" class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden" aria-hidden="true" aria-label="Menu">
+    <div id="mobileNavBackdrop"
+        class="mobile-nav-backdrop pointer-events-none fixed inset-0 z-[90] bg-slate-900/50 opacity-0 invisible backdrop-blur-sm lg:hidden"
+        aria-hidden="true"></div>
+    <aside id="mobileNavPanel"
+        class="mobile-nav-panel fixed left-0 top-0 z-[100] flex h-[100dvh] w-[min(20rem,90vw)] -translate-x-full flex-col border-r border-amber-200/40 bg-white shadow-2xl lg:hidden"
+        aria-hidden="true" aria-label="Menu">
         <div class="flex items-center justify-between border-b border-amber-100 px-3 py-3">
             <span class="font-headline-md text-lg font-semibold text-amber-900">Menu</span>
             <button type="button" id="mobileNavClose" class="icon-btn" aria-label="Close menu">
@@ -1200,47 +1334,68 @@
             </button>
         </div>
         <nav class="drawer-nav flex-1 overflow-y-auto p-3" aria-label="Mobile">
-            <a href="main_page.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">map</span> GeoTrip map</a>
-            <a href="packages.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">inventory_2</span> Trip packages</a>
-            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl" aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
-            <a href="booking.html" aria-current="page"><span class="material-symbols-outlined text-xl" aria-hidden="true">confirmation_number</span> Booking</a>
+            <a href="packages.html"><span class="material-symbols-outlined text-xl"
+                    aria-hidden="true">inventory_2</span> Trip packages</a>
+            <a href="budget_calculator.html"><span class="material-symbols-outlined text-xl"
+                    aria-hidden="true">calculate</span> Budget calculator &amp; splitter</a>
         </nav>
         <div class="border-t border-amber-100 p-3">
-            <a href="budget_calculator.html" class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start planning</a>
+            <a href="budget_calculator.html"
+                class="flex min-h-12 items-center justify-center rounded-xl bg-amber-900 text-center text-base font-bold text-amber-50 no-underline hover:bg-amber-950">Start
+                planning</a>
         </div>
     </aside>
 
     <main class="shell">
         <section class="hero">
-            <span class="hero__eyebrow"><span class="material-symbols-outlined" style="font-size:15px" aria-hidden="true">account_balance</span> Official booking interface</span>
+            <span class="hero__eyebrow"><span class="material-symbols-outlined" style="font-size:15px"
+                    aria-hidden="true">account_balance</span> Official booking interface</span>
             <h1>Book Your Journey</h1>
-            <p>Select bus, cab, or train mode and continue to partner booking portals with a government-grade, clean workflow.</p>
+            <p>Select bus, cab, or train mode and continue to partner booking portals with a government-grade, clean
+                workflow.</p>
         </section>
 
         <section class="booking-card" aria-label="Booking modes">
             <nav class="tabs" role="tablist" aria-label="Booking mode">
-                <button class="tab-btn is-active" id="tabBus" role="tab" aria-selected="true" aria-controls="panelBus" data-mode="bus"><span class="material-symbols-outlined" aria-hidden="true">directions_bus</span> Bus</button>
-                <button class="tab-btn" id="tabCab" role="tab" aria-selected="false" aria-controls="panelCab" data-mode="cab"><span class="material-symbols-outlined" aria-hidden="true">local_taxi</span> Cab</button>
-                <button class="tab-btn" id="tabTrain" role="tab" aria-selected="false" aria-controls="panelTrain" data-mode="train"><span class="material-symbols-outlined" aria-hidden="true">train</span> Train</button>
+                <button class="tab-btn is-active" id="tabBus" role="tab" aria-selected="true" aria-controls="panelBus"
+                    data-mode="bus"><span class="material-symbols-outlined" aria-hidden="true">directions_bus</span>
+                    Bus</button>
+                <button class="tab-btn" id="tabCab" role="tab" aria-selected="false" aria-controls="panelCab"
+                    data-mode="cab"><span class="material-symbols-outlined" aria-hidden="true">local_taxi</span>
+                    Cab</button>
+                <button class="tab-btn" id="tabTrain" role="tab" aria-selected="false" aria-controls="panelTrain"
+                    data-mode="train"><span class="material-symbols-outlined" aria-hidden="true">train</span>
+                    Train</button>
             </nav>
 
             <section class="tab-panel is-active" id="panelBus" role="tabpanel" aria-labelledby="tabBus">
                 <div class="grid-2">
                     <div class="field">
                         <label for="busFrom">From</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="busFrom" type="text" placeholder="Enter departure city"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="busFrom" type="text"
+                                placeholder="Enter departure city" /></div>
                     </div>
                     <div class="field">
                         <label for="busTo">To</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="busTo" type="text" placeholder="Enter destination city"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="busTo" type="text"
+                                placeholder="Enter destination city" /></div>
                     </div>
                     <div class="field">
                         <label for="busDate">Journey Date</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><input id="busDate" type="date"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">calendar_month</span><input id="busDate" type="date" /></div>
                     </div>
                     <div class="field">
                         <label for="busPassengers">Passengers</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">group</span><select id="busPassengers"><option>1 Passenger</option><option>2 Passengers</option><option>3 Passengers</option><option>4+ Passengers</option></select></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">group</span><select id="busPassengers">
+                                <option>1 Passenger</option>
+                                <option>2 Passengers</option>
+                                <option>3 Passengers</option>
+                                <option>4+ Passengers</option>
+                            </select></div>
                     </div>
                 </div>
                 <div class="soft-box">
@@ -1260,27 +1415,44 @@
                 <div class="grid-2">
                     <div class="field">
                         <label for="cabFrom">Pickup Location</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="cabFrom" type="text" placeholder="Enter pickup location"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="cabFrom" type="text"
+                                placeholder="Enter pickup location" /></div>
                     </div>
                     <div class="field">
                         <label for="cabTo">Drop-off Location</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="cabTo" type="text" placeholder="Enter drop-off location"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="cabTo" type="text"
+                                placeholder="Enter drop-off location" /></div>
                     </div>
                     <div class="field">
                         <label for="cabDate">Pickup Date</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><input id="cabDate" type="date"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">calendar_month</span><input id="cabDate" type="date" /></div>
                     </div>
                     <div class="field">
                         <label for="cabTime">Pickup Time</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">schedule</span><input id="cabTime" type="time"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">schedule</span><input id="cabTime" type="time" /></div>
                     </div>
                     <div class="field">
                         <label for="cabType">Cab Type</label>
-                        <div class="input-wrap"><select id="cabType"><option>Sedan - 4 Seater</option><option>SUV - 6 Seater</option><option>Premium - 4 Seater</option><option>Innova - 7 Seater</option></select></div>
+                        <div class="input-wrap"><select id="cabType">
+                                <option>Sedan - 4 Seater</option>
+                                <option>SUV - 6 Seater</option>
+                                <option>Premium - 4 Seater</option>
+                                <option>Innova - 7 Seater</option>
+                            </select></div>
                     </div>
                     <div class="field">
                         <label for="cabPassengers">Passengers</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">group</span><select id="cabPassengers"><option>1 Passenger</option><option>2 Passengers</option><option>3 Passengers</option><option>4+ Passengers</option></select></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">group</span><select id="cabPassengers">
+                                <option>1 Passenger</option>
+                                <option>2 Passengers</option>
+                                <option>3 Passengers</option>
+                                <option>4+ Passengers</option>
+                            </select></div>
                     </div>
                 </div>
                 <div class="soft-box">
@@ -1300,24 +1472,41 @@
                 <div class="grid-2">
                     <div class="field">
                         <label for="trainFrom">From Station</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="trainFrom" type="text" placeholder="Enter departure station"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="trainFrom" type="text"
+                                placeholder="Enter departure station" /></div>
                     </div>
                     <div class="field">
                         <label for="trainTo">To Station</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">location_on</span><input id="trainTo" type="text" placeholder="Enter destination station"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">location_on</span><input id="trainTo" type="text"
+                                placeholder="Enter destination station" /></div>
                     </div>
                     <div class="field">
                         <label for="trainDate">Journey Date</label>
-                        <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">calendar_month</span><input id="trainDate" type="date"/></div>
+                        <div class="input-wrap"><span class="material-symbols-outlined"
+                                aria-hidden="true">calendar_month</span><input id="trainDate" type="date" /></div>
                     </div>
                     <div class="field">
                         <label for="trainClass">Class</label>
-                        <div class="input-wrap"><select id="trainClass"><option>Sleeper (SL)</option><option>3A</option><option>2A</option><option>1A</option><option>Chair Car (CC)</option></select></div>
+                        <div class="input-wrap"><select id="trainClass">
+                                <option>Sleeper (SL)</option>
+                                <option>3A</option>
+                                <option>2A</option>
+                                <option>1A</option>
+                                <option>Chair Car (CC)</option>
+                            </select></div>
                     </div>
                 </div>
                 <div class="field single-row">
                     <label for="trainPassengers">Passengers</label>
-                    <div class="input-wrap"><span class="material-symbols-outlined" aria-hidden="true">group</span><select id="trainPassengers"><option>1 Passenger</option><option>2 Passengers</option><option>3 Passengers</option><option>4+ Passengers</option></select></div>
+                    <div class="input-wrap"><span class="material-symbols-outlined"
+                            aria-hidden="true">group</span><select id="trainPassengers">
+                            <option>1 Passenger</option>
+                            <option>2 Passengers</option>
+                            <option>3 Passengers</option>
+                            <option>4+ Passengers</option>
+                        </select></div>
                 </div>
                 <div class="soft-box">
                     <h3>Important Information</h3>
@@ -1336,25 +1525,30 @@
         <section class="emergency-map-card hidden" id="mapSection" aria-label="Emergency hospital map">
             <input type="hidden" id="userStartLocation" value="Tirupati" />
             <p id="pkgMapStatus" role="status" style="font-size:0.85rem;color:var(--gov-muted);margin:0 0 0.5rem"></p>
-            <div id="pkgTripMap" style="width:100%;min-height:380px;border-radius:0.72rem;border:1px solid var(--gov-border);overflow:hidden" aria-label="Interactive map"></div>
+            <div id="pkgTripMap"
+                style="width:100%;min-height:380px;border-radius:0.72rem;border:1px solid var(--gov-border);overflow:hidden"
+                aria-label="Interactive map"></div>
         </section>
 
     </main>
 
     <div id="emergencyBackdrop" class="emergency-panel-backdrop" aria-hidden="true"></div>
-    <div id="emergencyPanel" class="emergency-panel" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle" hidden aria-hidden="true">
+    <div id="emergencyPanel" class="emergency-panel" role="dialog" aria-modal="true" aria-labelledby="emergencyTitle"
+        hidden aria-hidden="true">
         <div class="emergency-panel__head">
             <h2 id="emergencyTitle">Emergency - Hospitals</h2>
             <button type="button" class="emergency-panel__close" id="emergencyCloseBtn" aria-label="Close">x</button>
         </div>
-        <p class="emergency-panel__lead">Hospitals listed in the Tirupati dataset. Open the map to see the <strong>three nearest</strong> to your route start with an OSRM-optimized driving path.</p>
+        <p class="emergency-panel__lead">Hospitals listed in the Tirupati dataset. Open the map to see the <strong>three
+                nearest</strong> to your route start with an OSRM-optimized driving path.</p>
         <div id="emergencyListRoot" class="emergency-list"></div>
         <div class="emergency-panel__foot">
             <button type="button" class="btn-emergency-map" id="emergencyShowMapBtn">Show nearest 3 on map</button>
             <p id="emergencyMapHint" class="emergency-hint" role="status"></p>
         </div>
     </div>
-    <button type="button" class="emergency-fab" id="emergencyFab" aria-haspopup="dialog" aria-controls="emergencyPanel" title="Emergency hospitals">
+    <button type="button" class="emergency-fab" id="emergencyFab" aria-haspopup="dialog" aria-controls="emergencyPanel"
+        title="Emergency hospitals">
         <span class="material-symbols-outlined" aria-hidden="true">local_hospital</span>
         Emergency
     </button>
@@ -1406,9 +1600,10 @@
             });
         })();
     </script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
     <script>
-(function () {
+        (function () {
             var CSV_URL = 'tirupati_places_with_hospitals.csv';
             var OSRM_BASE = 'https://router.project-osrm.org/route/v1/driving';
             var OSRM_TRIP_BASE = 'https://router.project-osrm.org/trip/v1/driving';
@@ -1576,7 +1771,7 @@
             }
             function buildHospitalPopupHtml(h, rankNumber) {
                 var o = { bg: '#fff8e6', fg: '#735c00', sym: 'emergency' };
-                var accentInk = '#554300'; 
+                var accentInk = '#554300';
                 var timings = escapeHtml(h && h.timings ? h.timings : '24 Hours');
                 var name = escapeHtml(h && h.name ? h.name : 'Hospital');
 
@@ -1965,7 +2160,7 @@
             }
             loadEmergencyCsv();
 
-})();
+        })();
 
     </script>
     <script>
@@ -2021,4 +2216,5 @@
     </script>
     <script src="chatbot.js" defer></script>
 </body>
+
 </html>
