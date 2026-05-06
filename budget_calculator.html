@@ -2825,15 +2825,26 @@
             border-top: 1px solid rgba(251, 191, 36, 0.35);
         }
 
-        #budgetSplitterInlineRoot .user-split-section>.user-split-heading {
+        #budgetSplitterInlineRoot .user-split-heading {
             font-family: "Fraunces", serif;
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.6rem;
+            font-weight: 800;
             color: #78350f;
-            margin: 0 0 0.35rem;
+            margin: 1.5rem 0 0.75rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.6rem;
+            letter-spacing: -0.01em;
+        }
+
+        /* Ensure hidden attribute is respected even with display:flex */
+        #budgetSplitterInlineRoot .user-split-heading[hidden] {
+            display: none !important;
+        }
+
+        #budgetSplitterInlineRoot .user-split-heading .material-symbols-outlined {
+            font-size: 1.85rem;
+            color: #d97706;
         }
 
         #budgetSplitterInlineRoot .user-split-lead {
@@ -3637,6 +3648,7 @@
                                             <button type="button" class="btn-ghost"
                                                 id="addUserCancelBtn">Cancel</button>
                                             <button type="button" class="btn-primary" id="addUsersDoneBtn">Done</button>
+                                            <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
                                         </div>
                                         <div class="add-user-draft-list" id="addUserDraftList"></div>
                                     </div>
@@ -3650,14 +3662,11 @@
                                             aria-label="Saved user entries"></div>
                                         <p class="user-split-note" id="userSplitNote" hidden></p>
                                     </div>
-                                    <div class="actions">
-                                        <button type="button" class="btn-primary" id="calcBtn">
-                                            <span class="material-symbols-outlined" aria-hidden="true">calculate</span>
-                                            Calculate split
-                                        </button>
-                                        <button type="button" class="btn-ghost" id="resetBtn">Reset</button>
-                                    </div>
-                                    <p class="user-split-lead" id="userSplitLead" hidden>Calculated equal split</p>
+
+                                    <p class="user-split-heading" id="userSplitLead" hidden>
+                                        <span class="material-symbols-outlined" aria-hidden="true">equalizer</span>
+                                        Calculated equal split
+                                    </p>
                                     <div class="user-split-grid" id="userSplitWrap" aria-label="Amount per person"
                                         hidden></div>
                                 </section>
@@ -7112,27 +7121,37 @@
                 }
             }
 
-            function splitBudget(totalBudget, people, days, tierKey) {
-                var t = TIERS[tierKey] || TIERS.balanced;
-                var stay = totalBudget * t.stay;
-                var food = totalBudget * t.food;
-                var transport = totalBudget * t.transport;
-                var activities = totalBudget * t.activities;
+            function splitBudget(totalBudget, people, days, tierKey, actualBreakdown) {
+                var stay = 0, food = 0, transport = 0, activities = 0, label = 'Custom';
+
+                if (actualBreakdown) {
+                    stay = actualBreakdown.stay;
+                    food = actualBreakdown.food;
+                    transport = actualBreakdown.transport;
+                    activities = actualBreakdown.activities;
+                    label = 'Based on plan';
+                } else {
+                    var t = TIERS[tierKey] || TIERS.balanced;
+                    stay = totalBudget * t.stay;
+                    food = totalBudget * t.food;
+                    transport = totalBudget * t.transport;
+                    activities = totalBudget * t.activities;
+                    label = t.label;
+                }
+
                 var foodPerPersonDay = people > 0 && days > 0 ? food / (people * days) : null;
                 return {
                     totalBudget: totalBudget,
                     people: people,
                     days: days,
-                    tier: t.label,
-                    tierKey: tierKey,
-                    percents: { stay: t.stay, food: t.food, transport: t.transport, activities: t.activities },
-                    perPerson: totalBudget / people,
-                    perDay: totalBudget / days,
+                    tier: label,
                     stay: stay,
                     food: food,
                     transport: transport,
                     activities: activities,
-                    foodPerPersonDay: foodPerPersonDay
+                    foodPerPersonDay: foodPerPersonDay,
+                    perPerson: people > 0 ? totalBudget / people : 0,
+                    perDay: days > 0 ? totalBudget / days : 0
                 };
             }
 
@@ -7358,10 +7377,10 @@
                         '<div class="user-card__total">' +
                         fmtMoney(shareTotal) +
                         '<span>Total share (equal)</span></div>' +
-                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">hotel</span>Stay</span><span class="user-card__amt">' + fmtMoney(shareStay) + '</span></div>' +
-                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">restaurant</span>Food</span><span class="user-card__amt">' + fmtMoney(shareFood) + '</span></div>' +
-                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>Transport</span><span class="user-card__amt">' + fmtMoney(shareTransport) + '</span></div>' +
-                        '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">local_activity</span>Activities</span><span class="user-card__amt">' + fmtMoney(shareActivities) + '</span></div>' +
+                        (shareStay > 0 ? '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">hotel</span>Stay</span><span class="user-card__amt">' + fmtMoney(shareStay) + '</span></div>' : '') +
+                        (shareFood > 0 ? '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">restaurant</span>Food</span><span class="user-card__amt">' + fmtMoney(shareFood) + '</span></div>' : '') +
+                        (shareTransport > 0 ? '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">directions_car</span>Transport</span><span class="user-card__amt">' + fmtMoney(shareTransport) + '</span></div>' : '') +
+                        (shareActivities > 0 ? '<div class="user-card__row"><span class="user-card__label"><span class="material-symbols-outlined" aria-hidden="true">local_activity</span>Activities</span><span class="user-card__amt">' + fmtMoney(shareActivities) + '</span></div>' : '') +
                         '</article>'
                     );
                 }
@@ -7401,6 +7420,13 @@
                     if (mainBudgetEl && String(mainBudgetEl.value || '').trim()) {
                         totalRaw = String(mainBudgetEl.value).trim();
                         if (totalEl) totalEl.value = totalRaw;
+                    } else {
+                        // Fallback to sumTotal if userBudget is empty
+                        var sumTotalEl = document.getElementById('sumTotal');
+                        if (sumTotalEl) {
+                            var stVal = sumTotalEl.textContent.replace(/[^\d.]/g, '');
+                            if (stVal) totalRaw = stVal;
+                        }
                     }
                 }
                 var total = parseFloat(totalRaw || '0');
@@ -7414,8 +7440,32 @@
                     setErr(v);
                     return;
                 }
+
+                // Get actual breakdown from main planner
+                var actual = null;
+                if (allUsers.length === 0) {
+                    var mainStay = parseFloat(document.getElementById('sumStay').textContent.replace(/[^\d.]/g, '')) || 0;
+                    var mainFood = parseFloat(document.getElementById('sumFood').textContent.replace(/[^\d.]/g, '')) || 0;
+                    var mainTravel = parseFloat(document.getElementById('sumTravel').textContent.replace(/[^\d.]/g, '')) || 0;
+                    var mainAct = parseFloat(document.getElementById('sumAct').textContent.replace(/[^\d.]/g, '')) || 0;
+                    var mainBuf = parseFloat(document.getElementById('sumBuf').textContent.replace(/[^\d.]/g, '')) || 0;
+                    var mainTotal = mainStay + mainFood + mainTravel + mainAct + mainBuf;
+
+                    if (mainTotal > 0) {
+                        // If splitter total matches main total, use actual values. 
+                        // If it doesn't match, scale them proportionally.
+                        var scale = total / mainTotal;
+                        actual = {
+                            stay: mainStay * scale,
+                            food: mainFood * scale,
+                            transport: mainTravel * scale,
+                            activities: (mainAct + mainBuf) * scale // Including buffer in activities for simplicity in split view
+                        };
+                    }
+                }
+
                 splitComputed = true;
-                var res = splitBudget(total, people, days, currentTier);
+                var res = splitBudget(total, people, days, currentTier, actual);
                 render(res);
             }
 
@@ -7483,8 +7533,7 @@
                 customUsers = customUsers.concat(pendingUsers);
                 pendingUsers = [];
                 renderPendingUsers();
-                splitComputed = false;
-
+                
                 if (peopleEl) {
                     var currentPeople = parseInt((peopleEl.value || '0'), 10);
                     if (!isFinite(currentPeople) || currentPeople < customUsers.length) {
@@ -7492,11 +7541,8 @@
                     }
                 }
 
-                if (lastResult) {
-                    renderUserCards(lastResult);
-                } else {
-                    renderUserCards({});
-                }
+                // Automatically trigger the split calculation
+                runCalc();
             }
 
             var calcBtn = document.getElementById('calcBtn');
