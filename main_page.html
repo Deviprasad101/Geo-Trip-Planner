@@ -875,8 +875,8 @@
         }
 
         .planner-preflight-dialog {
-            width: min(100% - 2rem, 26rem);
-            max-height: min(92vh, 36rem);
+            width: min(100% - 2rem, 34rem);
+            max-height: min(92vh, 46rem);
             margin: auto;
             padding: 0;
             border: none;
@@ -892,7 +892,7 @@
 
         .planner-preflight-dialog__inner {
             display: flex;
-            max-height: min(92vh, 36rem);
+            max-height: min(92vh, 46rem);
             flex-direction: column;
         }
 
@@ -1483,7 +1483,7 @@
 
         .place-card__title {
             margin: 0;
-            font-size: 1.15rem;
+            font-size: 1rem;
             font-weight: 700;
             color: #0f172a;
             line-height: 1.35;
@@ -1546,8 +1546,8 @@
 
         .leaflet-popup-content {
             width: auto !important;
-            min-width: 380px !important;
-            max-width: 520px !important;
+            min-width: 280px !important;
+            max-width: 360px !important;
         }
 
         /* --- Main preview map: match budget_calculator.html map UI --- */
@@ -2566,10 +2566,7 @@
     <dialog id="plannerPreflightDialog" class="planner-preflight-dialog" aria-labelledby="plannerPreflightTitle">
         <div class="planner-preflight-dialog__inner">
             <div class="planner-preflight-head">
-                <div>
-                    <h2 id="plannerPreflightTitle">Map filters</h2>
-                    <p id="plannerPreflightSubtitle">Adjust filters, then open the map planner.</p>
-                </div>
+
                 <button type="button" class="planner-preflight-close" id="plannerPreflightClose" aria-label="Close">
                     <span class="material-symbols-outlined" aria-hidden="true">close</span>
                 </button>
@@ -2587,18 +2584,28 @@
                         <button type="button" data-pf-cat="sightseeing">Sightseeing</button>
                     </div>
                 </div>
-                <div class="planner-preflight-field">
-                    <label for="plannerPreflightTripSpend">Total trip spend (₹)</label>
-                    <input type="number" id="plannerPreflightTripSpend" min="0" step="100" placeholder="e.g. 15000"
-                        inputmode="decimal" autocomplete="off" />
-                    <p class="planner-preflight-hint">Optional — your planned or actual budget for the whole trip.
-                        Carries to the map planner.</p>
+
+                <div class="mt-4 mb-2">
+                    <label
+                        class="flex max-w-2xl cursor-pointer items-start gap-3 rounded-xl border border-amber-200/90 bg-amber-50/60 px-4 py-3 shadow-sm transition hover:bg-amber-50">
+                        <input type="checkbox" id="preflightGpsCheckbox"
+                            class="main-gps-checkbox mt-1 h-5 w-5 shrink-0 cursor-pointer rounded border-amber-400 accent-amber-800 focus:ring-2 focus:ring-amber-400/40"
+                            aria-describedby="preflightGpsStatus" />
+                        <span class="min-w-0 flex flex-col gap-1">
+                            <span class="flex items-center gap-2 text-sm font-bold text-on-surface">
+                                <span class="material-symbols-outlined text-xl text-amber-800"
+                                    aria-hidden="true">my_location</span>
+                                Use GPS for start location
+                            </span>
+                            <span class="text-xs font-normal leading-snug text-on-surface-variant">Tick this to use
+                                your live GPS as the map start. The address field is disabled while GPS is
+                                on.</span>
+                            <span id="preflightGpsStatus" class="text-[10px] font-medium text-amber-900 mt-1"></span>
+                        </span>
+                    </label>
                 </div>
-                <div class="planner-preflight-field">
-                    <label for="plannerPreflightSearch">Search places (optional)</label>
-                    <input type="search" id="plannerPreflightSearch" placeholder="Name or description…"
-                        autocomplete="off" />
-                </div>
+
+
                 <div class="planner-preflight-row2">
                     <div class="planner-preflight-field">
                         <label for="plannerPreflightStart">Outing start</label>
@@ -2620,14 +2627,27 @@
                     </div>
                 </div>
                 <div class="planner-preflight-field">
-                    <label for="plannerPreflightLoc">Start location</label>
+                    <div class="flex items-center justify-between">
+                        <label for="plannerPreflightLoc">Start location</label>
+                        <button type="button" id="preflightUseAddressBtn"
+                            class="hidden text-xs font-bold text-amber-800 hover:underline">Use typed address
+                            instead</button>
+                    </div>
                     <input type="text" id="plannerPreflightLoc" placeholder="e.g. Tirupati" value="Tirupati"
                         autocomplete="street-address" />
+                    <input type="hidden" id="plannerPreflightUserLoc" value="Tirupati" />
+                    <button type="button" id="plannerPreflightGo"
+                        class="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-amber-800 py-3 text-base font-bold text-white shadow-md transition hover:bg-amber-900 active:scale-[0.98]">
+                        <span class="material-symbols-outlined" aria-hidden="true">rocket_launch</span>
+                        Start plan
+                    </button>
                 </div>
-            </div>
-            <div class="planner-preflight-foot">
-                <button type="button" id="plannerPreflightCancel">Cancel</button>
-                <button type="button" class="planner-preflight-go" id="plannerPreflightGo">Go to map</button>
+
+                <div id="plannerPreflightMap"
+                    class="w-full rounded-xl border border-slate-200 bg-slate-100 shadow-inner"
+                    style="min-height: min(50vh, 420px); z-index: 1; position: relative; outline-style: none;"
+                    aria-label="Interactive map" tabindex="0">
+                </div>
             </div>
         </div>
     </dialog>
@@ -2821,7 +2841,7 @@
                     const closeBtn = document.getElementById('plannerPreflightClose');
                     const cancelBtn = document.getElementById('plannerPreflightCancel');
                     const goBtn = document.getElementById('plannerPreflightGo');
-                    if (!dlg || !catRoot || !grid || !searchEl || !startEl || !endEl || !dateEl || !daysEl || !locEl || !goBtn) return;
+                    if (!dlg || !catRoot || !grid || !startEl || !endEl || !dateEl || !daysEl || !locEl || !goBtn) return;
 
                     if (spendEl) {
                         spendEl.addEventListener('input', function () {
@@ -2856,12 +2876,20 @@
                             subtitle.textContent =
                                 'Theme: ' + label + ' — adjust map filters below, then open the planner with them applied.';
                         }
-                        searchEl.value = '';
+                        if (searchEl) searchEl.value = '';
                         dateEl.value = new Date().toISOString().split('T')[0];
                         daysEl.value = '1';
                         startEl.value = '09:00';
                         endEl.value = '21:00';
                         locEl.value = 'Tirupati';
+                        locEl.disabled = false;
+                        const pfGpsCb = document.getElementById('preflightGpsCheckbox');
+                        if (pfGpsCb) pfGpsCb.checked = false;
+                        const pfGpsSt = document.getElementById('preflightGpsStatus');
+                        if (pfGpsSt) pfGpsSt.textContent = '';
+                        const pfUseAddr = document.getElementById('preflightUseAddressBtn');
+                        if (pfUseAddr) pfUseAddr.classList.add('hidden');
+
                         if (spendEl) {
                             var savedSpend = '';
                             try {
@@ -2875,7 +2903,7 @@
                         } catch (eCat) { /* ignore */ }
                         dlg.showModal();
                         window.requestAnimationFrame(function () {
-                            goBtn.focus();
+                            window.dispatchEvent(new CustomEvent('init-preflight-map'));
                         });
                     }
 
@@ -2899,32 +2927,92 @@
                     if (closeBtn) closeBtn.addEventListener('click', closeDlg);
                     if (cancelBtn) cancelBtn.addEventListener('click', closeDlg);
 
-                    goBtn.addEventListener('click', function () {
-                        const p = new URLSearchParams();
-                        if (selectedCat && selectedCat !== 'all') {
-                            p.set('category', selectedCat);
-                        }
-                        const q = searchEl.value.trim();
-                        if (q) p.set('q', q);
-                        if (startEl.value) p.set('start', startEl.value);
-                        if (endEl.value) p.set('end', endEl.value);
-                        if (dateEl.value) p.set('date', dateEl.value);
-                        const nd = parseInt(daysEl.value, 10);
-                        if (!isNaN(nd) && nd >= 1) p.set('days', String(nd));
-                        const loc = locEl.value.trim();
-                        if (loc) p.set('loc', loc);
-                        if (spendEl) {
-                            var spendRaw = spendEl.value.trim();
-                            if (spendRaw !== '') {
-                                var sn = parseFloat(spendRaw);
-                                if (isFinite(sn) && sn >= 0) {
-                                    p.set('spend', String(Math.round(sn)));
+                    const pfGpsCb = document.getElementById('preflightGpsCheckbox');
+                    const pfGpsSt = document.getElementById('preflightGpsStatus');
+                    const pfUseAddr = document.getElementById('preflightUseAddressBtn');
+
+                    if (pfGpsCb) {
+                        pfGpsCb.addEventListener('change', function () {
+                            if (pfGpsCb.checked) {
+                                locEl.disabled = true;
+                                if (pfUseAddr) pfUseAddr.classList.remove('hidden');
+                                if (pfGpsSt) pfGpsSt.textContent = 'Requesting location…';
+                                if (navigator.geolocation) {
+                                    navigator.geolocation.getCurrentPosition(
+                                        function (pos) {
+                                            if (!pfGpsCb.checked) return;
+                                            if (pfGpsSt) pfGpsSt.textContent = 'GPS location acquired (±' + Math.round(pos.coords.accuracy) + 'm).';
+                                            const coords = {
+                                                lat: pos.coords.latitude,
+                                                lng: pos.coords.longitude,
+                                                accuracy: pos.coords.accuracy
+                                            };
+                                            if (window.setMainGpsCoords) window.setMainGpsCoords(coords);
+                                            const uLoc = document.getElementById('plannerPreflightUserLoc');
+                                            if (uLoc) uLoc.value = coords.lat + ',' + coords.lng;
+                                        },
+                                        function () {
+                                            pfGpsCb.checked = false;
+                                            if (window.setMainGpsCoords) window.setMainGpsCoords(null);
+                                            locEl.disabled = false;
+                                            if (pfUseAddr) pfUseAddr.classList.add('hidden');
+                                            if (pfGpsSt) pfGpsSt.textContent = 'Location denied or unavailable.';
+                                        }
+                                    );
+                                } else {
+                                    pfGpsCb.checked = false;
+                                    if (window.setMainGpsCoords) window.setMainGpsCoords(null);
+                                    locEl.disabled = false;
+                                    if (pfUseAddr) pfUseAddr.classList.add('hidden');
+                                    if (pfGpsSt) pfGpsSt.textContent = 'Geolocation not supported.';
                                 }
+                            } else {
+                                if (window.setMainGpsCoords) window.setMainGpsCoords(null);
+                                locEl.disabled = false;
+                                if (pfUseAddr) pfUseAddr.classList.add('hidden');
+                                if (pfGpsSt) pfGpsSt.textContent = '';
                             }
+                        });
+                    }
+                    if (pfUseAddr) {
+                        pfUseAddr.addEventListener('click', function () {
+                            if (pfGpsCb) pfGpsCb.checked = false;
+                            if (window.setMainGpsCoords) window.setMainGpsCoords(null);
+                            locEl.disabled = false;
+                            pfUseAddr.classList.add('hidden');
+                            if (pfGpsSt) pfGpsSt.textContent = '';
+                            locEl.focus();
+                        });
+                    }
+
+                    goBtn.addEventListener('click', function () {
+                        // Sync dialog values back to main page inputs
+                        const mainDate = document.getElementById('mainOutingDate');
+                        const mainStart = document.getElementById('mainOutingStart');
+                        const mainEnd = document.getElementById('mainOutingEnd');
+                        const mainLoc = document.getElementById('mainStartLocation');
+                        const mainCat = document.getElementById('mainLandingCatValue');
+
+                        if (mainDate) mainDate.value = dateEl.value;
+                        if (mainStart) mainStart.value = startEl.value;
+                        if (mainEnd) mainEnd.value = endEl.value;
+                        if (mainLoc) mainLoc.value = locEl.value;
+                        if (mainCat) mainCat.value = selectedCat;
+
+                        // Also sync GPS state if active
+                        const pfGpsCb = document.getElementById('preflightGpsCheckbox');
+                        const mainGpsCb = document.getElementById('mainGpsCheckbox');
+                        if (mainGpsCb && pfGpsCb) {
+                            mainGpsCb.checked = pfGpsCb.checked;
                         }
-                        p.set('apply', '1');
-                        window.location.href = PLANNER + '?' + p.toString();
+
+                        // Trigger the preview on the map
+                        if (window.showMainLandingMap) {
+                            window.showMainLandingMap();
+                        }
                     });
+
+
                 }
 
                 function initMobileNav() {
@@ -3068,10 +3156,15 @@
             var activeTierMeta = null;
 
             var pkgMap = null;
+            var preflightMap = null;
             var pkgMarkersLayer = null;
             var pkgRouteLayer = null;
             var pkgStartLayer = null;
             var pkgHospitalLayer = null;
+            var preflightMarkersLayer = null;
+            var preflightRouteLayer = null;
+            var preflightStartLayer = null;
+            var preflightHospitalLayer = null;
             var routeAbort = null;
             var emergencyAbort = null;
             var mainPreviewAbort = null;
@@ -3638,18 +3731,33 @@
 
                     var mapSec = document.getElementById('mapSection');
                     if (mapSec) mapSec.classList.remove('hidden');
-                    if (!ensurePkgMap()) {
-                        if (hintEl) {
-                            hintEl.textContent = 'Map could not be initialized.';
-                            hintEl.classList.remove('hidden');
-                        }
-                        return;
+                    var mapsToUpdate = [];
+                    if (ensurePkgMap()) {
+                        mapsToUpdate.push({
+                            map: pkgMap,
+                            markers: pkgMarkersLayer,
+                            route: pkgRouteLayer,
+                            start: pkgStartLayer,
+                            hospital: pkgHospitalLayer
+                        });
                     }
+                    if (ensurePreflightMap()) {
+                        mapsToUpdate.push({
+                            map: preflightMap,
+                            markers: preflightMarkersLayer,
+                            route: preflightRouteLayer,
+                            start: preflightStartLayer,
+                            hospital: preflightHospitalLayer
+                        });
+                    }
+
                     if (routeAbort) routeAbort.abort();
-                    if (pkgMarkersLayer) pkgMarkersLayer.clearLayers();
-                    if (pkgRouteLayer) pkgRouteLayer.clearLayers();
-                    if (pkgStartLayer) pkgStartLayer.clearLayers();
-                    if (pkgHospitalLayer) pkgHospitalLayer.clearLayers();
+                    mapsToUpdate.forEach(function (m) {
+                        if (m.markers) m.markers.clearLayers();
+                        if (m.route) m.route.clearLayers();
+                        if (m.start) m.start.clearLayers();
+                        if (m.hospital) m.hospital.clearLayers();
+                    });
 
                     var fromGps = !!window._mainPreviewUsesGps;
                     var metaStart =
@@ -3676,36 +3784,38 @@
                         iconAnchor: [20, 20],
                         popupAnchor: [0, -18]
                     });
-                    L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
-                        .bindPopup(
-                            buildBudgetStyleStartPopup(
-                                fromGps ? 'gps' : 'typed',
-                                startLabel,
-                                metaStart
-                            ),
-                            {
-                                className: 'place-popup--gov place-popup--start',
-                                minWidth: 300,
-                                maxWidth: 420
-                            }
-                        )
-                        .addTo(pkgStartLayer);
+                    mapsToUpdate.forEach(function (m) {
+                        L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
+                            .bindPopup(
+                                buildBudgetStyleStartPopup(
+                                    fromGps ? 'gps' : 'typed',
+                                    startLabel,
+                                    metaStart
+                                ),
+                                {
+                                    className: 'place-popup--gov place-popup--start',
+                                    minWidth: 300,
+                                    maxWidth: 420
+                                }
+                            )
+                            .addTo(m.start);
 
-                    topForRoute.forEach(function (p, idx) {
-                        var v = deriveVisitDisplayFromTimingsLanding(p.timings, p.categoryKey);
-                        p.visit_start = v.visit_start;
-                        p.visit_end = v.visit_end;
-                        var o = categoryPinStyleLanding(p.categoryKey);
-                        L.marker([p.lat, p.lng], {
-                            icon: placeMarkerIconWithOrderLanding(p.categoryKey, idx + 1),
-                            zIndexOffset: 400 + idx
-                        })
-                            .bindPopup(buildPlacePopupHtmlMain(p, idx + 1, o, ouS, ouE), {
-                                className: 'place-popup--gov',
-                                minWidth: 300,
-                                maxWidth: 420
+                        topForRoute.forEach(function (p, idx) {
+                            var v = deriveVisitDisplayFromTimingsLanding(p.timings, p.categoryKey);
+                            p.visit_start = v.visit_start;
+                            p.visit_end = v.visit_end;
+                            var o = categoryPinStyleLanding(p.categoryKey);
+                            L.marker([p.lat, p.lng], {
+                                icon: placeMarkerIconWithOrderLanding(p.categoryKey, idx + 1),
+                                zIndexOffset: 400 + idx
                             })
-                            .addTo(pkgMarkersLayer);
+                                .bindPopup(buildPlacePopupHtmlMain(p, idx + 1, o, ouS, ouE), {
+                                    className: 'place-popup--gov',
+                                    minWidth: 300,
+                                    maxWidth: 420
+                                })
+                                .addTo(m.markers);
+                        });
                     });
 
                     var seqPts = [[startLat, startLng]].concat(
@@ -3713,30 +3823,49 @@
                             return [p.lat, p.lng];
                         })
                     );
-                    fetchOsrmTripOrder(seqPts, signal).then(function (orderIdx) {
-                        if (signal.aborted) return;
-                        var orderedPts =
-                            orderIdx && orderIdx.length === seqPts.length
-                                ? orderIdx.map(function (ix) {
-                                    return seqPts[ix];
+                    // Greedy nearest-neighbor ordering: start → nearest → next nearest → ...
+                    var orderedPts = greedyNearestOrder(seqPts);
+
+                    // Re-order markers to match greedy order (skip index 0 = start)
+                    var orderedPlaces = orderedPts.slice(1).map(function (pt) {
+                        return topForRoute.find(function (p) {
+                            return Math.abs(p.lat - pt[0]) < 0.00001 && Math.abs(p.lng - pt[1]) < 0.00001;
+                        });
+                    }).filter(Boolean);
+
+                    mapsToUpdate.forEach(function (m) {
+                        if (m.markers) m.markers.clearLayers();
+                        orderedPlaces.forEach(function (p, idx) {
+                            var v = deriveVisitDisplayFromTimingsLanding(p.timings, p.categoryKey);
+                            p.visit_start = v.visit_start;
+                            p.visit_end = v.visit_end;
+                            var o = categoryPinStyleLanding(p.categoryKey);
+                            L.marker([p.lat, p.lng], {
+                                icon: placeMarkerIconWithOrderLanding(p.categoryKey, idx + 1),
+                                zIndexOffset: 400 + idx
+                            })
+                                .bindPopup(buildPlacePopupHtmlMain(p, idx + 1, o, ouS, ouE), {
+                                    className: 'place-popup--gov',
+                                    minWidth: 220,
+                                    maxWidth: 320
                                 })
-                                : seqPts;
-                        fetchOsrmRoute(orderedPts, signal).then(function (coords) {
-                            if (signal.aborted) return;
+                                .addTo(m.markers);
+                        });
+                    });
+
+                    fetchOsrmRoute(orderedPts, signal).then(function (coords) {
+                        if (signal.aborted) return;
+                        mapsToUpdate.forEach(function (m) {
                             if (coords && coords.length >= 2) {
                                 var routeLine = L.polyline(coords, {
                                     color: '#0f766e',
                                     weight: 4,
                                     opacity: 0.9,
                                     interactive: false
-                                }).addTo(pkgRouteLayer);
+                                }).addTo(m.route);
                                 try {
-                                    var elPath =
-                                        routeLine.getElement && routeLine.getElement();
-                                    if (elPath) {
-                                        elPath.style.filter =
-                                            'drop-shadow(0 0 3px rgba(0,0,0,.25))';
-                                    }
+                                    var elPath = routeLine.getElement && routeLine.getElement();
+                                    if (elPath) elPath.style.filter = 'drop-shadow(0 0 3px rgba(0,0,0,.25))';
                                 } catch (e0) { /* ignore */ }
                             } else if (orderedPts.length >= 2) {
                                 L.polyline(orderedPts, {
@@ -3745,14 +3874,14 @@
                                     dashArray: '6 5',
                                     opacity: 0.85,
                                     interactive: false
-                                }).addTo(pkgRouteLayer);
+                                }).addTo(m.route);
                             }
                             var b = orderedPts.slice();
-                            if (b.length && pkgMap) {
-                                pkgMap.fitBounds(b, { padding: [42, 42], maxZoom: 13, animate: true });
+                            if (b.length && m.map) {
+                                m.map.fitBounds(b, { padding: [42, 42], maxZoom: 13, animate: true });
                             }
                             window.setTimeout(function () {
-                                if (pkgMap) pkgMap.invalidateSize();
+                                if (m.map) m.map.invalidateSize();
                             }, 200);
                         });
                     });
@@ -3781,36 +3910,35 @@
                 });
             }
 
-            function fetchOsrmTripOrder(waypointsLatLng, signal) {
-                if (!waypointsLatLng || waypointsLatLng.length < 3) return Promise.resolve(null);
-                var path = waypointsLatLng
-                    .map(function (w) {
-                        return w[1] + ',' + w[0];
-                    })
-                    .join(';');
-                var url = OSRM_TRIP_BASE + '/' + path + '?source=first&destination=last&roundtrip=false&overview=false';
-                return fetch(url, { signal: signal })
-                    .then(function (r) {
-                        return r.json();
-                    })
-                    .then(function (j) {
-                        if (!j || j.code !== 'Ok' || !Array.isArray(j.waypoints)) return null;
-                        var pairs = [];
-                        for (var i = 0; i < j.waypoints.length; i++) {
-                            var wi = j.waypoints[i].waypoint_index;
-                            if (typeof wi !== 'number') return null;
-                            pairs.push({ inputIdx: i, visitIdx: wi });
+            /**
+             * Greedy nearest-neighbor ordering:
+             * Start → nearest unvisited → from there → next nearest → ...
+             * Returns ordered array of [lat, lng] points (start point is index 0, preserved).
+             */
+            function greedyNearestOrder(pts) {
+                if (!pts || pts.length < 2) return pts ? pts.slice() : [];
+                var result = [pts[0]]; // keep start fixed as first
+                var remaining = pts.slice(1);
+                var curLat = pts[0][0];
+                var curLng = pts[0][1];
+                while (remaining.length) {
+                    var bestI = 0;
+                    var bestD = Infinity;
+                    for (var i = 0; i < remaining.length; i++) {
+                        var dLat = remaining[i][0] - curLat;
+                        var dLng = remaining[i][1] - curLng;
+                        var d = dLat * dLat + dLng * dLng; // squared distance — sufficient for comparison
+                        if (d < bestD) {
+                            bestD = d;
+                            bestI = i;
                         }
-                        pairs.sort(function (a, b) {
-                            return a.visitIdx - b.visitIdx;
-                        });
-                        return pairs.map(function (x) {
-                            return x.inputIdx;
-                        });
-                    })
-                    .catch(function () {
-                        return null;
-                    });
+                    }
+                    var next = remaining.splice(bestI, 1)[0];
+                    result.push(next);
+                    curLat = next[0];
+                    curLng = next[1];
+                }
+                return result;
             }
 
             function escapeHtml(s) {
@@ -3891,6 +4019,35 @@
                 pkgHospitalLayer = L.layerGroup().addTo(pkgMap);
                 return true;
             }
+
+            function ensurePreflightMap() {
+                if (typeof L === 'undefined') return false;
+                var el = document.getElementById('plannerPreflightMap');
+                if (!el) return false;
+                if (preflightMap) {
+                    if (!preflightHospitalLayer) preflightHospitalLayer = L.layerGroup().addTo(preflightMap);
+                    window.setTimeout(function () {
+                        preflightMap.invalidateSize();
+                    }, 50);
+                    return true;
+                }
+                preflightMap = L.map('plannerPreflightMap', { scrollWheelZoom: true }).setView([13.6288, 79.4192], 11);
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap'
+                }).addTo(preflightMap);
+                preflightMarkersLayer = L.layerGroup().addTo(preflightMap);
+                preflightRouteLayer = L.layerGroup().addTo(preflightMap);
+                preflightStartLayer = L.layerGroup().addTo(preflightMap);
+                preflightHospitalLayer = L.layerGroup().addTo(preflightMap);
+                window.setTimeout(function () {
+                    preflightMap.invalidateSize();
+                }, 100);
+                return true;
+            }
+
+            window.addEventListener('init-preflight-map', function () {
+                ensurePreflightMap();
+            });
 
             function setMapStatus(msg) {
                 var s = document.getElementById('pkgMapStatus');
@@ -4139,7 +4296,7 @@
                             L.marker([startLat, startLng], { icon: startIcon, zIndexOffset: 900 })
                                 .bindPopup(buildStartPopupHtml(startLabel), {
                                     className: 'pkg-map-popup',
-                                    maxWidth: 520, minWidth: 380
+                                    maxWidth: 320, minWidth: 220
                                 })
                                 .addTo(pkgHospitalLayer);
 
@@ -4157,7 +4314,7 @@
                                 L.marker([h.lat, h.lng], { icon: ic, zIndexOffset: 500 + idx })
                                     .bindPopup(buildHospitalPopupHtml(h, n), {
                                         className: 'pkg-map-popup',
-                                        maxWidth: 520, minWidth: 380
+                                        maxWidth: 320, minWidth: 220
                                     })
                                     .addTo(pkgHospitalLayer);
                             });
@@ -4167,39 +4324,32 @@
                                     return [h.lat, h.lng];
                                 })
                             );
-                            fetchOsrmTripOrder(seqPts, signal).then(function (orderIdx) {
+                            // Greedy nearest-neighbor: start → nearest hospital → next nearest → ...
+                            var orderedPts = greedyNearestOrder(seqPts);
+                            fetchOsrmRoute(orderedPts, signal).then(function (coords) {
                                 if (signal.aborted) return;
-                                var orderedPts =
-                                    orderIdx && orderIdx.length === seqPts.length
-                                        ? orderIdx.map(function (ix) {
-                                            return seqPts[ix];
-                                        })
-                                        : seqPts;
-                                fetchOsrmRoute(orderedPts, signal).then(function (coords) {
-                                    if (signal.aborted) return;
-                                    if (coords && coords.length >= 2) {
-                                        L.polyline(coords, { color: '#735c00', weight: 5, opacity: 0.9 }).addTo(pkgHospitalLayer);
-                                    } else {
-                                        L.polyline(orderedPts, {
-                                            color: '#ca8a04',
-                                            weight: 3,
-                                            dashArray: '6 5',
-                                            opacity: 0.85
-                                        }).addTo(pkgHospitalLayer);
-                                    }
-                                    var b = orderedPts.slice();
-                                    if (b.length && pkgMap) pkgMap.fitBounds(b, { padding: [40, 40], maxZoom: 13, animate: true });
-                                    window.setTimeout(function () {
-                                        if (pkgMap) pkgMap.invalidateSize();
-                                    }, 200);
-                                    if (hint) {
-                                        hint.textContent =
-                                            'Driving route via OSRM trip optimization (start fixed, last hospital fixed).';
-                                    }
-                                    setMapStatus('Emergency: 3 nearest hospitals + optimized driving route.');
-                                    closeEmergencyPanel();
-                                    if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                                });
+                                if (coords && coords.length >= 2) {
+                                    L.polyline(coords, { color: '#735c00', weight: 5, opacity: 0.9 }).addTo(pkgHospitalLayer);
+                                } else {
+                                    L.polyline(orderedPts, {
+                                        color: '#ca8a04',
+                                        weight: 3,
+                                        dashArray: '6 5',
+                                        opacity: 0.85
+                                    }).addTo(pkgHospitalLayer);
+                                }
+                                var b = orderedPts.slice();
+                                if (b.length && pkgMap) pkgMap.fitBounds(b, { padding: [40, 40], maxZoom: 13, animate: true });
+                                window.setTimeout(function () {
+                                    if (pkgMap) pkgMap.invalidateSize();
+                                }, 200);
+                                if (hint) {
+                                    hint.textContent =
+                                        'Showing nearest 3 hospitals with driving route.';
+                                }
+                                setMapStatus('Emergency: 3 nearest hospitals + driving route.');
+                                closeEmergencyPanel();
+                                if (mapSec) mapSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                             });
                         })
                         .catch(function () {
@@ -4414,6 +4564,11 @@
                     showMainLandingMap();
                 });
             });
+
+            window.showMainLandingMap = showMainLandingMap;
+            window.setMainGpsCoords = function (coords) {
+                mainGpsCoords = coords;
+            };
 
             syncMainLandingCatChipsUi();
             var de = document.getElementById('mainOutingDate');
