@@ -334,6 +334,17 @@
             color: #451a03;
         }
 
+        /* Nudge “Booking” slightly right — only this link shifts */
+        .site-header__brand--booking-heading {
+            margin-left: clamp(2.5rem, 9.5vw, 6rem);
+        }
+
+        @media (min-width: 1024px) {
+            .site-header__brand--booking-heading {
+                margin-left: clamp(6.75rem, 19vw, 13rem);
+            }
+        }
+
         /* Home — same pattern as budget_calculator.html / packages.html */
         a.site-header__home,
         a.site-header__home:hover {
@@ -1299,7 +1310,7 @@
                     <span class="material-symbols-outlined" aria-hidden="true">home</span>
                     <span class="site-header__home-text">HOME</span>
                 </a>
-                <a href="main_page.html" class="site-header__brand min-w-0 shrink">
+                <a href="main_page.html" class="site-header__brand site-header__brand--booking-heading min-w-0 shrink">
                     <span class="site-header__brand-titles font-headline-lg">
                         <span
                             class="site-header__brand-name min-w-0 shrink truncate text-2xl font-bold tracking-tight text-amber-800 sm:text-3xl lg:text-4xl">Booking</span>
