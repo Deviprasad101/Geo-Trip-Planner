@@ -1491,269 +1491,539 @@
                 0 2px 0 rgba(255, 255, 255, 0.85) inset;
         }
 
+        /* --- PREMIUM TRIP INPUTS REDESIGN --- */
         .card--inputs {
-            background: #ffffff;
-            border: 1px solid rgba(100, 116, 139, 0.28);
-            border-top: 4px solid #38bdf8;
-            box-shadow:
-                0 12px 44px rgba(15, 23, 42, 0.08),
-                0 0 0 1px rgba(203, 213, 225, 0.85);
+            background: #f7faff !important;
+            border-radius: 24px !important;
+            padding: 2.25rem !important;
+            border: 1px solid rgba(79, 140, 255, 0.08) !important;
+            box-shadow: 0 10px 40px -10px rgba(79, 140, 255, 0.1) !important;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .card--inputs>.card__head {
-            gap: 1rem;
-            margin: -1px -1px 0 -1px;
-            padding: 1.05rem 1.25rem 1.12rem;
-            border-radius: 0;
-            border-bottom: 1px solid rgba(125, 211, 252, 0.55);
-            background: linear-gradient(180deg, #ffffff 0%, #eff6ff 48%, #dbeafe 100%);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95);
+        .card--inputs:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 45px -12px rgba(79, 140, 255, 0.15) !important;
         }
 
-        .card--inputs>.card__head .card__icon--primary {
-            background: linear-gradient(145deg, #7dd3fc 0%, #38bdf8 48%, #0ea5e9 100%) !important;
-            color: #ffffff !important;
-            border: 1px solid rgba(14, 165, 233, 0.45);
-            box-shadow: 0 8px 22px rgba(14, 165, 233, 0.28);
+        /* Decorative background element */
+        .card--inputs::after {
+            content: "";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 180px;
+            height: 180px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%234f8cff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19l-5-5-5 5M12 14V3"/></svg>');
+            background-repeat: no-repeat;
+            background-size: contain;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 0;
+            transform: rotate(15deg);
         }
 
-        .card--inputs>.card__head .card__icon--primary .material-symbols-outlined {
-            color: #ffffff !important;
+        .card--inputs .card__head {
+            margin-bottom: 2rem !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            position: relative;
+            z-index: 1;
         }
 
-        .card--inputs>.card__head .card__icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-        }
-
-        .card--inputs>.card__head .card__icon .material-symbols-outlined {
-            font-size: 28px;
-        }
-
-        .card--inputs>.card__head .card__title {
-            color: #0c1222 !important;
-            font-size: clamp(1.05rem, 1rem + 0.3vw, 1.22rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            text-shadow: none;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        .card--inputs>.card__head .card__subtitle {
-            font-size: clamp(0.82rem, 0.8rem + 0.2vw, 0.9rem);
-            font-weight: 500;
-            color: #5c6578 !important;
-            line-height: 1.55;
-            margin-top: 0.3rem;
-            max-width: 40rem;
-            text-shadow: none;
-            opacity: 1;
-        }
-
-        /* Light sky-blue entry zone */
-        .card--inputs .form-grid {
-            gap: 0.85rem 1rem;
-            padding: 1.02rem 1.15rem 1.05rem;
-            margin-top: 0;
-            border-radius: 0 0 14px 14px;
-            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 42%, #bae6fd 100%);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-            border-top: 1px solid rgba(125, 211, 252, 0.45);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
-        }
-
-        .card--inputs .form-grid>div {
-            padding: 0.75rem 0.9rem;
-            border-radius: 10px;
-            background: #ffffff;
-            border: 1px solid rgba(125, 211, 252, 0.65);
-            box-shadow: 0 2px 12px rgba(14, 165, 233, 0.07);
-        }
-
-        .card--inputs .inputs-field--budget {
-            padding: 0.75rem 0.9rem;
-            border-radius: 10px;
-            background: #ffffff;
-            border: 1px solid rgba(125, 211, 252, 0.65);
-            box-shadow: 0 2px 12px rgba(14, 165, 233, 0.07);
-        }
-
-        .card--inputs .inputs-field--budget label {
-            color: #334155 !important;
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
-        }
-
-        .card--inputs .inputs-field--budget .hint {
-            color: #334155 !important;
-            font-weight: 600;
-            background: #f8fafc !important;
-            border: 1px solid #e2e8f0 !important;
-            border-left: 4px solid #0ea5e9 !important;
-        }
-
-        .card--inputs .inputs-field--budget input {
-            font-weight: 600;
-            color: #111827;
-            border: 2px solid #94a3b8 !important;
+        .card--inputs .card__icon--primary {
+            width: 52px !important;
+            height: 52px !important;
             background: #ffffff !important;
+            color: #4f8cff !important;
+            border-radius: 14px !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(79, 140, 255, 0.12) !important;
+            border: 1px solid rgba(79, 140, 255, 0.1) !important;
         }
 
-        .card--inputs .inputs-field--budget .tooltip-btn {
-            background: #ffffff;
-            border: 2px solid #94a3b8;
-            color: #475569;
-            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+        .card--inputs .card__title {
+            font-size: 1.6rem !important;
+            font-weight: 800 !important;
+            color: #1e293b !important;
+            letter-spacing: -0.02em !important;
+            margin: 0 !important;
         }
 
-        .card--inputs label {
-            color: #334155;
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.06em;
+        .card--inputs .card__subtitle {
+            font-size: 0.9rem !important;
+            color: #64748b !important;
+            margin-top: 0.2rem !important;
+            opacity: 0.9;
+        }
+
+        /* 3-column Grid Layout */
+        .card--inputs .form-grid {
+            display: grid !important;
+            grid-template-columns: repeat(3, 1fr) !important;
+            gap: 1.25rem 1.5rem !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Responsive Grid */
+        @media (max-width: 1024px) {
+            .card--inputs .form-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        @media (max-width: 640px) {
+            .card--inputs .form-grid {
+                grid-template-columns: 1fr !important;
+            }
+            .card--inputs {
+                padding: 1.5rem !important;
+                border-radius: 20px !important;
+            }
+        }
+
+        /* Modern Input Container with Icons */
+        .input-group-premium {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group-premium label {
+            font-size: 0.825rem !important;
+            font-weight: 700 !important;
+            color: #475569 !important;
+            margin-left: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+        }
+
+        .input-wrapper-premium {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper-premium .material-symbols-outlined {
+            position: absolute;
+            left: 1rem;
+            font-size: 1.2rem;
+            color: #94a3b8;
+            pointer-events: none;
+            transition: all 0.3s ease;
         }
 
         .card--inputs input,
         .card--inputs select {
-            margin-top: 0.08rem;
-            font-weight: 600;
-            color: #111827;
-            border: 2px solid #94a3b8 !important;
-            background: #ffffff !important;
-            box-shadow: 0 1px 0 rgba(255, 255, 255, 1) inset, 0 1px 5px rgba(56, 189, 248, 0.08);
-        }
-
-        .card--inputs input::placeholder {
-            color: #64748b;
-            font-weight: 500;
+            width: 100% !important;
+            padding: 0.8rem 1rem 0.8rem 2.85rem !important;
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 1px solid rgba(79, 140, 255, 0.12) !important;
+            border-radius: 12px !important;
+            font-size: 0.95rem !important;
+            color: #1e293b !important;
+            font-weight: 600 !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            margin: 0 !important;
         }
 
         .card--inputs input:hover,
         .card--inputs select:hover {
-            border-color: #64748b !important;
+            border-color: rgba(79, 140, 255, 0.3) !important;
+            background: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(79, 140, 255, 0.08) !important;
         }
 
         .card--inputs input:focus,
         .card--inputs select:focus {
-            outline: none;
-            border-color: #0ea5e9 !important;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.35), 0 1px 5px rgba(14, 165, 233, 0.12);
+            background: #ffffff !important;
+            border-color: #4f8cff !important;
+            box-shadow: 0 0 0 4px rgba(79, 140, 255, 0.12), 0 4px 12px rgba(79, 140, 255, 0.08) !important;
+            outline: none !important;
+            transform: scale(1.01);
+        }
+
+        .input-wrapper-premium:focus-within .material-symbols-outlined {
+            color: #4f8cff !important;
+            transform: scale(1.1);
+        }
+
+        /* Specialized styles for specific inputs */
+        .inputs-field--budget {
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            box-shadow: none !important;
         }
 
         .card--inputs .hint {
-            font-size: 0.8125rem;
-            color: #1e293b !important;
-            font-weight: 600;
-            line-height: 1.5;
-            margin-top: 0.5rem;
-            padding: 0.55rem 0.7rem 0.55rem 0.75rem;
-            border-radius: 0 10px 10px 0;
-            background: #f0f9ff !important;
-            border: 1px solid rgba(125, 211, 252, 0.65) !important;
-            border-left: 4px solid #0ea5e9 !important;
-            box-shadow: 0 1px 3px rgba(14, 165, 233, 0.1);
+            font-size: 0.75rem;
+            color: #64748b !important;
+            background: #f1f5f9 !important;
+            border: 1px solid #e2e8f0 !important;
+            border-left: 3px solid #4f8cff !important;
+            padding: 0.5rem 0.75rem;
+            border-radius: 8px;
+            margin-top: 0.4rem;
+            font-weight: 500;
         }
 
-        .card--inputs .hint strong {
-            color: #0369a1;
-            font-weight: 800;
+        /* --- IMAGE-ACCURATE DASHBOARD UI --- */
+        .breakdown-stack, .summary-stack {
+            background: #ffffff !important;
+            border-radius: 30px !important;
+            padding: 2.5rem !important;
+            border: 1px solid rgba(0, 0, 0, 0.04) !important;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.02) !important;
+            margin-bottom: 2.5rem !important;
         }
 
-        .card--inputs .hint code {
-            font-size: 0.76em;
-            font-weight: 700;
-            padding: 0.15rem 0.4rem;
-            border-radius: 6px;
-            background: #e0f2fe;
-            border: 1px solid rgba(56, 189, 248, 0.55);
-            color: #075985;
-        }
-
-        .card--travel {
-            background: linear-gradient(145deg, #ffffff 0%, #fff4f1 100%);
-            border-color: #fde2dc;
-        }
-
-        .card--stay {
-            background: linear-gradient(145deg, #ffffff 0%, #f4f9ff 100%);
-            border-color: #dbeafe;
-        }
-
-        .card--food {
-            background: linear-gradient(145deg, #ffffff 0%, #f6ffef 100%);
-            border-color: #e2f5d4;
-        }
-
-        .card--activities {
-            background: linear-gradient(145deg, #ffffff 0%, #f4f2ff 100%);
-            border-color: #e9e5ff;
-        }
-
-        .card--buffer {
-            background: linear-gradient(145deg, #ffffff 0%, #fff7f0 100%);
-            border-color: #ffe8d9;
-        }
-
-        .card--map {
-            background: linear-gradient(145deg, #ffffff 0%, #eefcf9 100%);
-            border-color: #e9e5ff;
-        }
-
-        .card__head {
+        .section-header-wrap {
             display: flex;
-            align-items: center;
-            gap: 0.65rem;
-            margin-bottom: 1rem;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid var(--border);
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2.5rem;
         }
 
-        .card__icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
+        .section-header-info {
+            display: flex;
+            gap: 1.25rem;
+            align-items: center;
+        }
+
+        .section-header-icon {
+            width: 52px;
+            height: 52px;
+            background: #f1f5ff;
+            color: #4f8cff;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
-            flex-shrink: 0;
         }
 
-        .card__icon--primary {
-            background: linear-gradient(135deg, #d4af37, #e9c349);
-            color: #422006 !important;
+        .section-header-text h2 {
+            font-size: 1.15rem !important;
+            font-weight: 800 !important;
+            color: #1e293b !important;
+            margin: 0 !important;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
         }
 
-        .card__icon--primary .material-symbols-outlined {
-            color: #422006;
+        .section-header-text p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.25rem;
         }
 
-        .card__icon--secondary {
-            background: linear-gradient(135deg, var(--secondary), #fe9832);
+        /* --- COST BREAKDOWN CARDS --- */
+        .grid-breakdown {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important;
+            gap: 1.25rem !important;
         }
 
-        .card__icon--accent {
-            background: linear-gradient(135deg, #92400e, var(--secondary));
+        @media (max-width: 1024px) {
+            .grid-breakdown { grid-template-columns: repeat(3, 1fr) !important; }
+        }
+        @media (max-width: 640px) {
+            .grid-breakdown { grid-template-columns: 1fr !important; }
         }
 
-        .card__icon--teal {
-            background: linear-gradient(135deg, var(--teal), var(--teal-mid));
+        .grid-breakdown .card {
+            background: #ffffff !important;
+            border-radius: 20px !important;
+            padding: 2rem 1.25rem !important;
+            border: 1px solid rgba(0, 0, 0, 0.03) !important;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
         }
 
-        .card__title {
-            font-size: 1.07rem;
-            font-weight: 700;
-            margin: 0;
-            font-family: "Noto Serif", serif;
-            color: #1f2937;
+        .grid-breakdown .card::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 20%;
+            right: 20%;
+            height: 3px;
+            border-radius: 3px 3px 0 0;
         }
 
-        .card__subtitle {
-            font-size: 0.77rem;
-            color: var(--muted);
-            margin: 0.15rem 0 0;
+        .card--travel::after { background: #f59e0b; }
+        .card--stay::after { background: #3b82f6; }
+        .card--food::after { background: #10b981; }
+        .card--activities::after { background: #8b5cf6; }
+        .card--buffer::after { background: #f43f5e; }
+
+        .grid-breakdown .card__icon {
+            width: 44px !important;
+            height: 44px !important;
+            border-radius: 50% !important;
+            margin-bottom: 1.25rem !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+        }
+
+        .grid-breakdown .card__title {
+            font-size: 0.75rem !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
+            letter-spacing: 0.05em !important;
+            color: #1e293b !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .grid-breakdown .amount {
+            font-size: 1.6rem !important;
+            font-weight: 900 !important;
+            color: #0f172a !important;
+        }
+
+        /* --- BUDGET SUMMARY DASHBOARD --- */
+        .summary-card-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 2.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .summary-card-layout { grid-template-columns: 1fr; }
+        }
+
+        /* Left side: List */
+        .summary-list-panel {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            padding: 1.75rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+        }
+
+        .summary-list-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .summary-list-title .material-symbols-outlined {
+            color: #10b981;
+            font-size: 22px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item-label {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.95rem;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .summary-item-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .summary-item-value {
+            font-weight: 800;
+            color: #0f172a;
+            font-size: 1rem;
+        }
+
+        /* Right side: Total & Actions */
+        .summary-actions-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .total-budget-card {
+            background: #f8fbff;
+            border-radius: 24px;
+            padding: 2.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #eef2ff;
+        }
+
+        .total-budget-card::before {
+            content: "";
+            position: absolute;
+            bottom: 15%;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23dbeafe" fill-opacity="0.4" d="M0,192L60,197.3C120,203,240,213,360,197.3C480,181,600,139,720,138.7C840,139,960,181,1080,192C1200,203,1320,181,1380,170.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 0;
+        }
+
+        .total-budget-label {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #4f8cff;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .total-budget-value {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #0f172a;
+            letter-spacing: -0.04em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .total-budget-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background: #4f8cff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(79, 140, 255, 0.4);
+            z-index: 2;
+        }
+
+        .info-box-premium {
+            background: #eff6ff;
+            border-radius: 16px;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #475569;
+            font-weight: 600;
+        }
+
+        .info-box-premium .material-symbols-outlined {
+            color: #3b82f6;
+            font-size: 24px;
+        }
+
+        .summary-btns-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+        }
+
+        .btn-premium-blue {
+            background: #4f8cff !important;
+            color: white !important;
+            border-radius: 16px !important;
+            height: 56px !important;
+            font-weight: 700 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.75rem !important;
+            box-shadow: 0 8px 20px rgba(79, 140, 255, 0.25) !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-premium-white {
+            background: #ffffff !important;
+            color: #1e293b !important;
+            border-radius: 16px !important;
+            height: 56px !important;
+            font-weight: 700 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.75rem !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-premium-dark {
+            background: #0f172a !important;
+            color: white !important;
+            border-radius: 16px !important;
+            height: 60px !important;
+            font-weight: 700 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 0.75rem !important;
+            width: 100% !important;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2) !important;
+            border: none !important;
+            transition: all 0.3s ease !important;
+        }
+
+        .btn-premium-blue:hover, .btn-premium-dark:hover { transform: translateY(-3px); filter: brightness(1.1); }
+        .btn-premium-white:hover { transform: translateY(-3px); border-color: #cbd5e1; }
+
+        .summary-card__clear {
+            background: #fff5f5 !important;
+            color: #ff4d4d !important;
+            border: 1px solid #ffebeb !important;
+            padding: 0.5rem 1.25rem !important;
+            border-radius: 12px !important;
+            font-weight: 700 !important;
+            font-size: 0.85rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
         }
 
         .form-grid {
@@ -3377,9 +3647,8 @@
                                         <span class="material-symbols-outlined">edit_calendar</span>
                                     </div>
                                     <div>
-                                        <h2 class="card__title" id="inputsHeading">Trip inputs</h2>
-                                        <p class="card__subtitle">All amounts in Rs. . Totals and the cost cards below
-                                            refresh as you type.</p>
+                                        <h2 class="card__title" id="inputsHeading">Trip Details</h2>
+                                        <p class="card__subtitle">Configure your journey parameters for real-time cost estimation.</p>
                                     </div>
                                 </div>
                                 <div class="form-grid">
@@ -3389,190 +3658,244 @@
                                         <input type="time" id="mainOutingStart" tabindex="-1" />
                                         <input type="time" id="mainOutingEnd" tabindex="-1" />
                                     </div>
-                                    <div class="inputs-field--budget">
-                                        <label for="userBudget">Your total budget (Rs. ) <span class="tooltip-btn"
-                                                title="Optional - shows remaining vs estimated total">?</span></label>
-                                        <input type="number" id="userBudget" min="0" step="100" inputmode="decimal"
-                                            placeholder="Enter your budget" />
+                                    
+                                    <div class="input-group-premium">
+                                        <label for="userBudget">Total Budget (Rs. )</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">payments</span>
+                                            <input type="number" id="userBudget" min="0" step="100" inputmode="decimal" placeholder="e.g. 5000" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="travelMode">Travel mode</label>
-                                        <select id="travelMode">
-                                            <option value="" selected disabled>Select travel mode</option>
-                                            <option value="car">Car</option>
-                                            <option value="bike">Bike</option>
-                                            <option value="bus">Bus</option>
-                                            <option value="train">Train</option>
-                                        </select>
+
+                                    <div class="input-group-premium">
+                                        <label for="travelMode">Travel Mode</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">directions_car</span>
+                                            <select id="travelMode">
+                                                <option value="" selected disabled>Select mode</option>
+                                                <option value="car">Car</option>
+                                                <option value="bike">Bike</option>
+                                                <option value="bus">Bus</option>
+                                                <option value="train">Train</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div id="transitTicketField" hidden>
-                                        <label for="ticketPrice" id="transitTicketLabel">Bus ticket price (Rs. ) per
-                                            person</label>
-                                        <input type="number" id="ticketPrice" min="0" step="1" inputmode="decimal"
-                                            placeholder="Enter ticket fare" />
-                                        <p class="hint" id="transitTicketHint">One field for both bus and train; switch
-                                            mode to change the label. Travel cost = this amount x number of people.</p>
+
+                                    <div class="input-group-premium" id="transitTicketField" hidden>
+                                        <label for="ticketPrice" id="transitTicketLabel">Ticket Price (Rs. )</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">confirmation_number</span>
+                                            <input type="number" id="ticketPrice" min="0" step="1" inputmode="decimal" placeholder="Fare per person" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="distance">Total distance (km)</label>
-                                        <input type="number" id="distance" min="0" step="0.1" inputmode="decimal"
-                                            placeholder="Enter total distance" />
+
+                                    <div class="input-group-premium">
+                                        <label for="distance">Total Distance (km)</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">distance</span>
+                                            <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 120" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="people">Number of people</label>
-                                        <input type="number" id="people" min="1" step="1" inputmode="numeric"
-                                            placeholder="Number of people" />
+
+                                    <div class="input-group-premium">
+                                        <label for="people">Group Size</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">groups</span>
+                                            <input type="number" id="people" min="1" step="1" inputmode="numeric" placeholder="Number of people" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="days">Number of days</label>
-                                        <input type="number" id="days" min="1" step="1" inputmode="numeric"
-                                            placeholder="Trip days" />
+
+                                    <div class="input-group-premium">
+                                        <label for="days">Trip Duration</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">calendar_month</span>
+                                            <input type="number" id="days" min="1" step="1" inputmode="numeric" placeholder="Total days" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="rooms">Rooms required</label>
-                                        <input type="number" id="rooms" min="0" step="1" inputmode="numeric"
-                                            placeholder="Rooms" />
+
+                                    <div class="input-group-premium">
+                                        <label for="rooms">Rooms Needed</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">hotel</span>
+                                            <input type="number" id="rooms" min="0" step="1" inputmode="numeric" placeholder="Total rooms" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="roomCost">Cost per room (Rs. /night)</label>
-                                        <input type="number" id="roomCost" min="0" step="1" inputmode="decimal"
-                                            placeholder="Cost per room" />
+
+                                    <div class="input-group-premium">
+                                        <label for="roomCost">Price per Night (Rs. )</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">sell</span>
+                                            <input type="number" id="roomCost" min="0" step="1" inputmode="decimal" placeholder="Room rate" />
+                                        </div>
                                     </div>
-                                    <div>
-                                        <label for="foodPerDay">Food cost per person per day (Rs. )</label>
-                                        <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal"
-                                            placeholder="Food/day per person" />
+
+                                    <div class="input-group-premium">
+                                        <label for="foodPerDay">Food Cost (Rs. /day)</label>
+                                        <div class="input-wrapper-premium">
+                                            <span class="material-symbols-outlined">restaurant</span>
+                                            <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Per person" />
+                                        </div>
                                     </div>
                                 </div>
                             </section>
-                        </div>
-
-                        <div class="breakdown-stack">
-                            <h2 class="section-heading">Cost Breakdown</h2>
+                                            <div class="breakdown-stack">
+                            <div class="section-header-wrap">
+                                <div class="section-header-info">
+                                    <div class="section-header-icon">
+                                        <span class="material-symbols-outlined">analytics</span>
+                                    </div>
+                                    <div class="section-header-text">
+                                        <h2>Cost Breakdown</h2>
+                                        <p>Explore the estimated cost distribution for your trip</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="grid-breakdown">
                                 <section class="card card--travel" aria-labelledby="travelCardTitle">
-                                    <div class="card__head">
-                                        <div class="card__icon card__icon--secondary">
-                                            <span class="material-symbols-outlined">directions_car</span>
-                                        </div>
-                                        <div>
-                                            <h2 class="card__title" id="travelCardTitle">Travel cost</h2>
-                                        </div>
+                                    <div class="card__icon" style="background: #fffbeb; color: #f59e0b;">
+                                        <span class="material-symbols-outlined">directions_car</span>
                                     </div>
-                                    <div class="breakdown-card__foot">
-                                        <span class="amount" id="outTravel">Rs. 0</span>
-                                    </div>
+                                    <h2 class="card__title" id="travelCardTitle">Travel cost</h2>
+                                    <span class="amount" id="outTravel">Rs. 0</span>
                                 </section>
 
                                 <section class="card card--stay" aria-labelledby="stayCardTitle">
-                                    <div class="card__head">
-                                        <div class="card__icon card__icon--primary">
-                                            <span class="material-symbols-outlined">hotel</span>
-                                        </div>
-                                        <div>
-                                            <h2 class="card__title" id="stayCardTitle">Stay cost</h2>
-                                        </div>
+                                    <div class="card__icon" style="background: #eff6ff; color: #3b82f6;">
+                                        <span class="material-symbols-outlined">hotel</span>
                                     </div>
-                                    <div class="breakdown-card__foot">
-                                        <span class="amount" id="outStay">Rs. 0</span>
-                                    </div>
+                                    <h2 class="card__title" id="stayCardTitle">Stay cost</h2>
+                                    <span class="amount" id="outStay">Rs. 0</span>
                                 </section>
 
                                 <section class="card card--food" aria-labelledby="foodCardTitle">
-                                    <div class="card__head">
-                                        <div class="card__icon card__icon--accent">
-                                            <span class="material-symbols-outlined">restaurant</span>
-                                        </div>
-                                        <div>
-                                            <h2 class="card__title" id="foodCardTitle">Food cost</h2>
-                                        </div>
+                                    <div class="card__icon" style="background: #ecfdf5; color: #10b981;">
+                                        <span class="material-symbols-outlined">restaurant</span>
                                     </div>
-                                    <div class="breakdown-card__foot">
-                                        <span class="amount" id="outFood">Rs. 0</span>
-                                    </div>
+                                    <h2 class="card__title" id="foodCardTitle">Food cost</h2>
+                                    <span class="amount" id="outFood">Rs. 0</span>
                                 </section>
 
                                 <section class="card card--activities" aria-labelledby="actCardTitle">
-                                    <div class="card__head">
-                                        <div class="card__icon card__icon--teal">
-                                            <span class="material-symbols-outlined">confirmation_number</span>
-                                        </div>
-                                        <div>
-                                            <h2 class="card__title" id="actCardTitle">Activities cost</h2>
-                                        </div>
+                                    <div class="card__icon" style="background: #f5f3ff; color: #8b5cf6;">
+                                        <span class="material-symbols-outlined">confirmation_number</span>
                                     </div>
-                                    <div class="breakdown-card__foot">
-                                        <span class="amount" id="outActivities">Rs. 0</span>
-                                    </div>
+                                    <h2 class="card__title" id="actCardTitle">Activities cost</h2>
+                                    <span class="amount" id="outActivities">Rs. 0</span>
                                 </section>
 
                                 <section class="card card--buffer" aria-labelledby="extraCardTitle">
-                                    <div class="card__head">
-                                        <div class="card__icon card__icon--accent">
-                                            <span class="material-symbols-outlined">shield_with_heart</span>
-                                        </div>
-                                        <div>
-                                            <h2 class="card__title" id="extraCardTitle">Safety buffer</h2>
-                                        </div>
+                                    <div class="card__icon" style="background: #fff1f2; color: #f43f5e;">
+                                        <span class="material-symbols-outlined">shield_with_heart</span>
                                     </div>
-                                    <div class="breakdown-card__foot">
-                                        <span class="amount amount--accent" id="outBuffer">Rs. 0</span>
-                                    </div>
+                                    <h2 class="card__title" id="extraCardTitle">Safety buffer</h2>
+                                    <span class="amount" id="outBuffer">Rs. 0</span>
                                 </section>
                             </div>
                         </div>
 
                         <div class="summary-stack">
-                            <h2 class="section-heading">Budget Summary</h2>
-                            <section class="summary-card" aria-labelledby="summaryHeading">
-                                <div class="summary-card__head">
-                                    <h2 id="summaryHeading">
-                                        <span class="material-symbols-outlined"
-                                            style="vertical-align:middle">account_balance_wallet</span>
+                            <div class="section-header-wrap">
+                                <div class="section-header-info">
+                                    <div class="section-header-icon">
+                                        <span class="material-symbols-outlined">account_balance_wallet</span>
+                                    </div>
+                                    <div class="section-header-text">
+                                        <h2>Budget Summary</h2>
+                                        <p>Review your trip budget and plan smartly</p>
+                                    </div>
+                                </div>
+                                <button type="button" class="summary-card__clear" id="resetBudgetBtn">
+                                    <span class="material-symbols-outlined" style="font-size: 18px;">ink_eraser</span>
+                                    Clear inputs
+                                </button>
+                            </div>
+
+                            <div class="summary-card-layout">
+                                <div class="summary-list-panel">
+                                    <div class="summary-list-title">
+                                        <span class="material-symbols-outlined">receipt_long</span>
                                         Final budget summary
-                                    </h2>
-                                    <button type="button" class="ctrl-btn summary-card__clear" id="resetBudgetBtn"><span
-                                            class="material-symbols-outlined" aria-hidden="true"
-                                            style="font-size:18px">ink_eraser</span>Clear inputs</button>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-item-label">
+                                            <div class="summary-item-icon" style="background: #fffbeb; color: #f59e0b;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">directions_car</span>
+                                            </div>
+                                            Travel cost
+                                        </div>
+                                        <div class="summary-item-value" id="sumTravel">Rs. 0</div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-item-label">
+                                            <div class="summary-item-icon" style="background: #eff6ff; color: #3b82f6;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">hotel</span>
+                                            </div>
+                                            Stay cost
+                                        </div>
+                                        <div class="summary-item-value" id="sumStay">Rs. 0</div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-item-label">
+                                            <div class="summary-item-icon" style="background: #ecfdf5; color: #10b981;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">restaurant</span>
+                                            </div>
+                                            Food cost
+                                        </div>
+                                        <div class="summary-item-value" id="sumFood">Rs. 0</div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-item-label">
+                                            <div class="summary-item-icon" style="background: #f5f3ff; color: #8b5cf6;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">confirmation_number</span>
+                                            </div>
+                                            Activities cost
+                                        </div>
+                                        <div class="summary-item-value" id="sumAct">Rs. 0</div>
+                                    </div>
+                                    <div class="summary-item">
+                                        <div class="summary-item-label">
+                                            <div class="summary-item-icon" style="background: #fff1f2; color: #f43f5e;">
+                                                <span class="material-symbols-outlined" style="font-size: 16px;">shield_with_heart</span>
+                                            </div>
+                                            Safety buffer (10%)
+                                        </div>
+                                        <div class="summary-item-value" id="sumBuf">Rs. 0</div>
+                                    </div>
                                 </div>
-                                <div class="summary-card__body">
-                                    <div class="summary-lines">
-                                        <div class="summary-line"><span>Travel cost</span><strong id="sumTravel">Rs.
-                                                0</strong></div>
-                                        <div class="summary-line"><span>Stay cost</span><strong id="sumStay">Rs.
-                                                0</strong></div>
-                                        <div class="summary-line"><span>Food cost</span><strong id="sumFood">Rs.
-                                                0</strong></div>
-                                        <div class="summary-line"><span>Activities cost</span><strong id="sumAct">Rs.
-                                                0</strong></div>
-                                        <div class="summary-line"><span>Safety buffer (10%)</span><strong
-                                                id="sumBuf">Rs. 0</strong></div>
+
+                                <div class="summary-actions-panel">
+                                    <div class="total-budget-card">
+                                        <div class="total-budget-icon">
+                                            <span class="material-symbols-outlined" style="font-size: 24px;">attach_money</span>
+                                        </div>
+                                        <div class="total-budget-label">Estimated Total Budget</div>
+                                        <div class="total-budget-value" id="sumTotal">Rs. 0</div>
                                     </div>
-                                    <div class="total-line">
-                                        <span class="label">Total budget (Rs. )</span>
-                                        <span class="value" id="sumTotal">Rs. 0</span>
+
+                                    <div class="info-box-premium" id="remainingBox">
+                                        <span class="material-symbols-outlined">info</span>
+                                        <span>Enter your total budget (first field) to see if you are within plan.</span>
                                     </div>
-                                    <div class="remaining-box neutral" id="remainingBox" role="status"
-                                        aria-live="polite">
-                                        Enter your total budget (first field in Trip inputs) to see if you are within
-                                        plan.
+
+                                    <div class="summary-btns-row">
+                                        <button type="button" class="btn-premium-blue" id="sbDownloadPdfBtn">
+                                            <span class="material-symbols-outlined" style="font-size: 20px;">picture_as_pdf</span>
+                                            PDF Export
+                                        </button>
+                                        <button type="button" class="btn-premium-white" id="openBudgetSplitterBtn">
+                                            <span class="material-symbols-outlined" style="font-size: 20px;">pie_chart</span>
+                                            Splitter
+                                        </button>
                                     </div>
-                                    <div class="summary-card__actions-bottom"
-                                        aria-label="Export, budget splitter, and recalculate">
-                                        <button type="button" class="btn-pdf-export summary-card__pdf"
-                                            id="sbDownloadPdfBtn"><span class="material-symbols-outlined"
-                                                aria-hidden="true">picture_as_pdf</span>Download trip PDF</button>
-                                        <button type="button" class="ctrl-btn summary-card__splitter"
-                                            id="openBudgetSplitterBtn"><span class="material-symbols-outlined"
-                                                aria-hidden="true">pie_chart</span>Budget Splitter</button>
-                                        <button type="button" class="ctrl-btn ctrl-btn--primary summary-card__recalc"
-                                            id="recalcBudgetBtn"><span class="material-symbols-outlined"
-                                                aria-hidden="true"
-                                                style="font-size:18px">calculate</span>Recalculate</button>
-                                    </div>
+
+                                    <button type="button" class="btn-premium-dark" id="recalcBudgetBtn">
+                                        <span class="material-symbols-outlined" style="font-size: 24px;">calculate</span>
+                                        Recalculate Now
+                                    </button>
                                 </div>
-                            </section>
-                        </div>
+                            </div>
+                        </div>      </div>
                     </main>
 
                     <aside class="budget-page-split__map" aria-label="Emergency map">
