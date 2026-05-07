@@ -2038,240 +2038,7 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- Categories: horizontal rail -->
-                <section id="categorySection" class="space-y-4" aria-labelledby="categoryHeading">
-                    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-                        <div>
-                            <h2 id="categoryHeading"
-                                class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">Choose a
-                                starting theme</h2>
-                            <p class="mt-1 max-w-2xl text-sm text-on-surface-variant sm:text-base">Scroll sideways on
-                                small screens. Use quick chips to narrow themes.</p>
-                        </div>
-                    </div>
-                    <div class="flex flex-wrap gap-2" id="filterChips" role="group" aria-label="Quick filters">
-                        <button type="button" class="filter-chip is-active" data-set-filter="">All</button>
-                        <button type="button" class="filter-chip" data-set-filter="food">Food</button>
-                        <button type="button" class="filter-chip" data-set-filter="temple">Temples</button>
-                        <button type="button" class="filter-chip" data-set-filter="adventure">Adventure</button>
-                        <button type="button" class="filter-chip" data-set-filter="wildlife">Wildlife</button>
-                        <button type="button" class="filter-chip" data-set-filter="sight">Sightseeing</button>
-                    </div>
-                    <p id="categoryFilterStatus" class="sr-only" aria-live="polite"></p>
-                    <p id="categoryEmpty"
-                        class="hidden rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-center text-sm text-on-surface-variant"
-                        role="status">No themes match. Clear the filter or tap “All”.</p>
-
-                    <div id="categoryGrid" class="cat-rail pb-1">
-                        <button type="button" data-category-card="food" data-theme-label="Food"
-                            data-search-text="food prasadam vegetarian meal dining restaurant local spots"
-                            class="cat-rail-card group">
-                            <div class="relative h-36 shrink-0 overflow-hidden bg-amber-100">
-                                <img alt="Traditional vegetarian meal and prasadam"
-                                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                    decoding="async" loading="lazy" src="images/food%20image.jpg" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-amber-700 shadow-sm"
-                                    aria-hidden="true">restaurant</span>
-                            </div>
-                            <div class="flex flex-1 flex-col gap-2 p-4">
-                                <h3 class="font-headline-md text-lg font-semibold text-on-surface">Food</h3>
-                                <p class="text-sm leading-relaxed text-on-surface-variant">Prasadam and local vegetarian
-                                    favourites.</p>
-                                <div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
-                                    <span class="text-2xl font-bold tabular-nums text-primary"
-                                        id="countFoodCard">20</span>
-                                </div>
-                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set
-                                    map filters <span class="material-symbols-outlined text-lg"
-                                        aria-hidden="true">tune</span></span>
-                            </div>
-                        </button>
-                        <button type="button" data-category-card="adventure" data-theme-label="Adventure"
-                            data-search-text="adventure hills forest trails trekking trek nature landscape outdoor"
-                            class="cat-rail-card group">
-                            <div class="relative h-36 shrink-0 overflow-hidden bg-emerald-100">
-                                <img alt="Hills and forest trails for trekking"
-                                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                    decoding="async" loading="lazy" src="images/adventure%20image.jpg" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-emerald-700 shadow-sm"
-                                    aria-hidden="true">landscape</span>
-                            </div>
-                            <div class="flex flex-1 flex-col gap-2 p-4">
-                                <h3 class="font-headline-md text-lg font-semibold text-on-surface">Adventure</h3>
-                                <p class="text-sm leading-relaxed text-on-surface-variant">Hills, forest trails, and
-                                    treks.</p>
-                                <div class="mt-auto flex items-end justify-end border-t border-emerald-100 pt-3">
-                                    <span class="text-2xl font-bold tabular-nums text-tertiary"
-                                        id="countAdventureCard">20</span>
-                                </div>
-                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set
-                                    map filters <span class="material-symbols-outlined text-lg"
-                                        aria-hidden="true">tune</span></span>
-                            </div>
-                        </button>
-                        <button type="button" data-category-card="wildlife" data-theme-label="Wildlife"
-                            data-search-text="wildlife sanctuary national park deer peacock birds safari reserve crocodile zoo nature fauna"
-                            class="cat-rail-card group">
-                            <div class="relative h-36 shrink-0 overflow-hidden bg-lime-100">
-                                <img alt="Wildlife habitats and sanctuary zones near Tirupati"
-                                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                    decoding="async" loading="lazy" src="images/wild%20life.jpg" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-lime-700 shadow-sm"
-                                    aria-hidden="true">pets</span>
-                            </div>
-                            <div class="flex flex-1 flex-col gap-2 p-4">
-                                <h3 class="font-headline-md text-lg font-semibold text-on-surface">Wildlife</h3>
-                                <p class="text-sm leading-relaxed text-on-surface-variant">Sanctuaries, deer parks, bird
-                                    zones, and eco reserves.</p>
-                                <div class="mt-auto flex items-end justify-end border-t border-lime-100 pt-3">
-                                    <span class="text-2xl font-bold tabular-nums text-lime-700"
-                                        id="countWildlifeCard">20</span>
-                                </div>
-                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set
-                                    map filters <span class="material-symbols-outlined text-lg"
-                                        aria-hidden="true">tune</span></span>
-                            </div>
-                        </button>
-                        <button type="button" data-category-card="temple" data-theme-label="Temples"
-                            data-search-text="temple temples shrine darshan venkateswara spiritual hindu worship pilgrimage"
-                            class="cat-rail-card group ring-2 ring-primary-container/25">
-                            <div class="relative h-36 shrink-0 overflow-hidden bg-amber-200/80">
-                                <img alt="Ornate temple gopuram and shrine architecture"
-                                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                    decoding="async" loading="lazy" src="images/temple%20image.jpg" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-primary-container shadow-sm"
-                                    aria-hidden="true">temple_hindu</span>
-                            </div>
-                            <div class="flex flex-1 flex-col gap-2 p-4">
-                                <h3 class="font-headline-md text-lg font-semibold text-on-surface">Temples</h3>
-                                <p class="text-sm leading-relaxed text-on-surface-variant">Shrines and Venkateswara
-                                    complexes.</p>
-                                <div class="mt-auto flex items-end justify-end border-t border-amber-100 pt-3">
-                                    <span class="text-2xl font-bold tabular-nums text-primary-container"
-                                        id="countTempleCard">20</span>
-                                </div>
-                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set
-                                    map filters <span class="material-symbols-outlined text-lg"
-                                        aria-hidden="true">tune</span></span>
-                            </div>
-                        </button>
-                        <button type="button" data-category-card="sightseeing" data-theme-label="Sightseeing"
-                            data-search-text="sightseeing viewpoints waterfall heritage scenic photo camera parks monuments"
-                            class="cat-rail-card group">
-                            <div class="relative h-36 shrink-0 overflow-hidden bg-blue-100">
-                                <img alt="Scenic viewpoints and heritage landscapes"
-                                    class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-                                    decoding="async" loading="lazy" src="images/site%20seeng%20image.avif" />
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
-                                <span
-                                    class="material-symbols-outlined absolute right-3 top-3 rounded-lg bg-white/90 p-2 text-blue-700 shadow-sm"
-                                    aria-hidden="true">photo_camera</span>
-                            </div>
-                            <div class="flex flex-1 flex-col gap-2 p-4">
-                                <h3 class="font-headline-md text-lg font-semibold text-on-surface">Sightseeing</h3>
-                                <p class="text-sm leading-relaxed text-on-surface-variant">Viewpoints, waterfalls, and
-                                    heritage.</p>
-                                <div class="mt-auto flex items-end justify-end border-t border-blue-100 pt-3">
-                                    <span class="text-2xl font-bold tabular-nums text-blue-700"
-                                        id="countSightseeingCard">20</span>
-                                </div>
-                                <span class="inline-flex items-center gap-1 text-sm font-semibold text-secondary">Set
-                                    map filters <span class="material-symbols-outlined text-lg"
-                                        aria-hidden="true">tune</span></span>
-                            </div>
-                        </button>
-                    </div>
-
-                </section>
-
-                <section id="testimonials" class="space-y-4 sm:space-y-5" aria-labelledby="testimonialsHeading">
-                    <h2 id="testimonialsHeading"
-                        class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">What travellers say
-                    </h2>
-                    <p class="max-w-2xl text-sm leading-relaxed text-on-surface-variant sm:text-base">Feedback-style
-                        notes from visitors who planned Tirumala &amp; Tirupati days with categories, maps, and budgets.
-                    </p>
-                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        <figure class="testimonial-card">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“The map-first flow helped us cluster food and temple stops without
-                                    doubling back. Distance hints matched what we saw on the ground.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Priya R.</div>
-                                <div class="testimonial-card__meta">Family trip · Chennai</div>
-                            </figcaption>
-                        </figure>
-                        <figure class="testimonial-card">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“Budget splitter plus the planner gave our group a simple per-person
-                                    picture before we booked stays. Clear and quick.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Arjun M.</div>
-                                <div class="testimonial-card__meta">College friends · Hyderabad</div>
-                            </figcaption>
-                        </figure>
-                        <figure class="testimonial-card sm:col-span-2 lg:col-span-1">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“Loved filtering by sightseeing and wildlife. The CSV-backed counts made
-                                    it easy to argue for one extra half-day in the hills.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Lakshmi K.</div>
-                                <div class="testimonial-card__meta">Solo traveller · Bengaluru</div>
-                            </figcaption>
-                        </figure>
-                        <figure class="testimonial-card">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“The booking options page gave us quick fare expectations from Tirupati
-                                    to Tirumala before finalizing the day plan.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Naveen T.</div>
-                                <div class="testimonial-card__meta">Weekend trip · Vijayawada</div>
-                            </figcaption>
-                        </figure>
-                        <figure class="testimonial-card">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“Category chips and quick search were super useful. We locked temple +
-                                    food stops in under ten minutes.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Sowmya P.</div>
-                                <div class="testimonial-card__meta">Parents + kids · Nellore</div>
-                            </figcaption>
-                        </figure>
-                        <figure class="testimonial-card">
-                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
-                            <blockquote class="testimonial-card__quote">
-                                <p class="m-0">“Per-person split helped our 5-member group settle costs calmly. The UI
-                                    is simple enough for everyone to follow.”</p>
-                            </blockquote>
-                            <figcaption class="testimonial-card__footer">
-                                <div class="testimonial-card__name">Rahul S.</div>
-                                <div class="testimonial-card__meta">Friends group · Tirupati</div>
-                            </figcaption>
-                        </figure>
-                    </div>
-                    <p class="text-center text-xs text-on-surface-variant/90 sm:text-left">Illustrative traveller
-                        stories for the product experience — not paid endorsements.</p>
-                </section>
-
+                
                 <div id="landingTripForm" class="rounded-2xl border border-amber-200/70 bg-white p-5 shadow-sm sm:p-6">
                     <h3 class="font-headline-md text-lg font-semibold text-on-surface sm:text-xl">Trip Details</h3>
                     <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Enter when you are out, your start
@@ -2478,6 +2245,90 @@
                     <p id="mainTripFormHint" class="mt-3 hidden text-sm font-medium text-red-700" role="alert"></p>
                 </div>
 
+                <!-- Categories: horizontal rail -->
+
+
+                <section id="testimonials" class="space-y-4 sm:space-y-5" aria-labelledby="testimonialsHeading">
+                    <h2 id="testimonialsHeading"
+                        class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">What travellers say
+                    </h2>
+                    <p class="max-w-2xl text-sm leading-relaxed text-on-surface-variant sm:text-base">Feedback-style
+                        notes from visitors who planned Tirumala &amp; Tirupati days with categories, maps, and budgets.
+                    </p>
+                    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        <figure class="testimonial-card">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“The map-first flow helped us cluster food and temple stops without
+                                    doubling back. Distance hints matched what we saw on the ground.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Priya R.</div>
+                                <div class="testimonial-card__meta">Family trip · Chennai</div>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial-card">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“Budget splitter plus the planner gave our group a simple per-person
+                                    picture before we booked stays. Clear and quick.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Arjun M.</div>
+                                <div class="testimonial-card__meta">College friends · Hyderabad</div>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial-card sm:col-span-2 lg:col-span-1">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“Loved filtering by sightseeing and wildlife. The CSV-backed counts made
+                                    it easy to argue for one extra half-day in the hills.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Lakshmi K.</div>
+                                <div class="testimonial-card__meta">Solo traveller · Bengaluru</div>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial-card">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“The booking options page gave us quick fare expectations from Tirupati
+                                    to Tirumala before finalizing the day plan.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Naveen T.</div>
+                                <div class="testimonial-card__meta">Weekend trip · Vijayawada</div>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial-card">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★☆</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“Category chips and quick search were super useful. We locked temple +
+                                    food stops in under ten minutes.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Sowmya P.</div>
+                                <div class="testimonial-card__meta">Parents + kids · Nellore</div>
+                            </figcaption>
+                        </figure>
+                        <figure class="testimonial-card">
+                            <div class="testimonial-card__stars" aria-hidden="true">★★★★★</div>
+                            <blockquote class="testimonial-card__quote">
+                                <p class="m-0">“Per-person split helped our 5-member group settle costs calmly. The UI
+                                    is simple enough for everyone to follow.”</p>
+                            </blockquote>
+                            <figcaption class="testimonial-card__footer">
+                                <div class="testimonial-card__name">Rahul S.</div>
+                                <div class="testimonial-card__meta">Friends group · Tirupati</div>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <p class="text-center text-xs text-on-surface-variant/90 sm:text-left">Illustrative traveller
+                        stories for the product experience — not paid endorsements.</p>
+                </section>
+
+
+
                 <section id="mapSection" class="mt-6 hidden w-full space-y-4" aria-label="Trip preview map">
                     <input type="hidden" id="userStartLocation" value="Tirupati" />
                     <a href="budget_calculator.html" id="mainOpenPlannerLink"
@@ -2505,9 +2356,7 @@
                                 <li><a href="budget_calculator.html"
                                         class="font-medium text-amber-300 hover:text-amber-100 hover:underline">Budget
                                         &amp; map planner</a></li>
-                                <li><a href="#categorySection"
-                                        class="font-medium text-amber-300 hover:text-amber-100 hover:underline">Categories</a>
-                                </li>
+
                                 <li><a href="#howItWorks"
                                         class="font-medium text-amber-300 hover:text-amber-100 hover:underline">How it
                                         works</a></li>
@@ -2777,81 +2626,14 @@
                     startTimer();
                 }
 
-                function initCategoryFilter() {
-                    const input = document.getElementById('navSearch');
-                    const grid = document.getElementById('categoryGrid');
-                    const status = document.getElementById('categoryFilterStatus');
-                    const empty = document.getElementById('categoryEmpty');
-                    const chips = document.querySelectorAll('#filterChips [data-set-filter]');
-                    if (!grid) return;
-                    const cards = grid.querySelectorAll('[data-category-card]');
-                    let chipOnlyFilter = '';
 
-                    function getFilterLower() {
-                        if (input) return (input.value || '').trim().toLowerCase();
-                        return (chipOnlyFilter || '').trim().toLowerCase();
-                    }
-
-                    function syncChipsActive() {
-                        const v = getFilterLower();
-                        chips.forEach(function (chip) {
-                            const f = (chip.getAttribute('data-set-filter') || '').toLowerCase();
-                            const isAll = f === '' && v === '';
-                            const match = f !== '' && v === f;
-                            chip.classList.toggle('is-active', isAll || match);
-                        });
-                    }
-
-                    function run() {
-                        const raw = input ? input.value.trim() : chipOnlyFilter.trim();
-                        const q = raw.toLowerCase().replace(/\s+/g, ' ');
-                        let visible = 0;
-                        cards.forEach(function (a) {
-                            const hay = (a.getAttribute('data-search-text') || '').toLowerCase();
-                            const text = (a.textContent || '').toLowerCase();
-                            const ok = !q || hay.indexOf(q) !== -1 || text.indexOf(q) !== -1;
-                            a.classList.toggle('category-card-hidden', !ok);
-                            if (ok) visible += 1;
-                        });
-                        if (empty) empty.classList.toggle('hidden', visible !== 0);
-                        if (status) {
-                            if (!q) {
-                                status.textContent = 'Showing all themes.';
-                            } else if (visible) {
-                                status.textContent = 'Showing ' + visible + ' themes matching your filter.';
-                            } else {
-                                status.textContent = 'No themes match your filter.';
-                            }
-                        }
-                        syncChipsActive();
-                    }
-
-                    if (input) {
-                        input.addEventListener('input', run);
-                        input.addEventListener('search', run);
-                    }
-
-                    chips.forEach(function (chip) {
-                        chip.addEventListener('click', function () {
-                            const f = chip.getAttribute('data-set-filter') || '';
-                            if (input) {
-                                input.value = f;
-                            } else {
-                                chipOnlyFilter = f;
-                            }
-                            run();
-                        });
-                    });
-
-                    run();
-                }
 
                 function initPlannerPreflight() {
                     const TRIP_SPEND_STORAGE = 'tirupati_trip_total_spend';
                     const dlg = document.getElementById('plannerPreflightDialog');
                     const subtitle = document.getElementById('plannerPreflightSubtitle');
                     const catRoot = document.getElementById('plannerPreflightCatChips');
-                    const grid = document.getElementById('categoryGrid');
+                    const grid = document.getElementById('mainLandingCatChips');
                     const searchEl = document.getElementById('plannerPreflightSearch');
                     const startEl = document.getElementById('plannerPreflightStart');
                     const endEl = document.getElementById('plannerPreflightEnd');
@@ -3114,11 +2896,7 @@
                         set('countWildlife', wildlife);
                         set('countTemple', temple);
                         set('countSightseeing', sightseeing);
-                        set('countFoodCard', food);
-                        set('countAdventureCard', adventure);
-                        set('countWildlifeCard', wildlife);
-                        set('countTempleCard', temple);
-                        set('countSightseeingCard', sightseeing);
+
                         const sumLanding = food + adventure + wildlife + temple + sightseeing;
                         set('countAllThemesLanding', sumLanding);
                         set('countFoodCardLanding', food);
@@ -3133,11 +2911,7 @@
                         set('countWildlife', '—');
                         set('countTemple', '—');
                         set('countSightseeing', '—');
-                        set('countFoodCard', '—');
-                        set('countAdventureCard', '—');
-                        set('countWildlifeCard', '—');
-                        set('countTempleCard', '—');
-                        set('countSightseeingCard', '—');
+
                         set('countAllThemesLanding', '—');
                         set('countFoodCardLanding', '—');
                         set('countAdventureCardLanding', '—');
@@ -3149,7 +2923,7 @@
 
                 initFooterYear();
                 initHeroSlideshow();
-                initCategoryFilter();
+
                 initPlannerPreflight();
                 initMobileNav();
                 loadCounts();
@@ -4468,20 +4242,7 @@
                 });
             }
 
-            var cgLand = document.getElementById('categoryGrid');
-            if (cgLand) {
-                cgLand.addEventListener('click', function (e) {
-                    var card = e.target.closest('[data-category-card]');
-                    if (!card) return;
-                    var raw = (card.getAttribute('data-category-card') || '').toLowerCase();
-                    var allowed = { food: 1, adventure: 1, wildlife: 1, temple: 1, sightseeing: 1 };
-                    var v = allowed[raw] ? raw : 'all';
-                    var h = document.getElementById('mainLandingCatValue');
-                    if (h) h.value = v;
-                    syncMainLandingCatChipsUi();
-                    refreshLandingPlannerLink();
-                });
-            }
+
 
             function setManualStartLockedByGps(locked) {
                 var el = document.getElementById('mainStartLocation');
