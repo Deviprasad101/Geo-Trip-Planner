@@ -7342,6 +7342,24 @@
                 if (el) {
                     el.addEventListener('input', calc);
                     el.addEventListener('change', calc);
+                    
+                    // Special logic for travelMode icon switching
+                    if (id === 'travelMode') {
+                        const updateIcon = function() {
+                            const iconMap = {
+                                'car': 'directions_car',
+                                'bike': 'pedal_bike',
+                                'bus': 'directions_bus',
+                                'train': 'train'
+                            };
+                            const iconSpan = el.previousElementSibling;
+                            if (iconSpan && iconSpan.classList.contains('material-symbols-outlined')) {
+                                iconSpan.textContent = iconMap[el.value] || 'directions_car';
+                            }
+                        };
+                        el.addEventListener('change', updateIcon);
+                        updateIcon(); // Initial state
+                    }
                 }
             });
 
