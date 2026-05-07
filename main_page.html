@@ -228,9 +228,10 @@
         /* Marquee Scrolling Text */
         .marquee-container {
             width: 100%;
-            background: linear-gradient(90deg, #b45309 0%, #d97706 50%, #b45309 100%);
-            box-shadow: 0 4px 15px rgba(180, 83, 9, 0.2);
-            border-radius: 9999px; /* Pill shape */
+            background: #fffbeb; /* Very light amber */
+            border-top: 1px solid rgba(217, 119, 6, 0.2);
+            border-bottom: 1px solid rgba(217, 119, 6, 0.2);
+            /* Full width, no rounded corners for edge-to-edge */
         }
 
         .animate-marquee {
@@ -250,6 +251,80 @@
             overscroll-behavior: contain;
         }
 
+        /* Form Enhancement - Interactive "Entry Cards" */
+        .landing-form-group {
+            position: relative;
+            background: #ffffff;
+            border-radius: 1.25rem;
+            padding: 1rem 1.25rem;
+            border: 2px solid #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .landing-form-group:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px -4px rgba(0,0,0,0.08);
+        }
+
+        /* Category-specific styling for clarity and beauty */
+        .landing-form-group--start { border-color: #e0f2fe; }
+        .landing-form-group--start:hover { background: #f0f9ff; border-color: #7dd3fc; }
+        .landing-form-group--start .landing-form-icon { color: #0ea5e9; }
+
+        .landing-form-group--end { border-color: #f3e8ff; }
+        .landing-form-group--end:hover { background: #faf5ff; border-color: #d8b4fe; }
+        .landing-form-group--end .landing-form-icon { color: #a855f7; }
+
+        .landing-form-group--date { border-color: #ecfdf5; }
+        .landing-form-group--date:hover { background: #f0fdf4; border-color: #6ee7b7; }
+        .landing-form-group--date .landing-form-icon { color: #10b981; }
+
+        .landing-form-group--loc { border-color: #fffbeb; }
+        .landing-form-group--loc:hover { background: #fffcf0; border-color: #fcd34d; }
+        .landing-form-group--loc .landing-form-icon { color: #f59e0b; }
+
+        .landing-form-group:focus-within {
+            border-color: currentColor; /* Matches the hover border color */
+            background: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(0,0,0,0.05);
+        }
+
+        .landing-form-icon {
+            font-size: 1.4rem !important;
+            margin-right: 0.6rem;
+        }
+
+        /* Remove browser default "black box" or heavy styling on date/time/text */
+        input[type="time"],
+        input[type="date"],
+        input[type="text"] {
+            border: none !important;
+            background: transparent !important;
+            color: #451a03; /* Dark amber text */
+            font-family: inherit;
+        }
+
+        input[type="time"]:focus,
+        input[type="date"]:focus,
+        input[type="text"]:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+
+        /* Styling the internal picker icons to be lighter/amber */
+        input::-webkit-calendar-picker-indicator {
+            cursor: pointer;
+            filter: sepia(100%) hue-rotate(0deg) saturate(2);
+            opacity: 0.4;
+            transition: opacity 0.2s;
+        }
+
+        input:hover::-webkit-calendar-picker-indicator {
+            opacity: 0.8;
+        }
+
         .landing-max {
             width: 100%;
             max-width: 80rem;
@@ -258,6 +333,33 @@
             padding-left: 1rem;
             padding-right: 1rem;
         }
+
+        /* Count Cards Enhancement */
+        .count-card {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .count-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.15);
+        }
+
+        .count-card__icon {
+            position: absolute;
+            right: -10px;
+            bottom: -10px;
+            font-size: 5rem !important;
+            opacity: 0.12;
+            transform: rotate(-15deg);
+        }
+
+        .count-card--food { background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%); border-color: #fcd34d; }
+        .count-card--adventure { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border-color: #6ee7b7; }
+        .count-card--wildlife { background: linear-gradient(135deg, #f7fee7 0%, #ecfccb 100%); border-color: #bef264; }
+        .count-card--temple { background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%); border-color: #fdba74; }
+        .count-card--sightseeing { background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-color: #93c5fd; }
 
         @media (min-width: 640px) {
             .landing-max {
@@ -2075,44 +2177,45 @@
                 </div>
             </section>
 
-            <div class="landing-max space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-12 lg:py-12">
-                <!-- Scrolling Marquee (Special Offers) -->
-                <div class="marquee-container overflow-hidden whitespace-nowrap py-2.5">
-                    <div class="marquee-content inline-block animate-marquee">
-                        <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-white sm:text-sm">
-                            🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-200 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
-                        </span>
-                        <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-white sm:text-sm">
-                            🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-200 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
-                        </span>
-                    </div>
+            <!-- Scrolling Marquee (Special Offers) -->
+            <div class="marquee-container overflow-hidden whitespace-nowrap py-2.5">
+                <div class="marquee-content inline-block animate-marquee">
+                    <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-amber-900 sm:text-sm">
+                        🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-700 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
+                    </span>
+                    <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-amber-900 sm:text-sm">
+                        🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-700 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
+                    </span>
                 </div>
+            </div>
 
+            <div class="landing-max space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-12 lg:py-12">
                 <!-- Live counts -->
                 <section class="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4" aria-label="Place counts by category">
-                    <div class="rounded-2xl border border-amber-200/60 bg-white p-4 shadow-sm">
-                        <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Food</p>
-                        <p class="mt-1 text-3xl font-bold tabular-nums text-primary sm:text-4xl" id="countFood">—</p>
+                    <div class="count-card count-card--food rounded-2xl border p-4 shadow-sm">
+                        <span class="material-symbols-outlined count-card__icon" aria-hidden="true">restaurant</span>
+                        <p class="text-xs font-bold uppercase tracking-wider text-amber-900/70">Food</p>
+                        <p class="mt-1 text-3xl font-black tabular-nums text-amber-600 sm:text-4xl" id="countFood">—</p>
                     </div>
-                    <div class="rounded-2xl border border-emerald-200/60 bg-white p-4 shadow-sm">
-                        <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Adventure</p>
-                        <p class="mt-1 text-3xl font-bold tabular-nums text-tertiary sm:text-4xl" id="countAdventure">—
-                        </p>
+                    <div class="count-card count-card--adventure rounded-2xl border p-4 shadow-sm">
+                        <span class="material-symbols-outlined count-card__icon" aria-hidden="true">hiking</span>
+                        <p class="text-xs font-bold uppercase tracking-wider text-emerald-900/70">Adventure</p>
+                        <p class="mt-1 text-3xl font-black tabular-nums text-emerald-600 sm:text-4xl" id="countAdventure">—</p>
                     </div>
-                    <div class="rounded-2xl border border-lime-200/70 bg-white p-4 shadow-sm">
-                        <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Wildlife</p>
-                        <p class="mt-1 text-3xl font-bold tabular-nums text-lime-700 sm:text-4xl" id="countWildlife">—
-                        </p>
+                    <div class="count-card count-card--wildlife rounded-2xl border p-4 shadow-sm">
+                        <span class="material-symbols-outlined count-card__icon" aria-hidden="true">forest</span>
+                        <p class="text-xs font-bold uppercase tracking-wider text-lime-900/70">Wildlife</p>
+                        <p class="mt-1 text-3xl font-black tabular-nums text-lime-600 sm:text-4xl" id="countWildlife">—</p>
                     </div>
-                    <div class="rounded-2xl border border-amber-300/70 bg-white p-4 shadow-sm">
-                        <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Temples</p>
-                        <p class="mt-1 text-3xl font-bold tabular-nums text-primary-container sm:text-4xl"
-                            id="countTemple">—</p>
+                    <div class="count-card count-card--temple rounded-2xl border p-4 shadow-sm">
+                        <span class="material-symbols-outlined count-card__icon" aria-hidden="true">temple_hindu</span>
+                        <p class="text-xs font-bold uppercase tracking-wider text-orange-900/70">Temples</p>
+                        <p class="mt-1 text-3xl font-black tabular-nums text-orange-600 sm:text-4xl" id="countTemple">—</p>
                     </div>
-                    <div class="rounded-2xl border border-blue-200/60 bg-white p-4 shadow-sm">
-                        <p class="text-xs font-bold uppercase tracking-wider text-on-surface-variant">Sightseeing</p>
-                        <p class="mt-1 text-3xl font-bold tabular-nums text-blue-700 sm:text-4xl" id="countSightseeing">
-                            —</p>
+                    <div class="count-card count-card--sightseeing rounded-2xl border p-4 shadow-sm">
+                        <span class="material-symbols-outlined count-card__icon" aria-hidden="true">photo_camera</span>
+                        <p class="text-xs font-bold uppercase tracking-wider text-blue-900/70">Sightseeing</p>
+                        <p class="mt-1 text-3xl font-black tabular-nums text-blue-600 sm:text-4xl" id="countSightseeing">—</p>
                     </div>
                 </section>
 
@@ -2207,35 +2310,61 @@
                     </div>
                 </section>
                 
-                <div id="landingTripForm" class="rounded-2xl border border-amber-200/70 bg-white p-5 shadow-sm sm:p-6">
-                    <h3 class="font-headline-md text-lg font-semibold text-on-surface sm:text-xl">Trip Details</h3>
-                    <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Enter when you are out, your start
-                        point, and a theme. Then preview which places from our dataset fall inside that window on the
-                        map.</p>
-                    <input type="hidden" id="mainLandingCatValue" value="all" />
-                    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                        <label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface"
-                            for="mainOutingStart">Outing start <input type="time" id="mainOutingStart"
-                                class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40"
-                                value="09:00" required /></label>
-                        <label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface"
-                            for="mainOutingEnd">Outing end <input type="time" id="mainOutingEnd"
-                                class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40"
-                                value="21:00" required /></label>
-                        <label class="flex flex-col gap-1.5 text-sm font-semibold text-on-surface"
-                            for="mainOutingDate">Date <input type="date" id="mainOutingDate"
-                                class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40"
-                                required /></label>
-                        <label
-                            class="sm:col-span-2 lg:col-span-3 flex flex-col gap-1.5 text-sm font-semibold text-on-surface"
-                            for="mainStartLocation" id="mainStartLocationLabel">Start location <input type="text"
-                                id="mainStartLocation"
-                                class="mt-0.5 rounded-xl border border-amber-200/80 bg-white px-3 py-2.5 font-medium text-on-surface shadow-sm placeholder:text-on-surface-variant/70 focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/40 disabled:cursor-not-allowed disabled:border-amber-200/50 disabled:bg-slate-100 disabled:text-slate-500"
-                                placeholder="e.g. Tirupati, RTC bus stand" value="Tirupati"
-                                autocomplete="street-address" /></label>
+                <div id="landingTripForm" class="rounded-3xl border border-amber-200/50 bg-white p-6 shadow-xl sm:p-8">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="rounded-xl bg-amber-100 p-2 text-amber-700">
+                            <span class="material-symbols-outlined text-2xl">flight_takeoff</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-xl font-bold text-on-surface">Trip Details</h3>
+                            <p class="text-sm text-on-surface-variant">Configure your journey basics</p>
+                        </div>
                     </div>
-                    <p class="mt-4 text-xs font-bold uppercase tracking-wider text-on-surface-variant">Theme for this
-                        preview</p>
+                    
+                    <input type="hidden" id="mainLandingCatValue" value="all" />
+                    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                        <div class="landing-form-group landing-form-group--start">
+                            <label class="flex items-center text-[10px] font-black uppercase tracking-[0.1em] text-blue-900/60" for="mainOutingStart">
+                                <span class="material-symbols-outlined landing-form-icon">schedule</span> Outing start
+                            </label>
+                            <input type="time" id="mainOutingStart"
+                                class="mt-1.5 w-full bg-transparent p-0 text-lg font-bold text-blue-950 focus:outline-none"
+                                value="09:00" required />
+                        </div>
+
+                        <div class="landing-form-group landing-form-group--end">
+                            <label class="flex items-center text-[10px] font-black uppercase tracking-[0.1em] text-purple-900/60" for="mainOutingEnd">
+                                <span class="material-symbols-outlined landing-form-icon">history_toggle_off</span> Outing end
+                            </label>
+                            <input type="time" id="mainOutingEnd"
+                                class="mt-1.5 w-full bg-transparent p-0 text-lg font-bold text-purple-950 focus:outline-none"
+                                value="21:00" required />
+                        </div>
+
+                        <div class="landing-form-group landing-form-group--date">
+                            <label class="flex items-center text-[10px] font-black uppercase tracking-[0.1em] text-emerald-900/60" for="mainOutingDate">
+                                <span class="material-symbols-outlined landing-form-icon">event</span> Date
+                            </label>
+                            <input type="date" id="mainOutingDate"
+                                class="mt-1.5 w-full bg-transparent p-0 text-lg font-bold text-emerald-950 focus:outline-none"
+                                required />
+                        </div>
+
+                        <div class="landing-form-group landing-form-group--loc">
+                            <label class="flex items-center text-[10px] font-black uppercase tracking-[0.1em] text-amber-900/60" for="mainStartLocation">
+                                <span class="material-symbols-outlined landing-form-icon">location_on</span> Start location
+                            </label>
+                            <input type="text" id="mainStartLocation"
+                                class="mt-1.5 w-full bg-transparent p-0 text-lg font-bold text-amber-950 placeholder:text-amber-900/20 focus:outline-none"
+                                placeholder="Tirupati" value="Tirupati" autocomplete="street-address" />
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex items-center gap-2">
+                        <span class="h-px flex-1 bg-amber-100"></span>
+                        <p class="text-[10px] font-black uppercase tracking-[0.2em] text-amber-900/40">Choose your theme</p>
+                        <span class="h-px flex-1 bg-amber-100"></span>
+                    </div>
                     <div class="cat-rail mt-2 pb-1" id="mainLandingCatChips" role="group" aria-label="Preview theme">
                         <button type="button" class="cat-rail-card group is-active" data-ml-cat="all">
                             <div class="relative h-36 shrink-0 overflow-hidden bg-amber-100">
@@ -2986,7 +3115,28 @@
 
                 }
 
-                function initHowItWorksAnimations() {
+        // Trigger native pickers when clicking anywhere on the form group cards
+        document.querySelectorAll('.landing-form-group').forEach(group => {
+            group.addEventListener('click', (e) => {
+                const input = group.querySelector('input');
+                if (input) {
+                    // Avoid double-triggering if the input itself was clicked
+                    if (e.target === input) return;
+                    
+                    try {
+                        if (typeof input.showPicker === 'function') {
+                            input.showPicker();
+                        } else {
+                            input.focus();
+                        }
+                    } catch (err) {
+                        input.focus();
+                    }
+                }
+            });
+        });
+
+        const initHowItWorksAnimations = () => {
                     if (!('IntersectionObserver' in window)) return;
                     const observer = new IntersectionObserver((entries) => {
                         entries.forEach(entry => {
