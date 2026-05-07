@@ -1386,56 +1386,132 @@
 
         .kpi-strip {
             display: grid;
-            grid-template-columns: repeat(3, minmax(160px, 1fr));
-            gap: 0.65rem;
-            margin-bottom: 1rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 2.25rem;
+            background: #ffffff;
+            padding: 1.5rem;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.02);
+        }
+
+        @media (max-width: 1024px) {
+            .kpi-strip { grid-template-columns: 1fr; gap: 1rem; padding: 1.25rem; }
         }
 
         .kpi-chip {
-            border: 1px solid #d8e0eb;
-            border-radius: 10px;
-            background: #fff;
-            padding: 0.6rem 0.75rem;
-            min-height: 4.2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.15rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #ffffff;
+        }
+        
+        .kpi-chip:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Category Background Tints */
+        .kpi-chip--total { background: #f5f8ff; border-color: rgba(79, 140, 255, 0.1); }
+        .kpi-chip--delta { background: #f0fdf4; border-color: rgba(34, 197, 94, 0.1); }
+        .kpi-chip--compliance { background: #fffbeb; border-color: rgba(245, 158, 11, 0.1); }
+
+        .kpi-chip__icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+            border: 2px solid #ffffff;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .kpi-chip__icon .material-symbols-outlined {
+            font-size: 26px;
+        }
+
+        .kpi-chip--total .kpi-chip__icon { color: #4f8cff; }
+        .kpi-chip--delta .kpi-chip__icon { color: #22c55e; }
+        .kpi-chip--compliance .kpi-chip__icon { color: #f59e0b; }
+
+        .kpi-chip__content {
+            position: relative;
+            z-index: 1;
         }
 
         .kpi-chip__label {
             display: block;
-            color: #64748b;
-            font-size: 0.72rem;
-            font-weight: 700;
+            font-size: 0.725rem;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.06em;
-            margin-bottom: 0.3rem;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
         }
+
+        .kpi-chip--total .kpi-chip__label { color: #4f8cff; }
+        .kpi-chip--delta .kpi-chip__label { color: #22c55e; }
+        .kpi-chip--compliance .kpi-chip__label { color: #f59e0b; }
 
         .kpi-chip__value {
             margin: 0;
-            color: #0f172a;
-            font-size: 1.12rem;
+            color: #1e293b;
+            font-size: 1.4rem;
             font-weight: 800;
-            font-family: "Noto Serif", serif;
+            letter-spacing: -0.02em;
         }
 
         .kpi-chip--status .kpi-chip__value {
-            font-size: 0.95rem;
-            font-family: inherit;
+            font-size: 1.15rem;
         }
 
-        .kpi-chip--status.good {
-            border-color: #86efac;
-            background: #f0fdf4;
+        /* Decorative Wavy SVG */
+        .kpi-chip::after {
+            content: "";
+            position: absolute;
+            right: -10px;
+            bottom: -5px;
+            width: 110px;
+            height: 70px;
+            opacity: 0.15;
+            background-repeat: no-repeat;
+            background-size: contain;
+            pointer-events: none;
         }
 
-        .kpi-chip--status.warn {
-            border-color: #fecaca;
-            background: #fef2f2;
+        .kpi-chip--total::after {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 80 Q 50 10, 100 80 T 200 80" fill="none" stroke="%234f8cff" stroke-width="2" stroke-dasharray="5,5"/></svg>');
+        }
+        .kpi-chip--delta::after {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 80 Q 50 10, 100 80 T 200 80" fill="none" stroke="%2322c55e" stroke-width="2" stroke-dasharray="5,5"/></svg>');
+        }
+        .kpi-chip--compliance::after {
+            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 100" xmlns="http://www.w3.org/2000/svg"><path d="M0 80 Q 50 10, 100 80 T 200 80" fill="none" stroke="%23f59e0b" stroke-width="2" stroke-dasharray="5,5"/></svg>');
         }
 
-        .kpi-chip--status.neutral {
-            border-color: #d8e0eb;
-            background: #fff;
-        }
+        /* Status colors for compliance chip */
+        .kpi-chip--compliance.good { background: #f0fdf4 !important; border-color: #86efac !important; }
+        .kpi-chip--compliance.good .kpi-chip__label { color: #16a34a !important; }
+        .kpi-chip--compliance.good .kpi-chip__icon { color: #16a34a !important; }
+
+        .kpi-chip--compliance.warn { background: #fef2f2 !important; border-color: #fecaca !important; }
+        .kpi-chip--compliance.warn .kpi-chip__label { color: #dc2626 !important; }
+        .kpi-chip--compliance.warn .kpi-chip__icon { color: #dc2626 !important; }
+
+        .kpi-chip--compliance.neutral { background: #fffbeb !important; border-color: rgba(245, 158, 11, 0.15) !important; }
+        .kpi-chip--compliance.neutral .kpi-chip__label { color: #f59e0b !important; }
+        .kpi-chip--compliance.neutral .kpi-chip__icon { color: #f59e0b !important; }
 
         .card {
             background: var(--card);
@@ -1620,17 +1696,34 @@
 
         .input-wrapper-premium .material-symbols-outlined {
             position: absolute;
-            left: 1rem;
-            font-size: 1.2rem;
-            color: #94a3b8;
+            left: 0.6rem;
+            width: 32px;
+            height: 32px;
+            background: #f1f5ff;
+            color: #4f8cff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
             pointer-events: none;
             transition: all 0.3s ease;
+            z-index: 2;
         }
+
+        /* Specific pastel categories for input icons */
+        .icon--travel-input { background: #fffbeb !important; color: #f59e0b !important; }
+        .icon--stay-input { background: #eff6ff !important; color: #3b82f6 !important; }
+        .icon--food-input { background: #ecfdf5 !important; color: #10b981 !important; }
+        .icon--budget-input { background: #f0fdf4 !important; color: #16a34a !important; }
+        .icon--neutral-input { background: #f8fafc !important; color: #64748b !important; }
+        .icon--people-input { background: #fef2f2 !important; color: #ef4444 !important; }
+        .icon--duration-input { background: #f5f3ff !important; color: #8b5cf6 !important; }
 
         .card--inputs input,
         .card--inputs select {
             width: 100% !important;
-            padding: 0.8rem 1rem 0.8rem 2.85rem !important;
+            padding: 0.8rem 1rem 0.8rem 3.25rem !important;
             background: rgba(255, 255, 255, 0.95) !important;
             border: 1px solid rgba(79, 140, 255, 0.12) !important;
             border-radius: 12px !important;
@@ -3626,17 +3719,34 @@
                 <div class="wrap budget-page-split">
                     <main class="budget-page-split__primary">
                         <section class="kpi-strip" aria-label="Decision summary strip">
-                            <article class="kpi-chip">
-                                <span class="kpi-chip__label">Estimated Total</span>
-                                <p class="kpi-chip__value" id="kpiTotal">Rs. 0</p>
+                            <article class="kpi-chip kpi-chip--total">
+                                <div class="kpi-chip__icon">
+                                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                                </div>
+                                <div class="kpi-chip__content">
+                                    <span class="kpi-chip__label">Estimated Total</span>
+                                    <p class="kpi-chip__value" id="kpiTotal">Rs. 0</p>
+                                </div>
                             </article>
-                            <article class="kpi-chip">
-                                <span class="kpi-chip__label">Budget Delta</span>
-                                <p class="kpi-chip__value" id="kpiDelta">-</p>
+
+                            <article class="kpi-chip kpi-chip--delta">
+                                <div class="kpi-chip__icon">
+                                    <span class="material-symbols-outlined">calculate</span>
+                                </div>
+                                <div class="kpi-chip__content">
+                                    <span class="kpi-chip__label">Budget Delta</span>
+                                    <p class="kpi-chip__value" id="kpiDelta">Set budget</p>
+                                </div>
                             </article>
-                            <article class="kpi-chip kpi-chip--status neutral" id="kpiStatusChip">
-                                <span class="kpi-chip__label">Compliance Status</span>
-                                <p class="kpi-chip__value" id="kpiStatus">Awaiting inputs</p>
+
+                            <article class="kpi-chip kpi-chip--compliance kpi-chip--status neutral" id="kpiStatusChip">
+                                <div class="kpi-chip__icon">
+                                    <span class="material-symbols-outlined">verified_user</span>
+                                </div>
+                                <div class="kpi-chip__content">
+                                    <span class="kpi-chip__label">Compliance Status</span>
+                                    <p class="kpi-chip__value" id="kpiStatus">Awaiting budget</p>
+                                </div>
                             </article>
                         </section>
                         <div class="planner-split">
@@ -3662,7 +3772,7 @@
                                     <div class="input-group-premium">
                                         <label for="userBudget">Total Budget (Rs. )</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">payments</span>
+                                            <span class="material-symbols-outlined icon--budget-input">payments</span>
                                             <input type="number" id="userBudget" min="0" step="100" inputmode="decimal" placeholder="e.g. 5000" />
                                         </div>
                                     </div>
@@ -3670,7 +3780,7 @@
                                     <div class="input-group-premium">
                                         <label for="travelMode">Travel Mode</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">directions_car</span>
+                                            <span class="material-symbols-outlined icon--travel-input">directions_car</span>
                                             <select id="travelMode">
                                                 <option value="" selected disabled>Select mode</option>
                                                 <option value="car">Car</option>
@@ -3684,7 +3794,7 @@
                                     <div class="input-group-premium" id="transitTicketField" hidden>
                                         <label for="ticketPrice" id="transitTicketLabel">Ticket Price (Rs. )</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">confirmation_number</span>
+                                            <span class="material-symbols-outlined icon--travel-input">confirmation_number</span>
                                             <input type="number" id="ticketPrice" min="0" step="1" inputmode="decimal" placeholder="Fare per person" />
                                         </div>
                                     </div>
@@ -3692,7 +3802,7 @@
                                     <div class="input-group-premium">
                                         <label for="distance">Total Distance (km)</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">distance</span>
+                                            <span class="material-symbols-outlined icon--travel-input">distance</span>
                                             <input type="number" id="distance" min="0" step="0.1" inputmode="decimal" placeholder="e.g. 120" />
                                         </div>
                                     </div>
@@ -3700,7 +3810,7 @@
                                     <div class="input-group-premium">
                                         <label for="people">Group Size</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">groups</span>
+                                            <span class="material-symbols-outlined icon--people-input">groups</span>
                                             <input type="number" id="people" min="1" step="1" inputmode="numeric" placeholder="Number of people" />
                                         </div>
                                     </div>
@@ -3708,7 +3818,7 @@
                                     <div class="input-group-premium">
                                         <label for="days">Trip Duration</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">calendar_month</span>
+                                            <span class="material-symbols-outlined icon--duration-input">calendar_month</span>
                                             <input type="number" id="days" min="1" step="1" inputmode="numeric" placeholder="Total days" />
                                         </div>
                                     </div>
@@ -3716,7 +3826,7 @@
                                     <div class="input-group-premium">
                                         <label for="rooms">Rooms Needed</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">hotel</span>
+                                            <span class="material-symbols-outlined icon--stay-input">hotel</span>
                                             <input type="number" id="rooms" min="0" step="1" inputmode="numeric" placeholder="Total rooms" />
                                         </div>
                                     </div>
@@ -3724,7 +3834,7 @@
                                     <div class="input-group-premium">
                                         <label for="roomCost">Price per Night (Rs. )</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">sell</span>
+                                            <span class="material-symbols-outlined icon--stay-input">sell</span>
                                             <input type="number" id="roomCost" min="0" step="1" inputmode="decimal" placeholder="Room rate" />
                                         </div>
                                     </div>
@@ -3732,7 +3842,7 @@
                                     <div class="input-group-premium">
                                         <label for="foodPerDay">Food Cost (Rs. /day)</label>
                                         <div class="input-wrapper-premium">
-                                            <span class="material-symbols-outlined">restaurant</span>
+                                            <span class="material-symbols-outlined icon--food-input">restaurant</span>
                                             <input type="number" id="foodPerDay" min="0" step="1" inputmode="decimal" placeholder="Per person" />
                                         </div>
                                     </div>
@@ -7283,7 +7393,7 @@
                     box.textContent = 'Enter your total budget (first field) to see if you are within plan.';
                     if (kpiDelta) kpiDelta.textContent = 'Set budget';
                     if (kpiStatus) kpiStatus.textContent = 'Awaiting budget';
-                    if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status neutral';
+                    if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--compliance kpi-chip--status neutral';
                     overBudgetTriggered = false;
                     overBudgetDismissed = false;
                     closeOverBudgetModal();
@@ -7294,7 +7404,7 @@
                         box.textContent = 'Remaining budget: ' + rupee(remaining) + ' - within plan.';
                         if (kpiDelta) kpiDelta.textContent = '+' + rupee(remaining);
                         if (kpiStatus) kpiStatus.textContent = 'Within approved budget';
-                        if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status good';
+                        if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--compliance kpi-chip--status good';
                         overBudgetTriggered = false;
                         overBudgetDismissed = false;
                         closeOverBudgetModal();
@@ -7303,7 +7413,7 @@
                         box.textContent = 'Over budget by ' + rupee(Math.abs(remaining)) + ' - reduce costs or increase budget.';
                         if (kpiDelta) kpiDelta.textContent = '-' + rupee(Math.abs(remaining));
                         if (kpiStatus) kpiStatus.textContent = 'Exceeds approved budget';
-                        if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--status warn';
+                        if (kpiStatusChip) kpiStatusChip.className = 'kpi-chip kpi-chip--compliance kpi-chip--status warn';
                         renderOverBudgetModal(Math.abs(remaining), {
                             distance: distance,
                             people: people,
