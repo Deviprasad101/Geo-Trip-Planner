@@ -3094,27 +3094,62 @@
 
         @media (max-width: 900px) {
 
-            html.budget-page-root,
+            html.budget-page-root {
+                height: auto !important;
+                max-height: none !important;
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                -webkit-overflow-scrolling: touch !important;
+            }
+
             body.budget-page-root {
-                height: auto;
-                min-height: 100%;
-                overflow-x: hidden;
-                overflow-y: auto;
+                height: auto !important;
+                min-height: 100vh !important;
+                max-height: none !important;
+                overflow-x: hidden !important;
+                overflow-y: visible !important;
+                padding: 0 !important;
+                display: block !important;
+                width: 100vw !important;
+                max-width: 100% !important;
             }
 
             .budget-app {
-                flex-direction: column;
-                height: auto;
-                max-height: none;
-                overflow: visible;
+                display: block !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                width: 100vw !important;
+                max-width: 100% !important;
             }
 
             .budget-main {
-                overflow: visible;
+                display: block !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                width: 100vw !important;
+                max-width: 100% !important;
             }
 
             .budget-main-scroll {
-                overflow-y: visible;
+                display: block !important;
+                height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+
+            .wrap {
+                max-width: 100% !important;
+                overflow: visible !important;
+                box-sizing: border-box !important;
+                padding-left: 0.75rem !important;
+                padding-right: 0.75rem !important;
+            }
+
+            * {
+                max-width: 100% !important;
+                box-sizing: border-box !important;
             }
         }
 
