@@ -141,6 +141,107 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
 
+        /* How it works: Animated Steps */
+        .how-step {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .how-step.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .how-step__number {
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .how-step:hover .how-step__number {
+            transform: scale(1.15) rotate(8deg);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-1 { --step-color: #f59e0b; --step-bg: #fffbeb; --step-ring: rgba(245, 158, 11, 0.2); }
+        .step-2 { --step-color: #3b82f6; --step-bg: #eff6ff; --step-ring: rgba(59, 130, 246, 0.2); }
+        .step-3 { --step-color: #10b981; --step-bg: #ecfdf5; --step-ring: rgba(16, 185, 129, 0.2); }
+        .step-4 { --step-color: #8b5cf6; --step-bg: #f5f3ff; --step-ring: rgba(139, 92, 246, 0.2); }
+        .step-5 { --step-color: #f43f5e; --step-bg: #fff1f2; --step-ring: rgba(244, 63, 94, 0.2); }
+
+        .how-step-card {
+            background-color: var(--step-bg);
+            border: 1px solid var(--step-ring);
+            overflow: visible !important;
+        }
+
+        .how-step-num-blob {
+            background-color: var(--step-color);
+            color: white;
+        }
+
+        /* Animated Arrows */
+        .step-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            z-index: 100;
+            color: var(--step-color);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+            animation: arrow-pulse 2s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes arrow-pulse {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(5px, 0) scale(1.3); opacity: 1; }
+        }
+
+        /* Mobile/Tablet Arrow (Down) */
+        .arrow-v {
+            left: 50%;
+            bottom: -1.6rem;
+            transform: translateX(-50%);
+            animation-name: arrow-pulse-v;
+        }
+
+        @keyframes arrow-pulse-v {
+            0%, 100% { transform: translate(-50%, 0) scale(1); opacity: 0.6; }
+            50% { transform: translate(-50%, 8px) scale(1.3); opacity: 1; }
+        }
+
+        /* Desktop Arrow (Forward) */
+        @media (min-width: 1024px) {
+            .arrow-h {
+                top: 50%;
+                right: -1.6rem;
+                transform: translateY(-50%);
+            }
+            .arrow-v { display: none; }
+        }
+
+        @media (max-width: 1023px) {
+            .arrow-h { display: none; }
+            .arrow-v { display: none; }
+        }
+
+        /* Marquee Scrolling Text */
+        .marquee-container {
+            width: 100%;
+            background: linear-gradient(90deg, #b45309 0%, #d97706 50%, #b45309 100%);
+            box-shadow: 0 4px 15px rgba(180, 83, 9, 0.2);
+            border-radius: 9999px; /* Pill shape */
+        }
+
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
         .landing-scroll {
             flex: 1;
             min-height: 0;
@@ -1975,6 +2076,18 @@
             </section>
 
             <div class="landing-max space-y-8 py-8 sm:space-y-10 sm:py-10 lg:space-y-12 lg:py-12">
+                <!-- Scrolling Marquee (Special Offers) -->
+                <div class="marquee-container overflow-hidden whitespace-nowrap py-2.5">
+                    <div class="marquee-content inline-block animate-marquee">
+                        <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-white sm:text-sm">
+                            🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-200 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
+                        </span>
+                        <span class="mx-10 text-xs font-black uppercase tracking-[0.25em] text-white sm:text-sm">
+                            🔥 FLASH SALE: 20% OFF ON ALL HERITAGE PACKAGES • USE CODE: <span class="text-amber-200 underline">TRIP20</span> • LIMITED TIME OFFER ⚡️ EXCLUSIVE: FREE TRIP GUIDE WITH EVERY BOOKING • WEEKEND SPECIAL: FLAT RS. 500 OFF ON DARSHAN TOURS • BOOK NOW AND SAVE! 🚀
+                        </span>
+                    </div>
+                </div>
+
                 <!-- Live counts -->
                 <section class="grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-4" aria-label="Place counts by category">
                     <div class="rounded-2xl border border-amber-200/60 bg-white p-4 shadow-sm">
@@ -2005,35 +2118,90 @@
 
                 <!-- How it works -->
                 <section id="howItWorks"
-                    class="rounded-2xl border border-amber-200/50 bg-white/90 p-5 shadow-sm sm:p-6 lg:p-8">
-                    <h2 class="font-headline-lg text-xl font-semibold text-on-surface sm:text-2xl">How it works</h2>
-                    <div class="mt-5 grid gap-4 sm:grid-cols-3 sm:gap-6">
-                        <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
-                            <span
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">1</span>
-                            <div>
-                                <p class="font-semibold text-on-surface">Pick a theme</p>
-                                <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Choose food, adventure,
-                                    wildlife, temples, or sightseeing—or type in the filter below.</p>
-                            </div>
+                    class="rounded-3xl border border-amber-200/50 bg-white/95 p-5 shadow-lg sm:p-6 lg:p-8">
+                    <div class="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <h2 class="font-headline-lg text-xl font-bold text-on-surface sm:text-2xl">How it works</h2>
+                            <p class="mt-1 max-w-xl text-xs text-on-surface-variant sm:text-sm">Follow these simple steps to craft your
+                                perfect Tirupati itinerary.</p>
                         </div>
-                        <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
-                            <span
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">2</span>
-                            <div>
-                                <p class="font-semibold text-on-surface">Open the map</p>
-                                <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Under the themes, enter
-                                    outing start/end, date, and start location (or GPS). Tap <strong>Show map</strong>
-                                    for a preview, or use a theme card for the full planner popup.</p>
+                    </div>
+
+                    <div class="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-5">
+                        <!-- Step 1 -->
+                        <div class="how-step step-1 relative flex flex-col gap-3 rounded-xl p-3 transition-all duration-300 hover:shadow-md how-step-card">
+                            <div class="how-step__number flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black shadow-sm how-step-num-blob">
+                                1
                             </div>
-                        </div>
-                        <div class="flex gap-3 rounded-xl bg-slate-50/90 p-4 ring-1 ring-slate-200/80">
-                            <span
-                                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary-container text-sm font-bold text-on-primary-container">3</span>
+                            <img src="images/how_step_1.png" alt="Travel themes" class="h-16 w-16 self-center object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" />
                             <div>
-                                <p class="font-semibold text-on-surface">Build your day</p>
-                                <p class="mt-1 text-sm leading-relaxed text-on-surface-variant">Add stops, compare
-                                    distances, and read the trip summary before you head out.</p>
+                                <h3 class="font-bold text-on-surface text-base text-center sm:text-left">Choose Your Vibe</h3>
+                                <p class="mt-1 text-xs leading-relaxed text-on-surface-variant text-center sm:text-left">Select from diverse themes
+                                    like Food, Temples, or Adventure.</p>
+                            </div>
+                            <!-- Arrows -->
+                            <div class="step-arrow arrow-h"><span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span></div>
+                            <div class="step-arrow arrow-v"><span class="material-symbols-outlined text-3xl font-bold">arrow_downward</span></div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="how-step step-2 relative flex flex-col gap-3 rounded-xl p-3 transition-all duration-300 hover:shadow-md how-step-card" style="transition-delay: 100ms;">
+                            <div class="how-step__number flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black shadow-sm how-step-num-blob">
+                                2
+                            </div>
+                            <img src="images/how_step_2.png" alt="Trip settings" class="h-16 w-16 self-center object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" />
+                            <div>
+                                <h3 class="font-bold text-on-surface text-base text-center sm:text-left">Set Your Window</h3>
+                                <p class="mt-1 text-xs leading-relaxed text-on-surface-variant text-center sm:text-left">Enter your start/end
+                                    times, date, and starting point.</p>
+                            </div>
+                            <!-- Arrows -->
+                            <div class="step-arrow arrow-h"><span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span></div>
+                            <div class="step-arrow arrow-v"><span class="material-symbols-outlined text-3xl font-bold">arrow_downward</span></div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="how-step step-3 relative flex flex-col gap-3 rounded-xl p-3 transition-all duration-300 hover:shadow-md how-step-card" style="transition-delay: 200ms;">
+                            <div class="how-step__number flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black shadow-sm how-step-num-blob">
+                                3
+                            </div>
+                            <img src="images/how_step_3.png" alt="Interactive map" class="h-16 w-16 self-center object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" />
+                            <div>
+                                <h3 class="font-bold text-on-surface text-base text-center sm:text-left">Explore the Map</h3>
+                                <p class="mt-1 text-xs leading-relaxed text-on-surface-variant text-center sm:text-left">Tap "Show Map" to see all
+                                    curated spots near you.</p>
+                            </div>
+                            <!-- Arrows -->
+                            <div class="step-arrow arrow-h"><span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span></div>
+                            <div class="step-arrow arrow-v"><span class="material-symbols-outlined text-3xl font-bold">arrow_downward</span></div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="how-step step-4 relative flex flex-col gap-3 rounded-xl p-3 transition-all duration-300 hover:shadow-md how-step-card" style="transition-delay: 300ms;">
+                            <div class="how-step__number flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black shadow-sm how-step-num-blob">
+                                4
+                            </div>
+                            <img src="images/how_step_4.png" alt="Customize stops" class="h-16 w-16 self-center object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" />
+                            <div>
+                                <h3 class="font-bold text-on-surface text-base text-center sm:text-left">Customize Stops</h3>
+                                <p class="mt-1 text-xs leading-relaxed text-on-surface-variant text-center sm:text-left">Add or remove places based
+                                    on timings.</p>
+                            </div>
+                            <!-- Arrows -->
+                            <div class="step-arrow arrow-h"><span class="material-symbols-outlined text-3xl font-bold">arrow_forward</span></div>
+                            <div class="step-arrow arrow-v"><span class="material-symbols-outlined text-3xl font-bold">arrow_downward</span></div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="how-step step-5 relative flex flex-col gap-3 rounded-xl p-3 transition-all duration-300 hover:shadow-md how-step-card" style="transition-delay: 400ms;">
+                            <div class="how-step__number flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-sm font-black shadow-sm how-step-num-blob">
+                                5
+                            </div>
+                            <img src="images/how_step_5.png" alt="Trip ready" class="h-16 w-16 self-center object-contain drop-shadow-md transition-transform duration-500 group-hover:scale-110" />
+                            <div>
+                                <h3 class="font-bold text-on-surface text-base text-center sm:text-left">Ready to Go</h3>
+                                <p class="mt-1 text-xs leading-relaxed text-on-surface-variant text-center sm:text-left">Review your final trip
+                                    summary and budget split.</p>
                             </div>
                         </div>
                     </div>
@@ -2818,6 +2986,21 @@
 
                 }
 
+                function initHowItWorksAnimations() {
+                    if (!('IntersectionObserver' in window)) return;
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            }
+                        });
+                    }, { threshold: 0.1 });
+
+                    document.querySelectorAll('.how-step').forEach(step => {
+                        observer.observe(step);
+                    });
+                }
+
                 function initMobileNav() {
                     const openBtn = document.getElementById('mobileNavOpen');
                     const panel = document.getElementById('mobileNavPanel');
@@ -2927,6 +3110,7 @@
                 initPlannerPreflight();
                 initMobileNav();
                 loadCounts();
+                initHowItWorksAnimations();
                 (function initLandingDateDefault() {
                     var el = document.getElementById('mainOutingDate');
                     if (el && !el.value) {
