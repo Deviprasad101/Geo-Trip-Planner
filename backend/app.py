@@ -39,7 +39,7 @@ FRONTEND_DIR = os.path.join(PROJECT_ROOT, 'frontend')
 DATA_DIR = os.path.join(PROJECT_ROOT, 'data')
 ASSETS_DIR = os.path.join(PROJECT_ROOT, 'assets')
 IMAGES_DIR = os.path.join(ASSETS_DIR, 'images')
-FRONTEND_JS = frozenset({'chatbot.js', 'recommender.js', 'weather.js'})
+FRONTEND_JS = frozenset({'chatbot.js', 'recommender.js', 'weather.js', 'features.js'})
 FRONTEND_HTML = frozenset({
     'login.html', 'main_page.html', 'packages.html', 'booking.html', 'about.html',
 })
@@ -67,6 +67,29 @@ app = Flask(__name__)
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = os.getenv("SECRET_KEY", "dev_secret_key")
 CORS(app)
+
+def _env_on(name: str, default: str = '0') -> bool:
+    return (os.getenv(name, default) or default).strip().lower() in ('1', 'true', 'yes', 'on')
+
+# Set GEOTRIP_ENABLE_AI=1 or GEOTRIP_ENABLE_QR=1 in .env to re-enable
+GEOTRIP_ENABLE_AI = _env_on('GEOTRIP_ENABLE_AI')
+GEOTRIP_ENABLE_QR = _env_on('GEOTRIP_ENABLE_QR')
+
+
+def _feature_disabled(feature_label: str):
+    return jsonify({'status': 'error', 'message': f'{feature_label} is disabled on this server.'}), 503
+
+
+def _require_ai():
+    if not GEOTRIP_ENABLE_AI:
+        return _feature_disabled('AI features (Gemini/Ollama/agent/chatbot)')
+    return None
+
+
+def _require_qr():
+    if not GEOTRIP_ENABLE_QR:
+        return _feature_disabled('QR code and temple check-in')
+    return None
 
 # Database Configuration (PostgreSQL with SQLAlchemy)
 database_url = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
@@ -939,6 +962,10 @@ def serve_main_csv():
 def serve_hospitals_csv():
     return send_from_directory(DATA_DIR, 'tirupati_places_with_hospitals.csv')
 
+@app.route('/features.js')
+def serve_features_js():
+    return send_from_directory(FRONTEND_DIR, 'features.js')
+
 @app.route('/chatbot.js')
 def serve_chatbot_js():
     return send_from_directory(FRONTEND_DIR, 'chatbot.js')
@@ -1341,6 +1368,8 @@ def auth_me():
 @app.route('/user/<identifier>/<path:subpath>')
 def user_scan_nested_assets(identifier, subpath):
     """Serve images/scripts when staff opens /user/<token> (relative URLs on main_page)."""
+    if not GEOTRIP_ENABLE_QR:
+        return redirect('/dashboard')
     if not is_valid_qr_token(identifier):
         return (
             '<!DOCTYPE html><html><body style="font-family:sans-serif;padding:2rem;text-align:center">'
@@ -1353,6 +1382,8 @@ def user_scan_nested_assets(identifier, subpath):
 
 @app.route('/user/<identifier>')
 def user_scan_page(identifier):
+    if not GEOTRIP_ENABLE_QR:
+        return redirect('/dashboard')
     if not is_valid_qr_token(identifier):
         return (
             '<!DOCTYPE html><html><body style="font-family:sans-serif;padding:2rem;text-align:center">'
@@ -1365,6 +1396,9 @@ def user_scan_page(identifier):
 
 @app.route('/api/qr/validate/<token>', methods=['GET'])
 def validate_qr_token(token):
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     if not is_valid_qr_token(token):
         return jsonify({'status': 'error', 'valid': False, 'message': 'Invalid QR token format.'}), 400
     user = resolve_user(token)
@@ -1380,6 +1414,9 @@ def validate_qr_token(token):
 @app.route('/api/qr/generate', methods=['POST'])
 def generate_user_qr():
     """Ensure logged-in user has a unique QR token (created once)."""
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     uid = session.get('user_id')
     if not uid:
         return jsonify({'status': 'error', 'message': 'Not logged in'}), 401
@@ -1400,6 +1437,9 @@ def generate_user_qr():
 
 @app.route('/api/scan-user/<identifier>', methods=['GET'])
 def scan_user_info(identifier):
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     if not is_valid_qr_token(identifier):
         return jsonify({'status': 'error', 'message': 'Invalid QR token.'}), 400
     user = resolve_user(identifier)
@@ -1474,6 +1514,9 @@ def _resolve_visit_user(data):
 
 @app.route('/api/temple-visits', methods=['POST'])
 def record_temple_visit():
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     data = request.get_json(silent=True) or {}
     temple_id = data.get('templeId')
     if not temple_id:
@@ -1500,6 +1543,9 @@ def record_temple_visit():
 
 @app.route('/api/temple-visits/history', methods=['GET'])
 def temple_visit_history():
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     uid = session.get('user_id')
     if not uid:
         return jsonify({'status': 'error', 'message': 'Not logged in'}), 401
@@ -1532,6 +1578,9 @@ def temple_visit_history():
 @app.route('/api/temple-visits/visited-temples', methods=['GET'])
 def visited_temples_list():
     """Distinct temples this user has checked into (aggregated)."""
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     uid = session.get('user_id')
     if not uid:
         return jsonify({'status': 'error', 'message': 'Not logged in'}), 401
@@ -1570,6 +1619,9 @@ def visited_temples_list():
 
 @app.route('/api/temple-visits/analytics', methods=['GET'])
 def temple_visit_analytics():
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     uid = session.get('user_id')
     if not uid:
         return jsonify({'status': 'error', 'message': 'Not logged in'}), 401
@@ -1604,6 +1656,9 @@ def temple_visit_analytics():
 
 @app.route('/api/user/me/qr.png')
 def my_user_qr_png():
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     uid = session.get('user_id')
     if not uid:
         return jsonify({'status': 'error', 'message': 'Not logged in'}), 401
@@ -1615,6 +1670,9 @@ def my_user_qr_png():
 
 @app.route('/api/user/<identifier>/qr.png')
 def user_qr_png(identifier):
+    blocked = _require_qr()
+    if blocked:
+        return blocked
     ident = str(identifier).strip().upper()
     user = None
     if is_valid_qr_token(ident):
@@ -1735,6 +1793,9 @@ def get_weather():
 
 @app.route('/api/recommend', methods=['POST'])
 def recommend():
+    blocked = _require_ai()
+    if blocked:
+        return blocked
     try:
         data = request.json
         destination = data.get('destination', 'Tirupati')
@@ -1756,6 +1817,9 @@ def recommend():
 
 @app.route('/api/recommend-ollama', methods=['POST'])
 def recommend_ollama():
+    blocked = _require_ai()
+    if blocked:
+        return blocked
     try:
         data = request.json or {}
         destination = data.get('destination', 'Tirupati')
@@ -1794,6 +1858,9 @@ def recommend_ollama():
 
 @app.route('/api/chat', methods=['POST'])
 def api_chat():
+    blocked = _require_ai()
+    if blocked:
+        return blocked
     try:
         data = request.json or {}
         message = (data.get('message') or '').strip()
@@ -1832,6 +1899,9 @@ def api_chat():
 @app.route('/api/agent', methods=['POST'])
 def api_agent():
     """GeoTrip ADK agent — recommendations, itinerary, weather, emergency."""
+    blocked = _require_ai()
+    if blocked:
+        return blocked
     try:
         from agent_runner import run_geotrip_agent
 

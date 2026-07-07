@@ -1,4 +1,8 @@
 (function() {
+    if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('chatbot')) {
+        return;
+    }
+
     // Inject CSS
     const style = document.createElement('style');
     style.innerHTML = `

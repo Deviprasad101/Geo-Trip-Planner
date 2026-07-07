@@ -6436,11 +6436,10 @@
             initMobileNav();
         })();
     </script>
-    <script src="/chatbot.js" defer></script>
-    <script src="/recommender.js" defer></script>
+    <script src="/features.js"></script>
 
             <!-- AI Recommendation Section -->
-            <div class="packages-section mt-12 mb-8 bg-teal-50/50 py-10 rounded-3xl border border-teal-100 shadow-sm">
+            <div id="gtAiItinerarySection" class="packages-section mt-12 mb-8 bg-teal-50/50 py-10 rounded-3xl border border-teal-100 shadow-sm">
                 <div class="flex flex-col items-center">
                     <div class="pill-badge" style="color: #0f766e; border-color: rgba(15, 118, 110, 0.2); background: white;">
                         <span class="sparkle" style="color: #14b8a6;">✦</span> AI-Powered Magic
@@ -6472,7 +6471,7 @@
                 </div>
             </div>
 
-    <footer style="background-color: #0f172a; color: #94a3b8; padding: 3rem 1.5rem; font-family: 'Inter', sans-serif; border-top: 4px solid #b45309; margin-top: auto; z-index: 50; position: relative;">
+    <footer id="gtAiPackagesFooter" style="background-color: #0f172a; color: #94a3b8; padding: 3rem 1.5rem; font-family: 'Inter', sans-serif; border-top: 4px solid #b45309; margin-top: auto; z-index: 50; position: relative;">
         <div style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 2rem; justify-content: space-between;">
             <div style="flex: 1; min-width: 250px;">
                 <h3 style="color: #f8fafc; font-size: 1.25rem; font-weight: 700; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
@@ -6526,6 +6525,7 @@
             }
         }
         (function(){
+            if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('qr')) return;
             var QR_KEY = 'geotripTempleQrVisible';
             var wrap = document.getElementById('floatingQr');
             if (!wrap) return;

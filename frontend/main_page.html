@@ -5819,15 +5819,20 @@
                 btn.addEventListener('click', function () {
                     showMainLandingMap();
                     // Auto-open recommendations
-                    if (window._showRecPanel) window._showRecPanel();
+                    if (window.geotripFeatureEnabled && window.geotripFeatureEnabled('recommendations') && window._showRecPanel) {
+                        window._showRecPanel();
+                    }
                     // Reveal QR on main page + unlock floating QR on about / booking / packages
-                    var qrSec = document.getElementById('myQrSection');
-                    if (qrSec) qrSec.style.display = 'flex';
-                    try { sessionStorage.setItem('geotripTempleQrVisible', '1'); } catch (e) {}
+                    if (window.geotripFeatureEnabled && window.geotripFeatureEnabled('qr')) {
+                        var qrSec = document.getElementById('myQrSection');
+                        if (qrSec) qrSec.style.display = 'flex';
+                        try { sessionStorage.setItem('geotripTempleQrVisible', '1'); } catch (e) {}
+                    }
                 });
             });
 
             (function syncMainPageQrFromSession() {
+                if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('qr')) return;
                 var qrSec = document.getElementById('myQrSection');
                 if (!qrSec) return;
                 try {
@@ -5870,7 +5875,7 @@
         })();
 
     </script>
-    <script src="chatbot.js" defer></script>
+    <script src="features.js"></script>
 
     <!-- ═══════════════════════════════════════════════════════════════
          GeoTrip Recommendation Engine
@@ -5986,8 +5991,13 @@
                     });
                 }
                 
-                document.getElementById('recFab').style.display = 'flex';
-                window._renderRecItinerary();
+                var recFabEl = document.getElementById('recFab');
+                if (recFabEl && window.geotripFeatureEnabled && window.geotripFeatureEnabled('recommendations')) {
+                    recFabEl.style.display = 'flex';
+                }
+                if (window.geotripFeatureEnabled && window.geotripFeatureEnabled('recommendations')) {
+                    window._renderRecItinerary();
+                }
             });
         });
 
@@ -6049,6 +6059,7 @@
                 } else if (tab === 'itinerary') {
                     window._renderRecItinerary();
                 } else if (tab === 'agent') {
+                    if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('recAgent')) return;
                     window._renderRecAgent();
                 }
             });
@@ -6701,6 +6712,10 @@
             var staffScanToken = parseToken(staffScanTokenRaw);
 
             if (staffScanToken) {
+                if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('qr')) {
+                    window.location.replace('/dashboard');
+                    return;
+                }
                 window.__GTP_TEMPLE_SCAN__ = staffScanToken;
                 document.body.classList.add('main-temple-scan-view');
                 document.title = 'Temple check-in — GeoTrip Planner';
@@ -7388,6 +7403,9 @@
                 .then(function(data) {
                     if (data.status === 'success' && data.user) {
                         applyUser(data.user);
+                        if (window.geotripFeatureEnabled && !window.geotripFeatureEnabled('qr')) {
+                            return null;
+                        }
                         return fetch('/api/qr/generate', {
                             method: 'POST',
                             credentials: 'include',
